@@ -22,7 +22,7 @@ class AdminController extends BaseController
 
         $this->module = 'admin';
 
-        $this->autologin();
+        $this->autoLogin();
     }
 
     protected function autoLogin()
@@ -45,8 +45,8 @@ class AdminController extends BaseController
             if ($employeeInfo['userAgent'] != $userAgent) {
                 return false;
             }
-            if (!empty($employeeInfo['id'])) {
-                $this->employeeInfo = EmployeeModel::findEmployeeById($employeeInfo['id']);
+            if (!empty($employeeInfo['empId'])) {
+                $this->employeeInfo = EmployeeModel::findEmployeeById($employeeInfo['empId']);
             }
             return false;
         }

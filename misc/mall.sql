@@ -516,16 +516,17 @@ drop table if exists b_employee;
 create table b_employee(
     id                  int unsigned not null auto_increment,
 
-    phone               char(11) not null default '',
+    account             varchar(32) not null default '',
     passwd              char(32) not null default '',
 
     name                varchar(255) not null default '',
+    phone               char(11) not null default '',
     state               tinyint not null default 0,                 # 用户状态
 
     ctime               int not null default 0,                     # 创建时间
-    mtime               int not null default 0,                     # 修改时间
 
     primary key (`id`),
-    index idx_phone(`phone`),
-    index idx_name(`name`)
+    index idx_account(`account`),
+    index idx_phone(`phone`)
 )engine=InnoDB default charset=utf8;
+insert into b_employee(account,passwd,name,phone,ctime)values('admin',md5('admin'),'管理员','13800138000',unix_timestamp());
