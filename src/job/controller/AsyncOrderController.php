@@ -47,14 +47,14 @@ class AsyncOrderController extends JobController
     {
         switch ($data['orderType']) {
         case UserOrderModel::ORDER_PRE_COMMON:
-            $this->commenOrder($data['data']);
+            $this->commonOrder($data['data']);
             break;
         default:
             Log::error('wx event async job: unknow event');
         }
     }
 
-    private function commenOrder($data)
+    private function commonOrder($data)
     {
         $nk = Nosql::NK_ASYNC_ORDER_RESULT . $data['token'];
         $result = OrderModel::doCreateOrder(

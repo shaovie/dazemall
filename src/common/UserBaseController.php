@@ -54,7 +54,7 @@ class UserBaseController extends BaseController
             if (!empty($userInfo['wxOpenId'])) {
                 $this->wxUserInfo = WxUserModel::findUserByOpenId($userInfo['wxOpenId']);
             }
-            return false;
+            return true;
         }
         return -1;
     }

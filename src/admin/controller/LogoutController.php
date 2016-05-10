@@ -4,22 +4,14 @@
  * @Date   2015-12-03
  */
 
-namespace src\mall\controller;
+namespace src\admin\controller;
 
-use \src\common\BaseController;
-
-class LogoutController extends BaseController
+class LogoutController extends AdminController
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->module = 'user';
-    }
-
     public function index()
     {
-        $this->display('xx');
+        $this->doLogout();
+        $this->toLogin();
     }
 }
 

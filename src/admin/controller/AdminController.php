@@ -11,10 +11,11 @@ use \src\common\Util;
 use \src\common\Check;
 use \src\common\Session;
 use \src\common\Nosql;
+use \src\admin\model\EmployeeModel;
 
 class AdminController extends BaseController
 {
-    protected $employeeInfo = array();
+    protected $account = '';
 
     public function __construct()
     {
@@ -23,6 +24,10 @@ class AdminController extends BaseController
         $this->module = 'admin';
 
         $this->autoLogin();
+
+        if (!$this->hadLogin()) {
+            $this->toLogin();
+        }
     }
 
     protected function autoLogin()
@@ -30,6 +35,11 @@ class AdminController extends BaseController
         if ($this->doLogin() === -1) {
             $this->toLogin();
         }
+    }
+
+    public function hadLogin()
+    {
+        return !empty($this->account);
     }
 
     protected function doLogin()
@@ -45,14 +55,20 @@ class AdminController extends BaseController
             if ($employeeInfo['userAgent'] != $userAgent) {
                 return false;
             }
-            if (!empty($employeeInfo['empId'])) {
-                $this->employeeInfo = EmployeeModel::findEmployeeById($employeeInfo['empId']);
+            if (!empty($employeeInfo['account'])) {
+                $this->account = $employeeInfo['account'];
+                return true;
             }
             return false;
         }
         return -1;
     }
 
+    protected function doLogout()
+    {
+        $key = Session::getSid('emp');
+        Nosql::del(Nosql::NK_ADMIN_SESSOIN . $key);
+    }
     protected function toLogin()
     {
         header('Location: /admin/Login');

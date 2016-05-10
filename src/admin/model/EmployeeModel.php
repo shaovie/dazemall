@@ -33,16 +33,25 @@ class EmployeeModel
         return (int)$ret;
     }
 
-    public static function findEmployeeById($id, $fromDb = 'w')
+    public static function findEmployeeByAccount($account, $fromDb = 'w')
     {
-        if (empty($id)) {
+        if (empty($account)) {
             return array();
         }
-        $ret = DB::getDB($fromDb)->fetchOne(
-            'b_employee',
-            '*',
-            array('id'), array($id)
-        );
+        $ck = Cache::CK_EMPLOYEE_INFO_FOR_AC . $account;
+        $ret = Cache::get($ck);
+        if ($ret !== false) {
+            $ret = json_decode($ret, true);
+        } else {
+            $ret = DB::getDB($fromDb)->fetchOne(
+                'b_employee',
+                '*',
+                array('account'), array($account)
+            );
+            if ($ret !== false) {
+                Cache::set($ck, json_encode($ret));
+            }
+        }
         if (empty($ret)) {
             return array();
         }
@@ -50,26 +59,9 @@ class EmployeeModel
         return $ret;
     }
 
-    public static function findEmployeeByAccount($ac, $fromDb = 'w')
+    public static function onLoginOk($account)
     {
-        if (empty($ac)) {
-            return array();
-        }
-        $ret = DB::getDB($fromDb)->fetchOne(
-            'b_employee',
-            '*',
-            array('account'), array($account)
-        );
-        if (empty($ret)) {
-            return array();
-        }
-        $ret['name'] = Util::emojiDecode($ret['name']);
-        return $ret;
-    }
-
-    public static function onLoginOk($empId)
-    {
-        Session::setEmpSession($empId);
+        Session::setEmpSession($account);
     }
 }
 

@@ -44,6 +44,9 @@ class Cache
     const CK_COUPON_CFG_INFO         = 'coupon_cfg_info:'; const CK_COUPON_CFG_INFO_EXPIRE = 86400;
     const CK_COUPON_CFG_LIST_INFO    = 'coupon_cfg_list_info:'; const CK_COUPON_CFG_INFO_LIST_EXPIRE = 86400;
 
+    //= for employee
+    const CK_EMPLOYEE_INFO_FOR_AC    = 'employee_info_for_ac:';
+
     //= public static methods
     //
     private static function getCache()

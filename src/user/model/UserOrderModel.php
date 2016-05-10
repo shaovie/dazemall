@@ -112,7 +112,7 @@ class UserOrderModel
                 array('order_id'), array($orderId)
             );
             if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_ORDER_INFO_EXPIRE, json_encode($ret));
+                Cache::setEx($ck, Cache::CK_ORDER_INFO_EXPIRE, json_encode($ret));
             }
         }
         if (empty($ret)) {
@@ -151,7 +151,7 @@ class UserOrderModel
             $nk = Nosql::NK_ORDER_ID_RECORD . $orderId;
             $ret = Nosql::get($nk);
             if (empty($ret)) {
-                Nosql::setex($nk, Nosql::NK_ORDER_ID_RECORD_EXPIRE, 'x');
+                Nosql::setEx($nk, Nosql::NK_ORDER_ID_RECORD_EXPIRE, 'x');
                 return $orderId;
             }
         }
