@@ -222,6 +222,7 @@ create table o_order (
     unique key order_id(`order_id`),
     index idx_user_id_order_state(`user_id`, `order_state`),
     index idx_user_id_pay_state(`user_id`, `pay_state`),
+    index idx_re_phone(`re_phone`),
     index idx_ctime(`ctime`)
 )engine=InnoDB default charset=utf8;
 

@@ -10,6 +10,9 @@ class HomeController extends AdminController
 {
     public function index()
     {
-        echo "xx";
+        $data = array(
+            'iframe' => '/admin/Order/listPage'
+        );
+        $this->display('framwork', $data);
     }
 }

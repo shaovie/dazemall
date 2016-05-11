@@ -29,7 +29,6 @@ class UserOrderModel
 
     // 下单环境
     const ORDER_ENV_IOS         = 1;
-    const ORDER_ENV_IOS         = 1;
     const ORDER_ENV_ANDROID     = 2;
     const ORDER_ENV_WEIXIN      = 3;
 

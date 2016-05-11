@@ -25,16 +25,17 @@ class LoginController extends BaseController
     {
         $this->display('login');
     }
+
     public function in()
     {
-        $account = $this->getParam('account', '');
-        $passwd = $this->getParam('passwd', '');
+        $account = $this->postParam('account', '');
+        $passwd = $this->postParam('passwd', '');
         if (!Check::isName($account)) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '您输入的账号无效');
             return ;
         }
         if (!Check::isPasswd($passwd)) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, '密码格式不正确');
+            $this->ajaxReturn(ERR_PASSWD_ERROR, '密码格式不正确');
             return ;
         }
 
@@ -48,7 +49,7 @@ class LoginController extends BaseController
             return ;
         }
         EmployeeModel::onLoginOk($account);
-        $this->ajaxReturn(0, '登录成功', '/admin/Home');
+        $this->ajaxReturn(0, '登陆成功', '/admin/Home');
     }
 }
 
