@@ -9,17 +9,18 @@ namespace src\mall\model;
 use \src\common\Cache;
 use \src\common\Util;
 use \src\common\Log;
+use \src\common\DB;
 
 class GoodsDetailModel
 {
-    public static function newOne($goodsId, $desc, $imageUrls)
+    public static function newOne($goodsId, $detail, $imageUrls)
     {
         if (empty($goodsId)) {
             return false;
         }
         $data = array(
             'goods_id' => $goodsId,
-            'description' => $desc,
+            'detail' => $detail,
             'image_urls' => $imageUrls,
             'ctime' => CURRENT_TIME,
             'mtime' => CURRENT_TIME,
@@ -64,7 +65,7 @@ class GoodsDetailModel
             $ret = DB::getDB($fromDb)->fetchOne(
                 'g_goods_detail',
                 '*',
-                array('goods_id'), array($goodsId),
+                array('goods_id'), array($goodsId)
             );
             if ($ret !== false) {
                 Cache::setex($ck, Cache::CK_GOODS_DETAIL_INFO_EXPIRE, json_encode($ret));
@@ -75,6 +76,7 @@ class GoodsDetailModel
 
     public static function getSortedImageUrls($imageUrls)
     {
+        // {"1":{"sort":1,"url":"xx"}}
         if (empty($imageUrls)) {
             return array();
         }

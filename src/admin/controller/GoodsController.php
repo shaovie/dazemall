@@ -8,7 +8,7 @@ namespace src\admin\controller;
 
 use \src\common\Util;
 use \src\common\Check;
-use \src\admin\model\GoodrModel;
+use \src\mall\model\GoodsModel;
 
 class GoodsController extends AdminController
 {
@@ -23,18 +23,20 @@ class GoodsController extends AdminController
     {
         $page = $this->getParam('page', 1);
 
-        $totalNum = 100;
-        $goodsList = array();
-        $this->showGoodsList(
-            $totalNum,
-            $goodsList,
-            $page,
-            self::ONE_PAGE_SIZE,
-            '/admin/Goods/listPage',
-            array(),
-            array(),
-            ''
+        $totalNum = GoodsModel::fetchGoodsCount([], [], []);
+        $goodsList = GoodsModel::fetchSomeGoods([], [], [], $page, self::ONE_PAGE_SIZE);
+
+        $searchParams = [];
+        $error = '';
+        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Goods/listPage', $searchParams);
+        $data = array(
+            'goodsList' => $goodsList,
+            'totalGoodsNum' => $totalNum,
+            'pageHtml' => $pageHtml,
+            'search' => $searchParams,
+            'error' => $error
         );
+        $this->display("goods_list", $data);
     }
 
     public function search()
@@ -42,15 +44,13 @@ class GoodsController extends AdminController
         $goodsList = array();
         $totalNum = 0;
         $error = '';
-        $urlParams = array();
         $searchParams = array();
         do {
             $page = $this->getParam('page', 1);
-            $goodsId = trim($this->getParam('goodsId', ''));
-
-            if (!empty($goodsId)) {
-                $searchParams['goodsId'] = $goodsId;
-                $goods = UserOrderModel::findOrderByOrderId($goodsId, 'r');
+            $keyword = trim($this->getParam('keyword', ''));
+            if (is_numeric($keyword)) {
+                $searchParams['goodsId'] = $keyword;
+                $goods = GoodsModel::findGoodsById($goodsId, 'r');
                 if (!empty($goods)) {
                     $goodsList[] = $goods;
                 }
@@ -76,35 +76,115 @@ class GoodsController extends AdminController
             }
         } while(false);
 
-        $data = $this->showGoodsList(
-            100,
-            $goodsList,
-            $page,
-            self::ONE_PAGE_SIZE,
-            '/admin/Goods/search',
-            $urlParams,
-            $searchParams,
-            $error
-        );
-    }
-
-    private function showGoodsList(
-        $totalNum,
-        $goodsList,
-        $curPage,
-        $pageSize,
-        $url,
-        $urlParams,
-        $searchParams,
-        $error
-    ) {
+        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Goods/search', $searchParams);
         $data = array(
             'goodsList' => $goodsList,
             'totalGoodsNum' => $totalNum,
-            'pageHtml' => $this->pagination($totalNum, $curPage, $pageSize, $url, $urlParams),
+            'pageHtml' => $pageHtml,
             'search' => $searchParams,
             'error' => $error
         );
         $this->display("goods_list", $data);
+    }
+
+    public function addPage()
+    {
+        $data = array(
+            'title' => '新增商品',
+            'goods' => array(),
+            'action' => '/admin/Goods/add',
+        );
+        $this->display('goods_info', $data);
+    }
+    public function add()
+    {
+        $error = '';
+        $data = array(
+            'title' => '新增商品',
+            'goods' => array(),
+            'action' => '/admin/Goods/add',
+        );
+        $goodsInfo = array();
+        $ret = $this->fetchFormParams($goodsInfo, $error);
+        if ($ret === false) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, $error, '');
+            return ;
+        }
+
+        $goodsId = GoodsModel::newOne(
+            $goodsInfo['name'],
+            0,//category_id
+            $goodsInfo['market_price'],
+            $goodsInfo['sale_price'],
+            $goodsInfo['jifen'],
+            0,//$goodsInfo['sort'],
+            $goodsInfo['state'],
+            '', // imageUrl
+            $goodsInfo['detail'],
+            ''  // imageUrls
+        );
+        if ($goodsId === false || (int)$goodsId <= 0) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
+            return ;
+        }
+        $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Goods/editPage?goodsId=' . $goodsId);
+    }
+    public function editPage()
+    {
+        $goodsId = $this->getParam('goodsId', '');
+
+        $goodsInfo = GoodsModel::findGoodsById($goodsId, 'w');
+        $data = array(
+            'title' => '编辑商品',
+            'goods' => $goodsInfo,
+            'action' => '/admin/Goods/edit',
+        );
+        $this->display('goods_info', $data);
+    }
+    public function edit()
+    {
+        $error = '';
+        $data = array(
+            'title' => '编辑商品',
+            'goods' => array(),
+            'action' => '/admin/Goods/edit',
+        );
+        $goodsInfo = array();
+        $ret = $this->fetchFormParams($goodsInfo, $error);
+        if ($ret === false) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, $error, '');
+            return ;
+        }
+
+        $updateData = array();
+        $updateData['name'] = $goodsInfo['name'];
+        $updateData['state'] = $goodsInfo['state'];
+        $updateData['market_price'] = $goodsInfo['market_price'];
+        $updateData['sale_price'] = $goodsInfo['sale_price'];
+        $updateData['jifen'] = $goodsInfo['jifen'];
+        $updateData['image_url'] = $goodsInfo['image_url'];
+        $ret = GoodsModel::updateGoodsInfo($goodsInfo['id'], $goodsInfo);
+        if ($ret === false) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
+            return ;
+        }
+        $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Goods/editPage?goodsId=' . $goodsInfo['id']);
+    }
+    public function fetchFormParams(&$goodsInfo, &$error)
+    {
+        $goodsInfo['id'] = intval($this->postParam('goodsId', 0));
+        $goodsInfo['name'] = trim($this->postParam('name', ''));
+        $goodsInfo['state'] = intval($this->postParam('state', 0));
+        $goodsInfo['market_price'] = floatval($this->postParam('marketPrice', 0.00));
+        $goodsInfo['sale_price'] = floatval($this->postParam('salePrice', 0.00));
+        $goodsInfo['jifen'] = intval($this->postParam('jifen', 0));
+        $goodsInfo['image_url'] = $this->postParam('imageUrl', '');
+        $goodsInfo['detail'] = $this->postParam('detail', '');
+
+        if (empty($goodsInfo['name'])) {
+            $error = '商品名不能为空';
+            return false;
+        }
+        return true;
     }
 }

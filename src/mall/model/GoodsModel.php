@@ -9,15 +9,79 @@ namespace src\mall\model;
 use \src\common\Cache;
 use \src\common\Util;
 use \src\common\Log;
+use \src\common\DB;
+use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsDetailModel;
 
 class GoodsModel
 {
     const GOODS_ST_INVALID         = 0;  // 无效
-    const GOODS_ST_VALID           = 1;  // 无效
+    const GOODS_ST_VALID           = 1;  // 有效
     const GOODS_ST_UP              = 2;  // 上架-展示在商城中
     const GOODS_ST_DOWN_VALID      = 3;  // 下架-有效
     const GOODS_ST_DOWN_INVALID    = 4;  // 下架-无效
 
+    public static function newOne(
+        $name,
+        $categoryId,
+        $marketPrice,
+        $salePrice,
+        $jifen,
+        $sort,
+        $state,
+        $imageUrl,
+        $detail,
+        $imageUrls
+    ) {
+        if (empty($name)) {
+            return array();
+        }
+        $wdb = DB::getDB('w');
+        if ($wdb->beginTransaction() === false) {
+            return false;
+        }
+        $data = array(
+            'name' => $name,
+            'category_id' => $categoryId,
+            'market_price' => $marketPrice,
+            'sale_price' => $salePrice,
+            'image_url' => $imageUrl,
+            'jifen' => $jifen,
+            'sort' => $sort,
+            'state' => $state,
+            'ctime' => CURRENT_TIME,
+        );
+        $ret = $wdb->insertOne('g_goods', $data);
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        $goodsId = $ret;
+        $ret = GoodsDetailModel::newOne($goodsId, $detail, $imageUrls);
+        if ($ret === false) {
+            $wdb->rollBack();
+            return false;
+        }
+        if ($wdb->commit() === false) {
+            return false;
+        }
+        self::onUpdateData($goodsId);
+        return $goodsId;
+    }
+    public static function updateGoodsInfo($goodsId, $data)
+    {
+        if (empty($data)) {
+            return true;
+        }
+        $ret = DB::getDB('w')->update(
+            'g_goods',
+            $data,
+            array('id'), array($goodsId),
+            false,
+            1
+        );
+        self::onUpdateData($goodsId);
+        return $ret !== false;
+    }
     // 商品(外部判断状态)
     public static function findGoodsById($goodsId, $fromDb = 'w')
     {
@@ -32,7 +96,7 @@ class GoodsModel
             $ret = DB::getDB($fromDb)->fetchOne(
                 'g_goods',
                 '*',
-                array('goods_id'), array($goodsId),
+                array('id'), array($goodsId)
             );
             if ($ret !== false) {
                 Cache::setex($ck, Cache::CK_GOODS_INFO_EXPIRE, json_encode($ret));
@@ -47,35 +111,48 @@ class GoodsModel
         return empty($goodsInfo) ? '' : $goodsInfo['name'];
     }
 
-    public static function getSomeGoodsByCategory(
-        $goodsId,
-        $categoryId,
-        $page,
-        $size
-    ) {
-        if (empty($goodsId) || empty($categoryId) || $size <= 0) {
+    public static function findGoodsByName($goodsName, $fromDb = 'w')
+    {
+        if (empty($goodsName)) {
             return array();
         }
+        $sql = "select * from g_goods where name like '%%{$goodsName}%%'";
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function fetchSomeGoods($conds, $vals, $rel, $page, $pageSize)
+    {
         $page = $page > 0 ? $page - 1 : $page;
-        $ret = DB::getDB()->fetchSome(
+
+        $ret = DB::getDB('r')->fetchSome(
             'g_goods',
             '*',
-            array('goods_id', 'category_id', 'state'),
-            array($goodsId, $categoryId, self::GOODS_ST_UP),
-            array('and', 'and'),
+            $conds, $vals,
+            $rel,
             array('sort'), array('desc'),
-            array($page * $size, $size)
+            array($page * $pageSize, $pageSize)
         );
-        return empty($ret) ? array() : $ret;
+
+        return $ret === false ? array() : $ret;
     }
-    
+
+    public static function fetchGoodsCount($cond, $vals, $rel)
+    {
+        $ret = DB::getDB('r')->fetchCount(
+            'g_goods',
+            $cond, $vals,
+            $rel
+        );
+        return $ret === false ? 0 : $ret;
+    }
+
     public static function doLikeGoods($goodsId)
     {
         if (empty($goodsId)) {
             return false;
         }
 
-        $sql = 'update g_goods set like_count = like_count + 1 where goods_id = ' . $goodsId;
+        $sql = 'update g_goods set like_count = like_count + 1 where id = ' . $goodsId;
         $ret = DB::getDB('w')->rawExec($sql);
         if ($ret === false) {
             return false;

@@ -26,26 +26,12 @@ class OrderModel
         return $ret === false ? array() : $ret;
     }
 
-    public static function fetchUserSomeOrderById($userId, $page, $pageSize)
-    {
-        $page = $page > 0 ? $page - 1 : $page;
-
-        $ret = DB::getDB('r')->fetchSome(
-            'o_order',
-            '*',
-            array('user_id'), array($userId),
-            false,
-            array('id'), array('asc'),
-            array($page * $pageSize, $pageSize)
-        );
-
-        return $ret === false ? array() : $ret;
-    }
-    public static function fetchOrderCount($cond, $vals)
+    public static function fetchOrderCount($cond, $vals, $rel)
     {
         $ret = DB::getDB('r')->fetchCount(
             'o_order',
-            $cond, $vals
+            $cond, $vals,
+            $rel
         );
         return $ret === false ? 0 : $ret;
     }

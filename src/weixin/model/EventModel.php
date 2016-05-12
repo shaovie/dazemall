@@ -7,6 +7,7 @@
 namespace src\weixin\model;
 
 use \src\common\WxSDK;
+use \src\common\Nosql;
 use \src\user\model\WxUserModel;
 use \src\job\model\AsyncModel;
 

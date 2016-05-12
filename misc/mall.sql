@@ -46,7 +46,7 @@ create table u_user_detail (
     id                  int unsigned not null auto_increment,
 
     user_id             int unsigned not null default 0,
-    score               decimal(10,2) not null default 0.0,         # 积分数量
+    jifen               int unsigned not null default 0,            # 积分数量
 
     ctime               int not null default 0,                     # 创建时间
     mtime               int not null default 0,                     # 修改时间
@@ -261,14 +261,11 @@ drop table if exists g_goods;
 create table g_goods (
     id                  int unsigned not null auto_increment,
 
-    goods_id            int unsigned not null default 0,            # 商品ID
-    supplier_id         int unsigned not null default 0,            # 供应商编号
     name                varchar(127) not null default '',           # 商品名
     category_id         int unsigned not null default 0,            # 商品类别ID
-    brand_id            int unsigned not null default 0,            # 商品牌ID
     market_price        decimal(10,2) not null default 0.0,         # 商品市场价(仅用作展示)
-    profit              decimal(10,2) not null default 0.0,         # 商品利润
     sale_price          decimal(10,2) not null default 0.0,         # 商品销售价        
+    jifen               int unsigned not null default 0,            # 商品购买赠送积分
     sort                int not null default 0,                     # 排序
     state               tinyint not null default 0,                 # 商品状态
                                                                     # 0:无效 1:有效
@@ -276,15 +273,15 @@ create table g_goods (
                                                                     # 3:下架-有效
                                                                     # 4:下架-无效
 
-    image_url           varchar(255) not null default '',           # 展示图片
+    image_url           varchar(255) not null default '',           # 展示主图
     like_count          int unsigned not null default 0,            # 点赞计数
 
     ctime               int not null default 0,                     # 创建时间
     mtime               int not null default 0,                     # 修改时间
 
     primary key (`id`),
-    index idx_goods_id(`goods_id`),
-    index idx_category_id_sort(category_id`, `sort`)
+    index idx_category_id_sort(`category_id`, `sort`),
+    index idx_name(`name`)
 )engine=InnoDB default charset=utf8;
 
 -- 商品详情表
@@ -293,7 +290,7 @@ create table g_goods_detail (
     id                  int unsigned not null auto_increment,
 
     goods_id            int unsigned not null default 0,            # 商品ID
-    description         text not null default '',                   # 商品详细描述
+    detail              text not null,                              # 商品详细描述
     image_urls          varchar(2048) not null default '',          # 商品轮播图片(json格式)
                                                                     # {"1":{"sort":1,"url":"xx"}}
 

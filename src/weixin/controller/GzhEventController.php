@@ -41,6 +41,9 @@ class GzhEventController extends WeiXinController
         $data = file_get_contents('php://input');
         $postObj = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
         $postData = json_decode(json_encode($postObj), true);
+        if (empty($postData['EventKey'])) { // 微信后台返回空的时候，解析出来是 {}
+            $postData['EventKey'] = '';
+        }
 
         switch ($postData['MsgType']) {
         case 'event':

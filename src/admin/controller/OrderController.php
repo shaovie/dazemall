@@ -8,7 +8,6 @@ namespace src\admin\controller;
 
 use \src\common\Util;
 use \src\common\Check;
-use \src\admin\model\OrderModel;
 use \src\user\model\UserOrderModel;
 use \src\user\model\UserModel;
 
@@ -25,18 +24,19 @@ class OrderController extends AdminController
     {
         $page = $this->getParam('page', 1);
 
-        $totalNum = OrderModel::fetchOrderCount([], []);
-        $orderList = OrderModel::fetchSomeOrder([], [], [], $page, self::ONE_PAGE_SIZE);
-        $this->showOrderList(
-            $totalNum,
-            $orderList,
-            $page,
-            self::ONE_PAGE_SIZE,
-            '/admin/Order/listPage',
-            array(),
-            array(),
-            ''
+        $totalNum = UserOrderModel::fetchOrderCount([], [], []);
+        $orderList = UserOrderModel::fetchSomeOrder([], [], [], $page, self::ONE_PAGE_SIZE);
+        $error = '';
+        $searchParams = [];
+        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Order/listPage', $searchParams);
+        $data = array(
+            'orderList' => $orderList,
+            'totalOrderNum' => $totalNum,
+            'pageHtml' => $pageHtml,
+            'search' => $searchParams,
+            'error' => $error
         );
+        $this->display("order_list", $data);
     }
 
     public function search()
@@ -44,7 +44,6 @@ class OrderController extends AdminController
         $orderList = array();
         $totalNum = 0;
         $error = '';
-        $urlParams = array();
         $searchParams = array();
         do {
             $page = $this->getParam('page', 1);
@@ -78,7 +77,6 @@ class OrderController extends AdminController
                         if (count($conds) > 1) {
                             $rel[] = 'and';
                         }
-                        $urlParams['beginTime'] = $beginTime;
                     }
                 }
                 if (!empty($endTime)) {
@@ -90,7 +88,6 @@ class OrderController extends AdminController
                         if (count($conds) > 1) {
                             $rel[] = 'and';
                         }
-                        $urlParams['endTime'] = $endTime;
                     }
                 }
                 if (!empty($phone)) {
@@ -102,7 +99,6 @@ class OrderController extends AdminController
                         if (count($conds) > 1) {
                             $rel[] = 'and';
                         }
-                        $urlParams['phone'] = $phone;
                     }
                 }
                 if (!empty($rePhone)) {
@@ -112,10 +108,10 @@ class OrderController extends AdminController
                     if (count($conds) > 1) {
                         $rel[] = 'and';
                     }
-                    $urlParams['rePhone'] = $rePhone;
                 }
                 if (!empty($conds)) {
-                    $orderList = OrderModel::fetchSomeOrder(
+                    $totalNum = UserOrderModel::fetchOrderCount($conds, $vals, $rel);
+                    $orderList = UserOrderModel::fetchSomeOrder(
                         $conds,
                         $vals,
                         $rel,
@@ -126,32 +122,11 @@ class OrderController extends AdminController
             }
         } while(false);
 
-        $data = $this->showOrderList(
-            100,
-            $orderList,
-            $page,
-            self::ONE_PAGE_SIZE,
-            '/admin/Order/search',
-            $urlParams,
-            $searchParams,
-            $error
-        );
-    }
-
-    private function showOrderList(
-        $totalOrderNum,
-        $orderList,
-        $curPage,
-        $pageSize,
-        $url,
-        $urlParams,
-        $searchParams,
-        $error
-    ) {
+        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Order/search', $searchParams);
         $data = array(
             'orderList' => $orderList,
-            'totalOrderNum' => $totalOrderNum,
-            'pageHtml' => $this->pagination($totalOrderNum, $curPage, $pageSize, $url, $urlParams),
+            'totalOrderNum' => $totalNum,
+            'pageHtml' => $pageHtml,
             'search' => $searchParams,
             'error' => $error
         );
