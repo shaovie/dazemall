@@ -94,30 +94,32 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 销售价：</label>
 			<div class="col-sm-9">
-				<input type="text" name="marketPrice" id="marketprice" value="<?php if (!empty($goods['market_price'])){echo $goods['market_price'];}?>">&nbsp;元
+				<input type="number" name="marketPrice" id="marketprice" value="<?php if (!empty($goods['market_price'])){echo $goods['market_price'];}?>">&nbsp;元
 			</div>
 		</div>
 				
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 市场售价：</label>
 			<div class="col-sm-9">
-				<input type="text" name="salePrice" id="saleprice" value="<?php if (!empty($goods['sale_price'])){echo $goods['sale_price'];}?>">&nbsp;元
+				<input type="number" name="salePrice" id="saleprice" value="<?php if (!empty($goods['sale_price'])){echo $goods['sale_price'];}?>">&nbsp;元
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left">奖励积分：</label>
 			<div class="col-sm-9">
-				<input type="text" name="jifen" id="jifen" value="<?php if (!empty($goods['jifen'])){echo $goods['jifen'];}?>">
+				<input type="text" name="jifen" id="jifen"  
+                onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+                value="<?php if (!empty($goods['jifen'])){echo $goods['jifen'];}?>">
 				<p class="help-block">会员购买商品赠送的积分, 如果不填写，则默认为不奖励积分</p>
           	</div>
 		</div>
 		
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left">商品主图：<br>（标准: 640*640 <br>尺寸尽量小于50K）</label>
+			<label class="col-sm-2 control-label no-padding-left">商品主图：<br><span style="font-size:12px;color:red">（标准: 640*640 <br>尺寸尽量小于50K）</span></label>
 			<div class="col-sm-9">
-              <div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"><img /></div>
+              <div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 160px; height: 160px;"><img /></div>
               <!-- SWFUpload控件 -->
               <div id="divSWFUploadUI">
                       <p>
@@ -130,7 +132,7 @@
 		</div>	
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left"> 其他图片：</label>
+			<label class="col-sm-2 control-label no-padding-left"> 轮播图：</label>
 			<div class="col-sm-9">
                 <div id="prev_goods_img" class="fileupload-preview thumbnail" style="width: 100%; height: 150px;"></div>
                 <!-- SWFUpload控件 -->
@@ -145,14 +147,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left">商品简单描述：</label>
-			<div class="col-sm-9">
-				<textarea style="height:150px;" id="description" name="description" cols="70"></textarea>
-            </div>
-		</div>
-		
-		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left">商品详细描述：<br><span style="font-size:12px">(建议图片宽不超过640px)</span></label>
+			<label class="col-sm-2 control-label no-padding-left">商品详细描述：<br><span style="font-size:12px;color:red">(建议图片宽不超过640px)</span></label>
 			<div class="col-sm-9">
                <!-- Ueditor -->    
                <div id="goods_details" style="display:none"><?php if (!empty($goods['detail'])){echo $goods['detail'];}?></div>  
