@@ -63,7 +63,7 @@
 	<table class="table table-striped table-bordered table-hover">
 		<tbody>
 		<tr>
-			<th class="text-center" style="width:100px;">首图</th>
+			<th class="text-center" style="width:100px;">主图</th>
 			<th class="text-center" style="width:250px;">商品</th>
 			<th class="text-center" style="width:250px;">品类</th>
 			<th class="text-center" style="width:140px;">价格</th>
@@ -74,7 +74,7 @@
         <?php foreach ($goodsList as $goods):?>
 		<tr>
 			<td style="padding:0px;margin:0px;">
-                <p style="text-align:center;vertical-align:middle;margin:0px;"> <img src="<?php echo $goods['image_url']?>" height="60" width="60"></p>
+                <p style="text-align:center;vertical-align:middle;margin:2px 0px;"> <img src="<?php echo $goods['image_url']?>" height="60" width="60"></p>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
                 <div>编号：<?php echo $goods['id']?></div>

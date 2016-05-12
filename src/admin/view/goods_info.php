@@ -49,7 +49,7 @@
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 上架状态：</label>
-			<div class="col-sm-9">
+			<div class="col-sm-9" id="state-radio">
 				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="0" id="isshow0" <?php if (isset($goods['state']) && $goods['state'] == 0) { echo 'checked="true"';}?> >无效</div>
 				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="1" id="isshow1" <?php if (isset($goods['state']) && $goods['state'] == 1) { echo 'checked="true"';}?> `>有效</div>
 				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="2" id="isshow2" <?php if (isset($goods['state']) && $goods['state'] == 2) { echo 'checked="true"';}?> >上架</div>
@@ -191,7 +191,7 @@
             $.post(url,{
                 goodsId:$("#goodsId").val(),
                 name:$("#goodsname").val(),
-                state:$("#state").val(),
+                state:$("#state-radio input[name='state']:checked").val(),
                 marketPrice:$("#marketprice").val(),
                 salePrice:$("#saleprice").val(),
                 detail:$("#editorValue").html(),

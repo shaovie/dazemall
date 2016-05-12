@@ -163,7 +163,7 @@ class GoodsController extends AdminController
         $updateData['sale_price'] = $goodsInfo['sale_price'];
         $updateData['jifen'] = $goodsInfo['jifen'];
         $updateData['image_url'] = $goodsInfo['image_url'];
-        $ret = GoodsModel::updateGoodsInfo($goodsInfo['id'], $goodsInfo);
+        $ret = GoodsModel::updateGoodsInfo($goodsInfo['id'], $updateData);
         if ($ret === false) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
             return ;

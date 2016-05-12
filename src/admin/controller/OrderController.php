@@ -132,4 +132,23 @@ class OrderController extends AdminController
         );
         $this->display("order_list", $data);
     }
+
+    public function info()
+    {
+        $orderId = trim($this->getParam('orderId', ''));
+        $order = UserOrderModel::findOrderByOrderId($orderId, 'r');
+        $orderInfo = $order;
+        $orderInfo = array(
+            'stateDesc' => '无',
+            'paymentDesc' => '微信',
+            'addr' => $addr,
+        );
+        $data = array(
+            'info' => $orderInfo,
+            'orderGoods' => $orderGoods,
+            'orderId' => 2323,
+            'stateDesc' => '待支付',
+        );
+        $this->display("order_info", $data);
+    }
 }

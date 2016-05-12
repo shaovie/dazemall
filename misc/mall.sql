@@ -235,8 +235,8 @@ create table o_order_goods (
 
     -- 商品快照
     goods_id            int unsigned not null default 0,            # 商品ID
-    sku_attr            varchar(36) not null default '',            # sku属性
-    sku_value           varchar(60) not null default '',            # sku属性值
+    sku_attr            varchar(600) not null default '',           # sku属性
+    sku_value           varchar(600) not null default '',           # sku属性值
     amount              int unsigned not null default 0,            # 商品数量
     price               decimal(10,2) not null default 0.0,         # 商品价格
 
@@ -324,11 +324,9 @@ create table g_goods_sku (
 
     goods_id            int unsigned not null default 0,            # 商品ID
     sku_attr            varchar(36) not null default '',            # sku属性
-    sku_value           varchar(60) not null default '',            # sku属性值
+    sku_value           varchar(90) not null default '',            # sku属性值
     state               tinyint not null default 0,                 # sku状态 0:有效 1:无效
 
-    cost_price          decimal(10,2) not null default 0.0,         # 采购成本价
-    platform_cost_price decimal(10,2) not null default 0.0,         # 平台成本价
     market_price        decimal(10,2) not null default 0.0,         # 商品市场价
     sale_price          decimal(10,2) not null default 0.0,         # 销售价
 
