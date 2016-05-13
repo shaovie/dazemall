@@ -22,19 +22,7 @@
     <![endif]-->
 	<link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css">
 	<script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
-	<style>
-		html {overflow-x:hidden; }
-		body {
-			background-color: #FFFFFF;
-		}
-		table{border-top: 0px;}
-		.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-			border-top: 0px;
-		}
-        .category dl{list-style:none;margin-top:5px;}
-        .category dd{float:left;margin-right:6px;}
-        .category dd span{color:#428bca;font-family:'Microsoft YaHei'}
-	</style>
+	<script type="text/javascript" src="/asset/js/goods.js"></script>
 </head>
 <body class="no-skin">
     <input id="goodsId" name="goodsId" type="hidden" value="<?php echo (isset($goods['id']) ? $goods['id'] : 0);?>"/>
@@ -50,43 +38,24 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 上架状态：</label>
 			<div class="col-sm-9" id="state-radio">
-				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="0" id="isshow0" <?php if (isset($goods['state']) && $goods['state'] == 0) { echo 'checked="true"';}?> >无效</div>
-				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="1" id="isshow1" <?php if (isset($goods['state']) && $goods['state'] == 1) { echo 'checked="true"';}?> `>有效</div>
-				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="2" id="isshow2" <?php if (isset($goods['state']) && $goods['state'] == 2) { echo 'checked="true"';}?> >上架</div>
-				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="3" id="isshow3" <?php if (isset($goods['state']) && $goods['state'] == 3) { echo 'checked="true"';}?> >下架-有效</div>
-				<div style="margin-right:20px;display:inline;"><input type="radio" name="state" value="4" id="isshow4" <?php if (isset($goods['state']) && $goods['state'] == 4) { echo 'checked="true"';}?> >下架-无效</div>
+				<div style="margin-right:20px;display:inline;">
+                    <input type="radio" name="state" value="0" id="isshow0" <?php if (isset($goods['state']) && $goods['state'] == 0) { echo 'checked="true"';}?> >无效</div>
+				<div style="margin-right:20px;display:inline;">
+                    <input type="radio" name="state" value="1" id="isshow1" <?php if (isset($goods['state']) && $goods['state'] == 1) { echo 'checked="true"';}?> `>有效</div>
+				<div style="margin-right:20px;display:inline;">
+                    <input type="radio" name="state" value="2" id="isshow2" <?php if (isset($goods['state']) && $goods['state'] == 2) { echo 'checked="true"';}?> >上架</div>
+				<div style="margin-right:20px;display:inline;">
+                    <input type="radio" name="state" value="3" id="isshow3" <?php if (isset($goods['state']) && $goods['state'] == 3) { echo 'checked="true"';}?> >下架-有效</div>
+				<div style="margin-right:20px;display:inline;">
+                    <input type="radio" name="state" value="4" id="isshow4" <?php if (isset($goods['state']) && $goods['state'] == 4) { echo 'checked="true"';}?> >下架-无效</div>
 			</div>
 		</div>
 		
 		<div class="form-group">
            <label class="col-sm-2 control-label no-padding-left"> 商品类别：</label>
            <div class="col-sm-9 category">
-               <input type="hidden" name="category" value="" id="category">
-               <a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="selectCategory();return false;">选择分类</a>
-               <div>
-                   <!-- 一级分类 -->
-                   <dl>
-                     <dd><a href="javascript:void(0)" onclick="getCategory(1,1);">一级分类一</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="getCategory(2,1);">二级分类二</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="getCategory(3,1);">三级分类三</a></dd>
-                   </dl>
-                   <!-- 二级分类 -->
-                   <br />
-                   <dl>
-                     <dd><a href="javascript:void(0)" onclick="getCategory(4,2);">二级分类一</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="getCategory(4,2);">二级分类二</a></dd>
-                   </dl>
-                   <!-- 三级分类 -->
-                   <br />
-                   <dl>
-                     <dd><a href="javascript:void(0)" onclick="setCategory(this);" data-cid="">三级分类一</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="setCategory(this);" data-cid="">三级分类二</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="setCategory(this);" data-cid="">三级分类三</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="setCategory(this);" data-cid="">三级分类四</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="setCategory(this);" data-cid="">三级分类五</a></dd>
-                     <dd><a href="javascript:void(0)" onclick="setCategory(this);" data-cid="">三级分类六</a></dd>
-                   </dl>
-               </div>
+               <input type="hidden" name="category" value="" id="cateid">
+               <a class="btn btn-default btn-sm" id="chooseCategory" href="javascript:void(0);" onclick="getCategory(0,0);return false;">选择分类</a>
            </div>
 		</div>
 		
@@ -119,28 +88,44 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left">商品主图：<br><span style="font-size:12px;color:red">（标准: 640*640 <br>尺寸尽量小于50K）</span></label>
 			<div class="col-sm-9">
-              <div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 160px; height: 160px;"><img /></div>
+              <div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 160px; height: 160px;">
+               <?php if(!empty($goods['image_url'])){?>
+                   <img src="<?php echo $goods['image_url'];?>" />
+                  <a href='javascript:void(0)' onclick='delThumbImg(this);return false;'>删除</a>
+               <?php }?>
+              </div>
               <!-- SWFUpload控件 -->
               <div id="divSWFUploadUI">
-                      <p>
-                          <span id="spanButtonPlaceholder"></span>
-                          <input id="btnCancel" type="button" value="全部取消" disabled="disabled"/>
-                      </p>
+                 <p>
+                    <span id="spanButtonPlaceholder"></span>
+					<input id="btnCancel" type="hidden" value="全部取消" disabled="disabled"/>
+                 </p>
               </div>
               <!-- END -->
             </div>
 		</div>	
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left"> 轮播图：</label>
+			<label class="col-sm-2 control-label no-padding-left"> 轮播图(最多9张)：</label>
 			<div class="col-sm-9">
-                <div id="prev_goods_img" class="fileupload-preview thumbnail" style="width: 100%; height: 150px;"></div>
+                <div id="prev_goods_img" class="fileupload-preview thumbnail" style="width: 100%; height: 150px;">
+                <ul>
+                <?php if (!empty($goods['image_urls'])):?>
+                    <?php foreach($goods['image_urls'] as $img):if(!empty($img)):?>
+                       <li>
+                        <img width="120" height="120" style="width:100px;height:120px;margin-right:2px" src="<?php echo $img;?>" />
+                        <a href='javascript:void(0)' onclick="delGoodsImg(this);return false;">删除</a>
+                       </li> 
+                    <?php endif;endforeach;?>
+                <?php endif?>
+                </ul>
+                </div>
                 <!-- SWFUpload控件 -->
                 <div id="divSWFUploadUI2">
-                        <p>
-                                <span id="spanButtonPlaceholder2"></span>
-                                <input id="btnCancel2" type="button" value="全部取消" disabled="disabled"/>
-                        </p>
+                    <p>
+                        <span id="spanButtonPlaceholder2"></span>
+						<input id="btnCancel2" type="hidden" value="全部取消" disabled="disabled"/>
+                    </p>
                 </div>
                 <!-- END -->
 			</div>
@@ -175,21 +160,34 @@
 			</div>
 		</div>
 		
-        <input type="hidden" name="goods_thumb_img" class="goods_thumb_img" value="">
+        <input type="hidden"  id="thumb_img" class="thumb_img" value="<?php if (!empty($goods['image_url'])){echo $goods['image_url'];}?>">
         <div id="goods_img">
-                <input type="hidden" name="goods_img[]" value="">
+        <?php if (!empty($goods['image_urls'])):?>
+            <?php foreach($goods['image_urls'] as $img):if(!empty($img)):?>
+               <input type="hidden" name="goods_img[]" value="<?php echo $img;?>" />
+            <?php endif; endforeach;?>
+            <?php endif?>
         </div>
 	</form>
 	<script>
         $('#save-btn').click(function(){
+            var goodsDetails = UE.getEditor('editor').getContent();
             var url = $("#save-form").attr("action");
+            var goods_imgs = '';
+             $("#goods_img input").each(function(i,v){
+                 goods_imgs += $(v).val()+'|';
+             });
+
             $.post(url,{
                 goodsId:$("#goodsId").val(),
+                cateId:$('#catid').val(),
                 name:$("#goodsname").val(),
                 state:$("#state-radio input[name='state']:checked").val(),
                 marketPrice:$("#marketprice").val(),
                 salePrice:$("#saleprice").val(),
-                detail:$("#editorValue").html(),
+                detail:goodsDetails,
+                imageUrl:$("#thumb_img").val(),
+                imageUrls:goods_imgs,
                 jifen:$("#jifen").val()
                 },function(data){
                 if(data.code==0) {

@@ -307,6 +307,7 @@ create table g_category (
     id                  int unsigned not null auto_increment,
 
     category_id         int unsigned not null default 0,            # 品类ID
+    sort                int not null default 0,                     # 顺序
     name                varchar(255) not null default '',           # 品类名
     image_url           varchar(255) not null default '',           # 图标
 

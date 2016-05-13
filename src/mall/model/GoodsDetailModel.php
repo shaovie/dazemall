@@ -45,11 +45,8 @@ class GoodsDetailModel
             false,
             1
         );
-        if ($ret === false) {
-            return false;
-        }
         self::onUpdateData($goodsId);
-        return $ret > 0;
+        return $ret !== false;
     }
 
     public static function findGoodsDetailById($goodsId, $fromDb = 'w')

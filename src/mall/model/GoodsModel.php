@@ -111,12 +111,16 @@ class GoodsModel
         return empty($goodsInfo) ? '' : $goodsInfo['name'];
     }
 
-    public static function findGoodsByName($goodsName, $fromDb = 'w')
+    public static function findGoodsByName($goodsName, $state)
     {
         if (empty($goodsName)) {
             return array();
         }
-        $sql = "select * from g_goods where name like '%%{$goodsName}%%'";
+        if ($state >= 0)
+            $sql = "select * from g_goods where instr(name, '{$goodsName}')>0 and state={$state}";
+        else
+            $sql = "select * from g_goods where instr(name, '{$goodsName}')>0";
+        $ret = DB::getDB('r')->rawQuery($sql);
         return $ret === false ? array() : $ret;
     }
 

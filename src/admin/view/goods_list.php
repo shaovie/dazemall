@@ -21,36 +21,26 @@
     <![endif]-->
 	<link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css">
 	<script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
-	<style>
-		html {overflow-x:hidden; }
-		body {
-			background-color: #FFFFFF;
-		}
-		table{border-top: 0px;}
-		.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-			border-top: 0px;
-		}
-	</style>
 </head>
 <body class="no-skin">
 	<h3 class="header smaller lighter blue"><span style="margin-right:20px">商品总数：<?php echo $totalGoodsNum;?></span><a href="/admin/Goods/addPage" class="btn btn-primary">新建商品</a></h3>
-	<form action="/admin/Goods/search" class="form-horizontal" method="post">
+	<form action="/admin/Goods/search" class="form-horizontal" method="get">
 	<table class="table table-striped table-bordered table-hover">
 	<tbody>
 		<tr>
 			<td>
 				<li style="float:left;list-style-type:none;">
 					<select name="status" style="margin-right:10px;margin-top:10px;width: 100px; height:34px; line-height:28px; padding:2px 0">
-					    <option value="-1" selected="selected">商品状态</option>
-					    <option value="0">无效</option>
-					    <option value="1">有效</option>
-					    <option value="2">上架销售</option>
-						<option value="3">下架-有效</option>
-						<option value="4">下架-无效</option>
+					    <option value="-1" <?php if (!isset($search['status']) || $search['status'] == -1) { echo 'selected="selected"';}?> >商品状态</option>
+					    <option value="0" <?php if (isset($search['status']) && $search['status'] == 0) { echo 'selected="selected"';}?> >无效</option>
+					    <option value="1" <?php if (isset($search['status']) && $search['status'] == 1) { echo 'selected="selected"';}?>  >有效</option>
+					    <option value="2" <?php if (isset($search['status']) && $search['status'] == 2) { echo 'selected="selected"';}?> >上架销售</option>
+						<option value="3" <?php if (isset($search['status']) && $search['status'] == 3) { echo 'selected="selected"';}?> >下架-有效</option>
+						<option value="4" <?php if (isset($search['status']) && $search['status'] == 4) { echo 'selected="selected"';}?> >下架-无效</option>
 					</select>
 				</li>
 				<li style="float:left;list-style-type:none;">
-					<span>关键字</span>	<input style="margin-right:10px;margin-top:10px;width:200px; height:34px; line-height:28px; padding:2px 5px" name="keyword" id="" type="text" value="" placeholder="商品编号/商品名称">
+					<span>关键字</span>	<input style="margin-right:10px;margin-top:10px;width:200px; height:34px; line-height:28px; padding:2px 5px" name="keyword" id="" type="text" value="<?php if (!empty($search['keyword'])) {echo $search['keyword'];} ?>" placeholder="商品编号/商品名称">
 				</li>
 				<li style="list-style-type:none;">
 					<input type="submit" name="submit" class="btn btn-primary" style="margin-right:10px;margin-top:10px;" value="搜索"></li>

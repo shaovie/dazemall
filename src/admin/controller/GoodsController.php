@@ -9,6 +9,7 @@ namespace src\admin\controller;
 use \src\common\Util;
 use \src\common\Check;
 use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsDetailModel;
 
 class GoodsController extends AdminController
 {
@@ -47,32 +48,32 @@ class GoodsController extends AdminController
         $searchParams = array();
         do {
             $page = $this->getParam('page', 1);
+            $state = intval($this->getParam('status', -1));
+            $searchParams['status'] = $state;
             $keyword = trim($this->getParam('keyword', ''));
-            if (is_numeric($keyword)) {
-                $searchParams['goodsId'] = $keyword;
-                $goods = GoodsModel::findGoodsById($goodsId, 'r');
-                if (!empty($goods)) {
-                    $goodsList[] = $goods;
-                }
-            } else {
-                $conds = array();
-                $vals = array();
-                $rel = array();
-                if (!empty($beginTime)) {
-                    $searchParams['beginTime'] = $beginTime;
-                    $dt = strtotime($beginTime);
-                    if ($dt !== false) {
-                        $conds[] = 'ctime>=';
-                        $vals[] = $dt;
-                        if (count($conds) > 1) {
-                            $rel[] = 'and';
-                        }
-                        $urlParams['beginTime'] = $beginTime;
+            if ($state == -1 && empty($keyword)) {
+                header('Location: /admin/Goods/listPage');
+                return ;
+            }
+            if (!empty($keyword)) {
+                $searchParams['keyword'] = $keyword;
+                if (is_numeric($keyword)) {
+                    $goods = GoodsModel::findGoodsById($keyword, 'r');
+                    if (!empty($goods)) {
+                        $goodsList[] = $goods;
+                        $totalNum = 1;
+                    }
+                } else {
+                    $goods = GoodsModel::findGoodsByName($keyword, $state);
+                    if (!empty($goods)) {
+                        $goodsList = $goods;
+                        $totalNum = count($goods);
                     }
                 }
-                if (!empty($conds)) {
-                    // TODO
-                }
+            } else {
+                if ($state >= 0)
+                    $totalNum = GoodsModel::fetchGoodsCount(array('state'), array($state), false);
+                    $goodsList = GoodsModel::fetchSomeGoods(array('state'), array($state), false, $page, self::ONE_PAGE_SIZE);
             }
         } while(false);
 
@@ -119,9 +120,9 @@ class GoodsController extends AdminController
             $goodsInfo['jifen'],
             0,//$goodsInfo['sort'],
             $goodsInfo['state'],
-            '', // imageUrl
+            $goodsInfo['image_url'],
             $goodsInfo['detail'],
-            ''  // imageUrls
+            $goodsInfo['image_urls']
         );
         if ($goodsId === false || (int)$goodsId <= 0) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
@@ -131,9 +132,14 @@ class GoodsController extends AdminController
     }
     public function editPage()
     {
-        $goodsId = $this->getParam('goodsId', '');
+        $goodsId = intval($this->getParam('goodsId', 0));
 
         $goodsInfo = GoodsModel::findGoodsById($goodsId, 'w');
+        $goodsDetailInfo = GoodsDetailModel::findGoodsDetailById($goodsId, 'w');
+        if (!empty($goodsDetailInfo)) {
+            $goodsInfo['image_urls'] = explode("|", $goodsDetailInfo['image_urls']);
+            $goodsInfo['detail'] = $goodsDetailInfo['detail'];
+        }
         $data = array(
             'title' => '编辑商品',
             'goods' => $goodsInfo,
@@ -168,23 +174,52 @@ class GoodsController extends AdminController
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
             return ;
         }
+        $updateData = array();
+        $updateData['detail'] = $goodsInfo['detail'];
+        $updateData['image_urls'] = $goodsInfo['image_urls'];
+        $ret = GoodsDetailModel::update($goodsInfo['id'], $updateData);
+        if ($ret === false) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品详情失败~');
+            return ;
+        }
         $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Goods/editPage?goodsId=' . $goodsInfo['id']);
     }
-    public function fetchFormParams(&$goodsInfo, &$error)
+    private function fetchFormParams(&$goodsInfo, &$error)
     {
         $goodsInfo['id'] = intval($this->postParam('goodsId', 0));
         $goodsInfo['name'] = trim($this->postParam('name', ''));
-        $goodsInfo['state'] = intval($this->postParam('state', 0));
+        $goodsInfo['state'] = intval($this->postParam('state', -1));
         $goodsInfo['market_price'] = floatval($this->postParam('marketPrice', 0.00));
         $goodsInfo['sale_price'] = floatval($this->postParam('salePrice', 0.00));
         $goodsInfo['jifen'] = intval($this->postParam('jifen', 0));
-        $goodsInfo['image_url'] = $this->postParam('imageUrl', '');
+        $goodsInfo['image_url'] = trim($this->postParam('imageUrl', ''));
+        $goodsInfo['image_urls'] = trim($this->postParam('imageUrls', ''));
         $goodsInfo['detail'] = $this->postParam('detail', '');
 
         if (empty($goodsInfo['name'])) {
             $error = '商品名不能为空';
             return false;
         }
+        if (strlen($goodsInfo['name']) > 120) {
+            $error = '商品名不能超过40个字符';
+            return false;
+        }
+        if ($goodsInfo['state'] != GoodsModel::GOODS_ST_INVALID
+            && $goodsInfo['state'] != GoodsModel::GOODS_ST_VALID
+            && $goodsInfo['state'] != GoodsModel::GOODS_ST_UP
+            && $goodsInfo['state'] != GoodsModel::GOODS_ST_DOWN_VALID
+            && $goodsInfo['state'] != GoodsModel::GOODS_ST_DOWN_INVALID
+        ) {
+            $error = '上架状态无效';
+            return false;
+        }
+        $goodsInfo['image_urls'] = trim($goodsInfo['image_urls'], '|');
+        $gs = explode('|', $goodsInfo['image_urls']);
+        if (count($gs) > 9) {
+            $error = '轮播图不能超过9张';
+            return false;
+        }
         return true;
     }
+
 }

@@ -121,6 +121,10 @@ class OrderController extends AdminController
                 }
             }
         } while(false);
+        if (empty($searchParams)) {
+            header('Location: /admin/Order/listPage');
+            return ;
+        }
 
         $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Order/search', $searchParams);
         $data = array(

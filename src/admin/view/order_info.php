@@ -21,16 +21,6 @@
     <![endif]-->
 	<link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css">
 	<script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
-	<style>
-	html {overflow-x:hidden; }
-	body {
-		background-color: #FFFFFF;
-	}
-	table{border-top: 0px;}
-	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-		border-top: 0px;
-	}
-	</style>
 </head>
 <body class="no-skin">
 	<h3 class="header smaller lighter blue">订单基本信息</h3>

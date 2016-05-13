@@ -39,7 +39,7 @@
 <div class="navbar navbar-default" id="navbar">
 <div class="navbar-container" id="navbar-container">
 <div class="navbar-header pull-left">
-    <a href="#" class="navbar-brand">
+    <a href="/admin/Home" class="navbar-brand">
         <small>
             <i class="icon-leaf"></i>
             <span id="accountname">大泽商城</span>
@@ -49,17 +49,11 @@
 
 <div class="navbar-header pull-right" role="navigation">
 <ul class="nav ace-nav" style="height:45px">
-	<li class="Larger">
-		<a class="dropdown-toggle" onclick="navtoggle(&#39;修改密码&#39;)" href="#" target="main">
-			<i class="icon-user"></i>
-			<span>修改密码</span>
-		</a> 
-	</li>
 	<li class="light-blue">
 		<a data-toggle="dropdown" href="#" class="dropdown-toggle">
        		<span class="user-info">
 				<small>欢迎光临,</small>
-				admin
+				<?php echo $account;?>
 			</span>
 			<i class="icon-caret-down"></i>
 		</a>
@@ -116,7 +110,7 @@
                              添加新商品                                  
                              </a>  
 						</li>                               
-                        <li> <a onclick="navtoggle(&#39;商品管理 - &gt; 管理分类&#39;)" href="/admin/Goods/categoryPage" target="main">
+                        <li> <a onclick="navtoggle(&#39;商品管理 - &gt; 管理分类&#39;)" href="/admin/GoodsCategory" target="main">
                               <i class="icon-double-angle-right"></i>
                               管理分类                              
                               </a>
