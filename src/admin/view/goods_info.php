@@ -20,8 +20,6 @@
     <!--[if IE 7]>
     <link rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome-ie7.min.css">
     <![endif]-->
-	<link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css">
-	<script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
 	<script type="text/javascript" src="/asset/js/goods.js"></script>
 </head>
 <body class="no-skin">
@@ -43,11 +41,7 @@
 				<div style="margin-right:20px;display:inline;">
                     <input type="radio" name="state" value="1" id="isshow1" <?php if (isset($goods['state']) && $goods['state'] == 1) { echo 'checked="true"';}?> `>有效</div>
 				<div style="margin-right:20px;display:inline;">
-                    <input type="radio" name="state" value="2" id="isshow2" <?php if (isset($goods['state']) && $goods['state'] == 2) { echo 'checked="true"';}?> >上架</div>
-				<div style="margin-right:20px;display:inline;">
-                    <input type="radio" name="state" value="3" id="isshow3" <?php if (isset($goods['state']) && $goods['state'] == 3) { echo 'checked="true"';}?> >下架-有效</div>
-				<div style="margin-right:20px;display:inline;">
-                    <input type="radio" name="state" value="4" id="isshow4" <?php if (isset($goods['state']) && $goods['state'] == 4) { echo 'checked="true"';}?> >下架-无效</div>
+                    <input type="radio" name="state" value="2" id="isshow2" <?php if (isset($goods['state']) && $goods['state'] == 2) { echo 'checked="true"';}?> >上架销售</div>
 			</div>
 		</div>
 		

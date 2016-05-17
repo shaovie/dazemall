@@ -14,7 +14,10 @@ class GoodsCategoryController extends AdminController
 {
     public function index()
     {
-        $categoryList = array();
+        $categoryList = GoodsCategoryModel::getAllCategory();
+        foreach ($categoryList as &$cat) {
+            $cat['name'] = GoodsCategoryModel::fullCateName($cat['category_id'], $cat['name']);
+        }
         $data = array(
             'categoryList' => $categoryList,
         );
@@ -23,67 +26,119 @@ class GoodsCategoryController extends AdminController
 
     public function catInfo()
     {
+        $catId = $this->getParam('catId', 0);
+        $info = array();
+        $action = '/admin/GoodsCategory/add';
+        if ($catId > 0) {
+            $action = '/admin/GoodsCategory/edit';
+            $info = GoodsCategoryModel::findCategoryById($catId);
+        }
         $data = array(
-            'parentCatId' => '酒水饮料 > 白酒',
+            'parentId' => 0,
+            'catId' => $catId,
+            'info' => $info,
+            'action' => $action,
         );
         $this->display("category_info", $data);
     }
 
     public function getCat()
     {
-        $data = array(
-            'cate_name' => 'xx',
-            'id' => 12,
-        );
+        $level = $this->postParam('cateId', 0);
+        $data = array();
+        $data['category'] = array();
+        $ret = GoodsCategoryModel::getAllCategoryByLevel($level);
+        if (!empty($ret)) {
+            foreach ($ret as $item) {
+                $data['category'][] = array('cate_name' => $item['name'], 'id' => $item['category_id']);
+            }
+        }
         $this->ajaxReturn(0, $data);
     }
 
     public function addPage()
     {
-        $parentCatId = $this->getParam('parentId', 0);
+        $parentId = $this->getParam('parentId', 0);
         $data = array(
-            'parentCatId' => $parentCatId,
+            'parentId' => $parentId,
+            'catId' => 0,
+            'action' => '/admin/GoodsCategory/add',
         );
         $this->display("category_info", $data);
     }
+
     public function add()
     {
         $catInfo = array();
-        $ret = $this->fetchFormParams($catInfo, $error);
-        if ($ret === false) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, $error, '');
+        $error = '';
+        if ($this->fetchFormParams($catInfo, $error) === false) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, $error);
             return ;
         }
-
-        $categoryId = GoodsCategoryModel::();
+        if ($catInfo['parentId'] % 1000 != 0) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '不能添加子类');
+            return ;
+        }
         $ret = GoodsCategoryModel::newOne(
-            $categoryId,
+            $catInfo['parentId'],
             $catInfo['name'],
-            $catInfo['image_url'],
+            $catInfo['image_url']
         );
         if ($ret === false || (int)$ret <= 0) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败');
             return ;
         }
-        $this->ajaxReturn(0, '保存成功', '/admin/GoodsCategory);
+        $this->ajaxReturn(0, '保存成功', '/admin/GoodsCategory');
     }
+
+    public function del()
+    {
+        $catId = $this->getParam('catId', 0);
+        if ($catId == 0) {
+            header('Location: /admin/GoodsCategory');
+            return ;
+        }
+        GoodsCategoryModel::delCategory($catId);
+        header('Location: /admin/GoodsCategory');
+    }
+
     public function edit()
     {
-        var_dump($_POST);
+        $catInfo = array();
+        $error = '';
+        if ($this->fetchFormParams($catInfo, $error) === false) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, $error);
+            return ;
+        }
+        $updateData = array(
+            'name' => $catInfo['name'],
+            'image_url' => $catInfo['image_url'],
+            'sort' => $catInfo['sort'],
+            );
+        $ret = GoodsCategoryModel::update(
+            $catInfo['catId'],
+            $updateData
+        );
+        if ($ret === false || (int)$ret <= 0) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败');
+            return ;
+        }
+        $this->ajaxReturn(0, '保存成功', '/admin/GoodsCategory');
     }
 
     private function fetchFormParams(&$catInfo, &$error)
     {
-        $goodsInfo['parentId'] = trim($this->postParam('parentId', 0));
-        $goodsInfo['name'] = trim($this->postParam('name', ''));
-        $goodsInfo['sort'] = intval($this->postParam('sort', 0));
-        $goodsInfo['image_url'] = trim($this->postParam('imageUrl', ''));
+        $catInfo['catId'] = $this->postParam('catId', 0);
+        $catInfo['parentId'] = $this->postParam('parentId', 0);
+        $catInfo['name'] = trim($this->postParam('name', ''));
+        $catInfo['sort'] = intval($this->postParam('sort', 0));
+        $catInfo['image_url'] = trim($this->postParam('imageUrl', ''));
 
-        if (empty($goodsInfo['name'])) {
-            $error = '商品名不能为空';
+        if (empty($catInfo['name'])) {
+            $error = '分类名称不能为空';
             return false;
         }
-        if (strlen($goodsInfo['name']) > 30) {
+        if (strlen($catInfo['name']) > 30) {
             $error = '商品名不能超过10个字符';
             return false;
         }

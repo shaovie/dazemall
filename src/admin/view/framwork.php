@@ -135,55 +135,38 @@
 		                      批量发货                                  
 		                     </a>   
 						</li>        
-		                <!-- <li> <a onclick="navtoggle(&#39;订单管理 - &gt; 评论管理&#39;)" href="http://localhost/index.php?mod=site&name=shop&do=goods_comment&op=display" target="main">
-		                     <i class="icon-double-angle-right"></i>
-		                         评论管理                                  
-		                      </a>
-						</li> --> 
                     </ul>
                 </li>
 				<li>
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-group"></i>
-                        <span class="menu-text"> 会员管理</span>
+                        <span class="menu-text"> 用户管理</span>
                         <b class="arrow icon-angle-down"></b>
                     </a>
                     <ul class="submenu">     
                         <li>
-                            <a onclick="navtoggle(&#39;会员管理 - &gt; 会员管理 &#39;)" href="http://localhost/index.php?mod=site&name=member&do=list" target="main">
+                            <a onclick="navtoggle(&#39;用户管理 - &gt; 用户列表 &#39;)" href="/admin/User/listPage" target="main">
                             <i class="icon-double-angle-right"></i>
-                             会员管理                                
+                             用户列表
                              </a>
-                        </li>
-                        <li>
-                            <a onclick="navtoggle(&#39;会员管理 - &gt; 会员等级管理 &#39;)" href="http://localhost/index.php?mod=site&name=member&do=rank" target="main">
-                            <i class="icon-double-angle-right"></i>
-                                会员等级                                
-                            </a>
-                        </li> 
-						<li>
-                            <a onclick="navtoggle(&#39;会员管理 - &gt; 余额提现申请 &#39;)" href="http://localhost/index.php?mod=site&name=member&do=outchargegold" target="main">
-                            <i class="icon-double-angle-right"></i>
-                                审核余额提现操作                                
-                            </a>
                         </li>
 					</ul>
                 </li>
 				<li>
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-gift"></i>
-                        <span class="menu-text"> 促销管理</span>
+                        <span class="menu-text"> 营销管理</span>
                         <b class="arrow icon-angle-down"></b>
                     </a>
                     <ul class="submenu">
-                        <li> <a onclick="navtoggle(&#39;促销管理 - &gt; 优惠券管理&#39;)" href="http://localhost/index.php?mod=site&name=bonus&do=bonus&op=display" target="main">
-                                    <i class="icon-double-angle-right"></i>
-                                    优惠券管理                                  
-                                </a>
+                        <li> <a onclick="navtoggle(&#39;营销管理 - &gt; 轮播图管理&#39;)" href="/admin/Banner/listPage" target="main">
+                        <i class="icon-double-angle-right"></i>
+                        轮播图列表
+                        </a>
 						</li>
-						<li> <a onclick="navtoggle(&#39;促销管理 - &gt; 促销免运费&#39;)" href="http://localhost/index.php?mod=site&name=promotion&do=promotion&op=display" target="main">
+						<li> <a onclick="navtoggle(&#39;营销管理 - &gt; 首页商品模块列表&#39;)" href="/admin/GoodsModule/listPage" target="main">
                             <i class="icon-double-angle-right"></i>
-                                    促销免运费                                 
+                            首页商品模块列表
                             </a>   
 						</li>
                     </ul>

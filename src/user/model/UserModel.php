@@ -89,6 +89,24 @@ class UserModel
         return $ret;
     }
 
+    public static function fetchUserByName($nickname, $fromDb = 'w')
+    {
+        if (empty($nickname)) {
+            return array();
+        }
+        $ret = DB::getDB($fromDb)->fetchSome(
+            'u_user',
+            '*',
+            array('nickname'), array(Util::emojiEncode($nickname))
+        );
+        if (empty($ret)) 
+            return array();
+        foreach ($ret as &$user) {
+            $user['nickname'] = Util::emojiDecode($user['nickname']);
+        }
+        return $ret;
+    }
+
     public static function getCash($userId)
     {
         $ret = self::findUserById($userId);
@@ -157,6 +175,32 @@ class UserModel
         }
         $ret['nickname'] = Util::emojiDecode($ret['nickname']);
         return $ret;
+    }
+
+    public static function fetchSomeUser($conds, $vals, $rel, $page, $pageSize)
+    {
+        $page = $page > 0 ? $page - 1 : $page;
+
+        $ret = DB::getDB('r')->fetchSome(
+            'u_user',
+            '*',
+            $conds, $vals,
+            $rel,
+            array('id'), array('desc'),
+            array($page * $pageSize, $pageSize)
+        );
+
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function fetchUserCount($cond, $vals, $rel)
+    {
+        $ret = DB::getDB('r')->fetchCount(
+            'u_user',
+            $cond, $vals,
+            $rel
+        );
+        return $ret === false ? 0 : $ret;
     }
 
     private static function onUpdateData($userId)

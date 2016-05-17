@@ -18,8 +18,6 @@ class GoodsModel
     const GOODS_ST_INVALID         = 0;  // 无效
     const GOODS_ST_VALID           = 1;  // 有效
     const GOODS_ST_UP              = 2;  // 上架-展示在商城中
-    const GOODS_ST_DOWN_VALID      = 3;  // 下架-有效
-    const GOODS_ST_DOWN_INVALID    = 4;  // 下架-无效
 
     public static function newOne(
         $name,
@@ -122,6 +120,20 @@ class GoodsModel
             $sql = "select * from g_goods where instr(name, '{$goodsName}')>0";
         $ret = DB::getDB('r')->rawQuery($sql);
         return $ret === false ? array() : $ret;
+    }
+
+    public static function getStateDesc($state)
+    {
+        if ($state == 0) {
+            return '无效';
+        }
+        if ($state == 1) {
+            return '有效';
+        }
+        if ($state == 2) {
+            return '上架销售';
+        }
+        return 'null';
     }
 
     public static function fetchSomeGoods($conds, $vals, $rel, $page, $pageSize)

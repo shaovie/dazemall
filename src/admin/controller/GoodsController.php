@@ -10,6 +10,7 @@ use \src\common\Util;
 use \src\common\Check;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsDetailModel;
+use \src\mall\model\GoodsCategoryModel;
 
 class GoodsController extends AdminController
 {
@@ -26,6 +27,11 @@ class GoodsController extends AdminController
 
         $totalNum = GoodsModel::fetchGoodsCount([], [], []);
         $goodsList = GoodsModel::fetchSomeGoods([], [], [], $page, self::ONE_PAGE_SIZE);
+        foreach ($goodsList as &$goods) {
+            $goods['state'] =  GoodsModel::getStateDesc($goods['state']);
+            $cateName = GoodsCategoryModel::getCateName($goods['category_id']);
+            $goods['category_name'] = GoodsCategoryModel::fullCateName($goods['category_id'], $cateName);
+        }
 
         $searchParams = [];
         $error = '';
@@ -100,11 +106,6 @@ class GoodsController extends AdminController
     public function add()
     {
         $error = '';
-        $data = array(
-            'title' => '新增商品',
-            'goods' => array(),
-            'action' => '/admin/Goods/add',
-        );
         $goodsInfo = array();
         $ret = $this->fetchFormParams($goodsInfo, $error);
         if ($ret === false) {
@@ -150,11 +151,6 @@ class GoodsController extends AdminController
     public function edit()
     {
         $error = '';
-        $data = array(
-            'title' => '编辑商品',
-            'goods' => array(),
-            'action' => '/admin/Goods/edit',
-        );
         $goodsInfo = array();
         $ret = $this->fetchFormParams($goodsInfo, $error);
         if ($ret === false) {
@@ -207,8 +203,6 @@ class GoodsController extends AdminController
         if ($goodsInfo['state'] != GoodsModel::GOODS_ST_INVALID
             && $goodsInfo['state'] != GoodsModel::GOODS_ST_VALID
             && $goodsInfo['state'] != GoodsModel::GOODS_ST_UP
-            && $goodsInfo['state'] != GoodsModel::GOODS_ST_DOWN_VALID
-            && $goodsInfo['state'] != GoodsModel::GOODS_ST_DOWN_INVALID
         ) {
             $error = '上架状态无效';
             return false;

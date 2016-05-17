@@ -31,8 +31,8 @@
 			<thead>
 				<tr>
 					<th class="text-center" style="width:100px;">分类图片</th>
-					<th class="text-center" style="width:50px;">显示顺序</th>
 					<th class="text-center" style="width:80px;">分类名称</th>
+					<th class="text-center" style="width:50px;">显示顺序</th>
 					<th class="text-center" style="width:80px;">操作</th>
 				</tr>
 			</thead>
@@ -41,11 +41,11 @@
 			<tr>
 				<td style="padding:0px;margin:0px;">
                 <p style="text-align:center;vertical-align:middle;margin:2px 0px;"> <img src="<?php echo $cat['image_url']?> " height="60" width="60"></p></td>
-				<td style="text-align:left;vertical-align:middle;"><?php echo $cat['sort']?></td>
-				<td></td>
-				<td style="text-align:left;vertical-align:middle;">
-					<a class="btn btn-xs btn-info" href="/admin/GoodsCategory/addPage?parentCatId=<?php echo $cat['category_id'];?>"><i class="icon-plus-sign-alt"></i> 添加子分类</a>&nbsp;&nbsp;
-					<a class="btn btn-xs btn-info" href="/admin/GoodsCategory/editPage?catId=<?php echo $cat['category_id'];?>"><i class="icon-edit"></i>&nbsp;编&nbsp;辑&nbsp;</a>&nbsp;&nbsp;
+				<td style="text-align:center;vertical-align:middle;"><?php echo $cat['name']?></td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $cat['sort']?></td>
+				<td style="text-align:center;vertical-align:middle;">
+					<a class="btn btn-xs btn-info" href="/admin/GoodsCategory/addPage?parentId=<?php echo $cat['category_id'];?>"><i class="icon-plus-sign-alt"></i> 添加子分类</a>&nbsp;&nbsp;
+					<a class="btn btn-xs btn-info" href="/admin/GoodsCategory/catInfo?catId=<?php echo $cat['category_id'];?>"><i class="icon-edit"></i>&nbsp;编&nbsp;辑&nbsp;</a>&nbsp;&nbsp;
 					<a class="btn btn-xs btn-info" href="/admin/GoodsCategory/del?catId=<?php echo $cat['category_id'];?>" onclick="return confirm(&#39;确认删除此分类吗？&#39;);return false;"><i class="icon-edit"></i>&nbsp;删&nbsp;除&nbsp;</a>
 				</td>
 			</tr>

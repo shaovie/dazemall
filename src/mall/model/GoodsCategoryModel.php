@@ -30,7 +30,135 @@ class GoodsCategoryModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
+        self::onUpdateData($categoryId);
         return true;
+    }
+
+    public static function findCategoryById($categoryId, $fromDb = 'w')
+    {
+        if (empty($categoryId)) {
+            return array();
+        }
+        $ck = Cache::CK_GOODS_CATEGORY_INFO . $categoryId;
+        $ret = Cache::get($ck);
+        if ($ret !== false) {
+            $ret = json_decode($ret, true);
+        } else {
+            $ret = DB::getDB($fromDb)->fetchOne(
+                'g_category',
+                '*',
+                array('category_id'), array($categoryId)
+            );
+            if ($ret !== false) {
+                Cache::setex($ck, Cache::CK_GOODS_CATEGORY_INFO_EXPIRE, json_encode($ret));
+            }
+        }
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function getAllCategory()
+    {
+        $ret = DB::getDB('r')->fetchAll(
+            'g_category',
+            '*',
+            array('id>'), array('0'),
+            false,
+            array('category_id'), array('asc')
+        );
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function getAllCategoryByLevel($level)
+    {
+        if ($level == 0) {
+            $sql = 'select * from g_category where (category_id % 1000000) = 0';
+        } else if ($level == 1) {
+            $sql = 'select * from g_category where category_id % 1000000) != 0 and (category_id % 1000) = 0';
+        } else if ($level == 2) {
+            $sql = 'select * from g_category where (category_id % 1000) != 0';
+        } else {
+            return array();
+        }
+
+        $ret = DB::getDB('r')->rawQuery($sql);
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function delCategory($categoryId)
+    {
+        $ret = DB::getDB('w')->delete(
+            'g_category',
+            array('category_id'), array($categoryId),
+            false,
+            1
+        );
+        self::onUpdateData($categoryId);
+        return $ret === false ? false : true;
+    }
+
+    public static function update($catId, $data)
+    {
+        if (empty($data)) {
+            return true;
+        }
+        $ret = DB::getDB('w')->update(
+            'g_category',
+            $data,
+            array('category_id'), array($catId),
+            false,
+            1
+        );
+        self::onUpdateData($catId);
+        return $ret !== false;
+    }
+
+    public static function getParentId($categoryId)
+    {
+        $level1 = (int)($categoryId / 1000000);
+        $level2 = (int)((int)($categoryId / 1000) % 1000);
+        $level3 = (int)($categoryId % 1000);
+        if ($level1 != 0 && $level2 == 0 && $level3 == 0) { // 一级分类
+            return 0;
+        } else if ($level1 != 0 && $level2 != 0 && $level3 == 0) { // 二级分类
+            return $level1 * 1000000;
+        } else { // 三级
+            return (int)($categoryId / 1000) * 1000;
+        }
+        return 0;
+    }
+
+    public static function getCateName($categoryId)
+    {
+        $cateInfo = self::findCategoryById($categoryId);
+        if (!empty($cateInfo))
+            return $cateInfo['name'];
+        return '无';
+    }
+
+    public static function fullCateName($categoryId, $name)
+    {
+        $parentId = self::getParentId($categoryId);
+        if ($parentId == 0) {
+            return $name;
+        }
+        $fullName = '';
+        $parentInfo = self::findCategoryById($parentId);
+        if (!empty($parentInfo)) {
+            $fullName = $parentInfo['name'];
+            $parentId = self::getParentId($parentInfo['category_id']);
+            if ($parentId == 0) {
+                return $fullName . ' > ' . $name;
+            }
+            $parentInfo = self::findCategoryById($parentId);
+            if (!empty($parentInfo)) {
+                $fullName = $parentInfo['name'] . ' > ' . $fullName;
+            }
+            return $fullName . ' > ' . $name;
+        } else {
+            $fullName = '无';
+        }
+
+        return $fullName . ' > ' . $name;
     }
 
     public static function checkBelongCategoryOrNot($masterId, $categoryId)
@@ -114,6 +242,11 @@ class GoodsCategoryModel
         }
         Log::error('error category_id(' . $categoryId . ') when generate category id');
         return false;
+    }
+    private static function onUpdateData($catId)
+    {
+        Cache::del(Cache::CK_GOODS_CATEGORY_INFO . $catId);
+        self::findCategoryById($catId, 'w');
     }
 }
 

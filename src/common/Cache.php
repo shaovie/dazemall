@@ -41,6 +41,7 @@ class Cache
     const CK_GOODS_INFO              = 'goods_info:'; const CK_GOODS_INFO_EXPIRE = 86400;
     const CK_GOODS_DETAIL_INFO       = 'goods_detail_info:'; const CK_GOODS_DETAIL_INFO_EXPIRE = 86400;
     const CK_GOODS_SKU               = 'goods_sku:'; const CK_GOODS_SKU_EXPIRE = 86400;
+    const CK_GOODS_CATEGORY_INFO     = 'goods_category_info:'; const CK_GOODS_CATEGORY_INFO_EXPIRE = 86400;
     const CK_COUPON_CFG_INFO         = 'coupon_cfg_info:'; const CK_COUPON_CFG_INFO_EXPIRE = 86400;
     const CK_COUPON_CFG_LIST_INFO    = 'coupon_cfg_list_info:'; const CK_COUPON_CFG_INFO_LIST_EXPIRE = 86400;
 

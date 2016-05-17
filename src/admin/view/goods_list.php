@@ -19,8 +19,6 @@
     <!--[if IE 7]>
     <link rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome-ie7.min.css">
     <![endif]-->
-	<link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css">
-	<script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
 </head>
 <body class="no-skin">
 	<h3 class="header smaller lighter blue"><span style="margin-right:20px">商品总数：<?php echo $totalGoodsNum;?></span><a href="/admin/Goods/addPage" class="btn btn-primary">新建商品</a></h3>
@@ -35,8 +33,6 @@
 					    <option value="0" <?php if (isset($search['status']) && $search['status'] == 0) { echo 'selected="selected"';}?> >无效</option>
 					    <option value="1" <?php if (isset($search['status']) && $search['status'] == 1) { echo 'selected="selected"';}?>  >有效</option>
 					    <option value="2" <?php if (isset($search['status']) && $search['status'] == 2) { echo 'selected="selected"';}?> >上架销售</option>
-						<option value="3" <?php if (isset($search['status']) && $search['status'] == 3) { echo 'selected="selected"';}?> >下架-有效</option>
-						<option value="4" <?php if (isset($search['status']) && $search['status'] == 4) { echo 'selected="selected"';}?> >下架-无效</option>
 					</select>
 				</li>
 				<li style="float:left;list-style-type:none;">
@@ -71,7 +67,7 @@
                 <div>名称：<?php echo $goods['name']?></div>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
-                <div>类别：<?php echo $goods['category_id']?></div>
+                <div>类别：<?php echo $goods['category_name']?></div>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
                 <div>市场价：<?php echo $goods['market_price']?></div>

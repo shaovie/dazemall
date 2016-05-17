@@ -26,8 +26,6 @@ create table u_user (
     sex                 tinyint not null default 0,                 # 性别 1:男 2:女 0:未知
     headimgurl          varchar(255) not null default '',           # 用户头像
 
-    service_user_id     int unsigned not null default 0,            # 服务人ID
-
     cash_amount         decimal(10,2) not null default 0.0,         # 现金余额
 
     state               tinyint not null default 0,                 # 用户状态
@@ -468,8 +466,9 @@ create table m_banner (
     begin_time          int not null default 0,                     # 开始时间
     end_time            int not null default 0,                     # 结束时间
     image_url           varchar(255) not null default '',           # 展示图片
-    link_url            varchar(255) not null default '',           # 链接地址
-    remark              varchar(255) not null default '',           # 优惠券备注
+    link_type           int not null default 0,                     # 链接类型
+    link_value          varchar(255) not null default '',           # 链接值
+    remark              varchar(255) not null default '',           # 备注
     sort                int not null default 0,                     # 顺序
 
     ctime               int not null default 0,                     # 创建时间
@@ -484,6 +483,7 @@ create table m_goods_module (
     id                  int unsigned not null auto_increment,
 
     title               varchar(255) not null default '',           # 展示标题
+    image_url           varchar(255) not null default '',           # 展示主图
     begin_time          int not null default 0,                     # 开始时间
     end_time            int not null default 0,                     # 结束时间
     sort                int not null default 0,                     # 顺序
