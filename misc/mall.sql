@@ -251,7 +251,7 @@ create table o_order_goods (
 
     primary key (`id`),
     index idx_order_id(`order_id`)
-}engine=InnoDB default charset=utf8;
+)engine=InnoDB default charset=utf8;
 
 -----------------------------------商品相关表-----------------------------------
 -- 商品表
@@ -506,7 +506,8 @@ create table m_goods_module_glist (
     ctime               int not null default 0,                     # 创建时间
 
     primary key (`id`),
-    index idx_module_id_sort(`module_id`, `sort`)
+    index idx_module_id_sort(`module_id`, `sort`),
+    index idx_module_id_goods_id(`module_id`, `goods_id`)
 )engine=InnoDB default charset=utf8;
 
 -----------------------------------后台相关-----------------------------------

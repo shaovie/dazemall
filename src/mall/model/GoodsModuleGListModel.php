@@ -41,8 +41,50 @@ class GoodsModuleGListModel
             '*',
             array('module_id'), array($moduleId),
             false,
-            array('sort'), array('desc')
+            array('sort'), array('asc')
         );
         return $ret === false ? array() : $ret;
+    }
+
+    public static function getGoodsInfo($moduleId, $goodsId)
+    {
+        if (empty($moduleId) || empty($goodsId)) {
+            return array();
+        }
+        $ret = DB::getDB()->fetchOne(
+            'm_goods_module_glist',
+            '*',
+            array('module_id', 'goods_id'), array($moduleId, $goodsId),
+            array('and')
+        );
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function del($moduleId, $goodsId)
+    {
+        if ($moduleId == 0 || $goodsId == 0) {
+            return false;
+        }
+        $ret = DB::getDB('w')->delete(
+            'm_goods_module_glist',
+            array('module_id', 'goods_id'), array($moduleId, $goodsId),
+            array('and')
+        );
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function update($moduleId, $goodsId, $data)
+    {
+        if (empty($data)) {
+            return true;
+        }
+        $ret = DB::getDB('w')->update(
+            'm_goods_module_glist',
+            $data,
+            array('module_id', 'goods_id'), array($moduleId, $goodsId),
+            false,
+            1
+        );
+        return $ret !== false;
     }
 }

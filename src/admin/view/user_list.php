@@ -31,7 +31,7 @@
 					<span>关键字</span>	<input style="margin-right:10px;margin-top:10px;width:200px; height:34px; line-height:28px; padding:2px 5px" name="keyword" id="" type="text" value="<?php if (!empty($search['keyword'])) {echo $search['keyword'];} ?>" placeholder="客户编号/昵称/手机号">
 				</li>
 				<li style="list-style-type:none;">
-					<input type="submit" name="submit" class="btn btn-primary" style="margin-right:10px;margin-top:10px;" value="搜索"></li>
+					<input type="submit" name="submit" class="btn btn-sm btn-primary" style="margin-right:10px;margin-top:10px;" value="搜索"></li>
 			</td>
 		</tr>
 	</tbody>

@@ -8,7 +8,6 @@
     <title>大泽商城</title>
 </head>
 <body>
-xx
 </body>
 </html>
 

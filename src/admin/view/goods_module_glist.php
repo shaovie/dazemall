@@ -21,41 +21,34 @@
     <![endif]-->
 </head>
 <body class="no-skin">
-	<h3 class="header smaller lighter blue"><a href="/admin/GoodsModule/addPage" class="btn btn-primary">新建</a></h3>
+	<h3 class="header smaller lighter blue"><span style="margin-right:20px"><?php echo $title;?></span><a href="/admin/GoodsModule/addGoodsPage?moduleId=<?php echo $moduleId?>" class="btn btn-primary">添加商品</a></h3>
 		
 	<table class="table table-striped table-bordered table-hover">
 		<tbody>
 		<tr>
-			<th class="text-center" style="width:250px;">标题</th>
-			<th class="text-center" style="width:100px;">配图</th>
-			<th class="text-center" style="width:260px;">时间</th>
+			<th class="text-center" style="width:100px;">商品编号</th>
+			<th class="text-center" style="width:250px;">商品名</th>
 			<th class="text-center" style="width:200px;">排序</th>
 			<th class="text-center">操作</th>
 		</tr>
-        <?php foreach ($moduleList as $module):?>
+        <?php foreach ($goodsList as $goods):?>
 		<tr>
-			<td style="padding:0px;margin:0px;">
-                <p style="text-align:center;vertical-align:middle;margin:2px 0px;"> <img src="<?php echo $module['image_url']?>" height="60" width="60"></p>
-            </td>
 			<td style="text-align:center;vertical-align:middle;">
-                <div><?php echo $module['title']?></div>
-            </td>
-			<td style="text-align:left;vertical-align:middle;">
-				<div>开始：<?php echo empty($module['begin_time']) ? '' : date('Y-m-d H:i:s', $module['begin_time'])?></div>
-				<div>结束：<?php echo empty($module['end_time']) ? '' : date('Y-m-d H:i:s', $module['end_time'])?></div>
-            </td>
-			<td style="text-align:center;vertical-align:middle;">
-                <div><?php echo $module['sort']?></div>
+                <div><?php echo $goods['goods_id']?></div>
 			</td>
 			<td style="text-align:center;vertical-align:middle;">
-				<a class="btn btn-xs btn-info" href="/admin/GoodsModule/editPage?moduleId=<?php echo $module['id']?>">编辑</a>
-                <a class="btn btn-xs btn-info" href="/admin/GoodsModule/del?moduleId=<?php echo $module['id'];?>" onclick="return confirm(&#39;确认删除吗？&#39;);return false;">删除</a>
-				<a class="btn btn-xs btn-info" href="/admin/GoodsModule/goodsList?moduleId=<?php echo $module['id']?>">商品列表</a>
+                <div><?php echo $goods['name']?></div>
+            </td>
+			<td style="text-align:center;vertical-align:middle;">
+                <div><?php echo $goods['sort']?></div>
+			</td>
+			<td style="text-align:center;vertical-align:middle;">
+                <a class="btn btn-xs btn-info" href="/admin/GoodsModule/editGoodsPage?moduleId=<?php echo $moduleId;?>&goodsId=<?php echo $goods['goods_id']?>">编辑</a>
+                <a class="btn btn-xs btn-info" href="/admin/GoodsModule/delGoods?moduleId=<?php echo $moduleId;?>&goodsId=<?php echo $goods['goods_id']?>" onclick="return confirm(&#39;确认删除吗？&#39;);return false;">删除</a>
 			</td>
 		</tr>
         <?php endforeach?>
 		</tbody>
 	</table>
-    <?php echo $pageHtml;?>
 </body>
 </html>

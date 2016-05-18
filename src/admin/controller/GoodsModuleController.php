@@ -9,6 +9,8 @@ namespace src\admin\controller;
 use \src\common\Util;
 use \src\common\Check;
 use \src\mall\model\GoodsModuleModel;
+use \src\mall\model\GoodsModuleGListModel;
+use \src\mall\model\GoodsModel;
 
 class GoodsModuleController extends AdminController
 {
@@ -121,6 +123,106 @@ class GoodsModuleController extends AdminController
         }
         GoodsModuleModel::delModule($moduleId);
         header('Location: /admin/GoodsModule');
+    }
+    public function goodsList()
+    {
+        $moduleId = intval($this->getParam('moduleId', 0));
+        $moduleInfo = GoodsModuleModel::findGoodsModuleById($moduleId);
+        if (empty($moduleInfo)) {
+            echo "没有此模块";
+            return ;
+        }
+        $goodsList = GoodsModuleGListModel::getAllGoods($moduleId);
+        foreach ($goodsList as &$goods) {
+            $goods['name'] = GoodsModel::goodsName($goods['goods_id']);
+        }
+        $data = array(
+            'moduleId' => $moduleId,
+            'title' => $moduleInfo['title'],
+            'goodsList' => $goodsList,
+        );
+        $this->display('goods_module_glist', $data);
+    }
+    public function addGoodsPage()
+    {
+        $moduleId = intval($this->getParam('moduleId', 0));
+        $data = array(
+            'title' => '添加商品',
+            'moduleId' => $moduleId,
+            'goods' => array(),
+            'action' => '/admin/GoodsModule/addGoods',
+        );
+        $this->display('goods_module_ginfo', $data);
+    }
+    public function addGoods()
+    {
+        $moduleId = intval($this->postParam('moduleId', 0));
+        $goodsId = intval($this->postParam('goodsId', 0));
+        $sort = intval($this->postParam('sort', 0));
+        $moduleInfo = GoodsModuleModel::findGoodsModuleById($moduleId);
+        if (empty($moduleInfo)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '模块ID无效');
+            return ;
+        }
+        $goodsInfo = GoodsModel::findGoodsById($goodsId, 'r');
+        if (empty($goodsInfo)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '商品ID无效');
+            return ;
+        }
+        $ret = GoodsModuleGListModel::newOne($moduleId, $goodsId, $sort);
+        if ($ret === false) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '添加商品失败');
+            return ;
+        }
+        $this->ajaxReturn(0, '添加商品成功', '/admin/GoodsModule/goodsList?moduleId=' . $moduleId);
+    }
+    public function editGoodsPage()
+    {
+        $moduleId = intval($this->getParam('moduleId', 0));
+        $goodsId = intval($this->getParam('goodsId', 0));
+
+        $goodsInfo = GoodsModuleGListModel::getGoodsInfo($moduleId, $goodsId);
+        $data = array(
+            'title' => '编辑',
+            'moduleId' => $moduleId,
+            'goods' => $goodsInfo,
+            'action' => '/admin/GoodsModule/editGoods',
+        );
+        $this->display('goods_module_ginfo', $data);
+    }
+    public function editGoods()
+    {
+        $moduleId = intval($this->postParam('moduleId', 0));
+        $goodsId = intval($this->postParam('goodsId', 0));
+        $sort = intval($this->postParam('sort', 0));
+        $moduleInfo = GoodsModuleModel::findGoodsModuleById($moduleId);
+        if (empty($moduleInfo)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '模块ID无效');
+            return ;
+        }
+        $goodsInfo = GoodsModel::findGoodsById($goodsId, 'r');
+        if (empty($goodsInfo)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '商品ID无效');
+            return ;
+        }
+        $data = array('sort' => $sort);
+        $ret = GoodsModuleGListModel::update($moduleId, $goodsId, $data);
+        if ($ret === false) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
+            return ;
+        }
+        $this->ajaxReturn(0, '保存商品成功', '/admin/GoodsModule/goodsList?moduleId=' . $moduleId);
+    }
+    public function delGoods()
+    {
+        $moduleId = intval($this->getParam('moduleId', 0));
+        $goodsId = intval($this->getParam('goodsId', 0));
+        if ($moduleId == 0 || $goodsId == 0) {
+            header('Location: /admin/GoodsModule');
+            return ;
+        }
+        GoodsModuleGListModel::del($moduleId, $goodsId);
+        header('Location: /admin/GoodsModule/goodsList?moduleId=' . $moduleId);
     }
     private function fetchFormParams(&$moduleInfo, &$error)
     {

@@ -38,7 +38,7 @@
 					<span>备注</span>	<input style="margin-right:10px;margin-top:10px;width:200px; height:34px; line-height:28px; padding:2px 5px" name="keyword" id="" type="text" value="<?php if (!empty($search['keyword'])) {echo $search['keyword'];} ?>" placeholder="备注">
 				</li>
 				<li style="list-style-type:none;">
-					<input type="submit" name="submit" class="btn btn-primary" style="margin-right:10px;margin-top:10px;" disabled="disabled" value="搜索"></li>
+					<input type="submit" name="submit" class="btn btn-sm btn-primary" style="margin-right:10px;margin-top:10px;" disabled="disabled" value="搜索"></li>
 			</td>
 		</tr>
 	</tbody>
@@ -67,8 +67,8 @@
                 <div><?php echo $banner['showArea']?></div>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
-                <div>开始：<?php echo date('Y-m-d H:i:s', $banner['begin_time'])?></div>
-                <div>结束：<?php echo date('Y-m-d H:i:s', $banner['end_time'])?></div>
+				<div>开始：<?php echo empty($banner['begin_time']) ? '' : date('Y-m-d H:i:s', $banner['begin_time'])?></div>
+				<div>结束：<?php echo empty($banner['end_time']) ? '' : date('Y-m-d H:i:s', $banner['end_time'])?></div>
             </td>
 			<td style="text-align:center;vertical-align:middle;">
                 <div><?php echo $banner['sort']?></div>

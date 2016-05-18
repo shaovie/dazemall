@@ -44,16 +44,16 @@ class GoodsCategoryController extends AdminController
 
     public function getCat()
     {
-        $level = $this->postParam('cateId', 0);
+        $catId = $this->postParam('cateId', 0);
         $data = array();
         $data['category'] = array();
-        $ret = GoodsCategoryModel::getAllCategoryByLevel($level);
+        $ret = GoodsCategoryModel::getAllCategoryByParentId($catId);
         if (!empty($ret)) {
             foreach ($ret as $item) {
                 $data['category'][] = array('cate_name' => $item['name'], 'id' => $item['category_id']);
             }
         }
-        $this->ajaxReturn(0, $data);
+        $this->ajaxReturn(0, '', '', $data);
     }
 
     public function addPage()

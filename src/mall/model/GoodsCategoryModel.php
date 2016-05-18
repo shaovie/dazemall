@@ -68,16 +68,21 @@ class GoodsCategoryModel
         return $ret === false ? array() : $ret;
     }
 
-    public static function getAllCategoryByLevel($level)
+    public static function getAllCategoryByParentId($categoryId)
     {
-        if ($level == 0) {
+        if ($categoryId == 0) {
             $sql = 'select * from g_category where (category_id % 1000000) = 0';
-        } else if ($level == 1) {
-            $sql = 'select * from g_category where category_id % 1000000) != 0 and (category_id % 1000) = 0';
-        } else if ($level == 2) {
-            $sql = 'select * from g_category where (category_id % 1000) != 0';
         } else {
-            return array();
+            $level = self::calcLevel($categoryId);
+            if ($level == 1) {
+                $v = (int)($categoryId / 1000000);
+                $sql = "select * from g_category where (category_id % 1000000) != 0 and (category_id % 1000) = 0 and floor(category_id / 1000000) = $v";
+            } else if ($level == 2) {
+                $v = (int)($categoryId / 1000);
+                $sql = "select * from g_category where (category_id % 1000) != 0 and floor(category_id / 1000) = $v";
+            } else {
+                return array();
+            }
         }
 
         $ret = DB::getDB('r')->rawQuery($sql);
@@ -114,17 +119,27 @@ class GoodsCategoryModel
 
     public static function getParentId($categoryId)
     {
+        $level = self::calcLevel($categoryId);
+        if ($level == 1) {
+            return 0;
+        } else if ($level == 2) {
+            return (int)($categoryId / 1000000) * 1000000;
+        } else {
+            return (int)($categoryId / 1000) * 1000;
+        }
+    }
+
+    public static function calcLevel($categoryId)
+    {
         $level1 = (int)($categoryId / 1000000);
         $level2 = (int)((int)($categoryId / 1000) % 1000);
         $level3 = (int)($categoryId % 1000);
         if ($level1 != 0 && $level2 == 0 && $level3 == 0) { // 一级分类
-            return 0;
+            return 1;
         } else if ($level1 != 0 && $level2 != 0 && $level3 == 0) { // 二级分类
-            return $level1 * 1000000;
-        } else { // 三级
-            return (int)($categoryId / 1000) * 1000;
+            return 2;
         }
-        return 0;
+        return 3;
     }
 
     public static function getCateName($categoryId)

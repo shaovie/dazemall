@@ -115,7 +115,7 @@ class GoodsController extends AdminController
 
         $goodsId = GoodsModel::newOne(
             $goodsInfo['name'],
-            0,//category_id
+            $goodsInfo['category_id'],//category_id
             $goodsInfo['market_price'],
             $goodsInfo['sale_price'],
             $goodsInfo['jifen'],
@@ -136,6 +136,9 @@ class GoodsController extends AdminController
         $goodsId = intval($this->getParam('goodsId', 0));
 
         $goodsInfo = GoodsModel::findGoodsById($goodsId, 'w');
+        if (!empty($goodsInfo['category_id'])) {
+            $goodsInfo['cate_name'] = GoodsCategoryModel::getCateName($goodsInfo['category_id']);
+        }
         $goodsDetailInfo = GoodsDetailModel::findGoodsDetailById($goodsId, 'w');
         if (!empty($goodsDetailInfo)) {
             $goodsInfo['image_urls'] = explode("|", $goodsDetailInfo['image_urls']);
@@ -165,6 +168,7 @@ class GoodsController extends AdminController
         $updateData['sale_price'] = $goodsInfo['sale_price'];
         $updateData['jifen'] = $goodsInfo['jifen'];
         $updateData['image_url'] = $goodsInfo['image_url'];
+        $updateData['category_id'] = $goodsInfo['category_id'];
         $ret = GoodsModel::updateGoodsInfo($goodsInfo['id'], $updateData);
         if ($ret === false) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
@@ -191,6 +195,7 @@ class GoodsController extends AdminController
         $goodsInfo['image_url'] = trim($this->postParam('imageUrl', ''));
         $goodsInfo['image_urls'] = trim($this->postParam('imageUrls', ''));
         $goodsInfo['detail'] = $this->postParam('detail', '');
+        $goodsInfo['category_id'] = $this->postParam('cateId', '');
 
         if (empty($goodsInfo['name'])) {
             $error = '商品名不能为空';
@@ -198,6 +203,10 @@ class GoodsController extends AdminController
         }
         if (strlen($goodsInfo['name']) > 120) {
             $error = '商品名不能超过40个字符';
+            return false;
+        }
+        if (empty($goodsInfo['category_id'])) {
+            $error = '商品分类不能为空';
             return false;
         }
         if ($goodsInfo['state'] != GoodsModel::GOODS_ST_INVALID

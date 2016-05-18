@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome-ie7.min.css">
     <![endif]-->
 	<script type="text/javascript" src="/asset/js/goods.js"></script>
+    <link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css">
+    <script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
 </head>
 <body class="no-skin">
     <input id="bannerId" name="bannerId" type="hidden" value="<?php echo (isset($banner['id']) ? $banner['id'] : 0);?>"/>
@@ -38,7 +40,7 @@
 			<div class="col-sm-9">
 				<input type="text" name="beginTime" id="beginTime" maxlength="100" class="span7" value="<?php if (!empty($banner['begin_time'])){echo date('Y-m-d H:i:s', $banner['begin_time']);}?>" placeholder="开始时间"> - 
 				<input type="text" name="endTime" id="endTime" maxlength="100" class="span7" value="<?php if (!empty($banner['end_time'])){echo date('Y-m-d H:i:s', $banner['end_time']);}?>" placeholder="结束时间">
-				<p class="help-block">格式：2016-01-18 12:30:23，开始时间不填，默认当前时间，结束时间不填，意为永远</p>
+				<p class="help-block">格式：2016-01-18 12:30:23，开始时间不填，即为立即开始，结束时间不填，意为永远</p>
 			</div>
 		</div>
 		<div class="form-group">

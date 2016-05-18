@@ -57,15 +57,12 @@ class BannerModel
         );
         return $ret === false ? array() : $ret;
     }
-    public static function findAllValidBanner($beginTime, $endTime, $showArea)
+    public static function findAllValidBanner($now, $showArea)
     {
-        $ret = DB::getDB()->fetchAll(
-            'm_banner',
-            '*',
-            array('begin_time >=', 'end_time <', 'show_area'), array($beginTime, $endTime, $showArea),
-            array('and', 'and'),
-            array('sort'), array('desc')
-        );
+        $sql = "select * from m_banner where (begin_time = 0 or begin_time <= $now)"
+            . " and (end_time = 0 or end_time >= $now)"
+            . " and show_area = $showArea order by sort asc";
+        $ret = DB::getDB()->rawQuery($sql);
         return $ret === false ? array() : $ret;
     }
 

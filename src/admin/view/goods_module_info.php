@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome-ie7.min.css">
     <![endif]-->
 	<script type="text/javascript" src="/asset/js/goods.js"></script>
+    <link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css">
+    <script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
 </head>
 <body class="no-skin">
     <input id="moduleId" name="moduleId" type="hidden" value="<?php echo (isset($module['id']) ? $module['id'] : 0);?>"/>
@@ -51,8 +53,7 @@
 				<p class="help-block">数值越小，排序越靠前</p>
           	</div>
 		</div>
-		
-		
+	
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left">图片：<br><span style="font-size:12px;color:red">（标准: 640宽 <br>尺寸尽量小于50K）</span></label>
 			<div class="col-sm-9">

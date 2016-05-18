@@ -33,14 +33,6 @@
 			<td style="vertical-align: middle;font-size: 14px;font-weight: bold;width:110px">下单时间：</td>
 			<td>
 				<input name="beginTime" id="beginTime" type="text" value="<?php if (isset($search['beginTime'])) {echo $search['beginTime'];}?>" > - <input id="endTime" name="endTime" type="text" value="<?php if (isset($search['endTime'])) {echo $search['endTime'];}?>" >		
-				<script type="text/javascript">
-					$("#beginTime,#endTime").datetimepicker({
-                    format: "yyyy-mm-dd hh:ii:00",
-					minView: "0",
-					//pickerPosition: "top-right",
-					autoclose: true
-				});
-			</script> 
 			</td>	
 		    </tr>
 			<tr>
@@ -51,7 +43,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td colspan="3"><input type="submit" name="submit" value=" 查 询 " class="btn btn-primary">
+				<td colspan="3"><input type="submit" name="submit" value=" 查 询 " class="btn btn-sm  btn-primary">
                 <?php if (!empty($error)):?><span style="margin-left:20px;color:red;font-size:12px;"><?php {echo $error;}?><?php endif?></span>
                 </td>
 			</tr>

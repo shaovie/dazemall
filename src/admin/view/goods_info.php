@@ -47,9 +47,9 @@
 		
 		<div class="form-group">
            <label class="col-sm-2 control-label no-padding-left"> 商品类别：</label>
+           <input type="hidden" name="cateid" value="<?php if(isset($goods['category_id'])) echo $goods['category_id'];?>" id="cateid">
            <div class="col-sm-9 category">
-               <input type="hidden" name="category" value="" id="cateid">
-               <a class="btn btn-default btn-sm" id="chooseCategory" href="javascript:void(0);" onclick="getCategory(0,0);return false;">选择分类</a>
+               <a class="btn btn-default btn-sm" id="chooseCategory" href="javascript:void(0);" onclick="getCategory(0,0,this);return false;"><?php echo isset($goods['cate_name'])?$goods['cate_name']:'选择分类';?></a>
            </div>
 		</div>
 		
@@ -174,7 +174,7 @@
 
             $.post(url,{
                 goodsId:$("#goodsId").val(),
-                cateId:$('#catid').val(),
+                cateId:$('#cateid').val(),
                 name:$("#goodsname").val(),
                 state:$("#state-radio input[name='state']:checked").val(),
                 marketPrice:$("#marketprice").val(),
