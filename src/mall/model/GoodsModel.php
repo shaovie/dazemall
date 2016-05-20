@@ -62,7 +62,6 @@ class GoodsModel
         if ($wdb->commit() === false) {
             return false;
         }
-        self::onUpdateData($goodsId);
         return $goodsId;
     }
     public static function updateGoodsInfo($goodsId, $data)
@@ -96,8 +95,8 @@ class GoodsModel
                 '*',
                 array('id'), array($goodsId)
             );
-            if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_GOODS_INFO_EXPIRE, json_encode($ret));
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_GOODS_INFO_EXPIRE, json_encode($ret));
             }
         }
         return $ret === false ? array() : $ret;

@@ -8,6 +8,7 @@
     <title>大泽商城</title>
 </head>
 <body>
+<?php var_dump($goodsModuleList)?>
 </body>
 </html>
 

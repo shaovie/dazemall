@@ -44,8 +44,8 @@ class LoginController extends UserBaseController
 
     public function reg()
     {
-        $phone = $this->postParam('phone', '');
-        $code  = $this->postParam('code',  '');
+        $phone = $this->getParam('phone', '');
+        $code  = $this->getParam('code',  '');
 
         if (!Check::isPhone($phone)) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '您输入的手机号无效');

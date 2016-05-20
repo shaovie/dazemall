@@ -48,15 +48,12 @@ class GoodsModuleModel
         return $ret === false ? array() : $ret;
     }
 
-    public static function findAllValidModule($beginTime, $endTime)
+    public static function fetchAllValidModule($now)
     {
-        $ret = DB::getDB()->fetchAll(
-            'm_goods_module',
-            '*',
-            array('begin_time >=', 'end_time <'), array($beginTime, $endTime),
-            array('and'),
-            array('sort'), array('asc')
-        );
+        $sql = "select * from m_goods_module where (begin_time = 0 or begin_time <= $now)"
+            . " and (end_time = 0 or end_time >= $now)"
+            . " order by sort asc";
+        $ret = DB::getDB()->rawQuery($sql);
         return $ret === false ? array() : $ret;
     }
 

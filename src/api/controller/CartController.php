@@ -22,8 +22,8 @@ class CartController extends ApiController
     public function add()
     {
         $goodsId = (int)$this->postParam('goodsId', 0);
-        $skuAttr = $this->postParam('skuAttr', '');
-        $skuValue = $this->postParam('skuValue', '');
+        $skuAttr = trim($this->postParam('skuAttr', ''));
+        $skuValue = trim($this->postParam('skuValue', ''));
         $amount = (int)$this->postParam('amount', 0);
 
         if ($goodsId <= 0

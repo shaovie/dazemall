@@ -16,7 +16,7 @@ class UserDetailModel
     {
         $data = array(
             'user_id' => $userId,
-            'score' => 0,
+            'jifen' => 0,
             'ctime' => CURRENT_TIME,
             'mtime' => CURRENT_TIME
         );
@@ -24,7 +24,6 @@ class UserDetailModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        self::onUpdateData($userId);
         return true;
     }
 

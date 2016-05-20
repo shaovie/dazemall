@@ -230,7 +230,14 @@ class DB
                 return false;
             }
         }
-        return $this->db->beginTransaction();
+        try {
+            return $this->db->beginTransaction();
+        } catch (\PDOException $e) {
+            $desc = 'mysql dsn=' . $this->dsn . ' beginTransaction exception ' . $e->getMessage();
+            Log::fatal($desc);
+            return false;
+        }
+        return false;
     }
 
     // returns true on success or false on failure
@@ -241,7 +248,14 @@ class DB
                 return false;
             }
         }
-        return $this->db->rollBack();
+        try {
+            return $this->db->rollBack();
+        } catch (\PDOException $e) {
+            $desc = 'mysql dsn=' . $this->dsn . ' rollback exception ' . $e->getMessage();
+            Log::fatal($desc);
+            return false;
+        }
+        return false;
     }
 
     // returns true on success or false on failure
@@ -252,7 +266,14 @@ class DB
                 return false;
             }
         }
-        return $this->db->commit();
+        try {
+            return $this->db->commit();
+        } catch (\PDOException $e) {
+            $desc = 'mysql dsn=' . $this->dsn . ' commit exception ' . $e->getMessage();
+            Log::fatal($desc);
+            return false;
+        }
+        return false;
     }
 
 

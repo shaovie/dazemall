@@ -16,14 +16,12 @@ class CartController extends MallController
     public function __construct()
     {
         parent::__construct();
-
-        $this->checkLoginAndNotice();
     }
 
     public function index()
     {
         $cartList = CartModel::getCartList($this->userId());
-        $this->display('');
+        $this->display('cart', $cartList);
     }
 }
 

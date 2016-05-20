@@ -23,7 +23,17 @@ class PayModel
     ) {
         // 构造一个订单业务数据集，用来后续业务使用，针对一些不敏感的数据
         $nk = Nosql::NK_ORDER_ATTACH_INFO . $orderId;
-        Nosql::setex($nk, Nosql::NK_ORDER_ATTACH_INFO_EXPIRE, json_encode($orderAttach));
+        Nosql::setEx($nk, Nosql::NK_ORDER_ATTACH_INFO_EXPIRE, json_encode($orderAttach));
+    }
+
+    public static function payTypeDesc($t)
+    {
+        if ($t == self::PAY_TYPE_ALI) {
+            return '支付宝';
+        } else if ($t == self::PAY_TYPE_WX) {
+            return '微信';
+        }
+        return '未知';
     }
 }
 

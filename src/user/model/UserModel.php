@@ -59,7 +59,6 @@ class UserModel
         if ($wdb->commit() === false) {
             return false;
         }
-        self::onUpdateData($userId);
         return true;
     }
 
@@ -78,7 +77,7 @@ class UserModel
                 '*',
                 array('id'), array($userId)
             );
-            if ($ret !== false) {
+            if (!empty($ret)) {
                 Cache::set($ck, json_encode($ret));
             }
         }
@@ -166,7 +165,7 @@ class UserModel
                 '*',
                 array('phone'), array($phone)
             );
-            if ($ret !== false) {
+            if (!empty($ret)) {
                 Cache::set($ck, json_encode($ret));
             }
         }

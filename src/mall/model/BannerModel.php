@@ -57,7 +57,7 @@ class BannerModel
         );
         return $ret === false ? array() : $ret;
     }
-    public static function findAllValidBanner($now, $showArea)
+    public static function fetchAllValidBanner($now, $showArea)
     {
         $sql = "select * from m_banner where (begin_time = 0 or begin_time <= $now)"
             . " and (end_time = 0 or end_time >= $now)"

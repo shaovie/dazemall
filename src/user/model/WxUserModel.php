@@ -42,7 +42,6 @@ class WxUserModel
         if ($ret === false) {
             return false;
         }
-        self::onUpdateData($wxUserInfo['openid']);
         return true;
     }
 
@@ -121,7 +120,7 @@ class WxUserModel
                 '*',
                 array('user_id'), array($userId)
             );
-            if ($ret !== false) {
+            if (!empty($ret)) {
                 Cache::set($ck, json_encode($ret));
             }
         }
@@ -148,7 +147,7 @@ class WxUserModel
                 '*',
                 array('openid'), array($openid)
             );
-            if ($ret !== false) {
+            if (!empty($ret)) {
                 Cache::set($ck, json_encode($ret));
             }
         }

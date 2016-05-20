@@ -30,7 +30,6 @@ class GoodsCategoryModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        self::onUpdateData($categoryId);
         return true;
     }
 
@@ -49,8 +48,8 @@ class GoodsCategoryModel
                 '*',
                 array('category_id'), array($categoryId)
             );
-            if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_GOODS_CATEGORY_INFO_EXPIRE, json_encode($ret));
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_GOODS_CATEGORY_INFO_EXPIRE, json_encode($ret));
             }
         }
         return $ret === false ? array() : $ret;
@@ -97,7 +96,7 @@ class GoodsCategoryModel
             false,
             1
         );
-        self::onUpdateData($categoryId);
+        Cache::del(Cache::CK_GOODS_CATEGORY_INFO . $categoryId);
         return $ret === false ? false : true;
     }
 

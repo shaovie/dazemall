@@ -31,8 +31,8 @@ class GoodsSKUModel
                 array('goods_id', 'state', 'sale_price>'), array($goodsId, self::SKU_ST_VALID, 0),
                 array('and', 'and')
             );
-            if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_GOODS_SKU_EXPIRE, json_encode($ret));
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_GOODS_SKU_EXPIRE, json_encode($ret));
             }
         }
         return $ret === false ? array() : $ret;

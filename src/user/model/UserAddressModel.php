@@ -40,7 +40,7 @@ class UserAddressModel
             'province_id' => $provinceId,
             'city_id' => $cityId,
             'district_id' => $districtId,
-            'detail' => $detailAddr,
+            'detail_addr' => $detailAddr,
             're_id_card' => $reIdCard,
             'is_default' => $isDefault,
             'ctime' => CURRENT_TIME,
@@ -50,7 +50,6 @@ class UserAddressModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        self::onUpdateData($userId);
         return true;
     }
 
@@ -90,7 +89,7 @@ class UserAddressModel
             '*',
             array('user_id'), array($userId)
         );
-        if ($ret !== false) {
+        if (!empty($ret)) {
             Cache::set($ck, json_encode($ret));
         } else {
             return array();

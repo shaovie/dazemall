@@ -10,6 +10,7 @@ use \src\common\Util;
 use \src\common\Check;
 use \src\user\model\UserOrderModel;
 use \src\user\model\UserModel;
+use \src\pay\model\PayModel;
 
 class OrderController extends AdminController
 {
@@ -126,7 +127,13 @@ class OrderController extends AdminController
             return ;
         }
 
-        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Order/search', $searchParams);
+        $pageHtml = $this->pagination(
+            $totalNum,
+            $page,
+            self::ONE_PAGE_SIZE,
+            '/admin/Order/search',
+            $searchParams
+        );
         $data = array(
             'orderList' => $orderList,
             'totalOrderNum' => $totalNum,
@@ -154,5 +161,52 @@ class OrderController extends AdminController
             'stateDesc' => '待支付',
         );
         $this->display("order_info", $data);
+    }
+
+    public function orderPrint()
+    {
+        $orderId = trim($this->getParam('orderId', ''));
+        $order = UserOrderModel::findOrderByOrderId($orderId, 'r');
+        $data = $this->fillPrintOrderInfo($order);
+        $this->display('order_print', $data);
+    }
+
+    private function fillPrintOrderInfo($order)
+    {
+        if (empty($order))
+            return array();
+        $data = array();
+        $data['userName'] = '';
+        $userInfo = UserModel::findUserById($order['user_id']);
+        if (!empty($userInfo))
+            $data['userName'] = $userInfo['nickname'];
+        $orderInfo = array();
+        $orderInfo['ctime'] = $order['ctime'];
+        $orderInfo['payType'] = PayModel::payTypeDesc($order['ol_pay_type']);
+        $orderInfo['orderId'] = $order['order_id'];
+        $orderInfo['payTime'] = '';
+        if ($order['pay_state'] == PayModel::PAY_ST_SUCCESS)
+            $orderInfo['payTime'] = date('Y-m-d H:i:s', $order['pay_time']);
+        else if ($order['pay_state'] == PayModel::PAY_ST_UNPAY)
+            $orderInfo['payTime'] = '未支付';
+        else if ($order['pay_state'] == PayModel::PAY_ST_PAYING)
+            $orderInfo['payTime'] = '支付中';
+        else
+            $orderInfo['payTime'] = '未知';
+        $orderInfo['deliveryTime'] = $order['delivery_time'];
+        $sysCityCodeBook = include(CONFIG_PATH . '/city_code_book.php');
+        $orderInfo['fullAddr'] = $sysCityCodeBook[$addr['province_id']]
+            . $sysCityCodeBook[$addr['city_id']]
+            . $sysCityCodeBook[$addr['district_id']]
+            . $order['detail_addr'];
+        $orderInfo['fullAddr'] ='山东省荷泽市比较区载歌载舞槈打垮';
+        $orderInfo['reName'] = $order['re_name'];
+        $orderInfo['rePhone'] = $order['re_phone'];
+        $orderInfo['orderAmount'] = $order['order_amount'];
+
+        $orderInfo['goodsList'] = array(array('name' => '鲜嫩滑 白豆腐500g', 'price' => 10.00, 'amount' => 23)); // TODO
+
+        $data['order'] = $orderInfo;
+        return $data;
     }
 }

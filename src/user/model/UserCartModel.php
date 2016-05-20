@@ -40,7 +40,6 @@ class UserCartModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        self::onUpdateData($userId);
         return true;
     }
 
@@ -65,8 +64,8 @@ class UserCartModel
                 '*',
                 array('user_id'), array($userId)
             );
-            if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_CART_LIST_EXPIRE, json_encode($ret));
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_CART_LIST_EXPIRE, json_encode($ret));
             }
         }
         if (empty($ret)) {

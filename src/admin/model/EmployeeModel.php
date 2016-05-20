@@ -48,7 +48,7 @@ class EmployeeModel
                 '*',
                 array('account'), array($account)
             );
-            if ($ret !== false) {
+            if (!empty($ret)) {
                 Cache::set($ck, json_encode($ret));
             }
         }

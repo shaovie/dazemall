@@ -56,31 +56,56 @@
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
-				<th style="width:120px;">订单编号</th>
-				<th style="width:100px;">收货人姓名</th>
-				<th style="width:80px;">联系电话</th>
-				<th style="width:80px;">支付方式</th>
-				<th style="width:80px;">配送方式</th>
-				<th style="width:50px;">运费</th>
-				<th style="width:100px;">总价</th>
-				<th style="width:80px;">状态</th>
-				<th style="width:150px;">下单时间</th>
+				<th style="width:120px;text-align:center;">订单编号</th>
+				<th style="width:100px;text-align:center;">收货人姓名</th>
+				<th style="width:90px;text-align:center;">联系电话</th>
+				<th style="width:100px;text-align:center;">支付方式</th>
+				<th style="width:100px;text-align:center;">配送方式</th>
+				<th style="width:60px;text-align:center;">运费</th>
+				<th style="width:100px;text-align:center;">总价</th>
+				<th style="width:150px;text-align:center;">状态</th>
+				<th style="width:250px;text-align:center;">时间</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
             <?php foreach ($orderList as $order):?>
 			<tr>
-				<td><?php echo $order['order_id']?></td>
-				<td><?php echo $order['re_name']?></td>
-				<td><?php echo $order['re_phone']?></td>
-				<td><?php echo $order['ol_pay_type']?> </td>
-				<td>默认</td>
-                <td><?php echo $order['postage']?></td>
-				<td><?php echo $order['order_amount']?></td>
-				<td><span class="label label-danger">待发货</span></td>
-				<td><?php echo date('Y-m-d H:i:s', $order['ctime'])?></td>
-				<td><a class="btn btn-xs btn-info" href="/admin/Order/info?orderId=<?php echo $order['order_id']?>"><i class="icon-edit"></i>查看详情</a>&nbsp;&nbsp;</td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $order['order_id']?></td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $order['re_name']?></td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $order['re_phone']?></td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $order['ol_pay_type']?> </td>
+				<td style="text-align:center;vertical-align:middle;">默认</td>
+                <td style="text-align:center;vertical-align:middle;"><?php echo $order['postage']?></td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $order['order_amount']?></td>
+                <td style="text-align:left;vertical-align:middle;">
+                    <?php if ($order['pay_state'] == 0):?>
+                    <div>支付：<span class="label label-warning">未支付</span> </div>
+                    <?php elseif ($order['pay_state'] == 1):?>
+                    <div>支付：<span class="label label-info">支付中</span> </div>
+                    <?php elseif ($order['pay_state'] == 2):?>
+                    <div>支付：<span class="label label-success">支付中</span> </div>
+                    <?php else:?>
+                    <div>支付：<span class="label label-important">未知</span> </div>
+                    <?php endif?>
+
+                    <?php if ($order['order_state'] == 0):?>
+                    <div>订单：<span class="label label-warning">提交成功</span> </div>
+                    <?php elseif ($order['order_state'] == 1):?>
+                    <div>订单：<span class="label label-success">订单完成</span> </div>
+                    <?php elseif ($order['order_state'] == 2):?>
+                    <div>订单：<span class="label label-info">订单取消</span> </div>
+                    <?php else:?>
+                    <div>订单：<span class="label label-important">未知</span> </div>
+                    <?php endif?>
+				<td style="text-align:left;vertical-align:middle;">
+                    <div>支付时间：<?php echo empty($order['pay_time']) ? '' : date('Y-m-d H:i:s', $order['pay_time'])?></div>
+                    <div>下单时间：<?php echo date('Y-m-d H:i:s', $order['ctime'])?></div>
+                </td>
+				<td style="text-align:center;vertical-align:middle;">
+                    <a class="btn btn-xs btn-info" href="/admin/Order/info?orderId=<?php echo $order['order_id']?>"><i class="icon-edit"></i>查看详情</a>
+                    &nbsp;<a class="btn btn-xs btn-info" href="/admin/Order/orderPrint?orderId=<?php echo $order['order_id'];?>" target="_bank">订单打印 </a>
+                </td>
 			</tr>
             <?php endforeach?>
 		</tbody>

@@ -87,4 +87,35 @@ class GoodsModuleGListModel
         );
         return $ret !== false;
     }
+
+    public static function fillGoodsList($moduleList)
+    {
+        if (empty($moduleList))
+            return array();
+
+        $data = array();
+        foreach ($moduleList as $module) {
+            $goods = self::getAllGoods($module['id']);
+            if (empty($goods))
+                continue;
+
+            $glist = array();
+            foreach ($goods as $g) {
+                $ginfo = GoodsModel::findGoodsById($g['goods_id']);
+                if (!empty($ginfo) && $ginfo['state'] == GoodsModel::GOODS_ST_UP) {
+                    $v['goodsId'] = $ginfo['id'];
+                    $v['name'] = $ginfo['name'];
+                    $v['imageUrl'] = $ginfo['image_url'];
+                    $v['marketPrice'] = $ginfo['market_price'];
+                    $v['salePrice'] = $ginfo['sale_price'];
+                    $glist[] = $v;
+                }
+            }
+            
+            $r['title'] = $module['title'];
+            $r['goodsList'] = $glist;
+            $data[] = $r;
+        }
+        return $data;
+    }
 }

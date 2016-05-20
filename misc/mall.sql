@@ -191,12 +191,15 @@ create table o_order (
     province_id         int not null default 0,                     # 省
     city_id             int not null default 0,                     # 市
     district_id         int not null default 0,                     # 区
-    detail              varchar(255) not null default '',           # 详细街道地址
+    detail_addr         varchar(255) not null default '',           # 详细街道地址
     re_id_card          varchar(18) not null default '',            # 收件人身份证
 
     -- 状态
     pay_state           tinyint not null default 0,                 # 0:未支付 1:支付中 2:支付成功
+    pay_time            int not null default 0,                     # 支付时间
     order_state         tinyint not null default 0,                 # 0:创建 1:完成 3:取消
+    delivery_state      tinyint not null default 0,                 # 0:未发货 1:发货中 2:发货成功
+    delivery_time       int not null default 0,                     # 发货时间
 
     order_amount        decimal(10,2) not null default 0.0,         # 订单总金额
     ol_pay_amount       decimal(10,2) not null default 0.0,         # 在线支付金额
@@ -211,6 +214,7 @@ create table o_order (
     remark              varchar(255) not null default '',           # 客户备注信息
 
     attach              varchar(255) not null default '',           # json格式附属信息
+
 
     ctime               int not null default 0,                     # 创建时间
     mtime               int not null default 0,                     # 修改时间

@@ -62,8 +62,8 @@ class CouponCfgModel
                 '*',
                 array('id'), array($couponId)
             );
-            if ($ret !== false) {
-                Cache::setex($ck, json_encode($ret), Cache::CK_COUPON_CFG_INFO_EXPIRE);
+            if (!empty($ret)) {
+                Cache::setEx($ck, json_encode($ret), Cache::CK_COUPON_CFG_INFO_EXPIRE);
             }
         }
         return $ret === false ? array() : $ret;
@@ -83,8 +83,8 @@ class CouponCfgModel
         } else {
             $sql = "select * from m_coupon_cfg where id in ($idSet)";
             $ret = DB::getDB()->rawQuery($sql);
-            if ($ret !== false) {
-                Cache::setex($ck, json_encode($ret), Cache::CK_COUPON_CFG_INFO_LIST_EXPIRE);
+            if (!empty($ret)) {
+                Cache::setEx($ck, json_encode($ret), Cache::CK_COUPON_CFG_INFO_LIST_EXPIRE);
             }
         }
         return $ret === false ? array() : $ret;

@@ -34,11 +34,11 @@
 		</tr>
         <?php foreach ($moduleList as $module):?>
 		<tr>
-			<td style="padding:0px;margin:0px;">
-                <p style="text-align:center;vertical-align:middle;margin:2px 0px;"> <img src="<?php echo $module['image_url']?>" height="60" width="60"></p>
-            </td>
 			<td style="text-align:center;vertical-align:middle;">
                 <div><?php echo $module['title']?></div>
+            </td>
+			<td style="padding:0px;margin:0px;">
+                <p style="text-align:center;vertical-align:middle;margin:2px 0px;"> <img src="<?php echo $module['image_url']?>" height="60" width="60"></p>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
 				<div>开始：<?php echo empty($module['begin_time']) ? '' : date('Y-m-d H:i:s', $module['begin_time'])?></div>

@@ -10,6 +10,7 @@ use \src\common\Nosql;
 use \src\common\Cache;
 use \src\common\Log;
 use \src\common\DB;
+use \src\common\Util;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsSKUModel;
 use \src\user\model\UserModel;
@@ -42,7 +43,7 @@ class UserOrderModel
         $provinceId,
         $cityId,
         $districtId,
-        $detail,
+        $detailAddr,
         $reIdCard,
         $payState,
         $orderAmount,
@@ -69,7 +70,7 @@ class UserOrderModel
             'province_id' => $provinceId,
             'city_id' => $cityId,
             'district_id' => $districtId,
-            'detail' => $detail,
+            'detail_addr' => $detailAddr,
             're_id_card' => $reIdCard,
             'pay_state' => $payState,
             'order_state' => self::ORDER_ST_CREATED,
@@ -91,7 +92,6 @@ class UserOrderModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        self::onUpdateData($orderId);
         return true;
     }
 
@@ -110,7 +110,7 @@ class UserOrderModel
                 '*',
                 array('order_id'), array($orderId)
             );
-            if ($ret !== false) {
+            if (!empty($ret)) {
                 Cache::setEx($ck, Cache::CK_ORDER_INFO_EXPIRE, json_encode($ret));
             }
         }

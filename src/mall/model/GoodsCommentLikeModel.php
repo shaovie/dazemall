@@ -29,7 +29,7 @@ class GoodsCommentLikeModel
             return false;
         }
         $ck = Cache::CK_GOODS_COMMENT_HAD_LIKE . $commentId . ':' . $userId;
-        Cache::setex($ck, Cache::CK_GOODS_COMMENT_HAD_LIKE_EXPIRE, '1');
+        Cache::setEx($ck, Cache::CK_GOODS_COMMENT_HAD_LIKE_EXPIRE, '1');
         return true;
     }
 
@@ -45,7 +45,7 @@ class GoodsCommentLikeModel
                 array('and')
             );
             if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_GOODS_COMMENT_HAD_LIKE_EXPIRE, (string)$ret);
+                Cache::setEx($ck, Cache::CK_GOODS_COMMENT_HAD_LIKE_EXPIRE, (string)$ret);
             }
         }
         return (int)$ret > 0;

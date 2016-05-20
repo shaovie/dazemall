@@ -29,7 +29,6 @@ class GoodsDetailModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        self::onUpdateData($goodsId);
         return true;
     }
 
@@ -64,8 +63,8 @@ class GoodsDetailModel
                 '*',
                 array('goods_id'), array($goodsId)
             );
-            if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_GOODS_DETAIL_INFO_EXPIRE, json_encode($ret));
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_GOODS_DETAIL_INFO_EXPIRE, json_encode($ret));
             }
         }
         return $ret === false ? array() : $ret;
