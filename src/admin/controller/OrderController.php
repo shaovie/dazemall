@@ -195,11 +195,10 @@ class OrderController extends AdminController
             $orderInfo['payTime'] = '未知';
         $orderInfo['deliveryTime'] = $order['delivery_time'];
         $sysCityCodeBook = include(CONFIG_PATH . '/city_code_book.php');
-        $orderInfo['fullAddr'] = $sysCityCodeBook[$addr['province_id']]
-            . $sysCityCodeBook[$addr['city_id']]
-            . $sysCityCodeBook[$addr['district_id']]
+        $orderInfo['fullAddr'] = $sysCityCodeBook[$order['province_id']]
+            . $sysCityCodeBook[$order['city_id']]
+            . $sysCityCodeBook[$order['district_id']]
             . $order['detail_addr'];
-        $orderInfo['fullAddr'] ='山东省荷泽市比较区载歌载舞槈打垮';
         $orderInfo['reName'] = $order['re_name'];
         $orderInfo['rePhone'] = $order['re_phone'];
         $orderInfo['orderAmount'] = $order['order_amount'];

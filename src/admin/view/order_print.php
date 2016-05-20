@@ -5,11 +5,11 @@
 <h1 align="left"><?php echo $val?></h1>
 <table width="227px" cellpadding="1">
 <tr><td align="left">购 货 人：</td> <td><?php echo $userName?></td></tr>
-<tr><td align="left">下单时间：</td><td><?php echo date('Y-m-d H:i:s', $order['ctime'])?></td> </tr>
-<tr><td align="left">支付方式：</td><td><?php echo $order['payType']?></td></tr>
 <tr><td align="left">订单编号：</td><td><?php echo $order['orderId']?></td></tr>
+<tr><td align="left">下单时间：</td><td><?php echo date('Y-m-d H:i:s', $order['ctime'])?></td> </tr>
 <tr><td align="left">付款时间：</td><td><?php echo $order['payTime']?></td></tr>
-<tr><td align="left">发货时间：</td><td><?php echo $order['deliveryTime']?></td></tr>
+<tr><td align="left">支付方式：</td><td><?php echo $order['payType']?></td></tr>
+<tr><td align="left">发货时间：</td><td><?php echo date('Y-m-d H:i:s', $order['deliveryTime'])?></td></tr>
 <tr><td align="left">配送方式：</td><td>默认</td></tr>
 <tr><td align="left">收货地址：</td><td><?php echo mb_substr($order['fullAddr'], 0, 6)?></td></tr>
 <tr><td colspan="7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo mb_substr($order['fullAddr'], 6)?>&nbsp;</tr>
