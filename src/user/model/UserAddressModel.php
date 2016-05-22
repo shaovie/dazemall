@@ -65,7 +65,7 @@ class UserAddressModel
             array('and'),
             1
         );
-        if ($ret === false) || (int)$ret <= 0) {
+        if ($ret === false || (int)$ret <= 0) {
             return false;
         }
         self::onUpdateData($userId);
@@ -110,7 +110,7 @@ class UserAddressModel
         return array();
     }
 
-    public static function findDefaultAddr($userId, $fromDb = 'w')
+    public static function getDefaultAddr($userId, $fromDb = 'w')
     {
         if (empty($userId)) {
             return array();
@@ -127,6 +127,16 @@ class UserAddressModel
         return $addr[0];
     }
 
+    public static function getFullAddr($addr)
+    {
+        $sysCityCodeBook = include_once(CONFIG_PATH . '/city_code_book.php');
+        $fullAddr = $sysCityCodeBook[$addr['province_id']]
+            . $sysCityCodeBook[$order['city_id']]
+            . $sysCityCodeBook[$order['district_id']]
+            . (isset($addr['detail_addr']) ? $addr['detail_addr'] : $addr['detail']);
+        return $fullAddr;
+    }
+
     public static function setDefaultAddr($userId, $addrId, $val = 1)
     {
         if (empty($userId) || empty($addrId)) {
@@ -139,7 +149,7 @@ class UserAddressModel
             array('and'),
             1
         );
-        if ($ret === false) || (int)$ret <= 0) {
+        if ($ret === false || (int)$ret <= 0) {
             return false;
         }
         self::onUpdateData($userId);
@@ -157,7 +167,7 @@ class UserAddressModel
             array('and'),
             1
         );
-        if ($ret === false) || (int)$ret <= 0) {
+        if ($ret === false || (int)$ret <= 0) {
             return false;
         }
         self::onUpdateData($userId);

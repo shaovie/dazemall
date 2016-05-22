@@ -48,6 +48,9 @@ class Cache
     //= for employee
     const CK_EMPLOYEE_INFO_FOR_AC    = 'employee_info_for_ac:';
 
+    //= global
+    const CK_MALL_GLOBAL_CONFIG      = 'mall_global_config:';
+
     //= public static methods
     //
     private static function getCache()

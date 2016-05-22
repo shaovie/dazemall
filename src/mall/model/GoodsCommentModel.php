@@ -47,8 +47,6 @@ class GoodsCommentModel
         if ($ret === false) {
             return false;
         }
-        $ck = Cache::CK_GOODS_HAD_COMMENT . $userId . ':' . $orderId . ':' . $goodsId;
-        Cache::setEx($ck, Cache::CK_GOODS_HAD_COMMENT_EXPIRE, '1');
         return true;
     }
 
@@ -99,8 +97,8 @@ class GoodsCommentModel
                 array('user_id', 'goods_id', 'order_id'), array($userId, $goodsId, $orderId),
                 array('and', 'and')
             );
-            if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_GOODS_HAD_COMMENT_EXPIRE, (string)$ret);
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_GOODS_HAD_COMMENT_EXPIRE, (string)$ret);
             }
         }
         return (int)$ret > 0;

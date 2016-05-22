@@ -20,8 +20,11 @@ class CartController extends MallController
 
     public function index()
     {
-        $cartList = CartModel::getCartList($this->userId());
-        $this->display('cart', $cartList);
+        $allTotalPrice = 0;
+        $cartList = CartModel::getCartList($this->userId(), $allTotalPrice);
+        $data['cartList'] = $cartList;
+        $data['allTotalPrice'] = $allTotalPrice;
+        $this->display('cart', $data);
     }
 }
 

@@ -162,7 +162,7 @@ class UserBaseController extends BaseController
 
     private function toDefaultLogin()
     {
-        header('Location: /user/Login');
+        //header('Location: /user/Login');
     }
 }
 

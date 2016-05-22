@@ -110,7 +110,7 @@ class UserModel
     {
         $ret = self::findUserById($userId);
         if (empty($ret)) {
-            return 0.0;
+            return 0.00;
         }
         return $ret['cash_amount'];
     }

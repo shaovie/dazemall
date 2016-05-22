@@ -12,12 +12,15 @@ use \src\common\Log;
 use \src\common\DB;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsDetailModel;
+use \src\mall\model\GoodsCategoryModel;
 
 class GoodsModel
 {
     const GOODS_ST_INVALID         = 0;  // 无效
     const GOODS_ST_VALID           = 1;  // 有效
     const GOODS_ST_UP              = 2;  // 上架-展示在商城中
+
+    const CATEGORY_LIST_PAGESIZE   = 12;
 
     public static function newOne(
         $name,
@@ -123,16 +126,55 @@ class GoodsModel
 
     public static function getStateDesc($state)
     {
-        if ($state == 0) {
+        if ($state == self::GOODS_ST_INVALID) {
             return '无效';
         }
-        if ($state == 1) {
+        if ($state == self::GOODS_ST_VALID) {
             return '有效';
         }
-        if ($state == 2) {
+        if ($state == self::GOODS_ST_UP) {
             return '上架销售';
         }
         return 'null';
+    }
+
+    public static function fetchGoodsByCategory($categoryId, $page, $pageSize)
+    {
+        $page = $page > 0 ? $page - 1 : $page;
+
+        $level = GoodsCategoryModel::calcLevel($categoryId);
+        if ($level == 1) {
+            $lv_1 = (int)($categoryId / 1000000) * 1000000;
+            $lv_2 = ((int)($categoryId / 1000000) + 1) * 1000000;
+            $sql = 'select * from g_goods where category_id > ' . $lv_1
+                . ' and category_id < ' . $lv_2
+                . ' and state = ' . self::GOODS_ST_UP
+                . ' order by sort asc limit ' . ($page * $pageSize) . ',' . $pageSize;
+            $ret = DB::getDB('r')->rawQuery($sql);
+            return $ret === false ? array() : $ret;
+        }
+        
+        return self::fetchSomeGoods(
+            array('category_id', 'state'),
+            array($categoryId, self::GOODS_ST_UP),
+            array('and'),
+            $page,
+            $pageSize
+        );
+    }
+
+    public static function fillShowGoodsListData($goodsList)
+    {
+        $data = array();
+        if (empty($goodsList))
+            return $data;
+        foreach ($goodsList as $goods) {
+            $g['goodsId'] = $goods['goodsId'];
+            $g['imageUrl'] = $goods['image_url'];
+            $g['salePrice'] = number_format($goods['sale_price'], 2, '.', '');
+            $data[] = $g;
+        }
+        return $data;
     }
 
     public static function fetchSomeGoods($conds, $vals, $rel, $page, $pageSize)
@@ -144,7 +186,7 @@ class GoodsModel
             '*',
             $conds, $vals,
             $rel,
-            array('sort'), array('desc'),
+            array('sort'), array('asc'),
             array($page * $pageSize, $pageSize)
         );
 

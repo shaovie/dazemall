@@ -21,9 +21,7 @@ class UserCartModel
         $attach
     ) {
         if (empty($goodsId)
-            || empty($userId)
-            || empty($skuAttr)
-            || empty($skuValue)) {
+            || empty($userId)) {
             return false;
         }
 
@@ -74,6 +72,21 @@ class UserCartModel
         return $ret;
     }
 
+    public static function getCartGoods($userId, $goodsId, $skuAttr, $skuValue)
+    {
+        $goodsList = self::getCartList($userId);
+        if (empty($goodsList))
+            return array();
+        foreach ($goodsList as $goods) {
+            if ($goods['goods_id'] == $goodsId
+                && $goods['sku_attr'] == $skuAttr
+                && $goods['sku_value'] == $skuValue) {
+                return $goods;
+            }
+        }
+        return array();
+    }
+
     public static function modifyAmount($userId, $cartId, $amount)
     {
         if (empty($userId)
@@ -88,7 +101,7 @@ class UserCartModel
             array('and'),
             1
         );
-        if ($ret === false) || (int)$ret <= 0) {
+        if ($ret === false || (int)$ret <= 0) {
             return false;
         }
         self::onUpdateData($userId);
@@ -107,7 +120,7 @@ class UserCartModel
             array('and'),
             1
         );
-        if ($ret === false) || (int)$ret <= 0) {
+        if ($ret === false || (int)$ret <= 0) {
             return false;
         }
         self::onUpdateData($userId);

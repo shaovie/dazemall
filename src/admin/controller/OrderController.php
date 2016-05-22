@@ -9,6 +9,7 @@ namespace src\admin\controller;
 use \src\common\Util;
 use \src\common\Check;
 use \src\user\model\UserOrderModel;
+use \src\user\model\UserAddressModel;
 use \src\user\model\UserModel;
 use \src\pay\model\PayModel;
 
@@ -194,11 +195,7 @@ class OrderController extends AdminController
         else
             $orderInfo['payTime'] = '未知';
         $orderInfo['deliveryTime'] = $order['delivery_time'];
-        $sysCityCodeBook = include(CONFIG_PATH . '/city_code_book.php');
-        $orderInfo['fullAddr'] = $sysCityCodeBook[$order['province_id']]
-            . $sysCityCodeBook[$order['city_id']]
-            . $sysCityCodeBook[$order['district_id']]
-            . $order['detail_addr'];
+        $orderInfo['fullAddr'] = UserAddressModel::getFullAddr($order);
         $orderInfo['reName'] = $order['re_name'];
         $orderInfo['rePhone'] = $order['re_phone'];
         $orderInfo['orderAmount'] = $order['order_amount'];

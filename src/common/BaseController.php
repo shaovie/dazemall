@@ -34,7 +34,7 @@ class BaseController
 
     protected function isAjax()
     {
-        if (isset($_GET['tjzAjax']) || isset($_POST['tjzAjax'])) {
+        if (isset($_GET['isAjax']) || isset($_POST['isAjax'])) {
             return true;
         }
         return false;

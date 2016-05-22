@@ -14,10 +14,7 @@ class HomeController extends MallController
 {
     public function index()
     {
-        $bannerList = BannerModel::fetchAllValidBanner(
-            CURRENT_TIME,
-            BannerModel::SHOW_AREA_HOME_TOP
-        );
+        $bannerList = BannerModel::fillShowBannerList(BannerModel::SHOW_AREA_HOME_TOP);
         $goodsModuleList = GoodsModuleModel::fetchAllValidModule(CURRENT_TIME);
         $moduleGoodsList = GoodsModuleGListModel::fillGoodsList($goodsModuleList);
         $data = array(

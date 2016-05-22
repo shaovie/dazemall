@@ -13,6 +13,8 @@ class UserAddressController extends ApiController
 {
     public function getAll()
     {
+        $this->checkLoginAndNotice();
+
         $addrList = UserAddressModel::getAddrList($this->userId());
 
         if (empty($addrList)) {
@@ -50,6 +52,8 @@ class UserAddressController extends ApiController
 
     public function add()
     {
+        $this->checkLoginAndNotice();
+
         $reName = $this->postParam('name', ''); // 收件人
         $rePhone = $this->postParam('phone', '');
         $provinceId = (int)$this->postParam('provinceId', 0);
@@ -95,6 +99,8 @@ class UserAddressController extends ApiController
 
     public function setDefault()
     {
+        $this->checkLoginAndNotice();
+
         $addrId = $this->getParam('addrId', 0);
         if (empty($addrId)) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
@@ -110,6 +116,8 @@ class UserAddressController extends ApiController
 
     public function edit()
     {
+        $this->checkLoginAndNotice();
+
         $reName = $this->postParam('name', ''); // 收件人
         $rePhone = $this->postParam('phone', '');
         $provinceId = (int)$this->postParam('provinceId', 0);
@@ -158,6 +166,8 @@ class UserAddressController extends ApiController
 
     public function del()
     {
+        $this->checkLoginAndNotice();
+
         $addrId = $this->getParam('id', 0);
         if (empty($addrId)) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');

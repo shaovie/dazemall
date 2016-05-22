@@ -25,11 +25,9 @@ class GoodsCommentLikeModel
             'ctime'     => CURRENT_TIME,
         );
         $ret = DB::getDB('w')->insertOne('g_goods_comment_like', $data);
-        if ($ret === false) {
+        if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        $ck = Cache::CK_GOODS_COMMENT_HAD_LIKE . $commentId . ':' . $userId;
-        Cache::setEx($ck, Cache::CK_GOODS_COMMENT_HAD_LIKE_EXPIRE, '1');
         return true;
     }
 
@@ -44,7 +42,7 @@ class GoodsCommentLikeModel
                 array('comment_id', 'user_id'), array($commentId, $userId),
                 array('and')
             );
-            if ($ret !== false) {
+            if (!empty($ret)) {
                 Cache::setEx($ck, Cache::CK_GOODS_COMMENT_HAD_LIKE_EXPIRE, (string)$ret);
             }
         }

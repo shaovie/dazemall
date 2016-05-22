@@ -28,8 +28,6 @@ class GoodsLikeModel
         if ($ret === false) {
             return false;
         }
-        $ck = Cache::CK_GOODS_HAD_LIKE . $goodsId . ':' . $userId;
-        Cache::setex($ck, Cache::CK_GOODS_HAD_LIKE_EXPIRE, '1');
         return true;
     }
 
@@ -44,8 +42,8 @@ class GoodsLikeModel
                 array('goods_id', 'user_id'), array($goodsId, $userId),
                 array('and')
             );
-            if ($ret !== false) {
-                Cache::setex($ck, Cache::CK_GOODS_HAD_LIKE_EXPIRE, (string)$ret);
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_GOODS_HAD_LIKE_EXPIRE, (string)$ret);
             }
         }
         return (int)$ret > 0;

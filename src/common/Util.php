@@ -98,4 +98,13 @@ class Util
         $xml .= '</xml>';
         return $xml; 
     }
+
+    public static function getAssetsUrlBase($uri)
+    {
+        if (ASSETS_USE_CDN) {
+            return 'http://' . ASSETS_CDN_DOMAIN;
+        }
+        return '';
+    }
+
 }

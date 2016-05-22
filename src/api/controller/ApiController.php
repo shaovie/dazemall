@@ -13,7 +13,5 @@ class ApiController extends UserBaseController
     public function __construct()
     {
         $this->doLogin();
-
-        $this->checkLoginAndNotice();
     }
 }

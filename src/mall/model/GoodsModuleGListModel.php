@@ -106,8 +106,8 @@ class GoodsModuleGListModel
                     $v['goodsId'] = $ginfo['id'];
                     $v['name'] = $ginfo['name'];
                     $v['imageUrl'] = $ginfo['image_url'];
-                    $v['marketPrice'] = $ginfo['market_price'];
-                    $v['salePrice'] = $ginfo['sale_price'];
+                    $v['marketPrice'] = number_format($ginfo['market_price'], 2, '.', '');
+                    $v['salePrice'] = number_format($ginfo['sale_price'], 2, '.', '');
                     $glist[] = $v;
                 }
             }

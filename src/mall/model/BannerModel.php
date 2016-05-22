@@ -60,10 +60,28 @@ class BannerModel
     public static function fetchAllValidBanner($now, $showArea)
     {
         $sql = "select * from m_banner where (begin_time = 0 or begin_time <= $now)"
-            . " and (end_time = 0 or end_time >= $now)"
+            . " and (end_time = 0 or end_time > $now)"
             . " and show_area = $showArea order by sort asc";
         $ret = DB::getDB()->rawQuery($sql);
         return $ret === false ? array() : $ret;
+    }
+
+    public static function fillShowBannerList($area)
+    {
+        $bannerList = BannerModel::fetchAllValidBanner(CURRENT_TIME, $area);
+        if (empty($bannerList))
+            return array();
+        $data = array();
+        foreach ($bannerList as $banner) {
+            if (empty($banner['image_url']))
+                continue;
+            $v['imageUrl'] = $banner['image_url'];
+            $v['link'] = '';
+            if ($banner['link_type'] == self::LINK_TYPE_GOODS)
+                $v['link'] = '/mall/Goods/detail?goodsId=' . $banner['link_value'];
+            $data[] = $v;
+        }
+        return $data;
     }
 
     public static function update($bannerId, $data)

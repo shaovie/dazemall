@@ -11,6 +11,8 @@ class OrderController extends ApiController
     // 立即购买
     public function immediateBuy()
     {
+        $this->checkLoginAndNotice();
+
         $goodsId = (int)$this->postParam('goodsId', 0);
         $skuAttr = $this->postParam('skuAttr', '');
         $skuvalue = $this->postParam('skuValue', '');
@@ -37,6 +39,7 @@ class OrderController extends ApiController
     // 快速下单
     public function quickOrder()
     {
+        $this->checkLoginAndNotice();
     }
 }
 
