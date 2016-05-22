@@ -15,6 +15,7 @@ define('LOG_DIR',               ROOT_PATH . '/logs');
 define('LIBS_DIR',              ROOT_PATH . '/libs');
 define('CONFIG_PATH',           ROOT_PATH . '/config');
 define('PUBLIC_PATH',           ROOT_PATH . '/public');
+define('JS_CSS_CONFIG_PATH',    EDITION == 'test' ? ROOT_PATH . '/config/js_css_test' : ROOT_PATH . '/config/js_css');
 
 define('CURRENT_TIME',          $_SERVER['REQUEST_TIME']); // 不敏感的时间可以取这个值
 define('APP_HOST',              $_SERVER['APP_HOST']);

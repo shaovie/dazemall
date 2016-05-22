@@ -1,0 +1,4631 @@
+{
+    "res": {
+        "lib/mod.js": {
+            "uri": "/static/lib/mod.js",
+            "type": "js",
+            "pkg": "p0"
+        },
+        "404/index": {
+            "uri": "/static/modules/404/index.js",
+            "type": "js",
+            "deps": [
+                "modules/404/index.less"
+            ],
+            "id": "404/index"
+        },
+        "modules/404/index.less": {
+            "uri": "/static/modules/404/index.css",
+            "type": "css",
+            "id": "modules/404/index.less"
+        },
+        "activity/index": {
+            "uri": "/static/modules/activity/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/page-loader/index",
+                "modules/activity/index.less"
+            ],
+            "id": "activity/index"
+        },
+        "modules/activity/index.less": {
+            "uri": "/static/modules/activity/index.css",
+            "type": "css",
+            "id": "modules/activity/index.less"
+        },
+        "addr-edit/index": {
+            "uri": "/static/modules/addr-edit/index.js",
+            "type": "js",
+            "deps": [
+                "modules/addr-edit/index.less"
+            ],
+            "id": "addr-edit/index"
+        },
+        "modules/addr-edit/index.less": {
+            "uri": "/static/modules/addr-edit/index.css",
+            "type": "css",
+            "id": "modules/addr-edit/index.less"
+        },
+        "addr/index": {
+            "uri": "/static/modules/addr/index.js",
+            "type": "js",
+            "deps": [
+                "modules/addr/index.less"
+            ],
+            "id": "addr/index"
+        },
+        "modules/addr/index.less": {
+            "uri": "/static/modules/addr/index.css",
+            "type": "css",
+            "id": "modules/addr/index.less"
+        },
+        "address/index": {
+            "uri": "/static/modules/address/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/address/index",
+                "modules/address/index.less"
+            ],
+            "id": "address/index"
+        },
+        "modules/address/index.less": {
+            "uri": "/static/modules/address/index.css",
+            "type": "css",
+            "id": "modules/address/index.less"
+        },
+        "app-activity/index": {
+            "uri": "/static/modules/app-activity/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/timer/timer",
+                "common/util/index",
+                "modules/app-activity/index.less"
+            ],
+            "id": "app-activity/index"
+        },
+        "modules/app-activity/index.less": {
+            "uri": "/static/modules/app-activity/index.css",
+            "type": "css",
+            "id": "modules/app-activity/index.less"
+        },
+        "modules/app-article/index.less": {
+            "uri": "/static/modules/app-article/index.css",
+            "type": "css"
+        },
+        "modules/app-shengji/index.less": {
+            "uri": "/static/modules/app-shengji/index.css",
+            "type": "css"
+        },
+        "app/free/index": {
+            "uri": "/static/modules/app/free/index.js",
+            "type": "js",
+            "deps": [
+                "modules/app/free/index.less"
+            ]
+        },
+        "modules/app/free/index.less": {
+            "uri": "/static/modules/app/free/index.css",
+            "type": "css"
+        },
+        "app/shop-upgrade/index": {
+            "uri": "/static/modules/app/shop-upgrade/index.js",
+            "type": "js",
+            "deps": [
+                "modules/app/shop-upgrade/index.less"
+            ]
+        },
+        "modules/app/shop-upgrade/index.less": {
+            "uri": "/static/modules/app/shop-upgrade/index.css",
+            "type": "css"
+        },
+        "modules/app/xufei/index.less": {
+            "uri": "/static/modules/app/xufei/index.css",
+            "type": "css"
+        },
+        "modules/atten-qrcode/index.less": {
+            "uri": "/static/modules/atten-qrcode/index.css",
+            "type": "css"
+        },
+        "modules/browser/index.less": {
+            "uri": "/static/modules/browser/index.css",
+            "type": "css"
+        },
+        "modules/business/index.less": {
+            "uri": "/static/modules/business/index.css",
+            "type": "css"
+        },
+        "cart/index": {
+            "uri": "/static/modules/cart/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/amount/index",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/confirm/index",
+                "common/timer/timer",
+                "modules/cart/index.less"
+            ],
+            "id": "cart/index"
+        },
+        "modules/cart/index.less": {
+            "uri": "/static/modules/cart/index.css",
+            "type": "css",
+            "id": "modules/cart/index.less"
+        },
+        "chat/chat/index": {
+            "uri": "/static/modules/chat/chat/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "modules/chat/chat/index.less"
+            ],
+            "id": "chat/chat/index"
+        },
+        "modules/chat/chat/index.less": {
+            "uri": "/static/modules/chat/chat/index.css",
+            "type": "css",
+            "id": "modules/chat/chat/index.less"
+        },
+        "chat/client-list/index": {
+            "uri": "/static/modules/chat/client-list/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/bubble/bubble",
+                "common/util/index",
+                "common/pop/index",
+                "modules/chat/client-list/index.less"
+            ],
+            "id": "chat/client-list/index"
+        },
+        "modules/chat/client-list/index.less": {
+            "uri": "/static/modules/chat/client-list/index.css",
+            "type": "css",
+            "id": "modules/chat/client-list/index.less"
+        },
+        "college/course-detail/index": {
+            "uri": "/static/modules/college/course-detail/index.js",
+            "type": "js",
+            "deps": [
+                "modules/college/course-detail/index.less"
+            ],
+            "id": "college/course-detail/index"
+        },
+        "modules/college/course-detail/index.less": {
+            "uri": "/static/modules/college/course-detail/index.css",
+            "type": "css",
+            "id": "modules/college/course-detail/index.less"
+        },
+        "college/course-edit/index": {
+            "uri": "/static/modules/college/course-edit/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/college/course-edit/index.less"
+            ],
+            "id": "college/course-edit/index"
+        },
+        "modules/college/course-edit/index.less": {
+            "uri": "/static/modules/college/course-edit/index.css",
+            "type": "css",
+            "id": "modules/college/course-edit/index.less"
+        },
+        "college/course-list/index": {
+            "uri": "/static/modules/college/course-list/index.js",
+            "type": "js",
+            "deps": [
+                "modules/college/course-list/index.less"
+            ],
+            "id": "college/course-list/index"
+        },
+        "modules/college/course-list/index.less": {
+            "uri": "/static/modules/college/course-list/index.css",
+            "type": "css",
+            "id": "modules/college/course-list/index.less"
+        },
+        "college/course-record/index": {
+            "uri": "/static/modules/college/course-record/index.js",
+            "type": "js",
+            "deps": [
+                "modules/college/course-record/index.less"
+            ],
+            "id": "college/course-record/index"
+        },
+        "modules/college/course-record/index.less": {
+            "uri": "/static/modules/college/course-record/index.css",
+            "type": "css",
+            "id": "modules/college/course-record/index.less"
+        },
+        "college/mine/index": {
+            "uri": "/static/modules/college/mine/index.js",
+            "type": "js",
+            "deps": [
+                "modules/college/mine/index.less"
+            ],
+            "id": "college/mine/index"
+        },
+        "modules/college/mine/index.less": {
+            "uri": "/static/modules/college/mine/index.css",
+            "type": "css",
+            "id": "modules/college/mine/index.less"
+        },
+        "college/teacher/index": {
+            "uri": "/static/modules/college/teacher/index.js",
+            "type": "js",
+            "deps": [
+                "modules/college/teacher/index.less"
+            ],
+            "id": "college/teacher/index"
+        },
+        "modules/college/teacher/index.less": {
+            "uri": "/static/modules/college/teacher/index.css",
+            "type": "css",
+            "id": "modules/college/teacher/index.less"
+        },
+        "common/ad-layer/index": {
+            "uri": "/static/modules/common/ad-layer/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/ad-layer/index.less"
+            ],
+            "id": "common/ad-layer/index"
+        },
+        "modules/common/ad-layer/index.less": {
+            "uri": "/static/modules/common/ad-layer/index.css",
+            "type": "css",
+            "id": "modules/common/ad-layer/index.less"
+        },
+        "common/addr-sel/index": {
+            "uri": "/static/modules/common/addr-sel/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/alert/alert",
+                "modules/common/addr-sel/index.less"
+            ],
+            "id": "common/addr-sel/index"
+        },
+        "modules/common/addr-sel/index.less": {
+            "uri": "/static/modules/common/addr-sel/index.css",
+            "type": "css",
+            "id": "modules/common/addr-sel/index.less"
+        },
+        "common/address/index": {
+            "uri": "/static/modules/common/address/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/pop/index",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/addr-sel/index",
+                "common/confirm/index",
+                "modules/common/address/index.less"
+            ],
+            "id": "common/address/index"
+        },
+        "modules/common/address/index.less": {
+            "uri": "/static/modules/common/address/index.css",
+            "type": "css",
+            "id": "modules/common/address/index.less"
+        },
+        "common/ajax/index": {
+            "uri": "/static/modules/common/ajax/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/login-pop/index"
+            ],
+            "id": "common/ajax/index"
+        },
+        "common/alert/alert": {
+            "uri": "/static/modules/common/alert/alert.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/util/index",
+                "modules/common/alert/alert.less"
+            ],
+            "id": "common/alert/alert"
+        },
+        "modules/common/alert/alert.less": {
+            "uri": "/static/modules/common/alert/alert.css",
+            "type": "css",
+            "id": "modules/common/alert/alert.less"
+        },
+        "common/amount/index": {
+            "uri": "/static/modules/common/amount/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/amount/index.less"
+            ],
+            "id": "common/amount/index"
+        },
+        "modules/common/amount/index.less": {
+            "uri": "/static/modules/common/amount/index.css",
+            "type": "css",
+            "id": "modules/common/amount/index.less"
+        },
+        "modules/common/atten-panel/index.less": {
+            "uri": "/static/modules/common/atten-panel/index.css",
+            "type": "css"
+        },
+        "common/bubble/bubble": {
+            "uri": "/static/modules/common/bubble/bubble.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/bubble/bubble.less"
+            ],
+            "id": "common/bubble/bubble"
+        },
+        "modules/common/bubble/bubble.less": {
+            "uri": "/static/modules/common/bubble/bubble.css",
+            "type": "css",
+            "id": "modules/common/bubble/bubble.less"
+        },
+        "common/bullet/index": {
+            "uri": "/static/modules/common/bullet/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/util/index",
+                "modules/common/bullet/index.less"
+            ],
+            "id": "common/bullet/index"
+        },
+        "modules/common/bullet/index.less": {
+            "uri": "/static/modules/common/bullet/index.css",
+            "type": "css",
+            "id": "modules/common/bullet/index.less"
+        },
+        "common/comment-section/index": {
+            "uri": "/static/modules/common/comment-section/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/preview/index",
+                "common/page-loader/index",
+                "common/util/index",
+                "common/bubble/bubble",
+                "modules/common/comment-section/index.less"
+            ],
+            "id": "common/comment-section/index"
+        },
+        "modules/common/comment-section/index.less": {
+            "uri": "/static/modules/common/comment-section/index.css",
+            "type": "css",
+            "id": "modules/common/comment-section/index.less"
+        },
+        "modules/common/common.less": {
+            "uri": "/static/modules/common/common.css",
+            "type": "css",
+            "id": "modules/common/common.less"
+        },
+        "common/config/index": {
+            "uri": "/static/modules/common/config/index.js",
+            "type": "js",
+            "id": "common/config/index"
+        },
+        "common/confirm-service/index": {
+            "uri": "/static/modules/common/confirm-service/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/bubble/bubble",
+                "common/alert/alert",
+                "modules/common/confirm-service/index.less"
+            ],
+            "id": "common/confirm-service/index"
+        },
+        "modules/common/confirm-service/index.less": {
+            "uri": "/static/modules/common/confirm-service/index.css",
+            "type": "css",
+            "id": "modules/common/confirm-service/index.less"
+        },
+        "common/confirm/index": {
+            "uri": "/static/modules/common/confirm/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/alert/alert",
+                "modules/common/confirm/index.less"
+            ],
+            "id": "common/confirm/index"
+        },
+        "modules/common/confirm/index.less": {
+            "uri": "/static/modules/common/confirm/index.css",
+            "type": "css",
+            "id": "modules/common/confirm/index.less"
+        },
+        "common/copyright/index": {
+            "uri": "/static/modules/common/copyright/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/copyright/index.less"
+            ],
+            "id": "common/copyright/index"
+        },
+        "modules/common/copyright/index.less": {
+            "uri": "/static/modules/common/copyright/index.css",
+            "type": "css",
+            "id": "modules/common/copyright/index.less"
+        },
+        "common/fix-top/index": {
+            "uri": "/static/modules/common/fix-top/index.js",
+            "type": "js",
+            "deps": [
+                "zepto"
+            ],
+            "id": "common/fix-top/index"
+        },
+        "common/gold/index": {
+            "uri": "/static/modules/common/gold/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "fastclick",
+                "common/copyright/index"
+            ],
+            "pkg": "p0",
+            "id": "common/gold/index"
+        },
+        "common/gotop/index": {
+            "uri": "/static/modules/common/gotop/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/gotop/index.less"
+            ],
+            "id": "common/gotop/index"
+        },
+        "modules/common/gotop/index.less": {
+            "uri": "/static/modules/common/gotop/index.css",
+            "type": "css",
+            "id": "modules/common/gotop/index.less"
+        },
+        "common/guide/guide": {
+            "uri": "/static/modules/common/guide/guide.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/guide/guide.less"
+            ],
+            "id": "common/guide/guide"
+        },
+        "modules/common/guide/guide.less": {
+            "uri": "/static/modules/common/guide/guide.css",
+            "type": "css",
+            "id": "modules/common/guide/guide.less"
+        },
+        "modules/common/header/header.less": {
+            "uri": "/static/modules/common/header/header.css",
+            "type": "css",
+            "id": "modules/common/header/header.less"
+        },
+        "common/j-ajax/index": {
+            "uri": "/static/modules/common/j-ajax/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/confirm/index"
+            ],
+            "id": "common/j-ajax/index"
+        },
+        "common/j-disabled/index": {
+            "uri": "/static/modules/common/j-disabled/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/j-disabled/index.less"
+            ],
+            "id": "common/j-disabled/index"
+        },
+        "modules/common/j-disabled/index.less": {
+            "uri": "/static/modules/common/j-disabled/index.css",
+            "type": "css",
+            "id": "modules/common/j-disabled/index.less"
+        },
+        "common/login-pop/index": {
+            "uri": "/static/modules/common/login-pop/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/pop/index",
+                "common/bubble/bubble",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "modules/common/login-pop/index.less"
+            ],
+            "id": "common/login-pop/index"
+        },
+        "modules/common/login-pop/index.less": {
+            "uri": "/static/modules/common/login-pop/index.css",
+            "type": "css",
+            "id": "modules/common/login-pop/index.less"
+        },
+        "common/login-sku/index": {
+            "uri": "/static/modules/common/login-sku/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/amount/index",
+                "modules/common/login-sku/index.less"
+            ]
+        },
+        "modules/common/login-sku/index.less": {
+            "uri": "/static/modules/common/login-sku/index.css",
+            "type": "css"
+        },
+        "common/lrz/index": {
+            "uri": "/static/modules/common/lrz/index.js",
+            "type": "js",
+            "id": "common/lrz/index"
+        },
+        "common/mock-list/cut-info/index": {
+            "uri": "/static/modules/common/mock-list/cut-info/index.js",
+            "type": "js",
+            "deps": [
+                "common/mockjs/index"
+            ]
+        },
+        "common/mock-list/goods-list/index": {
+            "uri": "/static/modules/common/mock-list/goods-list/index.js",
+            "type": "js",
+            "deps": [
+                "common/mockjs/index"
+            ]
+        },
+        "common/mock-list/index": {
+            "uri": "/static/modules/common/mock-list/index.js",
+            "type": "js",
+            "deps": [
+                "common/mock-list/goods-list/index",
+                "common/mock-list/cut-info/index",
+                "common/mock-list/wallet/index"
+            ]
+        },
+        "common/mock-list/wallet/index": {
+            "uri": "/static/modules/common/mock-list/wallet/index.js",
+            "type": "js",
+            "deps": [
+                "common/mockjs/index"
+            ]
+        },
+        "common/mockjs/index": {
+            "uri": "/static/modules/common/mockjs/index.js",
+            "type": "js"
+        },
+        "modules/common/nav/nav.less": {
+            "uri": "/static/modules/common/nav/nav.css",
+            "type": "css",
+            "id": "modules/common/nav/nav.less"
+        },
+        "common/page-loader/index": {
+            "uri": "/static/modules/common/page-loader/index.js",
+            "type": "js",
+            "deps": [
+                "zepto"
+            ],
+            "id": "common/page-loader/index"
+        },
+        "common/pop/index": {
+            "uri": "/static/modules/common/pop/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/pop/index.less"
+            ],
+            "id": "common/pop/index"
+        },
+        "modules/common/pop/index.less": {
+            "uri": "/static/modules/common/pop/index.css",
+            "type": "css",
+            "id": "modules/common/pop/index.less"
+        },
+        "common/preview/index": {
+            "uri": "/static/modules/common/preview/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/swiper/index",
+                "modules/common/preview/index.less"
+            ],
+            "id": "common/preview/index"
+        },
+        "modules/common/preview/index.less": {
+            "uri": "/static/modules/common/preview/index.css",
+            "type": "css",
+            "id": "modules/common/preview/index.less"
+        },
+        "common/qrcode/index": {
+            "uri": "/static/modules/common/qrcode/index.js",
+            "type": "js"
+        },
+        "common/swipe/swipe": {
+            "uri": "/static/modules/common/swipe/swipe.js",
+            "type": "js",
+            "deps": [
+                "modules/common/swipe/swipe.less"
+            ],
+            "id": "common/swipe/swipe"
+        },
+        "modules/common/swipe/swipe.less": {
+            "uri": "/static/modules/common/swipe/swipe.css",
+            "type": "css",
+            "id": "modules/common/swipe/swipe.less"
+        },
+        "common/swiper/index": {
+            "uri": "/static/modules/common/swiper/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/swipe/swipe",
+                "modules/common/swiper/index.less"
+            ],
+            "id": "common/swiper/index"
+        },
+        "modules/common/swiper/index.less": {
+            "uri": "/static/modules/common/swiper/index.css",
+            "type": "css",
+            "id": "modules/common/swiper/index.less"
+        },
+        "common/tabs/index": {
+            "uri": "/static/modules/common/tabs/index.js",
+            "type": "js",
+            "deps": [
+                "zepto"
+            ],
+            "id": "common/tabs/index"
+        },
+        "common/ticket-pop/index": {
+            "uri": "/static/modules/common/ticket-pop/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/pop/index",
+                "common/ajax/index",
+                "modules/common/ticket-pop/index.less"
+            ],
+            "id": "common/ticket-pop/index"
+        },
+        "modules/common/ticket-pop/index.less": {
+            "uri": "/static/modules/common/ticket-pop/index.css",
+            "type": "css",
+            "id": "modules/common/ticket-pop/index.less"
+        },
+        "common/timer/timer": {
+            "uri": "/static/modules/common/timer/timer.js",
+            "type": "js",
+            "deps": [
+                "zepto"
+            ],
+            "id": "common/timer/timer"
+        },
+        "modules/common/tuan-steps/index.less": {
+            "uri": "/static/modules/common/tuan-steps/index.css",
+            "type": "css"
+        },
+        "modules/common/ui/func.less": {
+            "uri": "/static/modules/common/ui/func.css",
+            "type": "css"
+        },
+        "modules/common/ui/rem.less": {
+            "uri": "/static/modules/common/ui/rem.css",
+            "type": "css"
+        },
+        "modules/common/ui/reset.less": {
+            "uri": "/static/modules/common/ui/reset.css",
+            "type": "css"
+        },
+        "common/util/index": {
+            "uri": "/static/modules/common/util/index.js",
+            "type": "js",
+            "id": "common/util/index"
+        },
+        "common/wxpay/index": {
+            "uri": "/static/modules/common/wxpay/index.js",
+            "type": "js",
+            "deps": [
+                "common/bubble/bubble"
+            ],
+            "id": "common/wxpay/index"
+        },
+        "coupon-rain/get-coupon/index": {
+            "uri": "/static/modules/coupon-rain/get-coupon/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "modules/coupon-rain/get-coupon/index.less"
+            ],
+            "id": "coupon-rain/get-coupon/index"
+        },
+        "modules/coupon-rain/get-coupon/index.less": {
+            "uri": "/static/modules/coupon-rain/get-coupon/index.css",
+            "type": "css",
+            "id": "modules/coupon-rain/get-coupon/index.less"
+        },
+        "coupon-rain/index/index": {
+            "uri": "/static/modules/coupon-rain/index/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/alert/alert",
+                "common/guide/guide",
+                "modules/coupon-rain/index/index.less"
+            ],
+            "id": "coupon-rain/index/index"
+        },
+        "modules/coupon-rain/index/index.less": {
+            "uri": "/static/modules/coupon-rain/index/index.css",
+            "type": "css",
+            "id": "modules/coupon-rain/index/index.less"
+        },
+        "crab-address/index": {
+            "uri": "/static/modules/crab-address/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/address/index",
+                "modules/crab-address/index.less"
+            ],
+            "id": "crab-address/index"
+        },
+        "modules/crab-address/index.less": {
+            "uri": "/static/modules/crab-address/index.css",
+            "type": "css",
+            "id": "modules/crab-address/index.less"
+        },
+        "crab-origin/index": {
+            "uri": "/static/modules/crab-origin/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/crab-origin/index.less"
+            ]
+        },
+        "modules/crab-origin/index.less": {
+            "uri": "/static/modules/crab-origin/index.css",
+            "type": "css"
+        },
+        "crab-ticket/index": {
+            "uri": "/static/modules/crab-ticket/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/crab-ticket/index.less"
+            ],
+            "id": "crab-ticket/index"
+        },
+        "modules/crab-ticket/index.less": {
+            "uri": "/static/modules/crab-ticket/index.css",
+            "type": "css",
+            "id": "modules/crab-ticket/index.less"
+        },
+        "crab/index": {
+            "uri": "/static/modules/crab/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/timer/timer",
+                "common/util/index",
+                "modules/crab/index.less"
+            ],
+            "id": "crab/index"
+        },
+        "modules/crab/index.less": {
+            "uri": "/static/modules/crab/index.css",
+            "type": "css",
+            "id": "modules/crab/index.less"
+        },
+        "crowd/index": {
+            "uri": "/static/modules/crowd/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/swiper/index",
+                "modules/crowd/index.less"
+            ],
+            "id": "crowd/index"
+        },
+        "modules/crowd/index.less": {
+            "uri": "/static/modules/crowd/index.css",
+            "type": "css",
+            "id": "modules/crowd/index.less"
+        },
+        "cut-cut/index": {
+            "uri": "/static/modules/cut-cut/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/timer/timer",
+                "common/util/index",
+                "modules/cut-cut/index.less"
+            ],
+            "id": "cut-cut/index"
+        },
+        "modules/cut-cut/index.less": {
+            "uri": "/static/modules/cut-cut/index.css",
+            "type": "css",
+            "id": "modules/cut-cut/index.less"
+        },
+        "cut-detail/index": {
+            "uri": "/static/modules/cut-detail/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/guide/guide",
+                "common/swiper/index",
+                "common/util/index",
+                "common/j-ajax/index",
+                "common/ad-layer/index",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "modules/cut-detail/index.less"
+            ],
+            "id": "cut-detail/index"
+        },
+        "modules/cut-detail/index.less": {
+            "uri": "/static/modules/cut-detail/index.css",
+            "type": "css",
+            "id": "modules/cut-detail/index.less"
+        },
+        "cut-info/index": {
+            "uri": "/static/modules/cut-info/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/page-loader/index",
+                "common/j-ajax/index",
+                "common/util/index",
+                "common/ad-layer/index",
+                "common/guide/guide",
+                "common/timer/timer",
+                "common/confirm/index",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/alert/alert",
+                "modules/cut-info/index.less"
+            ],
+            "id": "cut-info/index"
+        },
+        "modules/cut-info/index.less": {
+            "uri": "/static/modules/cut-info/index.css",
+            "type": "css",
+            "id": "modules/cut-info/index.less"
+        },
+        "cut-list/index": {
+            "uri": "/static/modules/cut-list/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/cut-list/index.less"
+            ],
+            "id": "cut-list/index"
+        },
+        "modules/cut-list/index.less": {
+            "uri": "/static/modules/cut-list/index.css",
+            "type": "css",
+            "id": "modules/cut-list/index.less"
+        },
+        "danpin/index/index": {
+            "uri": "/static/modules/danpin/index/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/alert/alert",
+                "common/timer/timer",
+                "common/util/index",
+                "common/j-disabled/index",
+                "common/bullet/index",
+                "common/comment-section/index",
+                "modules/danpin/index/index.less"
+            ],
+            "id": "danpin/index/index"
+        },
+        "modules/danpin/index/index.less": {
+            "uri": "/static/modules/danpin/index/index.css",
+            "type": "css",
+            "id": "modules/danpin/index/index.less"
+        },
+        "extend/lazyload": {
+            "uri": "/static/modules/extend/lazyload.js",
+            "type": "js",
+            "id": "extend/lazyload"
+        },
+        "famous/index/index": {
+            "uri": "/static/modules/famous/index/index.js",
+            "type": "js",
+            "deps": [
+                "common/swiper/index",
+                "modules/famous/index/index.less"
+            ],
+            "id": "famous/index/index"
+        },
+        "modules/famous/index/index.less": {
+            "uri": "/static/modules/famous/index/index.css",
+            "type": "css",
+            "id": "modules/famous/index/index.less"
+        },
+        "fastclick": {
+            "uri": "/static/modules/fastclick/fastclick.js",
+            "type": "js",
+            "pkg": "p0",
+            "id": "fastclick"
+        },
+        "friend-circle/index": {
+            "uri": "/static/modules/friend-circle/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/bubble/bubble",
+                "modules/friend-circle/index.less"
+            ],
+            "id": "friend-circle/index"
+        },
+        "modules/friend-circle/index.less": {
+            "uri": "/static/modules/friend-circle/index.css",
+            "type": "css",
+            "id": "modules/friend-circle/index.less"
+        },
+        "game-ny/index/index": {
+            "uri": "/static/modules/game-ny/index/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/alert/alert",
+                "common/guide/guide",
+                "common/confirm/index",
+                "modules/game-ny/index/index.less"
+            ],
+            "id": "game-ny/index/index"
+        },
+        "modules/game-ny/index/index.less": {
+            "uri": "/static/modules/game-ny/index/index.css",
+            "type": "css",
+            "id": "modules/game-ny/index/index.less"
+        },
+        "game-rank/index": {
+            "uri": "/static/modules/game-rank/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/game-rank/index.less"
+            ],
+            "id": "game-rank/index"
+        },
+        "modules/game-rank/index.less": {
+            "uri": "/static/modules/game-rank/index.css",
+            "type": "css",
+            "id": "modules/game-rank/index.less"
+        },
+        "game-result/index": {
+            "uri": "/static/modules/game-result/index.js",
+            "type": "js",
+            "deps": [
+                "modules/game-result/index.less"
+            ],
+            "id": "game-result/index"
+        },
+        "modules/game-result/index.less": {
+            "uri": "/static/modules/game-result/index.css",
+            "type": "css",
+            "id": "modules/game-result/index.less"
+        },
+        "game-result2/index": {
+            "uri": "/static/modules/game-result2/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/guide/guide",
+                "modules/game-result2/index.less"
+            ],
+            "id": "game-result2/index"
+        },
+        "modules/game-result2/index.less": {
+            "uri": "/static/modules/game-result2/index.css",
+            "type": "css",
+            "id": "modules/game-result2/index.less"
+        },
+        "game-sign/index/index": {
+            "uri": "/static/modules/game-sign/index/index.js",
+            "type": "js",
+            "deps": [
+                "common/ajax/index",
+                "common/alert/alert",
+                "common/tabs/index",
+                "common/bubble/bubble",
+                "modules/game-sign/index/index.less"
+            ],
+            "id": "game-sign/index/index"
+        },
+        "modules/game-sign/index/index.less": {
+            "uri": "/static/modules/game-sign/index/index.css",
+            "type": "css",
+            "id": "modules/game-sign/index/index.less"
+        },
+        "game-step/index": {
+            "uri": "/static/modules/game-step/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/bubble/bubble",
+                "common/ajax/index",
+                "common/util/index",
+                "modules/game-step/index.less"
+            ],
+            "id": "game-step/index"
+        },
+        "modules/game-step/index.less": {
+            "uri": "/static/modules/game-step/index.css",
+            "type": "css",
+            "id": "modules/game-step/index.less"
+        },
+        "goods-comment/index": {
+            "uri": "/static/modules/goods-comment/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/bubble/bubble",
+                "common/preview/index",
+                "modules/goods-comment/index.less"
+            ],
+            "id": "goods-comment/index"
+        },
+        "modules/goods-comment/index.less": {
+            "uri": "/static/modules/goods-comment/index.css",
+            "type": "css",
+            "id": "modules/goods-comment/index.less"
+        },
+        "goods-list/index": {
+            "uri": "/static/modules/goods-list/index.js",
+            "type": "js",
+            "deps": [
+                "underscore",
+                "zepto",
+                "common/util/index",
+                "common/ajax/index",
+                "common/config/index",
+                "common/page-loader/index",
+                "common/bubble/bubble",
+                "common/timer/timer",
+                "common/fix-top/index",
+                "common/gotop/index",
+                "search-panel/index",
+                "modules/goods-list/index.less"
+            ],
+            "id": "goods-list/index"
+        },
+        "modules/goods-list/index.less": {
+            "uri": "/static/modules/goods-list/index.css",
+            "type": "css",
+            "id": "modules/goods-list/index.less"
+        },
+        "goods/index": {
+            "uri": "/static/modules/goods/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/swiper/index",
+                "common/confirm-service/index",
+                "common/config/index",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/guide/guide",
+                "common/util/index",
+                "common/amount/index",
+                "common/alert/alert",
+                "common/login-pop/index",
+                "notice/index",
+                "common/comment-section/index",
+                "common/gotop/index",
+                "modules/goods/index.less"
+            ],
+            "id": "goods/index"
+        },
+        "modules/goods/index.less": {
+            "uri": "/static/modules/goods/index.css",
+            "type": "css",
+            "id": "modules/goods/index.less"
+        },
+        "index-new/index": {
+            "uri": "/static/modules/index-new/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "extend/lazyload",
+                "common/gold/index",
+                "common/swiper/index",
+                "common/timer/timer",
+                "common/ajax/index",
+                "common/util/index",
+                "common/alert/alert",
+                "klj/klj-alert/index",
+                "search-panel/index",
+                "common/gotop/index",
+                "modules/index-new/index.less"
+            ],
+            "id": "index-new/index"
+        },
+        "modules/index-new/index.less": {
+            "uri": "/static/modules/index-new/index.css",
+            "type": "css",
+            "id": "modules/index-new/index.less"
+        },
+        "index-new2/index": {
+            "uri": "/static/modules/index-new2/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/swiper/index",
+                "common/timer/timer",
+                "common/ajax/index",
+                "common/util/index",
+                "common/fix-top/index",
+                "modules/index-new2/index.less"
+            ],
+            "id": "index-new2/index"
+        },
+        "modules/index-new2/index.less": {
+            "uri": "/static/modules/index-new2/index.css",
+            "type": "css",
+            "id": "modules/index-new2/index.less"
+        },
+        "index": {
+            "uri": "/static/modules/index/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/gold/index",
+                "common/swiper/index",
+                "common/timer/timer",
+                "common/ajax/index",
+                "common/util/index",
+                "modules/index/index.less"
+            ],
+            "id": "index"
+        },
+        "modules/index/index.less": {
+            "uri": "/static/modules/index/index.css",
+            "type": "css",
+            "id": "modules/index/index.less"
+        },
+        "invite/index": {
+            "uri": "/static/modules/invite/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "modules/invite/index.less"
+            ],
+            "id": "invite/index"
+        },
+        "modules/invite/index.less": {
+            "uri": "/static/modules/invite/index.css",
+            "type": "css",
+            "id": "modules/invite/index.less"
+        },
+        "klj-browser/index": {
+            "uri": "/static/modules/klj-browser/index.js",
+            "type": "js",
+            "deps": [
+                "modules/klj-browser/index.less"
+            ]
+        },
+        "modules/klj-browser/index.less": {
+            "uri": "/static/modules/klj-browser/index.css",
+            "type": "css"
+        },
+        "klj-pc/index": {
+            "uri": "/static/modules/klj-pc/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "modules/klj-pc/index.less"
+            ],
+            "id": "klj-pc/index"
+        },
+        "modules/klj-pc/index.less": {
+            "uri": "/static/modules/klj-pc/index.css",
+            "type": "css",
+            "id": "modules/klj-pc/index.less"
+        },
+        "klj/act/index": {
+            "uri": "/static/modules/klj/act/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/alert/alert",
+                "modules/klj/act/index.less"
+            ],
+            "id": "klj/act/index"
+        },
+        "modules/klj/act/index.less": {
+            "uri": "/static/modules/klj/act/index.css",
+            "type": "css",
+            "id": "modules/klj/act/index.less"
+        },
+        "klj/fanli/index": {
+            "uri": "/static/modules/klj/fanli/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/bubble/bubble",
+                "common/pop/index",
+                "common/page-loader/index",
+                "common/ajax/index",
+                "common/util/index",
+                "common/login-pop/index",
+                "common/alert/alert",
+                "modules/klj/fanli/index.less"
+            ],
+            "id": "klj/fanli/index"
+        },
+        "modules/klj/fanli/index.less": {
+            "uri": "/static/modules/klj/fanli/index.css",
+            "type": "css",
+            "id": "modules/klj/fanli/index.less"
+        },
+        "klj/gen-link/index": {
+            "uri": "/static/modules/klj/gen-link/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/bubble/bubble",
+                "common/ajax/index",
+                "modules/klj/gen-link/index.less"
+            ],
+            "id": "klj/gen-link/index"
+        },
+        "modules/klj/gen-link/index.less": {
+            "uri": "/static/modules/klj/gen-link/index.css",
+            "type": "css",
+            "id": "modules/klj/gen-link/index.less"
+        },
+        "klj/klj-alert/index": {
+            "uri": "/static/modules/klj/klj-alert/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/alert/alert",
+                "modules/klj/klj-alert/index.less"
+            ],
+            "id": "klj/klj-alert/index"
+        },
+        "modules/klj/klj-alert/index.less": {
+            "uri": "/static/modules/klj/klj-alert/index.css",
+            "type": "css",
+            "id": "modules/klj/klj-alert/index.less"
+        },
+        "modules/klj/tip/index.less": {
+            "uri": "/static/modules/klj/tip/index.css",
+            "type": "css"
+        },
+        "langsha-goods/index": {
+            "uri": "/static/modules/langsha-goods/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "underscore",
+                "common/config/index",
+                "common/page-loader/index",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/guide/guide",
+                "common/amount/index",
+                "common/swiper/index",
+                "modules/langsha-goods/index.less"
+            ],
+            "id": "langsha-goods/index"
+        },
+        "modules/langsha-goods/index.less": {
+            "uri": "/static/modules/langsha-goods/index.css",
+            "type": "css",
+            "id": "modules/langsha-goods/index.less"
+        },
+        "langsha-index/index": {
+            "uri": "/static/modules/langsha-index/index.js",
+            "type": "js",
+            "deps": [
+                "common/swiper/index",
+                "modules/langsha-index/index.less"
+            ],
+            "id": "langsha-index/index"
+        },
+        "modules/langsha-index/index.less": {
+            "uri": "/static/modules/langsha-index/index.css",
+            "type": "css",
+            "id": "modules/langsha-index/index.less"
+        },
+        "langsha-login/index": {
+            "uri": "/static/modules/langsha-login/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/alert/alert",
+                "common/ajax/index",
+                "common/login-pop/index",
+                "modules/langsha-login/index.less"
+            ],
+            "id": "langsha-login/index"
+        },
+        "modules/langsha-login/index.less": {
+            "uri": "/static/modules/langsha-login/index.css",
+            "type": "css",
+            "id": "modules/langsha-login/index.less"
+        },
+        "langsha-pay/index": {
+            "uri": "/static/modules/langsha-pay/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/pop/index",
+                "common/address/index",
+                "common/ajax/index",
+                "common/timer/timer",
+                "modules/langsha-pay/index.less"
+            ],
+            "id": "langsha-pay/index"
+        },
+        "modules/langsha-pay/index.less": {
+            "uri": "/static/modules/langsha-pay/index.css",
+            "type": "css",
+            "id": "modules/langsha-pay/index.less"
+        },
+        "login/index": {
+            "uri": "/static/modules/login/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/bubble/bubble",
+                "common/alert/alert",
+                "common/ajax/index",
+                "common/confirm-service/index",
+                "modules/login/index.less"
+            ],
+            "id": "login/index"
+        },
+        "modules/login/index.less": {
+            "uri": "/static/modules/login/index.css",
+            "type": "css",
+            "id": "modules/login/index.less"
+        },
+        "modules/my-shop/index.less": {
+            "uri": "/static/modules/my-shop/index.css",
+            "type": "css"
+        },
+        "notice/index": {
+            "uri": "/static/modules/notice/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/notice/index.less"
+            ],
+            "id": "notice/index"
+        },
+        "modules/notice/index.less": {
+            "uri": "/static/modules/notice/index.css",
+            "type": "css",
+            "id": "modules/notice/index.less"
+        },
+        "order-detail/index": {
+            "uri": "/static/modules/order-detail/index.js",
+            "type": "js",
+            "deps": [
+                "modules/order-detail/index.less"
+            ],
+            "id": "order-detail/index"
+        },
+        "modules/order-detail/index.less": {
+            "uri": "/static/modules/order-detail/index.css",
+            "type": "css",
+            "id": "modules/order-detail/index.less"
+        },
+        "order-list/index": {
+            "uri": "/static/modules/order-list/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/timer/timer",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/bubble/bubble",
+                "modules/order-list/index.less"
+            ],
+            "id": "order-list/index"
+        },
+        "modules/order-list/index.less": {
+            "uri": "/static/modules/order-list/index.css",
+            "type": "css",
+            "id": "modules/order-list/index.less"
+        },
+        "order-wait-sign/index": {
+            "uri": "/static/modules/order-wait-sign/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/alert/alert",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "modules/order-wait-sign/index.less"
+            ],
+            "id": "order-wait-sign/index"
+        },
+        "modules/order-wait-sign/index.less": {
+            "uri": "/static/modules/order-wait-sign/index.css",
+            "type": "css",
+            "id": "modules/order-wait-sign/index.less"
+        },
+        "partner-list/index": {
+            "uri": "/static/modules/partner-list/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/alert/alert",
+                "modules/partner-list/index.less"
+            ],
+            "id": "partner-list/index"
+        },
+        "modules/partner-list/index.less": {
+            "uri": "/static/modules/partner-list/index.css",
+            "type": "css",
+            "id": "modules/partner-list/index.less"
+        },
+        "pay-error/index": {
+            "uri": "/static/modules/pay-error/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/pay-error/index.less"
+            ],
+            "id": "pay-error/index"
+        },
+        "modules/pay-error/index.less": {
+            "uri": "/static/modules/pay-error/index.css",
+            "type": "css",
+            "id": "modules/pay-error/index.less"
+        },
+        "pay-new/index": {
+            "uri": "/static/modules/pay-new/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/pop/index",
+                "common/address/index",
+                "common/ajax/index",
+                "common/timer/timer",
+                "common/util/index",
+                "common/bubble/bubble",
+                "common/ticket-pop/index",
+                "modules/pay-new/index.less"
+            ],
+            "id": "pay-new/index"
+        },
+        "modules/pay-new/index.less": {
+            "uri": "/static/modules/pay-new/index.css",
+            "type": "css",
+            "id": "modules/pay-new/index.less"
+        },
+        "pay-suc/index": {
+            "uri": "/static/modules/pay-suc/index.js",
+            "type": "js",
+            "deps": [
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "common/guide/guide",
+                "modules/pay-suc/index.less"
+            ],
+            "id": "pay-suc/index"
+        },
+        "modules/pay-suc/index.less": {
+            "uri": "/static/modules/pay-suc/index.css",
+            "type": "css",
+            "id": "modules/pay-suc/index.less"
+        },
+        "pay-wx/index": {
+            "uri": "/static/modules/pay-wx/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/wxpay/index",
+                "common/ajax/index",
+                "modules/pay-wx/index.less"
+            ],
+            "id": "pay-wx/index"
+        },
+        "modules/pay-wx/index.less": {
+            "uri": "/static/modules/pay-wx/index.css",
+            "type": "css",
+            "id": "modules/pay-wx/index.less"
+        },
+        "pay-yes/index": {
+            "uri": "/static/modules/pay-yes/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/pay-yes/index.less"
+            ],
+            "id": "pay-yes/index"
+        },
+        "modules/pay-yes/index.less": {
+            "uri": "/static/modules/pay-yes/index.css",
+            "type": "css",
+            "id": "modules/pay-yes/index.less"
+        },
+        "pay/index": {
+            "uri": "/static/modules/pay/index.js",
+            "type": "js",
+            "deps": [
+                "modules/pay/index.less"
+            ],
+            "id": "pay/index"
+        },
+        "modules/pay/index.less": {
+            "uri": "/static/modules/pay/index.css",
+            "type": "css",
+            "id": "modules/pay/index.less"
+        },
+        "pay2/index": {
+            "uri": "/static/modules/pay2/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/pay2/index.less"
+            ],
+            "id": "pay2/index"
+        },
+        "modules/pay2/index.less": {
+            "uri": "/static/modules/pay2/index.css",
+            "type": "css",
+            "id": "modules/pay2/index.less"
+        },
+        "person/index": {
+            "uri": "/static/modules/person/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/pop/index",
+                "modules/person/index.less"
+            ],
+            "id": "person/index"
+        },
+        "modules/person/index.less": {
+            "uri": "/static/modules/person/index.css",
+            "type": "css",
+            "id": "modules/person/index.less"
+        },
+        "question/index": {
+            "uri": "/static/modules/question/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/j-ajax/index",
+                "common/lrz/index",
+                "common/preview/index",
+                "common/j-disabled/index",
+                "common/copyright/index",
+                "modules/question/index.less"
+            ],
+            "id": "question/index"
+        },
+        "modules/question/index.less": {
+            "uri": "/static/modules/question/index.css",
+            "type": "css",
+            "id": "modules/question/index.less"
+        },
+        "recharge/index": {
+            "uri": "/static/modules/recharge/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "modules/recharge/index.less"
+            ],
+            "id": "recharge/index"
+        },
+        "modules/recharge/index.less": {
+            "uri": "/static/modules/recharge/index.css",
+            "type": "css",
+            "id": "modules/recharge/index.less"
+        },
+        "recommend-alert/index": {
+            "uri": "/static/modules/recommend-alert/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/alert/alert",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "modules/recommend-alert/index.less"
+            ],
+            "id": "recommend-alert/index"
+        },
+        "modules/recommend-alert/index.less": {
+            "uri": "/static/modules/recommend-alert/index.css",
+            "type": "css",
+            "id": "modules/recommend-alert/index.less"
+        },
+        "recommend/index": {
+            "uri": "/static/modules/recommend/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "recommend-alert/index",
+                "common/pop/index",
+                "modules/recommend/index.less"
+            ],
+            "id": "recommend/index"
+        },
+        "modules/recommend/index.less": {
+            "uri": "/static/modules/recommend/index.css",
+            "type": "css",
+            "id": "modules/recommend/index.less"
+        },
+        "modules/record/global.less": {
+            "uri": "/static/modules/record/global.css",
+            "type": "css"
+        },
+        "record/index/index": {
+            "uri": "/static/modules/record/index/index.js",
+            "type": "js",
+            "deps": [
+                "modules/record/index/index.less"
+            ],
+            "id": "record/index/index"
+        },
+        "modules/record/index/index.less": {
+            "uri": "/static/modules/record/index/index.css",
+            "type": "css",
+            "id": "modules/record/index/index.less"
+        },
+        "modules/record/mixins.less": {
+            "uri": "/static/modules/record/mixins.css",
+            "type": "css"
+        },
+        "modules/record/record-nav/index.less": {
+            "uri": "/static/modules/record/record-nav/index.css",
+            "type": "css"
+        },
+        "modules/record/variables.less": {
+            "uri": "/static/modules/record/variables.css",
+            "type": "css"
+        },
+        "redpackage/index": {
+            "uri": "/static/modules/redpackage/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/login-pop/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "modules/redpackage/index.less"
+            ],
+            "id": "redpackage/index"
+        },
+        "modules/redpackage/index.less": {
+            "uri": "/static/modules/redpackage/index.css",
+            "type": "css",
+            "id": "modules/redpackage/index.less"
+        },
+        "register/index": {
+            "uri": "/static/modules/register/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/confirm-service/index",
+                "modules/register/index.less"
+            ],
+            "id": "register/index"
+        },
+        "modules/register/index.less": {
+            "uri": "/static/modules/register/index.css",
+            "type": "css",
+            "id": "modules/register/index.less"
+        },
+        "score/index": {
+            "uri": "/static/modules/score/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/tabs/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/fix-top/index",
+                "common/bubble/bubble",
+                "common/copyright/index",
+                "common/alert/alert",
+                "modules/score/index.less"
+            ],
+            "id": "score/index"
+        },
+        "modules/score/index.less": {
+            "uri": "/static/modules/score/index.css",
+            "type": "css",
+            "id": "modules/score/index.less"
+        },
+        "search-panel/index": {
+            "uri": "/static/modules/search-panel/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/search-panel/index.less"
+            ],
+            "id": "search-panel/index"
+        },
+        "modules/search-panel/index.less": {
+            "uri": "/static/modules/search-panel/index.css",
+            "type": "css",
+            "id": "modules/search-panel/index.less"
+        },
+        "share-order/index": {
+            "uri": "/static/modules/share-order/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/share-order/index.less"
+            ],
+            "id": "share-order/index"
+        },
+        "modules/share-order/index.less": {
+            "uri": "/static/modules/share-order/index.css",
+            "type": "css",
+            "id": "modules/share-order/index.less"
+        },
+        "modules/shengji/index.less": {
+            "uri": "/static/modules/shengji/index.css",
+            "type": "css"
+        },
+        "shop-college/index": {
+            "uri": "/static/modules/shop-college/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/alert/alert",
+                "common/ajax/index",
+                "common/login-pop/index",
+                "modules/shop-college/index.less"
+            ],
+            "id": "shop-college/index"
+        },
+        "modules/shop-college/index.less": {
+            "uri": "/static/modules/shop-college/index.css",
+            "type": "css",
+            "id": "modules/shop-college/index.less"
+        },
+        "shop-gift/index": {
+            "uri": "/static/modules/shop-gift/index.js",
+            "type": "js",
+            "deps": [
+                "modules/shop-gift/index.less"
+            ]
+        },
+        "modules/shop-gift/index.less": {
+            "uri": "/static/modules/shop-gift/index.css",
+            "type": "css"
+        },
+        "shop-invite/index": {
+            "uri": "/static/modules/shop-invite/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/guide/guide",
+                "common/util/index",
+                "modules/shop-invite/index.less"
+            ],
+            "id": "shop-invite/index"
+        },
+        "modules/shop-invite/index.less": {
+            "uri": "/static/modules/shop-invite/index.css",
+            "type": "css",
+            "id": "modules/shop-invite/index.less"
+        },
+        "shop-join/index": {
+            "uri": "/static/modules/shop-join/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/login-pop/index",
+                "modules/shop-join/index.less"
+            ],
+            "id": "shop-join/index"
+        },
+        "modules/shop-join/index.less": {
+            "uri": "/static/modules/shop-join/index.css",
+            "type": "css",
+            "id": "modules/shop-join/index.less"
+        },
+        "shop-share/index": {
+            "uri": "/static/modules/shop-share/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/bubble/bubble",
+                "common/confirm/index",
+                "modules/shop-share/index.less"
+            ],
+            "id": "shop-share/index"
+        },
+        "modules/shop-share/index.less": {
+            "uri": "/static/modules/shop-share/index.css",
+            "type": "css",
+            "id": "modules/shop-share/index.less"
+        },
+        "shop-suc/index": {
+            "uri": "/static/modules/shop-suc/index.js",
+            "type": "js",
+            "deps": [
+                "common/guide/guide",
+                "modules/shop-suc/index.less"
+            ]
+        },
+        "modules/shop-suc/index.less": {
+            "uri": "/static/modules/shop-suc/index.css",
+            "type": "css"
+        },
+        "shop/index": {
+            "uri": "/static/modules/shop/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/swiper/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "common/ajax/index",
+                "common/login-pop/index",
+                "recommend-alert/index",
+                "common/util/index",
+                "common/confirm/index",
+                "modules/shop/index.less"
+            ],
+            "id": "shop/index"
+        },
+        "modules/shop/index.less": {
+            "uri": "/static/modules/shop/index.css",
+            "type": "css",
+            "id": "modules/shop/index.less"
+        },
+        "taobi/taobi-trans/index": {
+            "uri": "/static/modules/taobi/taobi-trans/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/pop/index",
+                "common/confirm/index",
+                "modules/taobi/taobi-trans/index.less"
+            ],
+            "id": "taobi/taobi-trans/index"
+        },
+        "modules/taobi/taobi-trans/index.less": {
+            "uri": "/static/modules/taobi/taobi-trans/index.css",
+            "type": "css",
+            "id": "modules/taobi/taobi-trans/index.less"
+        },
+        "modules/tea/guide/index.less": {
+            "uri": "/static/modules/tea/guide/index.css",
+            "type": "css"
+        },
+        "tea/index/index": {
+            "uri": "/static/modules/tea/index/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/alert/alert",
+                "common/timer/timer",
+                "common/util/index",
+                "common/j-disabled/index",
+                "common/amount/index",
+                "common/comment-section/index",
+                "modules/tea/index/index.less"
+            ],
+            "id": "tea/index/index"
+        },
+        "modules/tea/index/index.less": {
+            "uri": "/static/modules/tea/index/index.css",
+            "type": "css",
+            "id": "modules/tea/index/index.less"
+        },
+        "modules/tea/pc/index.less": {
+            "uri": "/static/modules/tea/pc/index.css",
+            "type": "css"
+        },
+        "test/dy-form/index": {
+            "uri": "/static/modules/test/dy-form/index.js",
+            "type": "js",
+            "deps": [
+                "zepto"
+            ]
+        },
+        "modules/test/flex/index.less": {
+            "uri": "/static/modules/test/flex/index.css",
+            "type": "css"
+        },
+        "ticket-list/index": {
+            "uri": "/static/modules/ticket-list/index.js",
+            "type": "js",
+            "deps": [
+                "modules/ticket-list/index.less"
+            ],
+            "id": "ticket-list/index"
+        },
+        "modules/ticket-list/index.less": {
+            "uri": "/static/modules/ticket-list/index.css",
+            "type": "css",
+            "id": "modules/ticket-list/index.less"
+        },
+        "towel/browser/index": {
+            "uri": "/static/modules/towel/browser/index.js",
+            "type": "js",
+            "deps": [
+                "modules/towel/browser/index.less"
+            ]
+        },
+        "modules/towel/browser/index.less": {
+            "uri": "/static/modules/towel/browser/index.css",
+            "type": "css"
+        },
+        "towel/index/index": {
+            "uri": "/static/modules/towel/index/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/ajax/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/alert/alert",
+                "common/timer/timer",
+                "common/util/index",
+                "common/j-disabled/index",
+                "common/bullet/index",
+                "common/comment-section/index",
+                "modules/towel/index/index.less"
+            ],
+            "id": "towel/index/index"
+        },
+        "modules/towel/index/index.less": {
+            "uri": "/static/modules/towel/index/index.css",
+            "type": "css",
+            "id": "modules/towel/index/index.less"
+        },
+        "trans-detail/index": {
+            "uri": "/static/modules/trans-detail/index.js",
+            "type": "js",
+            "deps": [
+                "modules/trans-detail/index.less"
+            ],
+            "id": "trans-detail/index"
+        },
+        "modules/trans-detail/index.less": {
+            "uri": "/static/modules/trans-detail/index.css",
+            "type": "css",
+            "id": "modules/trans-detail/index.less"
+        },
+        "modules/trans/index.less": {
+            "uri": "/static/modules/trans/index.css",
+            "type": "css"
+        },
+        "tuan-detail/index": {
+            "uri": "/static/modules/tuan-detail/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/guide/guide",
+                "common/swiper/index",
+                "common/util/index",
+                "common/j-ajax/index",
+                "modules/tuan-detail/index.less"
+            ],
+            "id": "tuan-detail/index"
+        },
+        "modules/tuan-detail/index.less": {
+            "uri": "/static/modules/tuan-detail/index.css",
+            "type": "css",
+            "id": "modules/tuan-detail/index.less"
+        },
+        "tuan-info/index": {
+            "uri": "/static/modules/tuan-info/index.js",
+            "type": "js",
+            "deps": [
+                "common/swiper/index",
+                "common/guide/guide",
+                "common/util/index",
+                "common/ad-layer/index",
+                "common/j-ajax/index",
+                "modules/tuan-info/index.less"
+            ],
+            "id": "tuan-info/index"
+        },
+        "modules/tuan-info/index.less": {
+            "uri": "/static/modules/tuan-info/index.css",
+            "type": "css",
+            "id": "modules/tuan-info/index.less"
+        },
+        "modules/tuan-rule/index.less": {
+            "uri": "/static/modules/tuan-rule/index.css",
+            "type": "css"
+        },
+        "tuan-suc/index": {
+            "uri": "/static/modules/tuan-suc/index.js",
+            "type": "js",
+            "deps": [
+                "common/guide/guide",
+                "common/timer/timer",
+                "common/j-ajax/index",
+                "modules/tuan-suc/index.less"
+            ],
+            "id": "tuan-suc/index"
+        },
+        "modules/tuan-suc/index.less": {
+            "uri": "/static/modules/tuan-suc/index.css",
+            "type": "css",
+            "id": "modules/tuan-suc/index.less"
+        },
+        "underscore": {
+            "uri": "/static/modules/underscore/underscore.js",
+            "type": "js",
+            "id": "underscore"
+        },
+        "wallet/index": {
+            "uri": "/static/modules/wallet/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/tabs/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/fix-top/index",
+                "common/bubble/bubble",
+                "common/copyright/index",
+                "common/pop/index",
+                "common/wxpay/index",
+                "modules/wallet/index.less"
+            ],
+            "id": "wallet/index"
+        },
+        "modules/wallet/index.less": {
+            "uri": "/static/modules/wallet/index.css",
+            "type": "css",
+            "id": "modules/wallet/index.less"
+        },
+        "wholesale-list/index": {
+            "uri": "/static/modules/wholesale-list/index.js",
+            "type": "js",
+            "deps": [
+                "modules/wholesale-list/index.less"
+            ]
+        },
+        "modules/wholesale-list/index.less": {
+            "uri": "/static/modules/wholesale-list/index.css",
+            "type": "css"
+        },
+        "world-list/index": {
+            "uri": "/static/modules/world-list/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/world-list/index.less"
+            ],
+            "id": "world-list/index"
+        },
+        "modules/world-list/index.less": {
+            "uri": "/static/modules/world-list/index.css",
+            "type": "css",
+            "id": "modules/world-list/index.less"
+        },
+        "worth-list/index": {
+            "uri": "/static/modules/worth-list/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/worth-list/index.less"
+            ],
+            "id": "worth-list/index"
+        },
+        "modules/worth-list/index.less": {
+            "uri": "/static/modules/worth-list/index.css",
+            "type": "css",
+            "id": "modules/worth-list/index.less"
+        },
+        "xiaowei/pay/index": {
+            "uri": "/static/modules/xiaowei/pay/index.js",
+            "type": "js",
+            "deps": [
+                "modules/xiaowei/pay/index.less"
+            ]
+        },
+        "modules/xiaowei/pay/index.less": {
+            "uri": "/static/modules/xiaowei/pay/index.css",
+            "type": "css"
+        },
+        "xiepp/index/index": {
+            "uri": "/static/modules/xiepp/index/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "extend/lazyload",
+                "common/ajax/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/alert/alert",
+                "common/timer/timer",
+                "common/util/index",
+                "common/j-disabled/index",
+                "common/comment-section/index",
+                "modules/xiepp/index/index.less"
+            ],
+            "id": "xiepp/index/index"
+        },
+        "modules/xiepp/index/index.less": {
+            "uri": "/static/modules/xiepp/index/index.css",
+            "type": "css",
+            "id": "modules/xiepp/index/index.less"
+        },
+        "modules/z-pay/index.less": {
+            "uri": "/static/modules/z-pay/index.css",
+            "type": "css"
+        },
+        "z-person/index": {
+            "uri": "/static/modules/z-person/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "modules/z-person/index.less"
+            ],
+            "id": "z-person/index"
+        },
+        "modules/z-person/index.less": {
+            "uri": "/static/modules/z-person/index.css",
+            "type": "css",
+            "id": "modules/z-person/index.less"
+        },
+        "z-shop/index": {
+            "uri": "/static/modules/z-shop/index.js",
+            "type": "js",
+            "deps": [
+                "common/alert/alert",
+                "common/bubble/bubble"
+            ],
+            "id": "z-shop/index"
+        },
+        "zepto": {
+            "uri": "/static/modules/zepto/zepto.js",
+            "type": "js",
+            "deps": [
+                "common/gold/index"
+            ],
+            "pkg": "p0",
+            "id": "zepto"
+        },
+        "p/common/jquery/jquery-2.1.1.min.js": {
+            "uri": "/static/p/common/jquery/jquery-2.1.1.min.js",
+            "type": "js"
+        },
+        "p/common/jquery/jquery-rotate.js": {
+            "uri": "/static/p/common/jquery/jquery-rotate.js",
+            "type": "js"
+        },
+        "p/common/jquery/jquery.rotate.min.js": {
+            "uri": "/static/p/common/jquery/jquery.rotate.min.js",
+            "type": "js"
+        },
+        "p/game-sign/index/base.css": {
+            "uri": "/static/p/game-sign/index/base.css",
+            "type": "css"
+        },
+        "p/game-sign/index/main.js": {
+            "uri": "/static/p/game-sign/index/main.js",
+            "type": "js",
+            "deps": [
+                "common/ajax/index"
+            ]
+        },
+        "p/game-sign/index/signin_new6.css": {
+            "uri": "/static/p/game-sign/index/signin_new6.css",
+            "type": "css"
+        },
+        "p/game-sign/index/webh5.css": {
+            "uri": "/static/p/game-sign/index/webh5.css",
+            "type": "css"
+        },
+        "p/game-sign/index/webh5v2core.js": {
+            "uri": "/static/p/game-sign/index/webh5v2core.js",
+            "type": "js"
+        },
+        "p/xiazai/index.js": {
+            "uri": "/static/p/xiazai/index.js",
+            "type": "js",
+            "deps": [
+                "p/xiazai/index.less"
+            ]
+        },
+        "p/xiazai/index.less": {
+            "uri": "/static/p/xiazai/index.css",
+            "type": "css"
+        }
+    },
+    "pkg": {
+        "p0": {
+            "uri": "/static/pkg/lib.js",
+            "type": "js",
+            "has": [
+                "lib/mod.js",
+                "zepto",
+                "fastclick",
+                "common/gold/index"
+            ],
+            "deps": [
+                "common/copyright/index"
+            ]
+        },
+        "auto_js_0": {
+            "uri": "/static/pkg/auto_combine_cb924.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "activity/index"
+            ]
+        },
+        "auto_css_1": {
+            "uri": "/static/pkg/auto_combine_08f55.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/activity/index.less"
+            ]
+        },
+        "auto_css_2": {
+            "uri": "/static/pkg/auto_combine_734be.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/addr-edit/index.less"
+            ]
+        },
+        "auto_css_3": {
+            "uri": "/static/pkg/auto_combine_8a8ec.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/addr/index.less"
+            ]
+        },
+        "auto_js_4": {
+            "uri": "/static/pkg/auto_combine_d448c.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/pop/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/addr-sel/index",
+                "common/confirm/index",
+                "common/address/index",
+                "address/index"
+            ]
+        },
+        "auto_css_5": {
+            "uri": "/static/pkg/auto_combine_0084e.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/pop/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/addr-sel/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/address/index.less",
+                "modules/address/index.less"
+            ]
+        },
+        "auto_js_6": {
+            "uri": "/static/pkg/auto_combine_0f298.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/timer/timer",
+                "common/util/index",
+                "app-activity/index"
+            ]
+        },
+        "auto_css_7": {
+            "uri": "/static/pkg/auto_combine_cbca8.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/app-activity/index.less"
+            ]
+        },
+        "auto_js_8": {
+            "uri": "/static/pkg/auto_combine_20936.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/amount/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/timer/timer",
+                "cart/index"
+            ]
+        },
+        "auto_css_9": {
+            "uri": "/static/pkg/auto_combine_571f1.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/amount/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/cart/index.less"
+            ]
+        },
+        "auto_js_10": {
+            "uri": "/static/pkg/auto_combine_fcc4c.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "chat/chat/index"
+            ]
+        },
+        "auto_css_11": {
+            "uri": "/static/pkg/auto_combine_3e242.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/chat/chat/index.less"
+            ]
+        },
+        "auto_js_12": {
+            "uri": "/static/pkg/auto_combine_5d11a.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "chat/client-list/index"
+            ]
+        },
+        "auto_css_13": {
+            "uri": "/static/pkg/auto_combine_b1ead.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/chat/client-list/index.less"
+            ]
+        },
+        "auto_js_14": {
+            "uri": "/static/pkg/auto_combine_f74b9.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "college/course-edit/index"
+            ]
+        },
+        "auto_css_15": {
+            "uri": "/static/pkg/auto_combine_933ae.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/college/course-edit/index.less"
+            ]
+        },
+        "auto_js_16": {
+            "uri": "/static/pkg/auto_combine_9c42f.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/lrz/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/preview/index",
+                "common/j-disabled/index",
+                "question/index"
+            ]
+        },
+        "auto_css_17": {
+            "uri": "/static/pkg/auto_combine_9a980.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/preview/index.less",
+                "modules/common/j-disabled/index.less",
+                "modules/question/index.less"
+            ]
+        },
+        "auto_js_18": {
+            "uri": "/static/pkg/auto_combine_0f23a.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "coupon-rain/get-coupon/index"
+            ]
+        },
+        "auto_css_19": {
+            "uri": "/static/pkg/auto_combine_262cd.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/coupon-rain/get-coupon/index.less"
+            ]
+        },
+        "auto_js_20": {
+            "uri": "/static/pkg/auto_combine_53b09.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/guide/guide",
+                "coupon-rain/index/index"
+            ]
+        },
+        "auto_css_21": {
+            "uri": "/static/pkg/auto_combine_c800f.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/guide/guide.less",
+                "modules/coupon-rain/index/index.less"
+            ]
+        },
+        "auto_js_22": {
+            "uri": "/static/pkg/auto_combine_b883f.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/pop/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/addr-sel/index",
+                "common/confirm/index",
+                "common/address/index",
+                "crab-address/index"
+            ]
+        },
+        "auto_css_23": {
+            "uri": "/static/pkg/auto_combine_fcf88.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/pop/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/addr-sel/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/address/index.less",
+                "modules/crab-address/index.less"
+            ]
+        },
+        "auto_js_24": {
+            "uri": "/static/pkg/auto_combine_2d2e7.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "crab-ticket/index"
+            ]
+        },
+        "auto_css_25": {
+            "uri": "/static/pkg/auto_combine_eca11.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/crab-ticket/index.less"
+            ]
+        },
+        "auto_js_26": {
+            "uri": "/static/pkg/auto_combine_6ceaf.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/timer/timer",
+                "common/util/index",
+                "crab/index"
+            ]
+        },
+        "auto_css_27": {
+            "uri": "/static/pkg/auto_combine_8d8f4.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/crab/index.less"
+            ]
+        },
+        "auto_js_28": {
+            "uri": "/static/pkg/auto_combine_4dfe7.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "crowd/index"
+            ]
+        },
+        "auto_css_29": {
+            "uri": "/static/pkg/auto_combine_b3d84.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/crowd/index.less"
+            ]
+        },
+        "auto_js_30": {
+            "uri": "/static/pkg/auto_combine_1c62d.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/timer/timer",
+                "common/util/index",
+                "cut-cut/index"
+            ]
+        },
+        "auto_css_31": {
+            "uri": "/static/pkg/auto_combine_effc4.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/cut-cut/index.less"
+            ]
+        },
+        "auto_js_32": {
+            "uri": "/static/pkg/auto_combine_9efe6.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/guide/guide",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/util/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/ad-layer/index",
+                "cut-detail/index"
+            ]
+        },
+        "auto_css_33": {
+            "uri": "/static/pkg/auto_combine_8cd1b.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/ad-layer/index.less",
+                "modules/cut-detail/index.less"
+            ]
+        },
+        "auto_js_34": {
+            "uri": "/static/pkg/auto_combine_d454f.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/page-loader/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/ad-layer/index",
+                "common/guide/guide",
+                "common/timer/timer",
+                "cut-info/index"
+            ]
+        },
+        "auto_css_35": {
+            "uri": "/static/pkg/auto_combine_5dc73.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/ad-layer/index.less",
+                "modules/common/guide/guide.less",
+                "modules/cut-info/index.less"
+            ]
+        },
+        "auto_js_36": {
+            "uri": "/static/pkg/auto_combine_3a9e8.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "cut-list/index"
+            ]
+        },
+        "auto_css_37": {
+            "uri": "/static/pkg/auto_combine_d8ac8.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/cut-list/index.less"
+            ]
+        },
+        "auto_js_38": {
+            "uri": "/static/pkg/auto_combine_1d00e.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/timer/timer",
+                "common/j-disabled/index",
+                "common/bullet/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/preview/index",
+                "common/page-loader/index",
+                "common/comment-section/index",
+                "danpin/index/index"
+            ]
+        },
+        "auto_css_39": {
+            "uri": "/static/pkg/auto_combine_670bd.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/j-disabled/index.less",
+                "modules/common/bullet/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/preview/index.less",
+                "modules/common/comment-section/index.less",
+                "modules/danpin/index/index.less"
+            ]
+        },
+        "auto_js_40": {
+            "uri": "/static/pkg/auto_combine_60160.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "famous/index/index"
+            ]
+        },
+        "auto_css_41": {
+            "uri": "/static/pkg/auto_combine_c3606.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/famous/index/index.less"
+            ]
+        },
+        "auto_js_42": {
+            "uri": "/static/pkg/auto_combine_13a7f.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "friend-circle/index"
+            ]
+        },
+        "auto_css_43": {
+            "uri": "/static/pkg/auto_combine_49681.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/friend-circle/index.less"
+            ]
+        },
+        "auto_js_44": {
+            "uri": "/static/pkg/auto_combine_7346b.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/guide/guide",
+                "common/confirm/index",
+                "game-ny/index/index"
+            ]
+        },
+        "auto_css_45": {
+            "uri": "/static/pkg/auto_combine_40962.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/confirm/index.less",
+                "modules/game-ny/index/index.less"
+            ]
+        },
+        "auto_js_46": {
+            "uri": "/static/pkg/auto_combine_0164b.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "game-rank/index"
+            ]
+        },
+        "auto_css_47": {
+            "uri": "/static/pkg/auto_combine_9df30.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/game-rank/index.less"
+            ]
+        },
+        "auto_js_48": {
+            "uri": "/static/pkg/auto_combine_92c00.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/guide/guide",
+                "game-result2/index"
+            ]
+        },
+        "auto_css_49": {
+            "uri": "/static/pkg/auto_combine_08960.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/guide/guide.less",
+                "modules/game-result2/index.less"
+            ]
+        },
+        "auto_js_50": {
+            "uri": "/static/pkg/auto_combine_8f71d.js",
+            "type": "js",
+            "has": [
+                "p/common/jquery/jquery-2.1.1.min.js",
+                "p/common/jquery/jquery.rotate.min.js",
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/tabs/index",
+                "game-sign/index/index"
+            ]
+        },
+        "auto_css_51": {
+            "uri": "/static/pkg/auto_combine_ad4e4.css",
+            "type": "css",
+            "has": [
+                "p/game-sign/index/webh5.css",
+                "p/game-sign/index/base.css",
+                "p/game-sign/index/signin_new6.css",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/game-sign/index/index.less"
+            ]
+        },
+        "auto_js_52": {
+            "uri": "/static/pkg/auto_combine_ba1ba.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "game-step/index"
+            ]
+        },
+        "auto_css_53": {
+            "uri": "/static/pkg/auto_combine_e7da9.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/game-step/index.less"
+            ]
+        },
+        "auto_js_54": {
+            "uri": "/static/pkg/auto_combine_d0323.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/preview/index",
+                "goods-comment/index"
+            ]
+        },
+        "auto_css_55": {
+            "uri": "/static/pkg/auto_combine_b9b8b.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/preview/index.less",
+                "modules/goods-comment/index.less"
+            ]
+        },
+        "auto_js_56": {
+            "uri": "/static/pkg/auto_combine_54aeb.js",
+            "type": "js",
+            "has": [
+                "underscore",
+                "common/copyright/index",
+                "common/util/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/timer/timer",
+                "common/fix-top/index",
+                "common/gotop/index",
+                "search-panel/index",
+                "goods-list/index"
+            ]
+        },
+        "auto_css_57": {
+            "uri": "/static/pkg/auto_combine_bb3f0.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/gotop/index.less",
+                "modules/search-panel/index.less",
+                "modules/goods-list/index.less"
+            ]
+        },
+        "auto_js_58": {
+            "uri": "/static/pkg/auto_combine_b295a.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/bubble/bubble",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/config/index",
+                "common/pop/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/guide/guide",
+                "common/amount/index",
+                "notice/index",
+                "common/preview/index",
+                "common/page-loader/index",
+                "common/comment-section/index",
+                "common/gotop/index",
+                "goods/index"
+            ]
+        },
+        "auto_css_59": {
+            "uri": "/static/pkg/auto_combine_4dece.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/pop/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/amount/index.less",
+                "modules/notice/index.less",
+                "modules/common/preview/index.less",
+                "modules/common/comment-section/index.less",
+                "modules/common/gotop/index.less",
+                "modules/goods/index.less"
+            ]
+        },
+        "auto_js_60": {
+            "uri": "/static/pkg/auto_combine_92ee5.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "extend/lazyload",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/timer/timer",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "klj/klj-alert/index",
+                "search-panel/index",
+                "common/gotop/index",
+                "index-new/index"
+            ]
+        },
+        "auto_css_61": {
+            "uri": "/static/pkg/auto_combine_54aae.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/klj/klj-alert/index.less",
+                "modules/search-panel/index.less",
+                "modules/common/gotop/index.less",
+                "modules/index-new/index.less"
+            ]
+        },
+        "auto_js_62": {
+            "uri": "/static/pkg/auto_combine_f6077.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/timer/timer",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/fix-top/index",
+                "index-new2/index"
+            ]
+        },
+        "auto_css_63": {
+            "uri": "/static/pkg/auto_combine_52b68.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/index-new2/index.less"
+            ]
+        },
+        "auto_js_64": {
+            "uri": "/static/pkg/auto_combine_0587b.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/timer/timer",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "index"
+            ]
+        },
+        "auto_css_65": {
+            "uri": "/static/pkg/auto_combine_b168d.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/index/index.less"
+            ]
+        },
+        "auto_js_66": {
+            "uri": "/static/pkg/auto_combine_b6ecf.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "invite/index"
+            ]
+        },
+        "auto_css_67": {
+            "uri": "/static/pkg/auto_combine_0a78e.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/invite/index.less"
+            ]
+        },
+        "auto_js_68": {
+            "uri": "/static/pkg/auto_combine_b24d2.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "klj-pc/index"
+            ]
+        },
+        "auto_css_69": {
+            "uri": "/static/pkg/auto_combine_83335.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/klj-pc/index.less"
+            ]
+        },
+        "auto_js_70": {
+            "uri": "/static/pkg/auto_combine_baf3a.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "klj/act/index"
+            ]
+        },
+        "auto_css_71": {
+            "uri": "/static/pkg/auto_combine_61aff.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/guide/guide.less",
+                "modules/klj/act/index.less"
+            ]
+        },
+        "auto_js_72": {
+            "uri": "/static/pkg/auto_combine_fb412.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/pop/index",
+                "common/page-loader/index",
+                "common/config/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "klj/fanli/index"
+            ]
+        },
+        "auto_css_73": {
+            "uri": "/static/pkg/auto_combine_e81da.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/klj/fanli/index.less"
+            ]
+        },
+        "auto_js_74": {
+            "uri": "/static/pkg/auto_combine_9b256.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "klj/gen-link/index"
+            ]
+        },
+        "auto_css_75": {
+            "uri": "/static/pkg/auto_combine_d5a58.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/klj/gen-link/index.less"
+            ]
+        },
+        "auto_js_76": {
+            "uri": "/static/pkg/auto_combine_8f97e.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "underscore",
+                "common/config/index",
+                "common/page-loader/index",
+                "common/bubble/bubble",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/guide/guide",
+                "common/amount/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "langsha-goods/index"
+            ]
+        },
+        "auto_css_77": {
+            "uri": "/static/pkg/auto_combine_89817.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/amount/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/langsha-goods/index.less"
+            ]
+        },
+        "auto_js_78": {
+            "uri": "/static/pkg/auto_combine_f70a5.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "langsha-index/index"
+            ]
+        },
+        "auto_css_79": {
+            "uri": "/static/pkg/auto_combine_611cf.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/langsha-index/index.less"
+            ]
+        },
+        "auto_js_80": {
+            "uri": "/static/pkg/auto_combine_55c7e.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "langsha-login/index"
+            ]
+        },
+        "auto_css_81": {
+            "uri": "/static/pkg/auto_combine_53d5d.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/copyright/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/langsha-login/index.less"
+            ]
+        },
+        "auto_js_82": {
+            "uri": "/static/pkg/auto_combine_d7687.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/pop/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/addr-sel/index",
+                "common/confirm/index",
+                "common/address/index",
+                "common/timer/timer",
+                "langsha-pay/index"
+            ]
+        },
+        "auto_css_83": {
+            "uri": "/static/pkg/auto_combine_24b89.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/pop/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/addr-sel/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/address/index.less",
+                "modules/langsha-pay/index.less"
+            ]
+        },
+        "auto_js_84": {
+            "uri": "/static/pkg/auto_combine_7fbe7.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/util/index",
+                "common/alert/alert",
+                "common/config/index",
+                "common/pop/index",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "login/index"
+            ]
+        },
+        "auto_css_85": {
+            "uri": "/static/pkg/auto_combine_7931f.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/alert/alert.less",
+                "modules/common/pop/index.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/login/index.less"
+            ]
+        },
+        "auto_js_86": {
+            "uri": "/static/pkg/auto_combine_7e6da.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/j-ajax/index",
+                "order-wait-sign/index"
+            ]
+        },
+        "auto_css_87": {
+            "uri": "/static/pkg/auto_combine_98c29.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/order-wait-sign/index.less"
+            ]
+        },
+        "auto_css_88": {
+            "uri": "/static/pkg/auto_combine_cf157.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/order-detail/index.less"
+            ]
+        },
+        "auto_js_89": {
+            "uri": "/static/pkg/auto_combine_d25a1.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/timer/timer",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "order-list/index"
+            ]
+        },
+        "auto_css_90": {
+            "uri": "/static/pkg/auto_combine_03a8e.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/order-list/index.less"
+            ]
+        },
+        "auto_js_91": {
+            "uri": "/static/pkg/auto_combine_c3310.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "partner-list/index"
+            ]
+        },
+        "auto_css_92": {
+            "uri": "/static/pkg/auto_combine_6c9fe.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/partner-list/index.less"
+            ]
+        },
+        "auto_js_93": {
+            "uri": "/static/pkg/auto_combine_a01e1.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/pop/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/addr-sel/index",
+                "common/confirm/index",
+                "common/address/index",
+                "common/timer/timer",
+                "common/ticket-pop/index",
+                "pay-new/index"
+            ]
+        },
+        "auto_css_94": {
+            "uri": "/static/pkg/auto_combine_cc34d.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/pop/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/addr-sel/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/address/index.less",
+                "modules/common/ticket-pop/index.less",
+                "modules/pay-new/index.less"
+            ]
+        },
+        "auto_js_95": {
+            "uri": "/static/pkg/auto_combine_b01ff.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "pay-error/index"
+            ]
+        },
+        "auto_css_96": {
+            "uri": "/static/pkg/auto_combine_3dab8.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/pay-error/index.less"
+            ]
+        },
+        "auto_js_97": {
+            "uri": "/static/pkg/auto_combine_d1cb0.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "common/guide/guide",
+                "pay-suc/index"
+            ]
+        },
+        "auto_css_98": {
+            "uri": "/static/pkg/auto_combine_dac58.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/guide/guide.less",
+                "modules/pay-suc/index.less"
+            ]
+        },
+        "auto_js_99": {
+            "uri": "/static/pkg/auto_combine_ac742.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/wxpay/index",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "pay-wx/index"
+            ]
+        },
+        "auto_css_100": {
+            "uri": "/static/pkg/auto_combine_7f676.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/pay-wx/index.less"
+            ]
+        },
+        "auto_js_101": {
+            "uri": "/static/pkg/auto_combine_3b77a.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "pay-yes/index"
+            ]
+        },
+        "auto_css_102": {
+            "uri": "/static/pkg/auto_combine_55140.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/pay-yes/index.less"
+            ]
+        },
+        "auto_css_103": {
+            "uri": "/static/pkg/auto_combine_ff70b.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/pay/index.less"
+            ]
+        },
+        "auto_js_104": {
+            "uri": "/static/pkg/auto_combine_c40d0.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "pay2/index"
+            ]
+        },
+        "auto_css_105": {
+            "uri": "/static/pkg/auto_combine_7ba3b.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/pay2/index.less"
+            ]
+        },
+        "auto_js_106": {
+            "uri": "/static/pkg/auto_combine_28246.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "person/index"
+            ]
+        },
+        "auto_css_107": {
+            "uri": "/static/pkg/auto_combine_a1640.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/nav/nav.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/person/index.less"
+            ]
+        },
+        "auto_js_108": {
+            "uri": "/static/pkg/auto_combine_d16fa.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "recharge/index"
+            ]
+        },
+        "auto_css_109": {
+            "uri": "/static/pkg/auto_combine_682c0.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/recharge/index.less"
+            ]
+        },
+        "auto_js_110": {
+            "uri": "/static/pkg/auto_combine_8064d.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "recommend-alert/index",
+                "recommend/index"
+            ]
+        },
+        "auto_css_111": {
+            "uri": "/static/pkg/auto_combine_1aef1.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/recommend-alert/index.less",
+                "modules/recommend/index.less"
+            ]
+        },
+        "auto_js_112": {
+            "uri": "/static/pkg/auto_combine_bf85e.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "redpackage/index"
+            ]
+        },
+        "auto_css_113": {
+            "uri": "/static/pkg/auto_combine_b3f67.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/redpackage/index.less"
+            ]
+        },
+        "auto_js_114": {
+            "uri": "/static/pkg/auto_combine_9c5ad.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "register/index"
+            ]
+        },
+        "auto_css_115": {
+            "uri": "/static/pkg/auto_combine_aa3c8.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/register/index.less"
+            ]
+        },
+        "auto_js_116": {
+            "uri": "/static/pkg/auto_combine_46b6f.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/tabs/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/fix-top/index",
+                "score/index"
+            ]
+        },
+        "auto_css_117": {
+            "uri": "/static/pkg/auto_combine_de803.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/score/index.less"
+            ]
+        },
+        "auto_js_118": {
+            "uri": "/static/pkg/auto_combine_c9619.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "share-order/index"
+            ]
+        },
+        "auto_css_119": {
+            "uri": "/static/pkg/auto_combine_54fda.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/share-order/index.less"
+            ]
+        },
+        "auto_js_120": {
+            "uri": "/static/pkg/auto_combine_eebc0.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "shop-college/index"
+            ]
+        },
+        "auto_css_121": {
+            "uri": "/static/pkg/auto_combine_14247.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/shop-college/index.less"
+            ]
+        },
+        "auto_css_122": {
+            "uri": "/static/pkg/auto_combine_525ac.css",
+            "type": "css",
+            "has": [
+                "modules/shop-gift/index.less",
+                "modules/common/common.less"
+            ]
+        },
+        "auto_js_123": {
+            "uri": "/static/pkg/auto_combine_bda26.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/guide/guide",
+                "common/util/index",
+                "shop-invite/index"
+            ]
+        },
+        "auto_css_124": {
+            "uri": "/static/pkg/auto_combine_e1039.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/guide/guide.less",
+                "modules/shop-invite/index.less"
+            ]
+        },
+        "auto_js_125": {
+            "uri": "/static/pkg/auto_combine_12f8e.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "shop-join/index"
+            ]
+        },
+        "auto_css_126": {
+            "uri": "/static/pkg/auto_combine_355cb.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/shop-join/index.less"
+            ]
+        },
+        "auto_js_127": {
+            "uri": "/static/pkg/auto_combine_75ab0.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "shop-share/index"
+            ]
+        },
+        "auto_css_128": {
+            "uri": "/static/pkg/auto_combine_ff48f.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/shop-share/index.less"
+            ]
+        },
+        "auto_js_129": {
+            "uri": "/static/pkg/auto_combine_09e47.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "recommend-alert/index",
+                "common/confirm/index",
+                "shop/index"
+            ]
+        },
+        "auto_css_130": {
+            "uri": "/static/pkg/auto_combine_a7e04.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/recommend-alert/index.less",
+                "modules/common/confirm/index.less",
+                "modules/shop/index.less"
+            ]
+        },
+        "auto_js_131": {
+            "uri": "/static/pkg/auto_combine_9dd34.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "taobi/taobi-trans/index"
+            ]
+        },
+        "auto_css_132": {
+            "uri": "/static/pkg/auto_combine_35be9.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/taobi/taobi-trans/index.less"
+            ]
+        },
+        "auto_js_133": {
+            "uri": "/static/pkg/auto_combine_b246d.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/timer/timer",
+                "common/j-disabled/index",
+                "common/amount/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/preview/index",
+                "common/page-loader/index",
+                "common/comment-section/index",
+                "tea/index/index"
+            ]
+        },
+        "auto_css_134": {
+            "uri": "/static/pkg/auto_combine_33362.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/j-disabled/index.less",
+                "modules/common/amount/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/preview/index.less",
+                "modules/common/comment-section/index.less",
+                "modules/tea/index/index.less"
+            ]
+        },
+        "auto_js_135": {
+            "uri": "/static/pkg/auto_combine_1ad90.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/timer/timer",
+                "common/j-disabled/index",
+                "common/bullet/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/preview/index",
+                "common/page-loader/index",
+                "common/comment-section/index",
+                "towel/index/index"
+            ]
+        },
+        "auto_css_136": {
+            "uri": "/static/pkg/auto_combine_8c489.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/j-disabled/index.less",
+                "modules/common/bullet/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/preview/index.less",
+                "modules/common/comment-section/index.less",
+                "modules/towel/index/index.less"
+            ]
+        },
+        "auto_css_137": {
+            "uri": "/static/pkg/auto_combine_90af8.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/trans-detail/index.less"
+            ]
+        },
+        "auto_css_138": {
+            "uri": "/static/pkg/auto_combine_c7ed9.css",
+            "type": "css",
+            "has": [
+                "modules/trans/index.less",
+                "modules/common/common.less",
+                "modules/common/header/header.less"
+            ]
+        },
+        "auto_js_139": {
+            "uri": "/static/pkg/auto_combine_81f20.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/guide/guide",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/util/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "tuan-detail/index"
+            ]
+        },
+        "auto_css_140": {
+            "uri": "/static/pkg/auto_combine_0314b.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/tuan-detail/index.less"
+            ]
+        },
+        "auto_js_141": {
+            "uri": "/static/pkg/auto_combine_9a065.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/guide/guide",
+                "common/util/index",
+                "common/ad-layer/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "tuan-info/index"
+            ]
+        },
+        "auto_css_142": {
+            "uri": "/static/pkg/auto_combine_f6007.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/ad-layer/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/tuan-info/index.less"
+            ]
+        },
+        "auto_js_143": {
+            "uri": "/static/pkg/auto_combine_1814d.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/guide/guide",
+                "common/timer/timer",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "tuan-suc/index"
+            ]
+        },
+        "auto_css_144": {
+            "uri": "/static/pkg/auto_combine_731ef.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/tuan-suc/index.less"
+            ]
+        },
+        "auto_js_145": {
+            "uri": "/static/pkg/auto_combine_fd5d9.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/tabs/index",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/page-loader/index",
+                "common/fix-top/index",
+                "common/wxpay/index",
+                "wallet/index"
+            ]
+        },
+        "auto_css_146": {
+            "uri": "/static/pkg/auto_combine_f8321.css",
+            "type": "css",
+            "has": [
+                "modules/common/common.less",
+                "modules/common/header/header.less",
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/wallet/index.less"
+            ]
+        },
+        "auto_js_147": {
+            "uri": "/static/pkg/auto_combine_f7bac.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "world-list/index"
+            ]
+        },
+        "auto_css_148": {
+            "uri": "/static/pkg/auto_combine_08f99.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/world-list/index.less"
+            ]
+        },
+        "auto_js_149": {
+            "uri": "/static/pkg/auto_combine_bcb74.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "worth-list/index"
+            ]
+        },
+        "auto_css_150": {
+            "uri": "/static/pkg/auto_combine_f5a5b.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/worth-list/index.less"
+            ]
+        },
+        "auto_js_151": {
+            "uri": "/static/pkg/auto_combine_87538.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "extend/lazyload",
+                "common/bubble/bubble",
+                "common/config/index",
+                "common/pop/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/confirm-service/index",
+                "common/login-pop/index",
+                "common/ajax/index",
+                "common/confirm/index",
+                "common/j-ajax/index",
+                "common/guide/guide",
+                "common/timer/timer",
+                "common/j-disabled/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
+                "common/preview/index",
+                "common/page-loader/index",
+                "common/comment-section/index",
+                "xiepp/index/index"
+            ]
+        },
+        "auto_css_152": {
+            "uri": "/static/pkg/auto_combine_5602a.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/bubble/bubble.less",
+                "modules/common/pop/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/confirm-service/index.less",
+                "modules/common/login-pop/index.less",
+                "modules/common/confirm/index.less",
+                "modules/common/guide/guide.less",
+                "modules/common/j-disabled/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
+                "modules/common/preview/index.less",
+                "modules/common/comment-section/index.less",
+                "modules/xiepp/index/index.less"
+            ]
+        },
+        "auto_js_153": {
+            "uri": "/static/pkg/auto_combine_c8d3d.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "z-person/index"
+            ]
+        },
+        "auto_css_154": {
+            "uri": "/static/pkg/auto_combine_2e5ee.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/bubble/bubble.less",
+                "modules/z-person/index.less"
+            ]
+        },
+        "auto_js_155": {
+            "uri": "/static/pkg/auto_combine_6f44e.js",
+            "type": "js",
+            "has": [
+                "common/copyright/index",
+                "common/util/index",
+                "common/alert/alert",
+                "common/bubble/bubble",
+                "z-shop/index"
+            ]
+        },
+        "auto_css_156": {
+            "uri": "/static/pkg/auto_combine_fa9ef.css",
+            "type": "css",
+            "has": [
+                "modules/common/copyright/index.less",
+                "modules/common/alert/alert.less",
+                "modules/common/bubble/bubble.less"
+            ]
+        }
+    }
+}
