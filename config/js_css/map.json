@@ -1167,7 +1167,6 @@
                 "common/ajax/index",
                 "common/util/index",
                 "common/alert/alert",
-                "klj/klj-alert/index",
                 "search-panel/index",
                 "common/gotop/index",
                 "modules/index-new/index.less"
@@ -1321,13 +1320,11 @@
                 "common/ajax/index",
                 "common/alert/alert",
                 "modules/klj/klj-alert/index.less"
-            ],
-            "id": "klj/klj-alert/index"
+            ]
         },
         "modules/klj/klj-alert/index.less": {
             "uri": "/static/modules/klj/klj-alert/index.css",
-            "type": "css",
-            "id": "modules/klj/klj-alert/index.less"
+            "type": "css"
         },
         "modules/klj/tip/index.less": {
             "uri": "/static/modules/klj/tip/index.css",
@@ -3172,7 +3169,7 @@
             ]
         },
         "auto_js_60": {
-            "uri": "/static/pkg/auto_combine_92ee5.js",
+            "uri": "/static/pkg/auto_combine_c3941.js",
             "type": "js",
             "has": [
                 "common/copyright/index",
@@ -3188,14 +3185,13 @@
                 "common/confirm-service/index",
                 "common/login-pop/index",
                 "common/ajax/index",
-                "klj/klj-alert/index",
                 "search-panel/index",
                 "common/gotop/index",
                 "index-new/index"
             ]
         },
         "auto_css_61": {
-            "uri": "/static/pkg/auto_combine_54aae.css",
+            "uri": "/static/pkg/auto_combine_a3939.css",
             "type": "css",
             "has": [
                 "modules/common/copyright/index.less",
@@ -3206,7 +3202,6 @@
                 "modules/common/alert/alert.less",
                 "modules/common/confirm-service/index.less",
                 "modules/common/login-pop/index.less",
-                "modules/klj/klj-alert/index.less",
                 "modules/search-panel/index.less",
                 "modules/common/gotop/index.less",
                 "modules/index-new/index.less"

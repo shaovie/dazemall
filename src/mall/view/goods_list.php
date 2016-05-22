@@ -41,7 +41,7 @@
 			<div class="goods-title"><?php echo $goods['name']?></div>
 			<div class="clearfix">
 				<label class="price"><i>&yen;</i><b><?php echo $goods['salePrice']?></b></label>
-				<label class="btn btn-sm right">7.8折</label>
+				<label class="btn btn-sm right"><?php echo $goods['discount']?>折</label>
 			</div>
 		</div>
         <?php endforeach?>

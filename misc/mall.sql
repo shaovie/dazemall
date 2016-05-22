@@ -514,6 +514,19 @@ create table m_goods_module_glist (
     index idx_module_id_goods_id(`module_id`, `goods_id`)
 )engine=InnoDB default charset=utf8;
 
+-----------------------------------全局配置表---------------------------------
+drop table if exists s_global_config;
+create table s_global_config (
+
+    free_postage        decimal(10,2) not null default 28.0,         # 免邮费，订单金额
+    postage             decimal(10,2) not null default 3.0,         # 邮费
+
+    mtime               int not null default 0,                     # 创建时间
+    m_user              varchar(31) not null default ''             # 修改人
+
+)engine=InnoDB default charset=utf8;
+insert into s_global_config values();
+
 -----------------------------------后台相关-----------------------------------
 drop table if exists b_employee;
 create table b_employee(
@@ -533,3 +546,4 @@ create table b_employee(
     index idx_phone(`phone`)
 )engine=InnoDB default charset=utf8;
 insert into b_employee(account,passwd,name,phone,ctime)values('admin',md5('admin'),'管理员','13800138000',unix_timestamp());
+

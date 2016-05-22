@@ -23,7 +23,7 @@ class PayController extends MallController
     // 购物车结算
     public function cartPay()
     {
-        $this->checkLoginAndNotice();
+        //$this->checkLoginAndNotice();
 
         $cartIds = $this->postParam('cartId', array());
 
@@ -34,7 +34,7 @@ class PayController extends MallController
                 $validCart[] = $cart;
             }
         }
-        if (empty($validCart)) {
+        if (!empty($validCart)) {
             echo '<h1>购物车数据错误</h1>';
             return ;
         }
@@ -62,7 +62,7 @@ class PayController extends MallController
             $address['fullAddr'] = UserAddressModel::getFullAddr($address);
         }
         $postage = $postageTotalPrice >= $globalConfig['free_postage']
-            ? 0.00 : number_format($globalConfig['postage'], 2, '.', '');
+            ? '0.00' : number_format($globalConfig['postage'], 2, '.', '');
         $totalPrice += $postage;
         $data = array(
             'orderId'   => '',

@@ -28,6 +28,10 @@ define('APP_URL_BASE',          'http://' . (isset($_SERVER['HTTP_HOST']) ? $_SE
 
 define('SELF_IP',               $_SERVER['SELF_IP']);
 
+//= for assets
+define('ASSETS_USE_CDN', isset($_SERVER['ASSETS_USE_CDN']) ? (int)($_SERVER['ASSETS_USE_CDN']) == 1 : false);
+const ASSETS_CDN_DOMAIN         = 'cdn.taojinzi.com';
+
 //= for mysql
 // dsn=mysql:host=127.0.0.1;port=3306;dbname=user;charset=utf8
 define('DB_R_DSN',              $_SERVER['DB_R_DSN']);

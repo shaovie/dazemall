@@ -172,6 +172,7 @@ class GoodsModel
             $g['goodsId'] = $goods['goodsId'];
             $g['imageUrl'] = $goods['image_url'];
             $g['salePrice'] = number_format($goods['sale_price'], 2, '.', '');
+            $g['discount'] = 5.0;
             $data[] = $g;
         }
         return $data;
