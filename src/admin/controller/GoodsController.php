@@ -9,6 +9,7 @@ namespace src\admin\controller;
 use \src\common\Util;
 use \src\common\Check;
 use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsSKUModel;
 use \src\mall\model\GoodsDetailModel;
 use \src\mall\model\GoodsCategoryModel;
 
@@ -179,12 +180,26 @@ class GoodsController extends AdminController
         }
         $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Goods/editPage?goodsId=' . $goodsInfo['id']);
     }
-    public function kuCunPage()
+    public function skuPage()
     {
+        $goodsId = intval($this->postParam('goodsId', 0));
         $data = array(
-            'skuList' => array(),
+            'goodsId' => $goodsId,
+            'skuList' => array(array()),//GoodsSKUModel::fetchAllSKUInfo($goodsId),
         );
-        $this->display('goods_kucun_list', $data);
+        $this->display('goods_sku_list', $data);
+    }
+    public function modifyKuCun()
+    {
+        $id = intval($this->postParam('id', 0));
+        $goodsId = intval($this->postParam('goodsId', 0));
+        $amount = intval($this->postParam('amount', 0));
+        if ($amount >= 0) {
+            GoodsSKUModel::setInventory($id, $goodsId, $amount);
+            $this->ajaxReturn(0, '修改成功', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+            return ;
+        }
+        $this->ajaxReturn(0, '不能改成负数', '/admin/Goods/skuPage?goodsId=' . $goodsId);
     }
     private function fetchFormParams(&$goodsInfo, &$error)
     {

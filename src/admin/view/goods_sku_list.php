@@ -24,6 +24,7 @@
 </head>
 <body class="no-skin">
     <h3 class="header smaller lighter blue"><span style="margin-right:20px">库存管理</span></h3>
+    <input id="goodsId" name="goodsId" type="hidden" value="<?php echo $goodsId;?>"/>
 	<form action="" class="form-horizontal" method="post" onsubmit="return formcheck(this)">
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
@@ -43,12 +44,51 @@
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['m_user']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo date('Y-m-d H:i:s', $item['mtime'])?></td>
 				<td style="text-align:center;vertical-align:middle;">
-					<a class="btn btn-xs btn-info" href="/admin/Goods/listPage?attrId=<?php echo $item['id'];?>"><i class="icon-plus-sign-alt"></i> 修改库存</a>&nbsp;&nbsp;
+					<button type="button" class="btn btn-primary span2" name="confirmsend" data-toggle="modal" data-target="#modal-confirmsend" value="confirmsend" sku-id="<?php echo $item['id']?>" >修改库存</button>
 				</td>
 			</tr>
             <?php endforeach?>
 			</tbody>
 		</table>
+
+		<!--弹窗-->
+		<div id="modal-confirmsend" class="modal fade">
+			<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">修改库存</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-left"> 库存：</label>
+					<div class="col-sm-9">
+						<input type="text" name="amount" class="span5">
+					</div>
+				</div>      	
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- END -->
 	</form>
+	<script>
+        $('#confirmsend-btn').click(function(){
+            var url = "/admin/Goods/modifyKuCun";
+            $.post(url,{id:$("#ipt_account").val(),passwd:$("#ipt_pwd").val()},function(data){
+                if(data.code==0) {
+                    window.location.href= data.url;
+                } else {
+                    alert(data.msg);
+                    return false;
+                }
+            },'json');
+        });
+
+	</script>
 </body>
 </html>

@@ -15,7 +15,7 @@ class GoodsSKUModel
     const SKU_ST_INVALID         = 0;  // 无效
     const SKU_ST_VALID           = 1;  // 无效
 
-    public static function findAllValidSKUInfo($goodsId)
+    public static function fetchAllSKUInfo($goodsId)
     {
         if (empty($goodsId)) {
             return array();
@@ -28,14 +28,29 @@ class GoodsSKUModel
             $ret = DB::getDB()->fetchAll(
                 'g_goods_sku',
                 '*',
-                array('goods_id', 'state', 'sale_price>'), array($goodsId, self::SKU_ST_VALID, 0),
-                array('and', 'and')
+                array('goods_id'), array($goodsId),
+                array()
             );
             if (!empty($ret)) {
                 Cache::setEx($ck, Cache::CK_GOODS_SKU_EXPIRE, json_encode($ret));
             }
         }
         return $ret === false ? array() : $ret;
+    }
+
+    public static function findAllValidSKUInfo($goodsId)
+    {
+        $data = self::fetchAllSKUInfo($goodsId);
+        if (empty($data))
+            return array();
+        $ret = array();
+        foreach ($data as $item) {
+            if ($item['state'] == self::SKU_ST_VALID
+                && $item['sale_price'] > 0.0001) {
+                $ret[] = $item;
+            }
+        }
+        return $ret;
     }
 
     public static function getSKUInfo($goodsId, $skuAttr, $skuValue)
@@ -48,6 +63,22 @@ class GoodsSKUModel
             }
         }
         return array();
+    }
+
+    public static function setInventory($id, $goodsId, $amount)
+    {
+        if (empty($data)) {
+            return true;
+        }
+        $ret = DB::getDB('w')->update(
+            'g_goods_sku',
+            array('amount' => $amount),
+            array('id', 'goods_id'), array($id, $goodsId),
+            false,
+            1
+        );
+        self::onUpdateData($goodsId);
+        return $ret !== false;
     }
 
     // 检查库存，不用事务!

@@ -128,16 +128,54 @@
 		<div class="form-group">
              <label class="col-sm-2 control-label no-padding-left"> SKU类别：</label>
              <div class="col-sm-9">
-             <!--SKU大类 -->
+               <!--SKU大类 -->
                <div class="sku_info">
                  <label class="checkbox inline">
-                    <input type="checkbox" value="option1">颜色
+                    <input type="checkbox" value="1">颜色
                  </label>
                  <label class="checkbox inline">
-                    <input type="checkbox" value="option1">容量
+                    <input type="checkbox" value="2">容量
                  </label>
                </div>
-             <!--E -->
+               <!--E -->
+
+               <!--SKU属性 -->
+               <div class="sku_attr">
+                 <label class="title">颜色</label>
+                 <br />
+                 <label class="checkbox inline">
+                    <input type="checkbox" value="1">红色
+                 </label>
+                 <label class="checkbox inline">
+                    <input type="checkbox" value="2">绿色
+                 </label>
+                 <label class="checkbox inline">
+                   <input type="checkbox" value="3">蓝色
+                 </label>
+                 <label class="checkbox inline">
+                   <input type="checkbox" value="4">白色
+                 </label>
+               </div>
+               <!--E -->
+
+               <!--SKU属性 -->
+               <div class="sku_attr">
+                 <label class="title">容量</label>
+                 <br />
+                 <label class="checkbox inline">
+                    <input type="checkbox" value="1">1L
+                 </label>
+                 <label class="checkbox inline">
+                    <input type="checkbox" value="2">2L
+                 </label>
+                 <label class="checkbox inline">
+                   <input type="checkbox" value="3">3L
+                 </label>
+                 <label class="checkbox inline">
+                   <input type="checkbox" value="4">4L
+                 </label>
+               </div>
+               <!--E -->
              </div>
         </div>
 
