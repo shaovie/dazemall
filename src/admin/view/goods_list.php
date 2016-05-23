@@ -80,7 +80,8 @@
                 <div>上架状态：<?php echo $goods['state']?></div>
 			</td>
 			<td style="text-align:center;vertical-align:middle;">
-				<a class="btn btn-xs btn-info" href="/admin/Goods/editPage?goodsId=<?php echo $goods['id']?>">编辑</a>
+				<a target="_blank" class="btn btn-xs btn-info" href="/admin/Goods/editPage?goodsId=<?php echo $goods['id']?>">编辑</a>
+				<a target="_blank" class="btn btn-xs btn-info" href="/admin/Goods/kuCunPage?goodsId=<?php echo $goods['id']?>">库存管理</a>
 			</td>
 		</tr>
         <?php endforeach?>

@@ -124,7 +124,23 @@
                 <!-- END -->
 			</div>
 		</div>
-		
+
+		<div class="form-group">
+             <label class="col-sm-2 control-label no-padding-left"> SKU类别：</label>
+             <div class="col-sm-9">
+             <!--SKU大类 -->
+               <div class="sku_info">
+                 <label class="checkbox inline">
+                    <input type="checkbox" value="option1">颜色
+                 </label>
+                 <label class="checkbox inline">
+                    <input type="checkbox" value="option1">容量
+                 </label>
+               </div>
+             <!--E -->
+             </div>
+        </div>
+
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left">商品详细描述：<br><span style="font-size:12px;color:red">(建议图片宽不超过640px)</span></label>
 			<div class="col-sm-9">

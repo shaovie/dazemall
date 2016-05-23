@@ -28,12 +28,15 @@ class GoodsCategoryController extends AdminController
     {
         $catId = $this->getParam('catId', 0);
         $info = array();
+        $title = '新建分类';
         $action = '/admin/GoodsCategory/add';
         if ($catId > 0) {
+            $title = '编辑分类';
             $action = '/admin/GoodsCategory/edit';
             $info = GoodsCategoryModel::findCategoryById($catId);
         }
         $data = array(
+            'title' => $title,
             'parentId' => 0,
             'catId' => $catId,
             'info' => $info,
@@ -60,6 +63,7 @@ class GoodsCategoryController extends AdminController
     {
         $parentId = $this->getParam('parentId', 0);
         $data = array(
+            'title' => '新建分类',
             'parentId' => $parentId,
             'catId' => 0,
             'action' => '/admin/GoodsCategory/add',

@@ -25,7 +25,7 @@
 	<script type="text/javascript" src="/asset/js/goods.js"></script>
 </head>
 <body class="no-skin">
-	<h3 class="header smaller lighter blue">新增分类</h3>
+	<h3 class="header smaller lighter blue"><?php echo $title?></h3>
 	<form id="save-form" action="<?php echo $action?>" method="post" enctype="multipart/form-data" class="form-horizontal">	
 		<input type="hidden" id="catId" name="catId" value="<?php echo $catId?>">
 		<input type="hidden" id="parentId" name="parentId" value="<?php echo $parentId?>">

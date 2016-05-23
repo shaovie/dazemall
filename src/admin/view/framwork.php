@@ -115,6 +115,11 @@
                               管理分类                              
                               </a>
 						</li>
+                        <li> <a onclick="navtoggle(&#39;商品管理 - &gt; SKU管理&#39;)" href="/admin/SkuAttr/listPage" target="main">
+                              <i class="icon-double-angle-right"></i>
+                              SKU管理                              
+                              </a>
+						</li>
                      </ul>
                 </li>
                 <li class="open">

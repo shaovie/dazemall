@@ -16,11 +16,6 @@ class GoodsController extends AdminController
 {
     const ONE_PAGE_SIZE = 10;
 
-    public function index()
-    {
-        $this->display("goods_list");
-    }
-
     public function listPage()
     {
         $page = $this->getParam('page', 1);
@@ -183,6 +178,13 @@ class GoodsController extends AdminController
             return ;
         }
         $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Goods/editPage?goodsId=' . $goodsInfo['id']);
+    }
+    public function kuCunPage()
+    {
+        $data = array(
+            'skuList' => array(),
+        );
+        $this->display('goods_kucun_list', $data);
     }
     private function fetchFormParams(&$goodsInfo, &$error)
     {
