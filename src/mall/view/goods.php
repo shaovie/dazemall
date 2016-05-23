@@ -128,7 +128,7 @@
                     </dl>
 				</section> -->
 				<div id="J-cm-amount" class="cm-amount clearfix">
-					<label>库存量：<span id="J-last-num"><?php echo $inventory?></span></label>
+					<label>库存量：<span id="J-last-num"></span></label>
 					<div class="right">
 						<ul class="J-amount-bar amount-bar dib-wrap" max="100" min="1">
                             <li class="btn-minus dib"><i class="icon"></i></li>
@@ -166,6 +166,7 @@
 	<input type="hidden" id="goods_number" value="1" />
 	<input type="hidden" id="price" value="<?php $salePrice?>" />
 	<input type="hidden" id="gid" value="<?php $goodsId?>" />
+    <input type="hidden" id="goods_sku_json" value='<?php echo $skuJson;?>' />
 
     <?php
         src\common\JsCssLoader::outJs('lib/mod.js');

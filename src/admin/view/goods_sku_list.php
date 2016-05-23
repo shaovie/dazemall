@@ -30,6 +30,7 @@
 			<thead>
 				<tr>
 					<th class="text-center" style="width:80px;">商品SKU</th>
+					<th class="text-center" style="width:50px;">价格</th>
 					<th class="text-center" style="width:50px;">现有库存</th>
 					<th class="text-center" style="width:80px;">修改人</th>
 					<th class="text-center" style="width:80px;">修改时间</th>
@@ -40,11 +41,12 @@
             <?php foreach ($skuList as $item):?>
 			<tr>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['sku']?></td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $item['sale_price']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['amount']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['m_user']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo date('Y-m-d H:i:s', $item['mtime'])?></td>
 				<td style="text-align:center;vertical-align:middle;">
-					<button type="button" class="btn btn-primary span2" name="confirmsend" data-toggle="modal" data-target="#modal-confirmsend" value="confirmsend" sku-id="<?php echo $item['id']?>" >修改库存</button>
+					<button type="button" class="btn btn-primary span2" onclick="modifyStock(<?php echo $item['id']?>, <?php echo $item['goods_id']?>)" >修改库存</button>
 				</td>
 			</tr>
             <?php endforeach?>
@@ -63,12 +65,14 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label no-padding-left"> 库存：</label>
 					<div class="col-sm-9">
-						<input type="text" name="amount" class="span5">
+						<input type="text" name="amount" id="amount" class="span5">
 					</div>
 				</div>      	
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
+                <input type="hidden" name="sku_id" value="" id="sku_id"/>
+                <input type="hidden" name="goods_id" value="" id="goods_id"/>
+				<button type="button" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 			</div>
 			</div>
@@ -77,9 +81,14 @@
 	<!-- END -->
 	</form>
 	<script>
+        function modifyStock(id, goodsId) {
+            $('#sku_id').val(id);
+            $('#goods_id').val(goodsId);
+            $('#modal-confirmsend').modal('show')
+        }
         $('#confirmsend-btn').click(function(){
             var url = "/admin/Goods/modifyKuCun";
-            $.post(url,{id:$("#ipt_account").val(),passwd:$("#ipt_pwd").val()},function(data){
+            $.post(url,{id:$("#sku_id").val(), goodsId:$("#goods_id").val(), amount:$("#amount").val()},function(data){
                 if(data.code==0) {
                     window.location.href= data.url;
                 } else {

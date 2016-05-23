@@ -126,22 +126,21 @@
 		</div>
 
 		<div class="form-group">
-             <label class="col-sm-2 control-label no-padding-left"> SKU类别：</label>
+             <label class="col-sm-2 control-label no-padding-left"> SKU：</label>
              <div class="col-sm-9">
                <!--SKU大类 -->
-               <div class="sku_info">
-                 <label class="checkbox inline">
-                    <input type="checkbox" value="1">颜色
+               <div class="sku_info" id="skuAttr-radio">
+               <?php foreach ($skuAttrList as $skuAttr):?>
+                 <label class="radio inline">
+                    <input type="radio" name="sku_radio" sku-id="<?php echo $skuAttr['id']?>" value="<?php echo $skuAttr['attr']?>" onclick="getSkuAttr(this)" <?php if ($skuAttr['attr'] == $curSkuAttr) {echo 'checked="true"';}?>><?php echo $skuAttr['attr']?>
                  </label>
-                 <label class="checkbox inline">
-                    <input type="checkbox" value="2">容量
-                 </label>
+               <?php endforeach?>
                </div>
                <!--E -->
 
                <!--SKU属性 -->
                <div class="sku_attr">
-                 <label class="title">颜色</label>
+               <!--  <label class="title">颜色</label>
                  <br />
                  <label class="checkbox inline">
                     <input type="checkbox" value="1">红色
@@ -154,28 +153,34 @@
                  </label>
                  <label class="checkbox inline">
                    <input type="checkbox" value="4">白色
-                 </label>
+                 </label>-->
                </div>
                <!--E -->
 
-               <!--SKU属性 -->
-               <div class="sku_attr">
-                 <label class="title">容量</label>
-                 <br />
-                 <label class="checkbox inline">
-                    <input type="checkbox" value="1">1L
-                 </label>
-                 <label class="checkbox inline">
-                    <input type="checkbox" value="2">2L
-                 </label>
-                 <label class="checkbox inline">
-                   <input type="checkbox" value="3">3L
-                 </label>
-                 <label class="checkbox inline">
-                   <input type="checkbox" value="4">4L
-                 </label>
+               <div class="sku_table">
+                  <!--<table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>颜色</th>
+                        <th>容量</th>
+                        <th>价格</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td >蓝色</td>
+                        <td>1L</td>
+                        <td><input type="text" value=""></td>
+                     </tr>
+                     <tr>
+                       <td>蓝色</td>
+                       <td>2L</td>
+                       <td><input type="text" value="" onblur=""></td>
+                     </tr>
+                    </tbody>
+                  </table>-->
                </div>
-               <!--E -->
+
              </div>
         </div>
 
@@ -216,8 +221,42 @@
             <?php endif; endforeach;?>
             <?php endif?>
         </div>
+        <input type="hidden" id="skuJson" name="skuJson" value="" />
 	</form>
+    <input type="hidden" id="skuValue" name="skuValue" value="" />
 	<script>
+    $(document).ready(function(){
+        $('#skuAttr-radio input:radio:checked').click();
+        <?php if (!empty($skuValueList)):?>
+            <?php $str = ''; foreach ($skuValueList as $val) {
+                $str .= $val['sku_value'] . ':' . $val['sale_price'] . ':' . $val['amount'] . '|';
+                }
+                if (strlen($str) > 0) {
+                    $str = substr($str, 0, -1);
+                }
+            ?>
+            <?php if (!empty($str)):?>
+                $('#skuValue').val("<?php echo $str?>");
+            <?php endif?>
+                vl = $('#skuValue').val().split("|");
+                var skuValList = new Array();
+                $.each(vl, function(i,v){
+                    sku = v.split(":");
+                    skuValList.push(sku[0]);
+                    });
+                setTimeout(function () {
+                    for (i = 1; i <= skuValList.length; i++) {
+                        $('.sku_attr input:checkbox').each(function(i, e){
+                            if (skuValList[i] == $(e).parent().text()) {
+                                $(e).click();
+                            }
+                        });
+                        break;
+                    }
+
+                }, 800);
+        <?php endif?>
+    });
         $('#save-btn').click(function(){
             var goodsDetails = UE.getEditor('editor').getContent();
             var url = $("#save-form").attr("action");
@@ -225,7 +264,10 @@
              $("#goods_img input").each(function(i,v){
                  goods_imgs += $(v).val()+'|';
              });
-
+             var sku = '';
+             $('.sku_table input').each(function(i,v){
+                 sku += $(v).closest('tr').find('td').eq(0).text()+':'+$(v).val()+':1|';
+             });
             $.post(url,{
                 goodsId:$("#goodsId").val(),
                 cateId:$('#cateid').val(),
@@ -236,7 +278,9 @@
                 detail:goodsDetails,
                 imageUrl:$("#thumb_img").val(),
                 imageUrls:goods_imgs,
-                jifen:$("#jifen").val()
+                jifen:$("#jifen").val(),
+                skuAttr:$("#skuAttr-radio input[name='sku_radio']:checked").val(),
+                sku:sku
                 },function(data){
                 if(data.code==0) {
                     alert(data.msg);

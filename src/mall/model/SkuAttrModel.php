@@ -60,6 +60,16 @@ class SkuAttrModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function fetchAllSkuAttr()
+    {
+        $ret = DB::getDB('r')->fetchAll(
+            'g_sku_attr',
+            '*',
+            array('state'), array(1)
+        );
+        return $ret === false ? array() : $ret;
+    }
+
     public static function fetchSomeSkuAttr($conds, $vals, $rel, $page, $pageSize)
     {
         $page = $page > 0 ? $page - 1 : $page;

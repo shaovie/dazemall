@@ -118,7 +118,7 @@ class SkuValueController extends AdminController
             $this->account
         );
         if ($ret === false || (int)$ret <= 0) {
-            $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败');
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败(数据可能重复)');
             return ;
         }
         $this->ajaxReturn(0, '保存成功', '/admin/SkuValue/listPage?attrId=' . $skuValueInfo['attrId']);
@@ -147,6 +147,13 @@ class SkuValueController extends AdminController
             return ;
         }
         $this->ajaxReturn(0, '保存成功', '/admin/SkuValue/listPage?attrId=' . $skuValueInfo['attrId']);
+    }
+
+    public function getSkuValue()
+    {
+        $attrId = intval($this->getParam('attrId', 0));
+        $data = SkuValueModel::fetchAllSkuValue($attrId);
+        $this->ajaxReturn(0, '', '', $data);
     }
 
     private function fetchFormParams(&$skuValueInfo, &$error)

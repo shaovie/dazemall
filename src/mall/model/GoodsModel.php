@@ -32,7 +32,10 @@ class GoodsModel
         $state,
         $imageUrl,
         $detail,
-        $imageUrls
+        $imageUrls,
+        $skuAttr,
+        $skuInfo,
+        $user
     ) {
         if (empty($name)) {
             return array();
@@ -61,6 +64,20 @@ class GoodsModel
         if ($ret === false) {
             $wdb->rollBack();
             return false;
+        }
+        foreach ($skuInfo as $sku) {
+            $ret = GoodsSKUModel::newOne(
+                $goodsId,
+                $skuAttr,
+                $sku['skuValue'],
+                $sku['price'],
+                $sku['amount'],
+                $user
+            );
+            if ($ret === false) {
+                $wdb->rollBack();
+                return false;
+            }
         }
         if ($wdb->commit() === false) {
             return false;

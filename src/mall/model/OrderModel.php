@@ -78,7 +78,6 @@ class OrderModel
         $addrId,
         $goodsList, // [['goodsId' => n, 'amount' => n, 'category_id' => n,
                     // 'skuAttr' => '', 'skuValue' => '', 'attach' => ''],]
-        $orderAmount,
         $useAccountPay, // 0/1 是否使用账户余额支付
         $olPayType, // 第三方支付方式
         $couponId,  // 优惠券ID
@@ -284,7 +283,7 @@ class OrderModel
             $addrInfo['province_id'],
             $addrInfo['city_id'],
             $addrInfo['district_id'],
-            $addrInfo['detail'],
+            $addrInfo['detail_addr'],
             $addrInfo['re_id_card'],
             $payState,
             $totalPrice,

@@ -100,7 +100,7 @@ class UserAddressModel
     public static function getAddr($userId, $addrId)
     {
         $addrList = self::getAddrList($userId);
-        if ($addrList !== false) {
+        if (!empty($addrList)) {
             foreach ($addrList as $addr) {
                 if ($addr['id'] == $addrId) {
                     return $addr;
@@ -131,9 +131,9 @@ class UserAddressModel
     {
         $sysCityCodeBook = include_once(CONFIG_PATH . '/city_code_book.php');
         $fullAddr = $sysCityCodeBook[$addr['province_id']]
-            . $sysCityCodeBook[$order['city_id']]
-            . $sysCityCodeBook[$order['district_id']]
-            . (isset($addr['detail_addr']) ? $addr['detail_addr'] : $addr['detail']);
+            . $sysCityCodeBook[$addr['city_id']]
+            . $sysCityCodeBook[$addr['district_id']]
+            . $addr['detail_addr'];
         return $fullAddr;
     }
 

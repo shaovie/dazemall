@@ -61,6 +61,17 @@ class SkuValueModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function fetchAllSkuValue($attrId)
+    {
+        $ret = DB::getDB('r')->fetchAll(
+            'g_sku_value',
+            '*',
+            array('attr_id'), array($attrId)
+        );
+
+        return $ret === false ? array() : $ret;
+    }
+
     public static function fetchSomeSkuValue($conds, $vals, $rel, $page, $pageSize)
     {
         $page = $page > 0 ? $page - 1 : $page;

@@ -62,7 +62,7 @@ class AsyncOrderController extends JobController
             $data['orderPrefix'],
             // TODO
         );
-        Nosql::setex($nk, Nosql::NK_ASYNC_ORDER_RESULT_EXPIRE, json_encode($result));
+        Nosql::setEx($nk, Nosql::NK_ASYNC_ORDER_RESULT_EXPIRE, json_encode($result));
         if ($result['code'] == 0) {
             AsyncModel::asyncCancelOrder($result['result']['orderId'], 1800); // 普通订单超时时间1800秒
         }

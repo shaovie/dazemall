@@ -7,7 +7,7 @@
     <?php src\common\JsCssLoader::outCss('modules/pay-new/index.less');?>
 </head>
 <body>
-<form id="J-pay-form" action="/mall/Pay/createOrder" method="post" enctype="application/x-www-form-urlencoded">
+<form id="J-pay-form" action="<?php echo $action?>" method="post" enctype="application/x-www-form-urlencoded">
 	<?php if (empty($address)):?>
 	<section id="J-address" class="address no-address">
 		<input type="hidden" id="J-addr-id" class="address no-address" name="address_id" value=""/>
@@ -120,7 +120,7 @@
     <a class="J-pay-btn btnl btnl-yue" type="0">余额安全支付</a>
     <a class="J-pay-btn btnl btnl-wx" type="2">微信安全支付</a>
 </footer>
-<input id="J-use-ticket" name="coupon_code" type="hidden" value="<?php echo !empty($coupon) ? $coupon[0]['coupon_code'] : '';?>" />
+<input id="J-use-ticket" name="coupon_id" type="hidden" value="<?php echo !empty($coupon) ? $coupon[0]['coupon_id'] : '';?>" />
 <input id="J-total-val" type="hidden" value="<?php echo $totalPrice; ?>" />
 <input id="J-trans-val" type="hidden" value="0.00"/>
 <input id="J-last-val" type="hidden" value="<?php echo $cash; ?>"/>

@@ -9,11 +9,35 @@ namespace src\mall\model;
 use \src\common\Cache;
 use \src\common\Util;
 use \src\common\Log;
+use \src\common\DB;
 
 class GoodsSKUModel
 {
     const SKU_ST_INVALID         = 0;  // 无效
     const SKU_ST_VALID           = 1;  // 无效
+
+    public static function newOne($goodsId, $skuAttr, $skuValue, $price, $amount, $user)
+    {
+        if (empty($skuAttr) || empty($skuValue)) {
+            return false;
+        }
+        $data = array(
+            'goods_id' => $goodsId,
+            'sku_attr' => $skuAttr,
+            'sku_value' => $skuValue,
+            'sale_price' => $price,
+            'amount' => $amount,
+            'state' => 1,
+            'ctime' => CURRENT_TIME,
+            'mtime' => CURRENT_TIME,
+            'm_user' => $user,
+        );
+        $ret = DB::getDB('w')->insertOne('g_goods_sku', $data);
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        return true;
+    }
 
     public static function fetchAllSKUInfo($goodsId)
     {
@@ -65,16 +89,24 @@ class GoodsSKUModel
         return array();
     }
 
-    public static function setInventory($id, $goodsId, $amount)
+    public static function getGoodsSkuAttr($goodsId)
     {
-        if (empty($data)) {
+        $data = self::fetchAllSKUInfo($goodsId);
+        if (empty($data))
+            return '';
+        return $data[0]['sku_attr'];
+    }
+
+    public static function setInventory($id, $goodsId, $amount, $user)
+    {
+        if (empty($id) || empty($goodsId)) {
             return true;
         }
         $ret = DB::getDB('w')->update(
             'g_goods_sku',
-            array('amount' => $amount),
+            array('amount' => $amount, 'mtime' => CURRENT_TIME, 'm_user' => $user),
             array('id', 'goods_id'), array($id, $goodsId),
-            false,
+            array('and'),
             1
         );
         self::onUpdateData($goodsId);

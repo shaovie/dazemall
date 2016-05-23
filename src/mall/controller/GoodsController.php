@@ -7,6 +7,7 @@
 namespace src\mall\controller;
 
 use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsSKUModel;
 use \src\mall\model\GoodsDetailModel;
 
 class GoodsController extends MallController
@@ -29,7 +30,21 @@ class GoodsController extends MallController
         $data['name'] = $goodsInfo['name'];
         $data['goodsId'] = $goodsId;
         $data['imageUrl'] = $goodsInfo['image_url'];
-        $data['inventory'] = 2;
+
+        $skuJson = array();
+        $skuValue = GoodsSKUModel::findAllValidSKUInfo($goodsId);
+        if (!empty($skuValue)) {
+            foreach ($skuValue as $sku) {
+                $skuJson[] = array(
+                    'goodsId' => $sku['goods_id'],
+                    'skuAttr' => $sku['sku_attr'],
+                    'skuValue' => $sku['sku_value'],
+                    'price' => $sku['sale_price'],
+                    'amount' => $sku['amount']
+                );
+            }
+        }
+        $data['skuJson'] = json_encode($skuJson);
         $this->display('goods', $data);
     }
 }

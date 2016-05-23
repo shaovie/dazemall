@@ -8,8 +8,11 @@ namespace src\admin\controller;
 
 use \src\common\Util;
 use \src\common\Check;
+use \src\common\Log;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsSKUModel;
+use \src\mall\model\SkuAttrModel;
+use \src\mall\model\SkuValueModel;
 use \src\mall\model\GoodsDetailModel;
 use \src\mall\model\GoodsCategoryModel;
 
@@ -95,6 +98,9 @@ class GoodsController extends AdminController
         $data = array(
             'title' => '新增商品',
             'goods' => array(),
+            'curSkuAttr' => '默认',
+            'skuAttrList' => SkuAttrModel::fetchAllSkuAttr(),
+            'skuValueList' => array(),
             'action' => '/admin/Goods/add',
         );
         $this->display('goods_info', $data);
@@ -119,7 +125,10 @@ class GoodsController extends AdminController
             $goodsInfo['state'],
             $goodsInfo['image_url'],
             $goodsInfo['detail'],
-            $goodsInfo['image_urls']
+            $goodsInfo['image_urls'],
+            $goodsInfo['skuAttr'],
+            $goodsInfo['skuPrice'],
+            $this->account
         );
         if ($goodsId === false || (int)$goodsId <= 0) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
@@ -140,9 +149,13 @@ class GoodsController extends AdminController
             $goodsInfo['image_urls'] = explode("|", $goodsDetailInfo['image_urls']);
             $goodsInfo['detail'] = $goodsDetailInfo['detail'];
         }
+        $skuValueList = GoodsSKUModel::fetchAllSKUInfo($goodsId);
         $data = array(
             'title' => '编辑商品',
             'goods' => $goodsInfo,
+            'skuAttrList' => SkuAttrModel::fetchAllSkuAttr(),
+            'curSkuAttr' => GoodsSKUModel::getGoodsSkuAttr($goodsId),
+            'skuValueList' => $skuValueList,
             'action' => '/admin/Goods/edit',
         );
         $this->display('goods_info', $data);
@@ -182,10 +195,15 @@ class GoodsController extends AdminController
     }
     public function skuPage()
     {
-        $goodsId = intval($this->postParam('goodsId', 0));
+        $goodsId = intval($this->getParam('goodsId', 0));
+        $skuList = GoodsSKUModel::fetchAllSKUInfo($goodsId); 
+        foreach ($skuList as &$sku) {
+            $sku['sku'] = $sku['sku_attr'] . '：' . $sku['sku_value'];
+            $sku['sale_price'] = number_format($sku['sale_price'], 2, '.', '');
+        }
         $data = array(
             'goodsId' => $goodsId,
-            'skuList' => array(array()),//GoodsSKUModel::fetchAllSKUInfo($goodsId),
+            'skuList' => $skuList,
         );
         $this->display('goods_sku_list', $data);
     }
@@ -195,8 +213,8 @@ class GoodsController extends AdminController
         $goodsId = intval($this->postParam('goodsId', 0));
         $amount = intval($this->postParam('amount', 0));
         if ($amount >= 0) {
-            GoodsSKUModel::setInventory($id, $goodsId, $amount);
-            $this->ajaxReturn(0, '修改成功', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+            GoodsSKUModel::setInventory($id, $goodsId, $amount, $this->account);
+            $this->ajaxReturn(0, '', '/admin/Goods/skuPage?goodsId=' . $goodsId);
             return ;
         }
         $this->ajaxReturn(0, '不能改成负数', '/admin/Goods/skuPage?goodsId=' . $goodsId);
@@ -212,7 +230,9 @@ class GoodsController extends AdminController
         $goodsInfo['image_url'] = trim($this->postParam('imageUrl', ''));
         $goodsInfo['image_urls'] = trim($this->postParam('imageUrls', ''));
         $goodsInfo['detail'] = $this->postParam('detail', '');
-        $goodsInfo['category_id'] = $this->postParam('cateId', '');
+        $goodsInfo['category_id'] = intval($this->postParam('cateId', 0));
+        $goodsInfo['skuAttr'] = trim($this->postParam('skuAttr', ''));
+        $goodsInfo['sku'] = trim($this->postParam('sku', ''));
 
         if (empty($goodsInfo['name'])) {
             $error = '商品名不能为空';
@@ -226,6 +246,28 @@ class GoodsController extends AdminController
             $error = '商品分类不能为空';
             return false;
         }
+        if (empty($goodsInfo['skuAttr'])) {
+            $error = 'sku属性不能为空';
+            return false;
+        }
+        if (empty($goodsInfo['sku'])) {
+            $error = 'sku属性值不能为空';
+            return false;
+        }
+        $skuValueInfo = explode('|', $goodsInfo['sku']);
+        $skuPrice = array();
+        foreach ($skuValueInfo as $skuValue) {
+            $p = explode(':', $skuValue);
+            if (empty($p) || empty($p[0]) || empty($p[1]) || intval($p[2]) < 0)
+                continue;
+            $skuPrice[] = array('skuValue' => $p[0], 'price' => $p[1], 'amount' => $p[2]);
+        }
+        $goodsInfo['skuPrice'] = $skuPrice;
+        if (empty($goodsInfo['skuPrice'])) {
+            $error = 'sku属性值不能为空或价格为0';
+            return false;
+        }
+
         if ($goodsInfo['state'] != GoodsModel::GOODS_ST_INVALID
             && $goodsInfo['state'] != GoodsModel::GOODS_ST_VALID
             && $goodsInfo['state'] != GoodsModel::GOODS_ST_UP
