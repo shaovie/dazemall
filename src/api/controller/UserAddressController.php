@@ -119,6 +119,7 @@ class UserAddressController extends ApiController
     {
         $this->checkLoginAndNotice();
 
+        $addrId = $this->postParam('id', 0);
         $reName = $this->postParam('name', ''); // 收件人
         $rePhone = $this->postParam('phone', '');
         $provinceId = (int)$this->postParam('provinceId', 0);
@@ -214,8 +215,9 @@ class UserAddressController extends ApiController
         $sysCityCode = include(CONFIG_PATH . '/city_code.php');
         if (isset($sysCityCode[$provinceId])) {
             $distList = $sysCityCode[$provinceId]['city'][$cityId]['district'];
+            Log::rinfo(json_encode($distList, JSON_UNESCAPED_UNICODE));
             foreach ($distList as $key => $val) {
-                $data[] = array('region_name' => $val['name'], 'region_id' => $key);
+                $data[] = array('region_name' => $val, 'region_id' => $key);
             }
         }
         $this->ajaxReturn(0, '', '', array('data' => $data));
