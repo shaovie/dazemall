@@ -144,14 +144,11 @@ class UserAddressModel
         }
         $ret = DB::getDB('w')->update(
             'u_address',
-            array('is_default', $val),
+            array('is_default' => $val),
             array('id', 'user_id'), array($addrId, $userId),
             array('and'),
             1
         );
-        if ($ret === false || (int)$ret <= 0) {
-            return false;
-        }
         self::onUpdateData($userId);
         return true;
     }

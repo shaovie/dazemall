@@ -7,6 +7,14 @@
     <?php src\common\JsCssLoader::outCss('modules/pay-new/index.less');?>
 </head>
 <body>
+    <!--地址列表-->
+    <input type="hidden" id="J-ajaxurl-address-list" value="/api/UserAddress/getAll" />
+    <!--地址：设置默认-->
+    <input type="hidden" id="J-ajaxurl-address-setDefault" value="/api/UserAddress/setDefault" />
+    <!--地址：保存地址-->
+    <input type="hidden" id="J-ajaxurl-address-save" value="/api/UserAddress/edit" />
+    <!--地址：删除-->
+    <input type="hidden" id="J-ajaxurl-address-del" value="/api/UserAddress/del" />
 <form id="J-pay-form" action="<?php echo $action?>" method="post" enctype="application/x-www-form-urlencoded">
 	<?php if (empty($address)):?>
 	<section id="J-address" class="address no-address">

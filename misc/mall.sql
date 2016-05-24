@@ -197,7 +197,7 @@ create table o_order (
     -- 状态
     pay_state           tinyint not null default 0,                 # 0:未支付 1c支付成功
     pay_time            int not null default 0,                     # 支付时间
-    order_state         tinyint not null default 0,                 # 0:创建 1:完成 3:取消
+    order_state         tinyint not null default 0,                 # 0:创建 1:完成 2:取消
     delivery_state      tinyint not null default 0,                 # 0:未发货 1:发货中 2:已签收 3: 确认收货
     delivery_time       int not null default 0,                     # 发货时间
 

@@ -106,19 +106,13 @@ class OrderController extends UserController
     
     public function confirmTakeDelivery()
     {
-        $orderId = $this->postParam('order_id', '');
-        $productId = $this->postParam('product_id', 0);
-        $skuValuesText = $this->postParam('sku_values', '');
-        if (empty($orderId)
-            || empty($productId)
-            || empty($skuValuesText)) {
+        $orderId = $this->postParam('orderId', '');
+        if (empty($orderId)) {
             $this->ajaxReturn(1, '参数错误');
             exit();
         }
         $apiData = array(
             'orderId' => $orderId,
-            'productId' => $productId,
-            'skuValuesText' => $skuValuesText,
         );        
         $response = WeMallApi::confirmTakeDelivery($apiData);
         if (isset($response['success']) && $response['success'] == 1) {
@@ -206,55 +200,69 @@ class OrderController extends UserController
 
     private function getOrderInfo($orderId)
     {
-        $apiRet = WeMallApi::getOrderInfo($orderId);
         $order = array();
-        if ($apiRet['success'] == 1) {
-            $order = $apiRet['data'];
-            $order['iFullAddress'] = $order['provinceName']
-                . $order['cityName']
-                . $order['regionName']
-                . $order['recipientAddress'];
-            $order['iPayType'] = '微信';
-            if ($order['onlinePayType'] == 1) {
-                $order['iPayType'] = '支付宝';
-            } else if ($order['onlinePayType'] == 2) {
-                $order['iPayType'] = '微信';
-            } else if ($order['onlinePayType'] == 3) {
-                $order['iPayType'] = '银联';
-            }
-            $logisticsList = array();
-            foreach ($order['productList'] as $product) {
-                $skuTexts = explode('|', $product['skuTexts']);
-                $skuValuesText = explode('|', $product['skuValuesText']);
-                $sku = '';
-                foreach ($skuTexts as $key => $val) {
-                    if (!empty($val)) {
-                        $sku .= $val . ':' . $skuValuesText[$key] . ' ';
-                    }
-                }
-                $product['iSkuInfo'] = $sku;
-                if (!empty($product['logisticsNumber'])
-                    && strlen($product['logisticsNumber']) > 1) {
-                    $logisticsId = $product['logisticsNumber'];
-                    if (!isset($logisticsList[$logisticsId])) {
-                        $logisticsList[$logisticsId] = array($product);
-                    } else {
-                        $logisticsList[$logisticsId][] = $product;
-                    }
-                } else {
-                    // 没有物流编号的就放到一个数组里边集中显示
-                    if (!isset($logisticsList[0])) {
-                        $logisticsList[0] = array($product);
-                    } else {
-                        $logisticsList[0][] = $product;
-                    }
-                }
-            }
-            unset($order['productList']);
-            $order['logisticsList'] = $logisticsList;
-        } else {
+        $order = UserOrderModel::findOrderByOrderId($orderId);
+        if (empty($order)) {
             return array();
         }
+
+        $order['fullAddr'] = UserAddressModel::getFullAddr($order);
+        $goodsList = OrderGoodsModel::fetchOrderGoodsById($orderId);
+        foreach($goodsList as &$val) {
+            $goodsInfo = GoodsModel::findGoodsById($val['goods_id']);
+            if (!empty($goodsInfo)) {
+                $val['name'] = $goodsInfo['name'];
+                $val['img'] = $goodsInfo['image_url'];
+            }
+        }
+        $order['goodsList'] = $goodsList;
+
+        $order['deliverfyStateDesc'] = '';
+        if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_NOT)
+            $order['deliverfyStateDesc'] = '未发货';
+        else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_ING)
+            $order['deliverfyStateDesc'] = '发货中';
+        else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_RECV)
+            $order['deliverfyStateDesc'] = '已签收';
+
+        $order['iPayType'] = '微信';
+        if ($order['onlinePayType'] == 1) {
+            $order['iPayType'] = '支付宝';
+        } else if ($order['onlinePayType'] == 2) {
+            $order['iPayType'] = '微信';
+        } else if ($order['onlinePayType'] == 3) {
+            $order['iPayType'] = '银联';
+        }
+        $logisticsList = array();
+        foreach ($order['productList'] as $product) {
+            $skuTexts = explode('|', $product['skuTexts']);
+            $skuValuesText = explode('|', $product['skuValuesText']);
+            $sku = '';
+            foreach ($skuTexts as $key => $val) {
+                if (!empty($val)) {
+                    $sku .= $val . ':' . $skuValuesText[$key] . ' ';
+                }
+            }
+            $product['iSkuInfo'] = $sku;
+            if (!empty($product['logisticsNumber'])
+                && strlen($product['logisticsNumber']) > 1) {
+                $logisticsId = $product['logisticsNumber'];
+                if (!isset($logisticsList[$logisticsId])) {
+                    $logisticsList[$logisticsId] = array($product);
+                } else {
+                    $logisticsList[$logisticsId][] = $product;
+                }
+            } else {
+                // 没有物流编号的就放到一个数组里边集中显示
+                if (!isset($logisticsList[0])) {
+                    $logisticsList[0] = array($product);
+                } else {
+                    $logisticsList[0][] = $product;
+                }
+            }
+        }
+        unset($order['productList']);
+        $order['logisticsList'] = $logisticsList;
         $data = array(
             'order' => $order,
         );

@@ -8,6 +8,7 @@ namespace src\api\controller;
 
 use \src\user\model\UserAddressModel;
 use \src\common\Check;
+use \src\common\Log;
 
 class UserAddressController extends ApiController
 {
@@ -47,7 +48,7 @@ class UserAddressController extends ApiController
             $v['isDefault'] = $addr['is_default'];
             $retList[] = $v;
         }
-        $this->ajaxReturn(0, '', '', $retList);
+        $this->ajaxReturn(0, '', '', array('data' => $retList));
     }
 
     public function add()
@@ -193,7 +194,7 @@ class UserAddressController extends ApiController
     }
     public function getAllCity()
     {
-        $provinceId = $this->getParam('province_id', 0);
+        $provinceId = intval($this->getParam('province_id', 0));
         $data = array();
         $sysCityCode = include(CONFIG_PATH . '/city_code.php');
         if (isset($sysCityCode[$provinceId])) {
@@ -207,12 +208,12 @@ class UserAddressController extends ApiController
     }
     public function getAllDistrict()
     {
+        $provinceId = intval($this->getParam('province_id', 0));
         $cityId = intval($this->getParam('city_id', 0));
-        $provinceId = (int)($cityId / 1000) * 1000;
         $data = array();
         $sysCityCode = include(CONFIG_PATH . '/city_code.php');
         if (isset($sysCityCode[$provinceId])) {
-            $distList = $sysCityCode[$provinceId]['city'][$cityId]['distList'];
+            $distList = $sysCityCode[$provinceId]['city'][$cityId]['district'];
             foreach ($distList as $key => $val) {
                 $data[] = array('region_name' => $val['name'], 'region_id' => $key);
             }

@@ -358,7 +358,6 @@ class DB
                 $sql .= ',' . $limit[1];
             }
         }
-        Log::rinfo($sql);
         $stmt = $this->db->prepare($sql);
         if ($stmt === false) {
             $err = $this->db->errorInfo();
