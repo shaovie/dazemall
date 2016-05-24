@@ -19,13 +19,13 @@ class GlobalConfigModel
         if ($ret !== false) {
             $ret = json_decode($ret, true);
         } else {
-            $ret = DB::getDB()->fetchOne(
+            $ret = DB::getDB('w')->fetchOne(
                 's_global_config',
                 '*',
                 array(), array()
             );
             if (!empty($ret)) {
-                Cache::set($ck, Cache::CK_MALL_GLOBAL_CONFIG, json_encode($ret));
+                Cache::set($ck, json_encode($ret));
             }
         }
         return $ret === false ? array() : $ret;

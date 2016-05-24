@@ -63,6 +63,9 @@ class SkuValueModel
 
     public static function fetchAllSkuValue($attrId)
     {
+        if (empty($attrId))
+            return array();
+
         $ret = DB::getDB('r')->fetchAll(
             'g_sku_value',
             '*',

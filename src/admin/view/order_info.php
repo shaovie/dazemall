@@ -28,37 +28,31 @@
 		<table class="table">
 		<tbody>
 			<tr>
-				<th style="width:150px"><label for="">订单编号:</label></th>
-				<td><?php echo $info['order_id']?></td>
-				<th style="width:150px"><label for="">订单状态:</label></th>
-				<td><span class="label label-warning"><?php echo $info['stateDesc']?></span></td>
+				<th style="width:100px"><label for="">订单编号：</label></th>
+				<td><?php echo $order['orderId'];?></td>
+				<th style="width:100px"><label for="">下单时间：</label></th>
+				<td><?php echo date('Y-m-d H:i:s', $order['ctime']);?></td>
 			</tr>
 			<tr>
-				<th><label for="">下单时间:</label></th>
-				<td><?php echo date('Y-m-d H:i:s', $info['ctime'])?></td>
-				<th><label for="">总金额:</label></th>
-				<td><?php echo $info['totalAmount']?></td>
-			</tr>
-			<tr>
-				<th><label for="">支付方式:</label></th>
-				<td><?php echo $info['paymentDesc']?></td>
-				<th><label for="">配送方式:</label></th>
-				<td>test</td>
+				<th><label for="">付款方式：</label></th>
+				<td><?php echo $order['payType'];?></td>
+				<th><label for="">付款时间：</label></th>
+				<td><?php echo $order['payTime']?></td>
 			</tr>
 		</tbody>
 		</table>
 		<h3 class="header smaller lighter blue">收货人信息</h3>
-		<table class="table ">
+		<table class="table " >
 		<tbody>
 			<tr>
 				<th style="width:150px"><label for="">收货人姓名:</label></th>
-				<td ><?php echo $info['re_name']?></td>
-				<th style="width:300px"><label for="">收货地址:</label></th>
-				<td><?php echo $info['addr']?></td>
+				<td ><?php echo $order['reName']?></td>
+				<th style="width:100px"><label for="">收货手机:</label></th>
+				<td><?php echo $order['rePhone']?></td>
 			</tr>
 			<tr>
-				<th style="width:150px"><label for="">收货人电话:</label></th>
-				<td><?php echo $info['re_phone']?></td>
+				<th style="width:150px"><label for="">收货人联系地址:</label></th>
+				<td><?php echo $order['fullAddr']?></td>
 				<th><label for="">订单备注:</label></th>
 				<td><textarea readonly="readonly" style="width:30px;border: none;" type="text"></textarea>
 				</td>
@@ -77,13 +71,12 @@
 			</tr>
 		</thead>
 		<tbody>
-        <?php foreach ($orderGoods as $goods):?>
+        <?php foreach ($order['goodsList'] as $goods):?>
 			<tr>
 				<td><?php echo $goods['goods_id']?></td>
 				<td><?php echo $goods['name']?></td>
                 <td>
-                    <div><?php echo $goods['sku_attr']?></div>
-                    <div><?php echo $goods['sku_value']?></div>
+                    <?php echo $goods['sku_attr'] . '：' . $goods['sku_value']?>
                  </td>
 				<td style="color:red;font-weight:bold;"><?php echo $goods['price']?></td>
 				<td><?php echo $goods['amount']?></td>

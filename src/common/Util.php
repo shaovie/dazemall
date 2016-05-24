@@ -107,4 +107,14 @@ class Util
         return '';
     }
 
+    public static function wxSmallHeadImgUrl($url)
+    {
+        if (empty($url))
+            return '';
+        $ret = parse_url($url);
+        if ($ret != false && $ret['host'] == 'wx.qlogo.cn')
+            return substr($url, 0, -1) . 96;
+        return $url;
+    }
+
 }

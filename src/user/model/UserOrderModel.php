@@ -28,10 +28,19 @@ class UserOrderModel
     const ORDER_ST_FINISHED     = 1;
     const ORDER_ST_CANCELED     = 2;
 
+    // 订单状态
+    const ORDER_DELIVERY_ST_NOT = 0;
+    const ORDER_DELIVERY_ST_ING = 1;
+    const ORDER_DELIVERY_ST_RECV = 2; // 签收
+    const ORDER_DELIVERY_ST_CONFIRM = 3; // 确认收货
+
     // 下单环境
     const ORDER_ENV_IOS         = 1;
     const ORDER_ENV_ANDROID     = 2;
     const ORDER_ENV_WEIXIN      = 3;
+
+    //
+    const ORDER_PAY_LAST_TIME   = 1800; // 订单支付持续时间 
 
     public static function newOne(
         $orderId,
@@ -130,7 +139,7 @@ class UserOrderModel
             '*',
             $conds, $vals,
             $rel,
-            array('id'), array('asc'),
+            array('id'), array('desc'),
             array($page * $pageSize, $pageSize)
         );
 
@@ -139,6 +148,8 @@ class UserOrderModel
 
     public static function fetchSomeUserOrder($userId, $page, $pageSize)
     {
+        if (empty($userId))
+            return array();
         $page = $page > 0 ? $page - 1 : $page;
 
         $ret = DB::getDB('r')->fetchSome(
@@ -146,7 +157,7 @@ class UserOrderModel
             '*',
             array('user_id'), array($userId),
             false,
-            array('id'), array('asc'),
+            array('id'), array('desc'),
             array($page * $pageSize, $pageSize)
         );
 

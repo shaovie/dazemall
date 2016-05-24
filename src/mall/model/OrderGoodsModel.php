@@ -9,6 +9,7 @@ namespace src\mall\model;
 use \src\common\Cache;
 use \src\common\Log;
 use \src\common\DB;
+use \src\mall\model\GoodsModel;
 
 class OrderGoodsModel
 {
@@ -41,7 +42,7 @@ class OrderGoodsModel
             'sku_value' => $skuValue,
             'amount' => $amount,
             'price' => $price,
-            'state' => self::ORDER_GOODS_ST_UN_DELIVER,
+            'state' => self::ST_UN_DELIVER,
             'commented' => 0,
             'attach' => $attach,
             'ctime' => CURRENT_TIME,
@@ -53,6 +54,21 @@ class OrderGoodsModel
             return false;
         }
         return true;
+    }
+
+    public static function fetchOrderGoodsById($orderId)
+    {
+        $data = DB::getDB('r')->fetchAll(
+            'o_order_goods',
+            '*',
+            array('order_id'), array($orderId), 
+            false,
+            array('id'), array('asc')
+        );
+        if (empty($data)) {
+            return array();
+        }
+        return !empty($data) ? $data : array();
     }
 }
 

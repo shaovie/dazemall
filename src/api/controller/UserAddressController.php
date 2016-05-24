@@ -43,7 +43,7 @@ class UserAddressController extends ApiController
             if (isset($sysCityCodeBook[$addr['district_id']])) {
                 $v['districtName'] = $sysCityCodeBook[$addr['district_id']];
             }
-            $v['detail'] = $addr['detail'];
+            $v['detailAddr'] = $addr['detail_addr'];
             $v['isDefault'] = $addr['is_default'];
             $retList[] = $v;
         }
@@ -59,7 +59,7 @@ class UserAddressController extends ApiController
         $provinceId = (int)$this->postParam('provinceId', 0);
         $cityId = (int)$this->postParam('cityId', 0);
         $districtId = (int)$this->postParam('districtId', 0);
-        $detail = $this->postParam('detail', '');
+        $detail = $this->postParam('detailAddr', '');
         $reIdCard = $this->postParam('reIdCard', '');
         $isDefault = (int)$this->postParam('isDefault', 0);
 
@@ -101,7 +101,7 @@ class UserAddressController extends ApiController
     {
         $this->checkLoginAndNotice();
 
-        $addrId = $this->getParam('addrId', 0);
+        $addrId = $this->getParam('id', 0);
         if (empty($addrId)) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
             return ;
@@ -123,7 +123,7 @@ class UserAddressController extends ApiController
         $provinceId = (int)$this->postParam('provinceId', 0);
         $cityId = (int)$this->postParam('cityId', 0);
         $districtId = (int)$this->postParam('districtId', 0);
-        $detail = $this->postParam('detail', '');
+        $detail = $this->postParam('detailAddr', '');
         $reIdCard = $this->postParam('reIdCard', '');
         $isDefault = (int)$this->postParam('isDefault', 0);
 
@@ -152,7 +152,7 @@ class UserAddressController extends ApiController
                 'province_id' => $provinceId,
                 'city_id' => $cityId,
                 'district_id' => $districtId,
-                'detail' => $detail,
+                'detail_addr' => $detail,
                 're_id_card' => $reIdCard,
                 'is_default' => $isDefault
             )
@@ -179,6 +179,45 @@ class UserAddressController extends ApiController
             return ;
         }
         $this->ajaxReturn(0, '');
+    }
+
+    public function getAllProvince()
+    {
+        $data = array();
+        $sysCityCode = include(CONFIG_PATH . '/city_code.php');
+        foreach ($sysCityCode as $key => $val) {
+            if (true || $key == 370000)
+                $data[] = array('region_name' => $val['name'], 'region_id' => $key);
+        }
+        $this->ajaxReturn(0, '', '', array('data' => $data));
+    }
+    public function getAllCity()
+    {
+        $provinceId = $this->getParam('province_id', 0);
+        $data = array();
+        $sysCityCode = include(CONFIG_PATH . '/city_code.php');
+        if (isset($sysCityCode[$provinceId])) {
+            $cityList = $sysCityCode[$provinceId]['city'];
+            foreach ($cityList as $key => $val) {
+                if (true || $key == 371700)
+                    $data[] = array('region_name' => $val['name'], 'region_id' => $key);
+            }
+        }
+        $this->ajaxReturn(0, '', '', array('data' => $data));
+    }
+    public function getAllDistrict()
+    {
+        $cityId = intval($this->getParam('city_id', 0));
+        $provinceId = (int)($cityId / 1000) * 1000;
+        $data = array();
+        $sysCityCode = include(CONFIG_PATH . '/city_code.php');
+        if (isset($sysCityCode[$provinceId])) {
+            $distList = $sysCityCode[$provinceId]['city'][$cityId]['distList'];
+            foreach ($distList as $key => $val) {
+                $data[] = array('region_name' => $val['name'], 'region_id' => $key);
+            }
+        }
+        $this->ajaxReturn(0, '', '', array('data' => $data));
     }
 }
 

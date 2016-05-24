@@ -125,7 +125,7 @@
     </section>
     <?php endforeach?>
     <?php endif?>
-    <a class="cart"><i>2</i></a>
+    <a href="/mall/Cart" class="cart"><i>2</i></a>
     <ul class="nav">
         <li class="mall active">
             <a>

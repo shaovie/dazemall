@@ -122,6 +122,12 @@ class GoodsModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function goodsCategory($goodsId)
+    {
+        $goodsInfo = self::findGoodsById($goodsId);
+        return empty($goodsInfo) ? 0 : $goodsInfo['category_id'];
+    }
+
     public static function goodsName($goodsId)
     {
         $goodsInfo = self::findGoodsById($goodsId);

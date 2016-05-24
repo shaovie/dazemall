@@ -12,7 +12,7 @@
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
 	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
-</header>
+    </header>
 <?php if (empty($cartList)):?>
 	<div class="cart-empty">
 		<div class="icon-empty"></div>
@@ -21,8 +21,28 @@
 			<a href="/" class="btnl btnl-border">去逛逛 >></a>
 		</div>
 	</div>
+    <ul class="nav">
+        <li class="mall">
+            <a href="/">
+                <i class="icon"></i>
+                <label>大泽商城</label>
+            </a>
+        </li>
+        <li class="gift active">
+            <a href="">
+                <i class="icon"></i>
+                <label>购物车</label>
+            </a>
+        </li>
+        <li class="mine">
+            <a href="/user/Home">
+                <i class="icon"></i>
+                <label>我的</label>
+            </a>
+        </li>
+    </ul>
 <?php else:?>
-	<form action="mall/Pay/cartPay">
+	<form action="/mall/Pay/cartPay" method='post'>
 		<section class="cart-section">
 			<div class="cart-title">大泽商城</div>
 			<ul class="cart-list">
@@ -76,6 +96,26 @@
 			</div>
 		</footer>
 	</form>
+    <ul class="nav">
+        <li class="mall">
+            <a href="/">
+                <i class="icon"></i>
+                <label>大泽商城</label>
+            </a>
+        </li>
+        <li class="gift active">
+            <a href="">
+                <i class="icon"></i>
+                <label>购物车</label>
+            </a>
+        </li>
+        <li class="mine">
+            <a href="/user/Home">
+                <i class="icon"></i>
+                <label>我的</label>
+            </a>
+        </li>
+    </ul>
 <?php endif?>
     <?php
         src\common\JsCssLoader::outJs('lib/mod.js');

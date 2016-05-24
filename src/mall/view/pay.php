@@ -45,10 +45,15 @@
 	<?php endif ?>
 </section>
 <section class="cart-section">
+    <?php if (!empty($goodsInfo)):?>
+    <input type="hidden" name="skuAttr" value="<?php echo $goodsInfo['skuAttr']; ?>"/>
+    <input type="hidden" name="skuValue" value="<?php echo $goodsInfo['skuValue']; ?>"/>
+    <input type="hidden" name="amount" value="<?php echo $goodsInfo['amount']; ?>"/>
+    <?php endif?>
 	<ul class="cart-list">
 		<?php foreach($goodsList as $goods): ?>
 		<li>
-			<input type="hidden" name="cartId[]" value="<?php echo $goods['id']; ?>"/>
+			<input type="hidden" name="ids[]" value="<?php echo $goods['id']; ?>"/>
 			<div class="img-wrap" style="background-image:url(<?php echo $goods['imageUrl'];?>)"></div>
 			<div class="goods-info">
 				<p class="goods-title"><?php echo $goods['name'];?></p>
@@ -70,7 +75,7 @@
 		</li>
 		<li class="clearfix">
 			<label>合计</label>
-			<span class="price price-total right"><i>&yen;</i><b><?php echo $totalPrice?></b></span>
+			<span class="price price-total right"><i>&yen;</i><b><?php echo $orderAmount?></b></span>
 		</li>
 	</ul>
 </section>
@@ -97,7 +102,7 @@
 </section>
 <section class="money-calculate">
 	<div class="calculate">
-		<span class="price"><i>&yen;</i><b><?php echo number_format($totalPrice-$postage, 2, '.', ''); ?></b></span>
+		<span class="price"><i>&yen;</i><b><?php echo number_format($orderAmount-$postage, 2, '.', ''); ?></b></span>
 		<span>+</span>
 		<span class="price"><i>&yen;</i><b><?php echo $postage; ?></b></span>运费
 		<span id="J-minus-ticket">
@@ -110,10 +115,10 @@
 		</span>
 	</div>
 	<div class="result">
-    <span id="J-last-text">需付</span>：
+    <span >需付</span>：
     <span class="price"><i>&yen;</i>
-    <b id="J-last-pay"><?php echo $totalPrice;?>
-    </b></span></div>
+    <b ><?php echo $orderAmount;?></b></span>
+    </div>
 </section>
 <div class="error-tip">为避免订单失效，建议您在<b>30分钟</b>内完成支付</div>
 <footer>
@@ -121,12 +126,12 @@
     <a class="J-pay-btn btnl btnl-wx" type="2">微信安全支付</a>
 </footer>
 <input id="J-use-ticket" name="coupon_id" type="hidden" value="<?php echo !empty($coupon) ? $coupon[0]['coupon_id'] : '';?>" />
-<input id="J-total-val" type="hidden" value="<?php echo $totalPrice; ?>" />
+<input id="J-total-val" type="hidden" value="<?php echo $orderAmount; ?>" />
 <input id="J-trans-val" type="hidden" value="0.00"/>
 <input id="J-last-val" type="hidden" value="<?php echo $cash; ?>"/>
 <input id="J-use-last" name="is_cash" type="hidden" value="0" />
 <input id="J-pay-type" name="pay_type" type="hidden" value="2" />
-<input id="J-need-pay" name="total_price" type="hidden" value="<?php echo $totalPrice; ?>" />
+<input id="J-need-pay" name="total_price" type="hidden" value="<?php echo $orderAmount; ?>" />
 <input id="J-order-id" name="orderId" type="hidden" value="<?php echo $orderId?>" />
     <?php
         src\common\JsCssLoader::outJs('lib/mod.js');

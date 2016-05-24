@@ -16,12 +16,14 @@ class Check
 
     public static function isSkuAttr($v)
     {
-        return strlen($v) <= 36;
+        $len = strlen($v);
+        return $len > 0 and $len <= 36;
     }
 
     public static function isSkuValue($v)
     {
-        return strlen($v) <= 60;
+        $len = strlen($v);
+        return $len > 0 and $len <= 60;
     }
 
     public static function isPasswd($v)

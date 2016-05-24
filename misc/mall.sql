@@ -98,7 +98,7 @@ create table u_address (
     province_id         int not null default 0,                     # 省
     city_id             int not null default 0,                     # 市
     district_id         int not null default 0,                     # 区
-    detail              varchar(255) not null default '',           # 详细街道地址
+    detail_addr         varchar(255) not null default '',           # 详细街道地址
     re_id_card          varchar(18) not null default '',            # 收件人身份证
 
     is_default          tinyint not null default 0,                 # 是否为默认地址 0/1
@@ -162,7 +162,7 @@ create table u_bill (
     id                  int unsigned not null auto_increment,
 
     user_id             int unsigned not null default 0,
-    order_id            char(16) not null default '',               # 01 + 150223 + 492933 + 32
+    order_id            varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
     bill_type           tinyint not null default 0,                 # 流水类型 1:收入 2:支出
     bill_from           int not null default 0,                     # 流水来源
     amount              decimal(10,2) not null default 0.0,         # 本次交易金额
@@ -181,7 +181,7 @@ drop table if exists o_order;
 create table o_order (
     id                  int unsigned not null auto_increment,
 
-    order_id            char(16) not null default '',               # 01 + 150223 + 492933 + 32
+    order_id            varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
     user_id             int unsigned not null default 0,
 
     -- 收货信息
@@ -195,10 +195,10 @@ create table o_order (
     re_id_card          varchar(18) not null default '',            # 收件人身份证
 
     -- 状态
-    pay_state           tinyint not null default 0,                 # 0:未支付 1:支付中 2:支付成功
+    pay_state           tinyint not null default 0,                 # 0:未支付 1c支付成功
     pay_time            int not null default 0,                     # 支付时间
     order_state         tinyint not null default 0,                 # 0:创建 1:完成 3:取消
-    delivery_state      tinyint not null default 0,                 # 0:未发货 1:发货中 2:发货成功
+    delivery_state      tinyint not null default 0,                 # 0:未发货 1:发货中 2:已签收 3: 确认收货
     delivery_time       int not null default 0,                     # 发货时间
 
     order_amount        decimal(10,2) not null default 0.0,         # 订单总金额
@@ -233,7 +233,7 @@ drop table if exists o_order_goods;
 create table o_order_goods (
     id                  int unsigned not null auto_increment,
 
-    order_id            char(16) not null default '',
+    order_id            varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
 
     -- 商品快照
     goods_id            int unsigned not null default 0,            # 商品ID
@@ -320,6 +320,41 @@ create table g_category (
     unique key key_category_id(`category_id`)
 )engine=InnoDB default charset=utf8;
 
+-- sku属性
+drop table if exists g_sku_attr;
+create table g_sku_attr (
+    id                  int unsigned not null auto_increment,
+
+    attr                varchar(90) not null default '',            # sku属性
+    state               tinyint not null default 0,                 # sku状态 0:有效 1:无效
+
+    ctime               int not null default 0,                     # 创建时间
+    mtime               int not null default 0,                     # 修改时间
+    m_user              varchar(31) not null default '',            # 修改人
+
+    primary key (`id`),
+    unique key key_attr(`attr`)
+)engine=InnoDB default charset=utf8;
+insert into g_sku_attr(attr,state,ctime,mtime,m_user)values('默认',1,unix_timestamp(),unix_timestamp(),'admin');
+
+-- sku值
+drop table if exists g_sku_value;
+create table g_sku_value (
+    id                  int unsigned not null auto_increment,
+
+    attr_id             int unsigned not null default 0,            # 对应属性ID
+    value               varchar(90) not null default '',            # sku属性值
+    state               tinyint not null default 0,                 # sku状态 0:有效 1:无效
+
+    ctime               int not null default 0,                     # 创建时间
+    mtime               int not null default 0,                     # 修改时间
+    m_user              varchar(31) not null default '',            # 修改人
+
+    primary key (`id`),
+    unique key key_attr_id_value(`attr_id`, `value`)
+)engine=InnoDB default charset=utf8;
+insert into g_sku_value(attr_id,value,state,ctime,mtime,m_user)values(1,'默认',1,unix_timestamp(),unix_timestamp(),'admin');
+
 -- 商品sku表(价格是sku的一个属性)
 drop table if exists g_goods_sku;
 create table g_goods_sku (
@@ -330,7 +365,6 @@ create table g_goods_sku (
     sku_value           varchar(90) not null default '',            # sku属性值
     state               tinyint not null default 0,                 # sku状态 0:有效 1:无效
 
-    market_price        decimal(10,2) not null default 0.0,         # 商品市场价
     sale_price          decimal(10,2) not null default 0.0,         # 销售价
 
     amount              int not null default 0,                     # 库存数量
@@ -365,7 +399,7 @@ create table g_goods_comment (
     id                  int unsigned not null auto_increment,
 
     goods_id            int unsigned not null default 0,            # 商品ID
-    order_id            char(16) not null default '',               # 所属订单ID
+    order_id            varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
 
     user_id             int unsigned not null default 0,            # 评论用户ID
     nickname            varchar(255) not null default '',           # 评论用户名(冗余数据)

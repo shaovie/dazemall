@@ -12,6 +12,8 @@ use \src\user\model\UserOrderModel;
 use \src\user\model\UserAddressModel;
 use \src\user\model\UserModel;
 use \src\pay\model\PayModel;
+use \src\mall\model\OrderGoodsModel;
+use \src\mall\model\GoodsModel;
 
 class OrderController extends AdminController
 {
@@ -149,19 +151,8 @@ class OrderController extends AdminController
     {
         $orderId = trim($this->getParam('orderId', ''));
         $order = UserOrderModel::findOrderByOrderId($orderId, 'r');
-        $orderInfo = $order;
-        $orderInfo = array(
-            'stateDesc' => '无',
-            'paymentDesc' => '微信',
-            'addr' => $addr,
-        );
-        $data = array(
-            'info' => $orderInfo,
-            'orderGoods' => $orderGoods,
-            'orderId' => 2323,
-            'stateDesc' => '待支付',
-        );
-        $this->display("order_info", $data);
+        $orderInfo = $this->fillPrintOrderInfo($order);
+        $this->display('order_info', $orderInfo);
     }
 
     public function orderPrint()
@@ -190,8 +181,6 @@ class OrderController extends AdminController
             $orderInfo['payTime'] = date('Y-m-d H:i:s', $order['pay_time']);
         else if ($order['pay_state'] == PayModel::PAY_ST_UNPAY)
             $orderInfo['payTime'] = '未支付';
-        else if ($order['pay_state'] == PayModel::PAY_ST_PAYING)
-            $orderInfo['payTime'] = '支付中';
         else
             $orderInfo['payTime'] = '未知';
         $orderInfo['deliveryTime'] = $order['delivery_time'];
@@ -200,8 +189,15 @@ class OrderController extends AdminController
         $orderInfo['rePhone'] = $order['re_phone'];
         $orderInfo['orderAmount'] = $order['order_amount'];
 
-        $orderInfo['goodsList'] = array(array('name' => '鲜嫩滑 白豆腐500g', 'price' => 10.00, 'amount' => 23)); // TODO
-
+        $goodsList = OrderGoodsModel::fetchOrderGoodsById($order['order_id']);
+        foreach($goodsList as &$val) {
+            $goodsInfo = GoodsModel::findGoodsById($val['goods_id']);
+            if (!empty($goodsInfo)) {
+                $val['name'] = $goodsInfo['name'];
+                $val['img'] = $goodsInfo['image_url'];
+            }
+        }
+        $orderInfo['goodsList'] = $goodsList;
         $data['order'] = $orderInfo;
         return $data;
     }

@@ -14,8 +14,7 @@ class PayModel
 
     // 支付状态
     const PAY_ST_UNPAY   = 0; // 未支付
-    const PAY_ST_PAYING  = 1; // 支付中
-    const PAY_ST_SUCCESS = 2; // 支付成功
+    const PAY_ST_SUCCESS = 1; // 支付成功
 
     public static function onCreateOrderOk(
         $orderId,

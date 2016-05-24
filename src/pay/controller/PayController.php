@@ -23,7 +23,7 @@ class PayController extends BaseController
         $this->module = 'pay';
     }
 
-    public function wxJsApiPay($orderId, $orderDesc, $totalAmount)
+    private function wxJsApiPay($orderId, $orderDesc, $totalAmount)
     {
         $openInfo = WxSDK::getOpenInfo('snsapi_base', WX_PAY_APP_ID, WX_PAY_APP_SECRET);
         if (empty($openInfo['openid'])) {
@@ -59,7 +59,7 @@ class PayController extends BaseController
     }
 
     // 微信支付完成返回的页面
-    protected function wxPayReturn()
+    private function wxPayReturn()
     {
         $orderId = $this->getParam('orderId', '');
         if (empty($orderId)) {
@@ -73,7 +73,7 @@ class PayController extends BaseController
         $this->display('wxpay_return');
     }
 
-    protected function aliPay($orderId, $orderDesc, $totalAmount)
+    protected function aliPay_($orderId, $orderDesc, $totalAmount)
     {
         PayModel::onCreateOrderOk(
             $orderId,

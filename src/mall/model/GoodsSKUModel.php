@@ -113,6 +113,23 @@ class GoodsSKUModel
         return $ret !== false;
     }
 
+    // 重新设置商品销售价格
+    public static function setSalePrice($id, $goodsId, $price, $user)
+    {
+        if (empty($id) || empty($goodsId)) {
+            return true;
+        }
+        $ret = DB::getDB('w')->update(
+            'g_goods_sku',
+            array('sale_price' => $price, 'mtime' => CURRENT_TIME, 'm_user' => $user),
+            array('id', 'goods_id'), array($id, $goodsId),
+            array('and'),
+            1
+        );
+        self::onUpdateData($goodsId);
+        return $ret !== false;
+    }
+
     // 检查库存，不用事务!
     public static function checkInventory(
         $goodsId,

@@ -31,8 +31,16 @@ class CartController extends ApiController
         $amount = (int)$this->postParam('amount', 0);
 
         if ($goodsId <= 0
+            || !Check::isSkuAttr($skuAttr)
+            || !Check::isSkuValue($skuValue)
             || $amount <= 0) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
+            return ;
+        }
+
+        $goodsSKU = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
+        if (empty($goodsSKU)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '请选择商品SKU');
             return ;
         }
 
@@ -40,14 +48,6 @@ class CartController extends ApiController
         if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '该商品无效');
             return ;
-        }
-
-        if (!empty($skuAttr)) {
-            $goodsSKU = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
-            if (empty($goodsSKU)) {
-                $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
-                return ;
-            }
         }
 
         $cartAmount = UserCartModel::getCartAmount($this->userId());

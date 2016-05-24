@@ -24,6 +24,41 @@ class UserModel
         $sex,
         $headimgurl
     ) {
+        if (!empty($phone)) {
+            $ret = self::findUserByPhone($phone, 'w');
+            if (!empty($ret)) {
+                return false;
+            }
+        }
+        $data = array(
+            'phone' => $phone,
+            'passwd' => $passwd,
+            'nickname' => Util::emojiEncode($nickname),
+            'sex' => $sex,
+            'headimgurl' => $headimgurl,
+            'state' => self::USER_ST_DEFAULT,
+            'ctime' => CURRENT_TIME,
+            'mtime' => CURRENT_TIME
+        );
+        $ret = DB::getDB('w')->insertOne('u_user', $data);
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        $userId = $ret;
+        $ret = UserDetailModel::newOne($userId);
+        if ($ret === false) {
+            return false;
+        }
+        return $userId;
+    }
+
+    public static function newOne_(
+        $phone,
+        $passwd,
+        $nickname,
+        $sex,
+        $headimgurl
+    ) {
         $wdb = DB::getDB('w');
         if ($wdb->beginTransaction() === false) {
             return false;

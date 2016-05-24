@@ -80,5 +80,13 @@ class BaseController
         }
         return ;
     }
+
+    protected function showNotice($desc, $redirectUrl = '/', $second = 3)
+    {
+        $data['second'] = $second;
+        $data['desc']   = $desc;
+        $data['url']    = empty($redirectUrl) ? '/' : $redirectUrl;
+        $this->display(SRC_PATH . '/mall/view/notice.php', $data, true);
+    }
 }
 

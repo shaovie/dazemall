@@ -44,6 +44,9 @@ class GoodsController extends MallController
                 );
             }
         }
+        $data['skuAttr'] = GoodsSKUModel::getGoodsSkuAttr($goodsId);
+        $data['skuValue'] = $skuValue;
+        $data['defaultSku'] = $skuValue[0];
         $data['skuJson'] = json_encode($skuJson);
         $this->display('goods', $data);
     }

@@ -17,7 +17,7 @@ class WxUserModel
     const SUBSCRIBE_FROM_COMMON = 2;
     const SUBSCRIBE_FROM_SCAN_SCENE_CODE = 3;
 
-    public static function newOne($wxUserInfo, $from)
+    public static function newOne($wxUserInfo)
     {
         if (empty($wxUserInfo['openid'])) {
             return false;
@@ -32,7 +32,53 @@ class WxUserModel
             'city' => isset($wxUserInfo['city']) ? $wxUserInfo['city'] : '',
             'subscribe' => isset($wxUserInfo['subscribe']) ? $wxUserInfo['subscribe'] : 0,
             'subscribe_time' => isset($wxUserInfo['subscribe_time']) ? $wxUserInfo['subscribe_time'] : 0,
-            'subscribe_from' => intval($from),
+            'unionid' => isset($wxUserInfo['unionid']) ? $wxUserInfo['unionid'] : '',
+            'ctime' => CURRENT_TIME,
+            'mtime' => CURRENT_TIME,
+            'atime' => CURRENT_TIME,
+        );
+        $wdb = DB::getDB('w');
+        if ($wdb->beginTransaction() === false) {
+            return false;
+        }
+        $newUserId = UserModel::newOne(
+            '',
+            '',
+            $data['nickname'],
+            $data['sex'],
+            $data['headimgurl']
+        );
+        if ($newUserId === false) {
+            $wdb->rollBack();
+            return false;
+        }
+        $data['user_id'] = $newUserId;
+        $ret = $wdb->insertOne('u_wx_user', $data);
+        if ($ret === false) {
+            $wdb->rollBack();
+            return false;
+        }
+        if ($wdb->commit() === false) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function newOne_($wxUserInfo)
+    {
+        if (empty($wxUserInfo['openid'])) {
+            return false;
+        }
+        $data = array(
+            'user_id' => 0,
+            'openid' => $wxUserInfo['openid'],
+            'nickname' => Util::emojiEncode((isset($wxUserInfo['nickname']) ? $wxUserInfo['nickname'] : '')),
+            'sex' => isset($wxUserInfo['sex']) ? $wxUserInfo['sex'] : 0,
+            'headimgurl' => isset($wxUserInfo['headimgurl']) ? $wxUserInfo['headimgurl'] : '',
+            'province' => isset($wxUserInfo['province']) ? $wxUserInfo['province'] : '',
+            'city' => isset($wxUserInfo['city']) ? $wxUserInfo['city'] : '',
+            'subscribe' => isset($wxUserInfo['subscribe']) ? $wxUserInfo['subscribe'] : 0,
+            'subscribe_time' => isset($wxUserInfo['subscribe_time']) ? $wxUserInfo['subscribe_time'] : 0,
             'unionid' => isset($wxUserInfo['unionid']) ? $wxUserInfo['unionid'] : '',
             'ctime' => CURRENT_TIME,
             'mtime' => CURRENT_TIME,
@@ -45,7 +91,7 @@ class WxUserModel
         return true;
     }
 
-    public static function updateWxUserInfo($userInfo, $wxUserInfo, $from)
+    public static function updateWxUserInfo($userInfo, $wxUserInfo)
     {
         $openid = $wxUserInfo['openid'];
         if (empty($openid) || empty($wxUserInfo) || empty($userInfo)) {
@@ -80,9 +126,6 @@ class WxUserModel
         if (isset($wxUserInfo['subscribe_time'])
             && $userInfo['subscribe_time'] != $wxUserInfo['subscribe_time']) {
             $data['subscribe_time'] = $wxUserInfo['subscribe_time'];
-        }
-        if ($userInfo['subscribe_from'] == 0) { // 仅记首次
-            $data['subscribe_from'] = $from;
         }
         if (isset($wxUserInfo['unionid'])
             && $userInfo['unionid'] != $wxUserInfo['unionid']) {

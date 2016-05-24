@@ -48,6 +48,15 @@ class Redis
         }
         return $this->redis->set($key, $v);
     }
+    public function setNx($key, $v)
+    {
+        if ($this->redis === false) {
+            if ($this->connect() === false) {
+                return false;
+            }
+        }
+        return $this->redis->setNx($key, $v);
+    }
     public function setEx($key, $expire, $v)
     {
         if ($this->redis === false) {

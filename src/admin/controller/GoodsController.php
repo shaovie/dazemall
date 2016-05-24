@@ -100,6 +100,7 @@ class GoodsController extends AdminController
             'goods' => array(),
             'curSkuAttr' => '默认',
             'skuAttrList' => SkuAttrModel::fetchAllSkuAttr(),
+            'allSkuValueList' => array(),
             'skuValueList' => array(),
             'action' => '/admin/Goods/add',
         );
@@ -150,12 +151,23 @@ class GoodsController extends AdminController
             $goodsInfo['detail'] = $goodsDetailInfo['detail'];
         }
         $skuValueList = GoodsSKUModel::fetchAllSKUInfo($goodsId);
+        $curSkuAttr = GoodsSKUModel::getGoodsSkuAttr($goodsId);
+        $skuAttrList = SkuAttrModel::fetchAllSkuAttr();
+        $attrId = 0;
+        if (!empty($curSkuAttr)) {
+            foreach ($skuAttrList as $item) {
+                if ($item['attr'] == $curSkuAttr)
+                    $attrId = $item['id'];
+            }
+        }
+        $allSkuValueList = SkuValueModel::fetchAllSkuValue($attrId);
         $data = array(
             'title' => '编辑商品',
             'goods' => $goodsInfo,
             'skuAttrList' => SkuAttrModel::fetchAllSkuAttr(),
-            'curSkuAttr' => GoodsSKUModel::getGoodsSkuAttr($goodsId),
+            'curSkuAttr' => $curSkuAttr,
             'skuValueList' => $skuValueList,
+            'allSkuValueList' => $allSkuValueList,
             'action' => '/admin/Goods/edit',
         );
         $this->display('goods_info', $data);
@@ -219,6 +231,20 @@ class GoodsController extends AdminController
         }
         $this->ajaxReturn(0, '不能改成负数', '/admin/Goods/skuPage?goodsId=' . $goodsId);
     }
+    
+    public function modifySalePrice()
+    {
+        $id = intval($this->postParam('id', 0));
+        $goodsId = intval($this->postParam('goodsId', 0));
+        $price = floatval($this->postParam('price', 0));
+        if ($price >= 0) {
+            GoodsSKUModel::setSalePrice($id, $goodsId, $price, $this->account);
+            $this->ajaxReturn(0, '', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+            return ;
+        }
+        $this->ajaxReturn(0, '价格不正确', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+    }
+
     private function fetchFormParams(&$goodsInfo, &$error)
     {
         $goodsInfo['id'] = intval($this->postParam('goodsId', 0));

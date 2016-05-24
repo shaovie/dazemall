@@ -17,6 +17,7 @@ use \src\mall\model\PostageModel;
 use \src\mall\model\GoodsSKUModel;
 use \src\user\model\UserModel;
 use \src\user\model\UserOrderModel;
+use \src\user\model\UserAddressModel;
 use \src\user\model\UserBillModel;
 use \src\user\model\UserCouponModel;
 use \src\job\model\AsyncModel;
@@ -25,23 +26,27 @@ class OrderModel
 {
     const MAX_ORDER_QUEUE_SIZE = 2000;
 
+    public static function checkRepeatOrder($userId)
+    {
+        $nk = Nosql::NK_LIMIT_ORDER_FREQ . $userId;
+        $ret = Nosql::setNx($nk, 'x');
+        if ($ret === true) {
+            Nosql::expire($nk, Nosql::NK_LIMIT_ORDER_FREQ_EXPIRE);
+            return false;
+        }
+        return true;
+    }
+
     public static function createOrder(
         $orderPrefix,
         $orderEnv,
         $userId
     ) {
         $optResult = array('code' => ERR_SYSTEM_ERROR, 'desc' => '', 'result' => array());
-        $nk = Nosql::NK_LIMIT_ORDER_FREQ . $userId;
-        $ret = Nosql::setNx($nk, 'x');
-        if ($ret === true) {
-            Nosql::expire($nk, Nosql::NK_LIMIT_ORDER_FREQ_EXPIRE);
-        } else {
-            $ret = Nosql::get($nk);
-            if ($ret !== false) { // redis服务器挂了
-                $optResult['code'] = ERR_OPT_FREQ_LIMIT;
-                $optResult['desc'] = '请不要重复提交订单...';
-                return $optResult;
-            }
+        if (self::checkRepeatOrder($userId)) {
+            $optResult['code'] = ERR_OPT_FREQ_LIMIT;
+            $optResult['desc'] = '请不要重复提交订单...';
+            return $optResult;
         }
         $size = AsyncModel::orderQueueSize();
         if ($size > self::MAX_ORDER_QUEUE_SIZE) {
@@ -64,7 +69,7 @@ class OrderModel
         $optResult['result'] = array('token' => $token);
         $asyncResult = array('ctime' => CURRENT_TIME);
         $nk = Nosql::NK_ASYNC_ORDER_RESULT . $token;
-        Nosql::setex($nk, Nosql::NK_ASYNC_ORDER_RESULT_EXPIRE, json_encode($asyncResult);
+        Nosql::setEx($nk, Nosql::NK_ASYNC_ORDER_RESULT_EXPIRE, json_encode($asyncResult));
         return $optResult;
     }
 
@@ -95,7 +100,7 @@ class OrderModel
             return $optResult;
         }
         // ! 检查数据有效性
-        if (strlen($attach) > OrderModel::MAX_ATTACH_LEN) {
+        if (strlen($attach) > UserOrderModel::MAX_ATTACH_LEN) {
             $optResult['code'] = ERR_SYSTEM_ERROR;
             $optResult['desc'] = '系统异常';
             Log::error('order attach too lang: ' . $attach);
@@ -119,61 +124,21 @@ class OrderModel
 
         // 准备数据
         $payState = PayModel::PAY_ST_UNPAY;
-        $totalPrice = 0.0;
-        $goodsListSKUInfo = array();
-        foreach ($goodsList as $goods) {
-            $ret = GoodsSKUModel::getSKUInfo(
-                $goods['goodsId'],
-                $goods['skuAttr'],
-                $goods['skuValue']
-            );
-            if (!empty($ret)) {
-                $goodsListSKUInfo[] = $ret;
-                $totalPrice += (float)$ret['sale_price'];
-            }
+        $ret = self::calcPrice($userId, $goodsList, $couponId);
+        if ($ret['code'] != 0) {
+            return $ret;
         }
-        if (count($goodsList) != count($goodsListSKUInfo)) {
-            $optResult['code'] = ERR_OPT_FAIL;
-            $optResult['desc'] = '找不到商品或商品已下架';
-            return $optResult;
-        }
-        if ($totalPrice <= 0.00001) {
-            $optResult['code'] = ERR_OPT_FAIL;
-            $optResult['desc'] = '找不到商品或商品已下架';
-            return $optResult;
-        }
+        $toPayAmount = (float)$ret['result']['toPayAmount'];
+        $couponPayAmount = (float)$ret['result']['couponPayAmount'];
+        $orderAmount = (float)$ret['result']['orderAmount'];
+        $postage = (float)$ret['result']['postage'];
+        $goodsListSKUInfo = $ret['result']['goodsListSKUInfo'];
         $newOrderId = UserOrderModel::genOrderId($orderPrefix, $userId);
         if (empty($newOrderId)) {
             $optResult['code'] = ERR_SYSTEM_BUSY;
             $optResult['desc'] = '系统繁忙，创建订单失败，请稍后重试';
             return $optResult;
         }
-        // 计算优惠金额
-        $couponPayAmount = 0.0;
-        if ($couponId > 0) {
-            $couponInfo = self::getCouponById($userId, $couponId);
-            if (empty($couponInfo)) {
-                $optResult['desc'] = '优惠券不存在';
-                return $optResult;
-            }
-            $func = function ($sku, $goods) {
-                return array('category_id' => $goods['category_id'], 'sale_price' => $sku['sale_price']);
-            };
-            $gl = array_map($func, $goodsListSKUInfo, $goodsList);
-            $ret = UserCouponModel::calcCouponPayAmount($userId, $couponId, $gl);
-            if ($ret['code'] != 0) {
-                return $ret;
-            }
-            $couponPayAmount = $couponInfo['coupon_amount'];
-        }
-        $toPayAmount = $totalPrice - $couponPayAmount;
-        if ($toPayAmount < 0.0001) {
-            $optResult['desc'] = '系统计算支付金额错误，下单失败';
-            return $optResult;
-        }
-        // 计算邮费
-        $postage = PostageModel::calcPostage();
-
         // ! 检查库存
         foreach ($goodsListSKUInfo as $idx => $goodsSKU) {
             if ($goodsSKU['amount'] < $goodsList[$idx]['amount']) {
@@ -219,7 +184,7 @@ class OrderModel
         }
 
         // do 扣余额
-        $reduceCashAmount = 0.0;
+        $reduceCashAmount = 0.00;
         if ($useAccountPay == 1 && $toPayAmount > 0.0001) {
             $userCash = UserModel::getCash($userId);
             if ($userCash > 0.0001) {
@@ -286,7 +251,7 @@ class OrderModel
             $addrInfo['detail_addr'],
             $addrInfo['re_id_card'],
             $payState,
-            $totalPrice,
+            $orderAmount,
             $olPayAmount,
             $reduceCashAmount,
             $olPayType,
@@ -306,7 +271,7 @@ class OrderModel
         foreach ($goodsListSKUInfo as $idx => $goodsSKU) {
             $ret = OrderGoodsModel::newOne(
                 $newOrderId,
-                $goodsSKU['goodsId'],
+                $goodsSKU['goods_id'],
                 $goodsSKU['sku_attr'],
                 $goodsSKU['sku_value'],
                 $goodsList[$idx]['amount'],
@@ -329,7 +294,75 @@ class OrderModel
         }
         $optResult['code'] = 0;
         $optResult['desc'] = '';
-        $optResult['result'] = array('orderId' => $newOrderId);
+        $optResult['result'] = array('orderId' => $newOrderId, 'olPayAmount' => $olPayAmount);
+        return $optResult;
+    }
+
+    // 计算价格
+    public static function calcPrice($userId, $goodsList, $couponId)
+    {
+        $optResult = array('code' => ERR_OPT_FAIL, 'desc' => '', 'result' => array());
+        $orderAmount = 0.0;
+        $goodsListSKUInfo = array();
+        foreach ($goodsList as $goods) {
+            $ret = GoodsSKUModel::getSKUInfo(
+                $goods['goodsId'],
+                $goods['skuAttr'],
+                $goods['skuValue']
+            );
+            if (!empty($ret)) {
+                $goodsListSKUInfo[] = $ret;
+                $orderAmount += (float)$ret['sale_price'] * (int)$goods['amount'];
+            }
+        }
+        if (count($goodsList) != count($goodsListSKUInfo)) {
+            $optResult['code'] = ERR_OPT_FAIL;
+            $optResult['desc'] = '找不到商品或商品已下架';
+            return $optResult;
+        }
+        if ($orderAmount <= 0.00001) {
+            $optResult['code'] = ERR_OPT_FAIL;
+            $optResult['desc'] = '找不到商品或商品已下架';
+            return $optResult;
+        }
+        // 计算优惠金额
+        $couponPayAmount = 0.0;
+        if ($couponId > 0) {
+            $couponInfo = UserCouponModel::getCouponById($userId, $couponId);
+            if (empty($couponInfo)) {
+                $optResult['desc'] = '优惠券不存在';
+                return $optResult;
+            }
+            $func = function ($sku, $goods) {
+                return array('category_id' => $goods['category_id'], 'sale_price' => $sku['sale_price']);
+            };
+            $gl = array_map($func, $goodsListSKUInfo, $goodsList);
+            $ret = UserCouponModel::calcCouponPayAmount($userId, $couponId, $gl);
+            if ($ret['code'] != 0) {
+                return $ret;
+            }
+            $couponPayAmount = $couponInfo['coupon_amount'];
+        }
+        $toPayAmount = $orderAmount - $couponPayAmount;
+        if ($toPayAmount < 0.0001) {
+            $optResult['desc'] = '系统计算支付金额错误，下单失败';
+            return $optResult;
+        }
+        // 计算邮费
+        $freePostage = 0.00; 
+        $postage = PostageModel::calcPostage($orderAmount, $freePostage);
+        $orderAmount += $postage;
+        $toPayAmount += $postage;
+        $optResult['code'] = 0;
+        $optResult['desc'] = '';
+        $optResult['result'] = array(
+            'orderAmount' => $orderAmount,
+            'toPayAmount' => $toPayAmount,
+            'couponPayAmount' => $couponPayAmount,
+            'postage' => $postage,
+            'freePostage' => $freePostage,
+            'goodsListSKUInfo' => $goodsListSKUInfo,
+        );
         return $optResult;
     }
 

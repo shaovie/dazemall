@@ -41,12 +41,13 @@
             <?php foreach ($skuList as $item):?>
 			<tr>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['sku']?></td>
-				<td style="text-align:center;vertical-align:middle;"><?php echo $item['sale_price']?></td>
-				<td style="text-align:center;vertical-align:middle;"><?php echo $item['amount']?></td>
+				<td style="text-align:center;vertical-align:middle;" class="sale_price"><?php echo $item['sale_price']?></td>
+				<td style="text-align:center;vertical-align:middle;" class="amount"><?php echo $item['amount']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['m_user']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo date('Y-m-d H:i:s', $item['mtime'])?></td>
 				<td style="text-align:center;vertical-align:middle;">
-					<button type="button" class="btn btn-primary span2" onclick="modifyStock(<?php echo $item['id']?>, <?php echo $item['goods_id']?>)" >修改库存</button>
+					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 1)" >修改库存</button>
+					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 2)" >修改价格</button>
 				</td>
 			</tr>
             <?php endforeach?>
@@ -65,12 +66,13 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label no-padding-left"> 库存：</label>
 					<div class="col-sm-9">
-						<input type="text" name="amount" id="amount" class="span5">
+						<input type="text" name="newValue" id="newValue" class="span5">
 					</div>
 				</div>      	
 			</div>
 			<div class="modal-footer">
                 <input type="hidden" name="sku_id" value="" id="sku_id"/>
+                <input type="hidden" value="" id="type"/>
                 <input type="hidden" name="goods_id" value="" id="goods_id"/>
 				<button type="button" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -81,14 +83,31 @@
 	<!-- END -->
 	</form>
 	<script>
-        function modifyStock(id, goodsId) {
+        function modifyGoodsInfo(id, goodsId, e, type) {
+            if (type == 1) {
+                var title = '库存';
+                var oldValue = $(e).closest('tr').find('td.amount').text();
+            } else if(type == 2) {
+                var title = '价格';
+                var oldValue = $(e).closest('tr').find('td.sale_price').text();
+            }
+            $('#modal-confirmsend .modal-title').eq(0).text('修改'+title);
+            $('#modal-confirmsend .control-label').eq(0).text(title + '：');
+            $('#newValue').val(oldValue);
+            $('#type').val(type);
             $('#sku_id').val(id);
             $('#goods_id').val(goodsId);
             $('#modal-confirmsend').modal('show')
         }
         $('#confirmsend-btn').click(function(){
-            var url = "/admin/Goods/modifyKuCun";
-            $.post(url,{id:$("#sku_id").val(), goodsId:$("#goods_id").val(), amount:$("#amount").val()},function(data){
+            var url = "/admin/Goods/" + (($('#type').val() ==1) ? 'modifyKuCun' : 'modifySalePrice');
+            var param = $('#type').val() ==1 ? 'amount' : 'price';
+            var data = {
+                 id:$("#sku_id").val(), 
+                 goodsId:$("#goods_id").val()
+            };
+            data[param] = $('#newValue').val();
+            $.post(url,data,function(data){
                 if(data.code==0) {
                     window.location.href= data.url;
                 } else {
@@ -97,7 +116,6 @@
                 }
             },'json');
         });
-
 	</script>
 </body>
 </html>

@@ -1143,7 +1143,6 @@
                 "common/amount/index",
                 "common/alert/alert",
                 "common/login-pop/index",
-                "notice/index",
                 "common/comment-section/index",
                 "common/gotop/index",
                 "modules/goods/index.less"
@@ -1429,13 +1428,11 @@
             "deps": [
                 "zepto",
                 "modules/notice/index.less"
-            ],
-            "id": "notice/index"
+            ]
         },
         "modules/notice/index.less": {
             "uri": "/static/modules/notice/index.css",
-            "type": "css",
-            "id": "modules/notice/index.less"
+            "type": "css"
         },
         "order-detail/index": {
             "uri": "/static/modules/order-detail/index.js",
@@ -3121,7 +3118,7 @@
             ]
         },
         "auto_js_58": {
-            "uri": "/static/pkg/auto_combine_b295a.js",
+            "uri": "/static/pkg/auto_combine_176bb.js",
             "type": "js",
             "has": [
                 "common/copyright/index",
@@ -3137,7 +3134,6 @@
                 "common/ajax/index",
                 "common/guide/guide",
                 "common/amount/index",
-                "notice/index",
                 "common/preview/index",
                 "common/page-loader/index",
                 "common/comment-section/index",
@@ -3146,7 +3142,7 @@
             ]
         },
         "auto_css_59": {
-            "uri": "/static/pkg/auto_combine_4dece.css",
+            "uri": "/static/pkg/auto_combine_bbedc.css",
             "type": "css",
             "has": [
                 "modules/common/common.less",
@@ -3161,7 +3157,6 @@
                 "modules/common/login-pop/index.less",
                 "modules/common/guide/guide.less",
                 "modules/common/amount/index.less",
-                "modules/notice/index.less",
                 "modules/common/preview/index.less",
                 "modules/common/comment-section/index.less",
                 "modules/common/gotop/index.less",

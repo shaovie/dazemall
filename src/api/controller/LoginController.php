@@ -15,6 +15,11 @@ use \src\common\UserBaseController;
 
 class LoginController extends UserBaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        echo '{x}'; exit();
+    }
     public function smsCode()
     {
         $phone = $this->getParam('phone', '');

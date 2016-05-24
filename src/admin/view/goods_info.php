@@ -24,6 +24,9 @@
 </head>
 <body class="no-skin">
     <input id="goodsId" name="goodsId" type="hidden" value="<?php echo (isset($goods['id']) ? $goods['id'] : 0);?>"/>
+    <input type="hidden" id="J-ajaxurl-addCart" value="/api/Cart/add" />
+    <input type="hidden" id="J-ajaxurl-quickBuy" value="/api/Order/immediateBuy" />
+    <input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
 	<h3 class="header smaller lighter blue"><?php echo $title?></h3>
 	<form action="<?php echo $action?>" method="post" enctype="multipart/form-data" class="form-horizontal" role="form" id="save-form">
 		<div class="form-group">
@@ -132,7 +135,7 @@
                <div class="sku_info" id="skuAttr-radio">
                <?php foreach ($skuAttrList as $skuAttr):?>
                  <label class="radio inline">
-                    <input type="radio" name="sku_radio" sku-id="<?php echo $skuAttr['id']?>" value="<?php echo $skuAttr['attr']?>" onclick="getSkuAttr(this)" <?php if ($skuAttr['attr'] == $curSkuAttr) {echo 'checked="true"';}?>><?php echo $skuAttr['attr']?>
+                    <input type="radio" name="sku_radio" sku-id="<?php echo $skuAttr['id']?>" value="<?php echo $skuAttr['attr']?>" onclick="getSkuAttr(this)" <?php if ($skuAttr['attr'] == $curSkuAttr) {echo 'checked="checked"';} if(isset($goods['id'])) {echo 'disabled="disabled;"';} ?>><?php echo $skuAttr['attr']?>
                  </label>
                <?php endforeach?>
                </div>
@@ -140,20 +143,43 @@
 
                <!--SKU属性 -->
                <div class="sku_attr">
-               <!--  <label class="title">颜色</label>
+               <?php if (!empty(isset($goods['id']))):?>
+               <label class="title"><?php echo $curSkuAttr?></label>
+                 <br />
+               <?php foreach ($allSkuValueList as $item):?>
+                   <?php $checked = false;
+                   foreach ($skuValueList as $val) {
+                       if ($val['sku_value'] == $item['value']) {
+                           $checked = true;
+                           break;
+                       }
+                   }
+                   if ($checked) {
+                     echo '<label class="checkbox inline"><input type="checkbox"'
+                     . ' value="' . $item['id'] . '"' . ' checked="checked" disabled="disabled;">'
+                     . $item['value'] . '</label>';
+                   } else {
+                     echo '<label class="checkbox inline"><input type="checkbox"'
+                     . ' value="' . $item['id'] . '"' . ' disabled="disabled;">'
+                     . $item['value'] . '</label>';
+                   }
+                   ?>
+                 <!--<label class="title">颜色</label>
                  <br />
                  <label class="checkbox inline">
-                    <input type="checkbox" value="1">红色
+                    <input type="checkbox" value="1" onclick="createTable();">红色
                  </label>
                  <label class="checkbox inline">
-                    <input type="checkbox" value="2">绿色
+                    <input type="checkbox" value="2" onclick="createTable();">绿色
                  </label>
                  <label class="checkbox inline">
-                   <input type="checkbox" value="3">蓝色
+                   <input type="checkbox" value="3" onclick="createTable();">蓝色
                  </label>
                  <label class="checkbox inline">
-                   <input type="checkbox" value="4">白色
+                   <input type="checkbox" value="4" onclick="createTable();">白色
                  </label>-->
+               <?php endforeach?>
+               <?php endif?>
                </div>
                <!--E -->
 
@@ -162,20 +188,20 @@
                     <thead>
                       <tr>
                         <th>颜色</th>
-                        <th>容量</th>
                         <th>价格</th>
+                        <th>库存</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td >蓝色</td>
-                        <td>1L</td>
-                        <td><input type="text" value=""></td>
+                        <td>红色</td>
+                        <td width="100"><input type="text" value="">100</td>
+                        <td><input type="text" value="">20</td>
                      </tr>
                      <tr>
-                       <td>蓝色</td>
-                       <td>2L</td>
-                       <td><input type="text" value="" onblur=""></td>
+                       <td>紫色</td>
+                        <td width="100"><input type="text" value="">60</td>
+                        <td><input type="text" value="">20</td>
                      </tr>
                     </tbody>
                   </table>-->
@@ -221,43 +247,20 @@
             <?php endif; endforeach;?>
             <?php endif?>
         </div>
-        <input type="hidden" id="skuJson" name="skuJson" value="" />
 	</form>
-    <input type="hidden" id="skuValue" name="skuValue" value="" />
 	<script>
-    $(document).ready(function(){
-        $('#skuAttr-radio input:radio:checked').click();
-        <?php if (!empty($skuValueList)):?>
-            <?php $str = ''; foreach ($skuValueList as $val) {
-                $str .= $val['sku_value'] . ':' . $val['sale_price'] . ':' . $val['amount'] . '|';
-                }
-                if (strlen($str) > 0) {
-                    $str = substr($str, 0, -1);
-                }
-            ?>
-            <?php if (!empty($str)):?>
-                $('#skuValue').val("<?php echo $str?>");
-            <?php endif?>
-                vl = $('#skuValue').val().split("|");
-                var skuValList = new Array();
-                $.each(vl, function(i,v){
-                    sku = v.split(":");
-                    skuValList.push(sku[0]);
-                    });
-                setTimeout(function () {
-                    for (i = 1; i <= skuValList.length; i++) {
-                        $('.sku_attr input:checkbox').each(function(i, e){
-                            if (skuValList[i] == $(e).parent().text()) {
-                                $(e).click();
-                            }
-                        });
-                        break;
-                    }
-
-                }, 800);
-        <?php endif?>
-    });
-        $('#save-btn').click(function(){
+       var skuValue = {}; 
+       <?php if (!empty($skuValueList)){?>
+            <?php foreach ($skuValueList as $val) {?>
+                skuValue["<?php echo $val['sku_value'];?>"] = "<?php echo $val['sale_price'] . ':'. $val['amount'];?>"; 
+       <?php }
+       } ?>
+       $(document).ready(function(){
+           if( $('#goodsId').val() > 0) {
+              createTable(true, skuValue);
+           }
+       });
+       $('#save-btn').click(function(){
             var goodsDetails = UE.getEditor('editor').getContent();
             var url = $("#save-form").attr("action");
             var goods_imgs = '';
@@ -265,9 +268,12 @@
                  goods_imgs += $(v).val()+'|';
              });
              var sku = '';
-             $('.sku_table input').each(function(i,v){
-                 sku += $(v).closest('tr').find('td').eq(0).text()+':'+$(v).val()+':1|';
-             });
+             $('.sku_table tbody tr').each(function(i,v){
+                 var sku_attr_title = $(v).find('td').eq(0).text();
+                 var sku_price = $(v).find('input').eq(0).val();
+                 var sku_stock = $(v).find('input').eq(1).val();
+                 sku += sku_attr_title + ':' + sku_price + ':' + sku_stock + '|';
+            });
             $.post(url,{
                 goodsId:$("#goodsId").val(),
                 cateId:$('#cateid').val(),
@@ -291,7 +297,6 @@
                 }
             },'json');
         });
-
 	</script>
     <!--UE editor编辑器js引入 -->
     <script type="text/javascript" charset="utf-8" src="/asset/js/ueditor/ueditor.config.js"></script>

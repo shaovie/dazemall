@@ -21,6 +21,8 @@ class UserCartModel
         $attach
     ) {
         if (empty($goodsId)
+            || empty($skuAttr)
+            || empty($skuValue)
             || empty($userId)) {
             return false;
         }
@@ -120,9 +122,15 @@ class UserCartModel
             array('and'),
             1
         );
-        if ($ret === false || (int)$ret <= 0) {
-            return false;
-        }
+        self::onUpdateData($userId);
+        return true;
+    }
+
+    public static function delCarts($userId, $cartIds)
+    {
+        $ids = implode(',', $cartIds);
+        $sql = 'delete from u_cart where id in (' . $ids . ') and user_id=' . $userId;
+        DB::getDB('w')->rawExec($sql);
         self::onUpdateData($userId);
         return true;
     }

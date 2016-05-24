@@ -9,6 +9,8 @@
 <body isPop="login">
 	<!--初始化购物车url，返回number-->
 	<input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
+    <input type="hidden" id="J-ajaxurl-addCart" value="/api/Cart/add" />
+    <input type="hidden" id="J-ajaxurl-quickBuy" value="/api/Order/quickBuy" />
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
 	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
@@ -89,46 +91,31 @@
 	<div id="J-panel-cm"  class="panel-cm">
 		<div class="mask"></div>
 		<div class="panel-content">
-			<form>
+			<form action="/api/Cart/add">
 				<div class="g-item dib-wrap">
 					<div class="img-wrap dib" style="background-image: url(<?php echo $imageUrl?>)"></div>
 					<div class="g-mid dib">
 						<div class="g-title"><?php echo $name?></div>
-						<div class="price"><i>&yen;</i><b id="J-sku-price"><?php echo $salePrice?></b></div>
+						<div class="price"><i>&yen;</i><b id="J-sku-price"><?php echo $defaultSku['sale_price']?></b></div>
 					</div>
 					<div class="close dib"></div>
 				</div>
-				<!-- <section class="cm-content">
+				<section class="cm-content">
 					<dl id="J-cm">
-						<dt>口味</dt>
+						<dt><?php echo $skuAttr?></dt>
                         <dd>
-	                         <label class="sel">西瓜味</label>
-	                         <label >烧烤味</label>
-	                         <label >奶油味</label>
-	                         <label >榴莲味</label>
-	                         <label >苹果味</label>
+                             <?php foreach ($skuValue as $i => $val):?>
+                             <?php if ($i == 0):?>
+	                         <label class="sel"><?php echo $val['sku_value']?></label>
+                             <?php else:?>
+	                         <label ><?php echo $val['sku_value']?></label>
+                             <?php endif?>
+                             <?php endforeach?>
 	                     </dd>
-                         <dt>颜色</dt>
-                        <dd>
-	                         <label class="sel">藏蓝红心</label>
-	                         <label >奶瓶</label>
-	                         <label >蓝条</label>
-	                         <label >黄绿色</label>
-	                         <label >浅黄色</label>
-	                         <label >米黄色</label>
-	                     </dd>
-                         <dt>尺寸</dt>
-                        <dd>
-	                          <label class="sel">105</label>
-	                         <label >110</label>
-	                         <label >120</label>
-	                         <label >150</label>
-	                         <label >73</label>
-                         </dd>
                     </dl>
-				</section> -->
+				</section>
 				<div id="J-cm-amount" class="cm-amount clearfix">
-					<label>库存量：<span id="J-last-num"></span></label>
+					<label>库存量：<span id="J-last-num"><?php echo $defaultSku['amount']?></span></label>
 					<div class="right">
 						<ul class="J-amount-bar amount-bar dib-wrap" max="100" min="1">
                             <li class="btn-minus dib"><i class="icon"></i></li>
@@ -164,8 +151,8 @@
 	</div>
 
 	<input type="hidden" id="goods_number" value="1" />
-	<input type="hidden" id="price" value="<?php $salePrice?>" />
-	<input type="hidden" id="gid" value="<?php $goodsId?>" />
+	<input type="hidden" id="price" value="<?php echo $salePrice?>" />
+	<input type="hidden" id="gid" value="<?php echo $goodsId?>" />
     <input type="hidden" id="goods_sku_json" value='<?php echo $skuJson;?>' />
 
     <?php

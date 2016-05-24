@@ -15,6 +15,7 @@ class UserController extends UserBaseController
         parent::__construct();
 
         $this->module = 'user';
+        $this->autoLogin();
     }
 }
 

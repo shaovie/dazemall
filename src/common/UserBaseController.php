@@ -8,6 +8,7 @@ namespace src\common;
 
 use \src\common\Util;
 use \src\common\Nosql;
+use \src\common\DB;
 use \src\common\Session;
 use \src\user\model\WxUserModel;
 use \src\user\model\UserModel;
@@ -72,7 +73,7 @@ class UserBaseController extends BaseController
             $openid = $this->toWxLogin();
             if ($openid !== false) {
                 if ($this->doLoginInWx($openid) === true) {
-                    UserModel::onLoginOk(0, $openid);
+                    UserModel::onLoginOk($this->userId(), $openid);
                 } else {
                     //
                 }
@@ -107,6 +108,8 @@ class UserBaseController extends BaseController
         $this->wxUserInfo = WxUserModel::findUserByOpenId($openid);
         if (!empty($this->wxUserInfo)) {
             $this->userInfo = UserModel::findUserById($this->wxUserInfo['user_id']);
+            if (empty($this->userInfo)) // 如果是授权模式，一个微信账号就对应一个用户账号
+                return false;
             return true;
         }
         return false;
@@ -123,15 +126,19 @@ class UserBaseController extends BaseController
 
     private function toWxLogin()
     {
-        $openInfo = WxSDK::getOpenInfo('snsapi_base', WX_APP_ID, WX_APP_SECRET);
+        $openInfo = WxSDK::getOpenInfo('snsapi_userinfo', WX_APP_ID, WX_APP_SECRET);
         if (empty($openInfo['openid'])) {
             // TODO 这里要显示的告诉用户
             // header('Location: /');
             // exit(0);
-            echo "get open info fail!" . json_encode($openInfo); exit();// TODO
+            echo "<h1>get open info fail!</h1>" . json_encode($openInfo); exit();// TODO
             return false;
         }
-        $wxUserInfo = WxSDK::getUserInfo($openInfo['openid'], 'snsapi_base');
+        $wxUserInfo = WxSDK::getUserInfo(
+            $openInfo['openid'],
+            'snsapi_userinfo',
+            $openInfo['access_token']
+        );
         if (empty($wxUserInfo)) { //
             Log::warng('first get wxuinfo:' . $openInfo['openid'] . ' fail when autologin');
             $wxUserInfo = WxSDK::getUserInfo($openInfo['openid'], 'snsapi_base');
@@ -145,11 +152,7 @@ class UserBaseController extends BaseController
         }
         $wxDBUserInfo = WxUserModel::findUserByOpenId($openInfo['openid']);
         if (empty($wxDBUserInfo)) { // new one
-            $from = WxUserModel::SUBSCRIBE_FROM_ALREADY;
-            if ((int)$wxUserInfo['subscribe'] == 0) {
-                $from = WxUserModel::SUBSCRIBE_FROM_UNSUBSCRIBE;
-            }
-            $ret = WxUserModel::newOne($wxUserInfo, $from);
+            $ret = WxUserModel::newOne($wxUserInfo);
             if ($ret === false) {
                 // TODO 这里要显示的告诉用户
                 // header('Location: /');
