@@ -23,36 +23,30 @@
 	<script type="text/javascript" src="/asset/js/datetimepicker.js"></script>
 </head>
 <body class="no-skin">
-<h3 class="header smaller lighter blue">订单管理</h3>
-<form action="/admin/Order/search" method="get">	
-	<table class="table" style="width:95%;" align="center">
+<h3 class="header smaller lighter blue">订单管理<span style="margin-left:30px;color:#666;font-size:18px;">订单总数：<?php echo $totalOrderNum?></span><span class="refresh">刷新</span></h3>
+<form action="/admin/Order/search" method="get" >	
+	<table class="table" border="0" style="width:95%;" align="center">
 		<tbody>
 			<tr>
 			<td style="vertical-align: middle;font-size: 14px;font-weight: bold;width:110px">订单编号：</td>
 			<td style="width:180px"> <input name="orderId" type="text" value="<?php if (isset($search['OrderId'])) {echo $search['OrderId'];}?>"> </td>
 			<td style="vertical-align: middle;font-size: 14px;font-weight: bold;width:110px">下单时间：</td>
-			<td>
+			<td colspan="2">
 				<input name="beginTime" id="beginTime" type="text" value="<?php if (isset($search['beginTime'])) {echo $search['beginTime'];}?>" > - <input id="endTime" name="endTime" type="text" value="<?php if (isset($search['endTime'])) {echo $search['endTime'];}?>" >		
 			</td>	
 		    </tr>
 			<tr>
 				<td style="vertical-align: middle;font-size: 14px;font-weight: bold;">下单人手机：</td>
 				<td><input name="phone" type="text" value="<?php if (isset($search['phone'])) {echo $search['phone'];}?>"></td>
-				<td style="vertical-align: middle;font-size: 14px;font-weight: bold;">收货人手机：</td>
-			    <td><input name="rePhone" type="text" value="<?php if (isset($search['rePhone'])) {echo $search['rePhone'];}?>"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="3"><input type="submit" name="submit" value=" 查 询 " class="btn btn-sm  btn-primary">
-                <?php if (!empty($error)):?><span style="margin-left:20px;color:red;font-size:12px;"><?php {echo $error;}?><?php endif?></span>
+				<td style="vertical-align: middle;font-size: 14px;font-weight:bold;">收货人手机：</td>
+                <td width="350"><input name="rePhone" type="text" value="<?php if (isset($search['rePhone'])) {echo $search['rePhone'];}?>"></td>
+                <td><input type="submit" name="submit" value=" 查 询 " class="btn btn-sm  btn-primary">
+                   <?php if (!empty($error)):?><span style="margin-left:20px;color:red;font-size:12px;"><?php {echo $error;}?><?php endif?></span>
                 </td>
 			</tr>
 		</tbody>
 	</table>
 	</form>			
-	<h3 class="blue">
-        <span style="font-size:18px;"><strong>订单总数：<?php echo $totalOrderNum?></strong></span>
-    </h3>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
@@ -82,9 +76,7 @@
                     <?php if ($order['pay_state'] == 0):?>
                     <div>支付：<span class="label label-warning">未支付</span> </div>
                     <?php elseif ($order['pay_state'] == 1):?>
-                    <div>支付：<span class="label label-info">支付中</span> </div>
-                    <?php elseif ($order['pay_state'] == 2):?>
-                    <div>支付：<span class="label label-success">支付中</span> </div>
+                    <div>支付：<span class="label label-success">支付成功</span> </div>
                     <?php else:?>
                     <div>支付：<span class="label label-important">未知</span> </div>
                     <?php endif?>
@@ -102,7 +94,7 @@
                     <div>支付时间：<?php echo empty($order['pay_time']) ? '' : date('Y-m-d H:i:s', $order['pay_time'])?></div>
                     <div>下单时间：<?php echo date('Y-m-d H:i:s', $order['ctime'])?></div>
                 </td>
-				<td style="text-align:center;vertical-align:middle;">
+				<td style="text-align:left;vertical-align:middle;">
                     <a class="btn btn-xs btn-info" href="/admin/Order/info?orderId=<?php echo $order['order_id']?>"><i class="icon-edit"></i>查看详情</a>
                     &nbsp;<a class="btn btn-xs btn-info" href="/admin/Order/orderPrint?orderId=<?php echo $order['order_id'];?>" target="_bank">订单打印 </a>
                 </td>

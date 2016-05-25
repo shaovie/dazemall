@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 <body class="no-skin">
-	<h3 class="header smaller lighter blue"><span style="margin-right:20px"><?php echo $title;?></span><a href="/admin/GoodsModule/addGoodsPage?moduleId=<?php echo $moduleId?>" class="btn btn-primary">添加商品</a></h3>
+	<h3 class="header smaller lighter blue"><span style="margin-right:20px"><?php echo $title;?></span><a href="/admin/GoodsModule/addGoodsPage?moduleId=<?php echo $moduleId?>" class="btn btn-primary">添加商品</a><span class="refresh">刷新</span></h3>
 		
 	<table class="table table-striped table-bordered table-hover">
 		<tbody>

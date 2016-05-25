@@ -56,7 +56,7 @@
             <label>我的购物车</label>
             <b class="icon-arrow"></b>
         </a>
-        <a href="/user/Address" class="item-bar">
+        <a href="/user/Home/address" class="item-bar">
             <i class="icon-addr"></i>
             <label>我的地址</label>
             <b class="icon-arrow"></b>

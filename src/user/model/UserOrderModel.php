@@ -22,6 +22,7 @@ class UserOrderModel
 
     // 订单前缀
     const ORDER_PRE_COMMON      = '01';  // 普通单品订单
+    const ORDER_PRE_PAYMENT     = '02';  // 在线支付订单号
 
     // 订单状态
     const ORDER_ST_CREATED      = 0;
@@ -44,6 +45,7 @@ class UserOrderModel
 
     public static function newOne(
         $orderId,
+        $orderPayId,
         $orderEnv,
         $userId,
         $reName,
@@ -65,6 +67,7 @@ class UserOrderModel
         $attach
     ) {
         if (empty($orderId)
+            || empty($orderPayId)
             || empty($orderEnv)
             || empty($userId)) {
             return false;
@@ -72,6 +75,7 @@ class UserOrderModel
 
         $data = array(
             'order_id' => $orderId,
+            'order_pay_id' => $orderPayId,
             'user_id' => $userId,
             're_name' => Util::emojiEncode($reName),
             're_phone' => $rePhone,
@@ -102,6 +106,23 @@ class UserOrderModel
             return false;
         }
         return true;
+    }
+
+    public static function findOrderByOrderPayId($orderPayId, $fromDb = 'w')
+    {
+        if (empty($orderPayId)) {
+            return array();
+        }
+        $ret = DB::getDB($fromDb)->fetchOne(
+            'o_order',
+            '*',
+            array('order_pay_id'), array($orderPayId)
+        );
+        if (empty($ret)) {
+            return array();
+        }
+        $ret['re_name'] = Util::emojiDecode($ret['re_name']);
+        return $ret;
     }
 
     public static function findOrderByOrderId($orderId, $fromDb = 'w')
@@ -173,6 +194,66 @@ class UserOrderModel
         return $ret === false ? 0 : $ret;
     }
 
+    public static function changePayType($userId, $orderId, $payType)
+    {
+        if (empty($userId) || empty($orderId)) {
+            return false;
+        }
+
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('ol_pay_type' => $payType),
+            array('order_id', 'user_id', 'pay_state'),
+            array($orderId, $userId, PayModel::PAY_ST_UNPAY),
+            array('and', 'and')
+        );
+        self::onUpdateData($orderId);
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        return true;
+    }
+    public static function changeOrderPayId($userId, $orderId, $orderPayId)
+    {
+        if (empty($userId) || empty($orderId) || empty($orderPayId)) {
+            return false;
+        }
+
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('order_pay_id' => $orderPayId),
+            array('order_id', 'user_id', 'pay_state'),
+            array($orderId, $userId, PayModel::PAY_ST_UNPAY),
+            array('and', 'and')
+        );
+        self::onUpdateData($orderId);
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function onPayOk($orderPayId)
+    {
+        if (empty($orderPayId)) {
+            return false;
+        }
+
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('pay_state' => PayModel::PAY_ST_SUCCESS, 'pay_time' => CURRENT_TIME),
+            array('order_pay_id'), array($orderPayId)
+        );
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        $orderInfo = self::findOrderByOrderPayId($orderPayId);
+        if (!empty($orderInfo)) {
+            self::onUpdateData($orderInfo['order_id']);
+        }
+        return true;
+    }
+
     public static function cancelOrder($userId, $orderId)
     {
         if (empty($userId) || empty($orderId)) {
@@ -183,7 +264,8 @@ class UserOrderModel
             'o_order',
             array('order_state' => self::ORDER_ST_CANCELED),
             array('order_id', 'user_id', 'order_state'),
-            array($userId, $orderId, self::ORDER_ST_CREATED)
+            array($orderId, $userId, self::ORDER_ST_CREATED),
+            array('and', 'and')
         );
         if ($ret === false || (int)$ret <= 0) {
             return false;

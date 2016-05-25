@@ -10,12 +10,15 @@ use \src\common\Check;
 use \src\common\WxSDK;
 use \src\common\Util;
 use \src\common\Log;
+use \src\pay\model\PayModel;
 use \src\user\model\UserModel;
 use \src\user\model\UserOrderModel;
 use \src\user\model\UserCartModel;
 use \src\user\model\UserAddressModel;
 use \src\mall\model\CartModel;
 use \src\mall\model\OrderModel;
+use \src\mall\model\GoodsModel;
+use \src\mall\model\OrderGoodsModel;
 use \src\mall\model\GlobalConfigModel;
 use \src\mall\model\PostageModel;
 
@@ -33,9 +36,16 @@ class PayController extends MallController
 
         $cartIds = $this->postParam('cartId', array());
 
+        $orderId = trim($this->postParam('orderId', ''));
+        if (!empty($orderId)) {
+            $url = '/mall/Pay/payAgain?showwxpaytitle=1&orderId=' . $orderId;
+            header('Location: ' . $url);
+            exit();
+        }
+
         $validCart = $this->getValidCartIds($cartIds);
         if (empty($validCart)) {
-            echo '<h1>购物车数据错误</h1>';
+            $this->showNotice('购物车数据错误', '/mall/Cart');
             return ;
         }
 
@@ -46,7 +56,7 @@ class PayController extends MallController
                 continue;
             $goodsList[] = $data;
         }
-        $ret = $this->showPayPage('cart', '/mall/Pay/cartOrder', $goodsList, array());
+        $ret = $this->showPayPage('cart', '/mall/Pay/cartOrder', $goodsList, [], []);
         if ($ret['code'] != 0) {
             $this->showNotice($ret['desc'], '/mall/Cart');
             return ;
@@ -95,6 +105,11 @@ class PayController extends MallController
                 'sku' => $skuAttr . '：' . $skuValue,
                 'salePrice' => number_format($goodsSku['sale_price'], 2, '.', ''),
                 'amount' => $amount,
+
+                // for calc price
+                'skuAttr' => $skuAttr,
+                'skuValue' => $skuValue,
+                'goodsId' => $goodsId,
             )
         );
         $goodsInfo = array(
@@ -102,7 +117,7 @@ class PayController extends MallController
             'skuValue' => $skuValue,
             'amount' => $amount,
         );
-        $ret = $this->showPayPage('quickbuy', '/mall/Pay/quickOrder', $goodsList, $goodsInfo);
+        $ret = $this->showPayPage('quickbuy', '/mall/Pay/quickOrder', $goodsList, $goodsInfo, []);
         if ($ret['code'] != 0) {
             $this->showNotice($ret['desc'], '/mall/Goods/detail?goodsId=' . $goodsId);
             return ;
@@ -157,17 +172,18 @@ class PayController extends MallController
 
         UserCartModel::delCarts($this->userId(), $validCarts);
 
+        $orderInfo = UserOrderModel::findOrderByOrderId($ret['result']['orderId']);
+        if (empty($orderInfo)) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '创建订单失败', '', ['orderId' => '']);
+            return ;
+        }
+
         $orderDesc = $goodsList[0]['goodsName'];
         if (count($goodsList) > 1)
             $orderDesc .= '; ' . $goodsList[1]['goodsName'];
-        $ret = $this->wxJsApiPay(
-            $this->wxOpenId(),
-            $ret['result']['orderId'],
-            $orderDesc,
-            $ret['result']['olPayAmount']
-        );
+        $ret = $this->payOrder($orderInfo, $payType, $orderDesc);
         if ($ret['code'] != 0) {
-            $this->ajaxReturn($ret['code'], $ret['desc'], '', ['orderId' => '']);
+            $this->ajaxReturn($ret['code'], $ret['desc'], '', ['orderId' => $orderInfo['order_id']]);
             return ;
         }
         $this->ajaxReturn(0, '', '', $ret['result']);
@@ -245,12 +261,12 @@ class PayController extends MallController
             return ;
         }
 
-        $ret = $this->wxJsApiPay(
-            $this->wxOpenId(),
-            $ret['result']['orderId'],
-            $goodsInfo['name'],
-            $ret['result']['olPayAmount']
-        );
+        $orderInfo = UserOrderModel::findOrderByOrderId($ret['result']['orderId']);
+        if (empty($orderInfo)) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '创建订单失败', '', ['orderId' => '']);
+            return ;
+        }
+        $ret = $this->payOrder($orderInfo, $payType, $goodsInfo['name']);
         if ($ret['code'] != 0) {
             $this->ajaxReturn($ret['code'], $ret['desc'], '', ['orderId' => '']);
             return ;
@@ -260,10 +276,140 @@ class PayController extends MallController
 
     public function payAgain()
     {
+        $this->checkLoginAndNotice();
+
+        $orderId = trim($this->getParam('orderId', ''));
+        $orderInfo = UserOrderModel::findOrderByOrderId($orderId);
+        if (empty($orderInfo)) {
+            $this->showNotice('订单不存在', '/user/Order');
+            return ;
+        }
+        $orderGoods = OrderGoodsModel::fetchOrderGoodsById($orderId);
+        if (empty($orderGoods)) {
+            $this->showNotice('订单商品不存在', '/user/Order');
+            return ;
+        }
+
+        $goodsList = array();
+        foreach ($orderGoods as $goods) {
+            $goodsInfo = GoodsModel::findGoodsById($goods['goods_id']);
+            if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+                continue ;
+            }
+            $data = array(
+                    'id' => $goods['goods_id'],
+                    'imageUrl' => $goodsInfo['image_url'],
+                    'name' => $goodsInfo['name'],
+                    'sku' => $goods['sku_attr'] . '：' . $goods['sku_value'],
+                    'salePrice' => number_format($goods['price'], 2, '.', ''),
+                    'amount' => $goods['amount'],
+
+                    // for calc price
+                    'skuAttr' => $goods['sku_attr'],
+                    'skuValue' => $goods['sku_value'],
+                    'goodsId' => $goods['goods_id'],
+            );
+            $goodsList[] = $data;
+        }
+
+        $ret = $this->showPayPage('payagain', '/mall/Pay/doPayAgain', $goodsList, [], $orderInfo);
+        if ($ret['code'] != 0) {
+            $this->showNotice($ret['desc'], '/mall/Cart');
+            return ;
+        }
+    }
+    public function doPayAgain()
+    {
+        $this->checkLoginAndNotice();
+
+        $orderId = trim($this->postParam('orderId', ''));
+        $payType = intval($this->postParam('pay_type', 0));
+        $isCash  = intval($this->postParam('is_cash', 0));
+
+        if (empty($orderId)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误', '', ['orderId' => $orderId]);
+            return ;
+        }
+        if (PayModel::checkPayType($payType) === false) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '支付类型不支持', '', ['orderId' => $orderId]);
+            return ;
+        }
+
+        $orderInfo = UserOrderModel::findOrderByOrderId($orderId);
+        if (empty($orderInfo)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '订单不存在', '', ['orderId' => $orderId]);
+            return ;
+        }
+        $orderGoods = OrderGoodsModel::fetchOrderGoodsById($orderId);
+        if (empty($orderGoods)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '订单商品不存在', '', ['orderId' => $orderId]);
+            return ;
+        }
+        $goodsList = array();
+        foreach ($orderGoods as $goods) {
+            $goodsInfo = GoodsModel::findGoodsById($goods['goods_id']);
+            if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+                continue ;
+            }
+            $data = array('name' => $goodsInfo['name']);
+            $goodsList[] = $data;
+        }
+        if (empty($goodsList)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '订单商品无效', '', ['orderId' => $orderId]);
+            return ;
+        }
+        if ($orderInfo['ol_pay_type'] != $payType) {
+            UserOrderModel::changePayType($this->userId(), $orderId, $payType);
+        }
+        $newOrderPayId = UserOrderModel::genOrderId(UserOrderModel::ORDER_PRE_PAYMENT, $this->userId());
+        if (empty($newOrderPayId)) {
+            $this->ajaxReturn(ERR_SYSTEM_BUSY, '系统繁忙，请稍后重试', '', ['orderId' => $orderId]);
+            return ;
+        }
+        $ret = UserOrderModel::changeOrderPayId($this->userId(), $orderId, $newOrderPayId);
+        if ($ret === false) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '创建支付订单失败', '', ['orderId' => $orderId]);
+            return ;
+        }
+        $orderInfo = UserOrderModel::findOrderByOrderId($orderId); // !!!!
+
+        $orderDesc = $goodsList[0]['name'];
+        if (count($goodsList) > 1)
+            $orderDesc .= '; ' . $goodsList[1]['name'];
+        $ret = $this->payOrder($orderInfo, $payType, $orderDesc);
+        if ($ret['code'] != 0) {
+            $this->ajaxReturn($ret['code'], $ret['desc'], '', ['orderId' => '']);
+            return ;
+        }
+        $this->ajaxReturn(0, '', '', $ret['result']);
+    }
+
+    public function wxPayReturn()
+    {
+        $orderId = $this->getParam('orderId', '');
+
+        $data = array('title' => '', 'payAmount' => '0.00', 'orderId' => '无');
+        if (empty($orderId)) {
+            $data['title'] = '支付异常';
+        } else {
+            $orderInfo = UserOrderModel::findOrderByOrderId($orderId);
+            $data['orderId'] = $orderId;
+            if (empty($orderInfo)) {
+                $data['title'] = '支付异常';
+            } else {
+                $data['title'] = '支付完成';
+                if ($orderInfo['pay_state'] == PayModel::PAY_ST_SUCCESS) {
+                    $data['title'] = '支付成功';
+                }
+                $data['payAmount'] = number_format($orderInfo['ol_pay_amount'], 2, '.', '');
+            }
+        }
+
+        $this->display('wx_pay_return', $data);
     }
 
     //=
-    private function showPayPage($orderType, $action, $goodsList, $goodsInfo)
+    private function showPayPage($orderType, $action, $goodsList, $goodsInfo, $orderInfo)
     {
         $optResult = array('code' => ERR_OPT_FAIL, 'desc' => '', 'result' => array());
         $ret = OrderModel::calcPrice($this->userId(), $goodsList, 0 /* TODO */);
@@ -275,14 +421,19 @@ class PayController extends MallController
         $postage = (float)$ret['result']['postage'];
         $freePostage = (float)$ret['result']['freePostage'];
 
-        $cashAmount = UserModel::getCash($this->userId());
+        $cashAmount = 0.00;
+        if (!empty($orderInfo)) {
+            $cashAmount = $orderInfo['ac_pay_amount'];
+        } else {
+            $cashAmount = UserModel::getCash($this->userId());
+        }
         $address = UserAddressModel::getDefaultAddr($this->userId());
         if (!empty($address)) {
             $address['fullAddr'] = UserAddressModel::getFullAddr($address);
         }
         $data = array(
             'orderType' => $orderType,
-            'orderId'   => '',
+            'orderId'   => empty($orderInfo) ? '' : $orderInfo['order_id'],
             'goodsList' => $goodsList,
             'address'   => $address,
             'orderAmount'=> $orderAmount,
@@ -313,10 +464,26 @@ class PayController extends MallController
         return $validCart;
     }
 
+    private function payOrder($orderInfo, $payType, $orderDesc)
+    {
+        if ($payType == PayModel::PAY_TYPE_WX) {
+            $ret = $this->wxJsApiPay(
+                $this->wxOpenId(),
+                $orderInfo['order_id'],
+                $orderInfo['order_pay_id'],
+                $orderDesc,
+                $orderInfo['ol_pay_amount']
+            );
+            return $ret;
+        }
+        return array('code' => ERR_PARAMS_ERROR, 'desc' => '支付方式不支持', 'result' => array());
+    }
+
     // 统一下单接口
     private function wxJsApiPay(
         $payOpenId,
         $orderId,
+        $orderPayId,
         $orderDesc,
         $totalAmount
     ) {
@@ -330,7 +497,7 @@ class PayController extends MallController
             WX_PAY_APP_ID,
             WX_PAY_KEY,
             $payOpenId,
-            $orderId,
+            $orderPayId,
             $orderDesc,
             ceil($totalAmount * 100), // 防止超过2位小数
             Util::getIp(),
@@ -342,7 +509,7 @@ class PayController extends MallController
         }
         $data = array(
             'wxPayParams'=> $jsParams,
-            'wxPaySucUrl' => APP_URL_BASE . '/pay/Pay/wxPayReturn',
+            'wxPaySucUrl' => APP_URL_BASE . '/mall/Pay/wxPayReturn?orderId=' . $orderId,
             'orderId' => $orderId
         );
         $optResult['code'] = 0;

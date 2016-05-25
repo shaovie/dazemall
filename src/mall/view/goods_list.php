@@ -41,7 +41,9 @@
 			<div class="goods-title"><?php echo $goods['name']?></div>
 			<div class="clearfix">
 				<label class="price"><i>&yen;</i><b><?php echo $goods['salePrice']?></b></label>
+                <?php if (true || (float)$goods['discount'] > 0.00):?>
 				<label class="btn btn-sm right"><?php echo $goods['discount']?>折</label>
+                <?php endif?>
 			</div>
 		</div>
         <?php endforeach?>

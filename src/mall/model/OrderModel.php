@@ -139,6 +139,12 @@ class OrderModel
             $optResult['desc'] = '系统繁忙，创建订单失败，请稍后重试';
             return $optResult;
         }
+        $newOrderPayId = UserOrderModel::genOrderId(UserOrderModel::ORDER_PRE_PAYMENT, $userId);
+        if (empty($newOrderPayId)) {
+            $optResult['code'] = ERR_SYSTEM_BUSY;
+            $optResult['desc'] = '系统繁忙，创建订单失败，请稍后重试';
+            return $optResult;
+        }
         // ! 检查库存
         foreach ($goodsListSKUInfo as $idx => $goodsSKU) {
             if ($goodsSKU['amount'] < $goodsList[$idx]['amount']) {
@@ -207,6 +213,7 @@ class OrderModel
                     $ret = UserBillModel::newOne(
                         $userId,
                         $newOrderId,
+                        $newOrderPayId,
                         UserBillModel::BILL_TYPE_OUT,
                         UserBillModel::BILL_FROM_ORDER_CASH_PAY,
                         $reduceCashAmount,
@@ -240,6 +247,7 @@ class OrderModel
         // 创建订单
         $ret = UserOrderModel::newOne(
             $newOrderId,
+            $newOrderPayId,
             $orderEnv,
             $userId,
             $addrInfo['re_name'],
@@ -292,6 +300,8 @@ class OrderModel
             $optResult['desc'] = '系统异常，创建订单失败';
             return $optResult;
         }
+
+        self::onCreateOrderOk($newOrderId);
         $optResult['code'] = 0;
         $optResult['desc'] = '';
         $optResult['result'] = array('orderId' => $newOrderId, 'olPayAmount' => $olPayAmount);
@@ -378,10 +388,10 @@ class OrderModel
         if ($orderInfo['user_id'] != $userId) {
             return false;
         }
-        if ($orderInfo['user_id'] != $userId) {
+        if ($orderInfo['pay_state'] != PayModel::PAY_ST_UNPAY) {
             return false;
         }
-        if ($orderInfo['pay_state'] != PayModel::PAY_ST_UNPAY) {
+        if ($orderInfo['order_state'] != UserOrderModel::ORDER_ST_CREATED) {
             return false;
         }
 
@@ -404,6 +414,7 @@ class OrderModel
         $ret = UserBillModel::newOne(
             $userId,
             $newOrderId,
+            '',
             UserBillModel::BILL_TYPE_IN,
             UserBillModel::BILL_FROM_ORDER_CASH_REFUND,
             $orderInfo['ac_pay_amount'],
@@ -418,6 +429,11 @@ class OrderModel
             return false;
         }
         return true;
+    }
+
+    public static function onCreateOrderOk($orderId)
+    {
+        AsyncModel::asyncCancelOrder($orderId);
     }
 }
 

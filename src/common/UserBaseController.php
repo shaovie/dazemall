@@ -12,6 +12,7 @@ use \src\common\DB;
 use \src\common\Session;
 use \src\user\model\WxUserModel;
 use \src\user\model\UserModel;
+use \src\job\model\AsyncModel;
 
 class UserBaseController extends BaseController
 {
@@ -159,6 +160,7 @@ class UserBaseController extends BaseController
                 // exit(0);
                 return false;
             }
+            AsyncModel::asyncCheckSubscribe($openInfo['openid']);
         }
         return $openInfo['openid'];
     }

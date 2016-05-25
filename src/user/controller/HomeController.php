@@ -28,4 +28,9 @@ class HomeController extends UserController
         $data['user'] = $user;
         $this->display('home', $data);
     }
+
+    public function address()
+    {
+        $this->display('address');
+    }
 }

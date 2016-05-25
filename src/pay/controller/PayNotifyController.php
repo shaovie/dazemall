@@ -10,6 +10,7 @@ use \src\common\WxSDK;
 use \src\common\Nosql;
 use \src\common\AliSDK;
 use \src\common\Log;
+use \src\user\model\UserOrderModel;
 
 class PayNotifyController extends PayController
 {
@@ -144,6 +145,13 @@ class PayNotifyController extends PayController
     //= private methods
     private function onPayNotifyOk($outTradeNo, $totalAmount, $payOkAmount)
     {
+        if ((int)($totalAmount * 100) != (int)($payOkAmount * 100)) {
+            Log::pay('wx pay notify success : but totalAmount('
+                    . $totalAmount . ') != payOkAmount(' . $payOkAmount . ')'
+                    . ' tradeNo = ' . $outTradeNo
+                    );
+        }
+        UserOrderModel::onPayOk($outTradeNo);
         return true;
     }
 

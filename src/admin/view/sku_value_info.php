@@ -39,10 +39,12 @@
 			<label class="col-sm-2 control-label no-padding-left"> 状态：</label>
 			<div class="col-sm-9" id="state-radio">
 				<div style="margin-right:20px;display:inline;">
-                    <input type="radio" name="state" value="0" id="isshow0" <?php if (isset($info['state']) && $info['state'] == 0) { echo 'checked="true"';}?> >无效</div>
+                    <input type="radio" name="state" value="0" id="isshow0" <?php if (isset($info['state']) && $info['state'] == 0) { echo 'checked="true"';}?> >无效
+                </div>
 				<div style="margin-right:20px;display:inline;">
                     <input type="radio" name="state" value="1" id="isshow1"
-                    <?php if (isset($info['state'])) { if ($info['state'] == 1) { echo 'checked="true"';}} else {echo 'checked="true"';}?> >有效</div>
+                    <?php if (isset($info['state'])) { if ($info['state'] == 1) { echo 'checked="true"';}} else {echo 'checked="true"';}?> >有效
+               </div>
 			</div>
 		</div>
 		

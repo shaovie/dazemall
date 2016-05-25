@@ -85,7 +85,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left">商品主图：<br><span style="font-size:12px;color:red">（标准: 640*640 <br>尺寸尽量小于50K）</span></label>
 			<div class="col-sm-9">
-              <div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 160px; height: 160px;">
+              <div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 140px; height: 150px;">
                <?php if(!empty($goods['image_url'])){?>
                    <img src="<?php echo $goods['image_url'];?>" />
                   <a href='javascript:void(0)' onclick='delThumbImg(this);return false;'>删除</a>
@@ -110,7 +110,7 @@
                 <?php if (!empty($goods['image_urls'])):?>
                     <?php foreach($goods['image_urls'] as $img):if(!empty($img)):?>
                        <li>
-                        <img width="120" height="120" style="width:100px;height:120px;margin-right:2px" src="<?php echo $img;?>" />
+                        <img style="width:100px;height:120px;margin-right:2px" src="<?php echo $img;?>" />
                         <a href='javascript:void(0)' onclick="delGoodsImg(this);return false;">删除</a>
                        </li> 
                     <?php endif;endforeach;?>

@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 <body class="no-skin">
-	<h3 class="header smaller lighter blue"><span style="margin-right:20px">用户总数：<?php echo $totalUserNum;?></span></h3>
+	<h3 class="header smaller lighter blue"><span style="margin-right:20px">用户总数：<?php echo $totalUserNum;?></span><span class="refresh">刷新</span></h3>
 	<form action="/admin/User/search" class="form-horizontal" method="get">
 	<table class="table table-striped table-bordered table-hover">
 	<tbody>
@@ -66,7 +66,7 @@
                 <div>注册时间：<?php echo date('Y-m-d H:i:s', $user['ctime'])?></div>
             </td>
 			<td style="text-align:center;vertical-align:middle;">
-				<a class="btn btn-xs btn-info" href="/admin/User/recharge?userId=<?php echo $user['id']?>">充值</a>
+                 <a class="btn btn-xs btn-info" onclick="recharge(<?php echo $user['id']?>)" >充值</a>
 			</td>
 		</tr>
         <?php endforeach?>

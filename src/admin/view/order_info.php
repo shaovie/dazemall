@@ -28,15 +28,15 @@
 		<table class="table">
 		<tbody>
 			<tr>
-				<th style="width:100px"><label for="">订单编号：</label></th>
+				<td style="width:100px"><label for="">订单编号：</label></td>
 				<td><?php echo $order['orderId'];?></td>
-				<th style="width:100px"><label for="">下单时间：</label></th>
+				<td style="width:100px"><label for="">下单时间：</label></td>
 				<td><?php echo date('Y-m-d H:i:s', $order['ctime']);?></td>
 			</tr>
 			<tr>
-				<th><label for="">付款方式：</label></th>
+				<td><label for="">付款方式：</label></td>
 				<td><?php echo $order['payType'];?></td>
-				<th><label for="">付款时间：</label></th>
+				<td><label for="">付款时间：</label></td>
 				<td><?php echo $order['payTime']?></td>
 			</tr>
 		</tbody>
@@ -64,6 +64,7 @@
 		<thead>
 			<tr>
 				<th style="width:100px;">商品编号</th>
+                <th>商品图片</th>
 				<th>商品名称</th>
 				<th>商品SKU</th>
 				<th style="color:red;">成交价</th>
@@ -73,13 +74,14 @@
 		<tbody>
         <?php foreach ($order['goodsList'] as $goods):?>
 			<tr>
-				<td><?php echo $goods['goods_id']?></td>
-				<td><?php echo $goods['name']?></td>
-                <td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $goods['goods_id']?></td>
+				<td><img src="<?php echo $goods['img']?>" style="width:60px;height:60px;" /></td>
+				<td style="vertical-align:middle;"><?php echo $goods['name']?></td>
+                <td style="vertical-align:middle;">
                     <?php echo $goods['sku_attr'] . '：' . $goods['sku_value']?>
                  </td>
-				<td style="color:red;font-weight:bold;"><?php echo $goods['price']?></td>
-				<td><?php echo $goods['amount']?></td>
+				<td style="color:red;font-weight:bold;vertical-align:middle;"><?php echo $goods['price']?></td>
+				<td style="vertical-align:middle;"><?php echo $goods['amount']?></td>
 			</tr>
         <?php endforeach?>
 		</tbody>

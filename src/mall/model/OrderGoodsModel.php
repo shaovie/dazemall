@@ -58,6 +58,9 @@ class OrderGoodsModel
 
     public static function fetchOrderGoodsById($orderId)
     {
+        if (empty($orderId)) {
+            return array();
+        }
         $data = DB::getDB('r')->fetchAll(
             'o_order_goods',
             '*',
@@ -65,9 +68,6 @@ class OrderGoodsModel
             false,
             array('id'), array('asc')
         );
-        if (empty($data)) {
-            return array();
-        }
         return !empty($data) ? $data : array();
     }
 }

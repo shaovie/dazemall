@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 <body class="no-skin">
-	<h3 class="header smaller lighter blue"><span style="margin-right:20px">商品总数：<?php echo $totalGoodsNum;?></span><a href="/admin/Goods/addPage" class="btn btn-primary">新建商品</a></h3>
+	<h3 class="header smaller lighter blue"><span style="margin-right:20px">商品总数：<?php echo $totalGoodsNum;?></span><a href="/admin/Goods/addPage" class="btn btn-primary">新建商品</a><span class="refresh">刷新</span></h3>
 	<form action="/admin/Goods/search" class="form-horizontal" method="get">
 	<table class="table table-striped table-bordered table-hover">
 	<tbody>
@@ -80,6 +80,7 @@
                 <div>上架状态：<?php echo $goods['state']?></div>
 			</td>
 			<td style="text-align:center;vertical-align:middle;">
+				<a target="_blank" class="btn btn-xs btn-info" href="/mall/Goods/detail?goodsId=<?php echo $goods['id']?>">预览</a>
 				<a class="btn btn-xs btn-info" href="/admin/Goods/editPage?goodsId=<?php echo $goods['id']?>">编辑</a>
 				<a class="btn btn-xs btn-info" href="/admin/Goods/skuPage?goodsId=<?php echo $goods['id']?>">商品SKU</a>
 			</td>

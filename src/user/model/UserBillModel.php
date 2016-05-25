@@ -22,6 +22,7 @@ class UserBillModel
     public static function newOne(
         $userId,
         $orderId,
+        $orderPayId,
         $billType,
         $billFrom,
         $amount,
@@ -35,6 +36,7 @@ class UserBillModel
         $data = array(
             'user_id' => $userId,
             'order_id' => $orderId,
+            'order_pay_id' => $orderPayId,
             'bill_type' => $billType,
             'bill_from' => $billFrom,
             'amount' => $amount,

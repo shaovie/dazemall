@@ -51,6 +51,9 @@ class WxEventAsyncController extends JobController
         case 'subscribe':
             $this->onSubscribe($data['openid'], $data['from']);
             break;
+        case 'check_subscribe':
+            $this->checkSubscribe($data['openid']);
+            break;
         default:
             Log::error('wx event async job: unknow event');
             break;
@@ -73,6 +76,24 @@ class WxEventAsyncController extends JobController
         if (empty($userInfo)) {
             WxUserModel::newOne($wxUserInfo);
         } else {
+            WxUserModel::updateWxUserInfo($userInfo, $wxUserInfo);
+        }
+    }
+
+    private function checkSubscribe($openid)
+    {
+        $wxUserInfo = WxSDK::getUserInfo($openid, 'snsapi_base');
+        if (empty($wxUserInfo)) {
+            Log::warng('first get wxuinfo:' . $openid . ' userinfo fail');
+            $wxUserInfo = WxSDK::getUserInfo($openid, 'snsapi_base');
+            if (empty($wxUserInfo)) {
+                Log::warng('second get wxuinfo:' . $openid . ' userinfo fail');
+                return false;
+            }
+        }
+
+        $userInfo = WxUserModel::findUserByOpenId($openid);
+        if (!empty($userInfo)) {
             WxUserModel::updateWxUserInfo($userInfo, $wxUserInfo);
         }
     }

@@ -23,17 +23,23 @@ class OrderPayRemindController extends JobController
 
         do {
             $now = time();
+            $size = intval(Nosql::lSize($nk));
+            $n = 0;
             do {
+                if ($n >= $size) {
+                    break;
+                }
                 $rawMsg = Nosql::lPop($nk);
                 if ($rawMsg === false
                     || !isset($rawMsg[0])) {
                     break;
                 }
+                $n++;
                 $data = json_decode($rawMsg, true);
-                if ($now - $data['ctime'] > 600) {
+                if ($now - $data['ctime'] > (UserOrderModel::ORDER_PAY_LAST_TIME - 300)) {
                     $this->doRemind($data);
                 } else {
-                    Nosql::lPush($nk, $rawMsg);
+                    Nosql::rPush($nk, $rawMsg);
                 }
             } while (true);
 

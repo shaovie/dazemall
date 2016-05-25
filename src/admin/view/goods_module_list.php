@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 <body class="no-skin">
-	<h3 class="header smaller lighter blue"><a href="/admin/GoodsModule/addPage" class="btn btn-primary">新建</a></h3>
+	<h3 class="header smaller lighter blue"><a href="/admin/GoodsModule/addPage" class="btn btn-primary">新建</a><span class="refresh">刷新</span></h3>
 		
 	<table class="table table-striped table-bordered table-hover">
 		<tbody>

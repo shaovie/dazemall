@@ -25,6 +25,15 @@ class PayModel
         Nosql::setEx($nk, Nosql::NK_ORDER_ATTACH_INFO_EXPIRE, json_encode($orderAttach));
     }
 
+    public static function checkPayType($payType)
+    {
+        if ($payType != self::PAY_TYPE_ALI
+            && $payType != self::PAY_TYPE_WX) {
+            return false;
+        }
+        return true;
+    }
+
     public static function payTypeDesc($t)
     {
         if ($t == self::PAY_TYPE_ALI) {

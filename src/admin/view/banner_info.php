@@ -55,9 +55,9 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 链接：</label>
 			<div class="col-sm-9">
-            <select name="linkType" style="margin-right:10px;width: 100px;">
-                <option value="-1" <?php if (!isset($banner['linkType']) || $banner['linkType'] == -1) { echo 'selected="selected"';}?> >链接目标类型</option>
-                <option value="1" <?php if (isset($banner['linkType']) && $banner['linkType'] == 1) { echo 'selected="selected"';}?> >商品</option>
+            <select class="linkType" name="linkType" style="margin-right:10px;width: 100px;">
+                <option value="-1" <?php if (!isset($banner['link_type']) || $banner['link_type'] == -1) { echo 'selected="selected"';}?> >链接目标类型</option>
+                <option value="1" <?php if (isset($banner['link_type']) && $banner['link_type'] == 1) { echo 'selected="selected"';}?> >商品</option>
             </select>
 				<input style="width:300px;" type="text" name="linkValue" id="linkValue" maxlength="300" class="span7" value="<?php if (!empty($banner['link_value'])){echo $banner['link_value'];}?>" placeholder="链接值">
                 <p class="help-block">目录类型：商品 对应链接值：商品编号</br>
@@ -114,7 +114,7 @@
                 beginTime:$("#beginTime").val(),
                 endTime:$("#endTime").val(),
                 sort:$("#sort").val(),
-                linkType:$("#linkType").val(),
+                linkType:$(".linkType").val(),
                 linkValue:$("#linkValue").val(),
                 showArea:$("#showArea option:selected").val(),
                 imageUrl:$("#thumb_img").val()

@@ -102,6 +102,16 @@ class AsyncModel
         Nosql::rPush($nk, json_encode($data));
     }
 
+    public static function asyncCheckSubscribe($openid)
+    {
+        $data = array(
+            'event' => 'check_subscribe',
+            'openid' => $openid
+        );
+        $nk = Nosql::NK_ASYNC_WX_EVENT_QUEUE;
+        Nosql::rPush($nk, json_encode($data));
+    }
+
     public static function asyncDBOpt($opt, $data)
     {
         $data = array(
@@ -133,7 +143,7 @@ class AsyncModel
         Nosql::rPush($nk, json_encode($data));
     }
 
-    public static function asyncCancelOrder($orderId, $duration)
+    public static function asyncCancelOrder($orderId)
     {
         $data = array(
             'orderId' => $orderId,

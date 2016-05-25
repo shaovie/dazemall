@@ -86,7 +86,8 @@ class GoodsCategoryController extends AdminController
         $ret = GoodsCategoryModel::newOne(
             $catInfo['parentId'],
             $catInfo['name'],
-            $catInfo['image_url']
+            $catInfo['image_url'],
+            $catInfo['state']
         );
         if ($ret === false || (int)$ret <= 0) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败');
@@ -97,13 +98,13 @@ class GoodsCategoryController extends AdminController
 
     public function del()
     {
-        $catId = $this->getParam('catId', 0);
+       /* $catId = $this->getParam('catId', 0);
         if ($catId == 0) {
             header('Location: /admin/GoodsCategory');
             return ;
         }
         GoodsCategoryModel::delCategory($catId);
-        header('Location: /admin/GoodsCategory');
+        header('Location: /admin/GoodsCategory');*/
     }
 
     public function edit()
@@ -118,7 +119,8 @@ class GoodsCategoryController extends AdminController
             'name' => $catInfo['name'],
             'image_url' => $catInfo['image_url'],
             'sort' => $catInfo['sort'],
-            );
+            'state' => $catInfo['state']
+        );
         $ret = GoodsCategoryModel::update(
             $catInfo['catId'],
             $updateData
@@ -137,6 +139,7 @@ class GoodsCategoryController extends AdminController
         $catInfo['name'] = trim($this->postParam('name', ''));
         $catInfo['sort'] = intval($this->postParam('sort', 0));
         $catInfo['image_url'] = trim($this->postParam('imageUrl', ''));
+        $catInfo['state'] = intval($this->postParam('state', 0));
 
         if (empty($catInfo['name'])) {
             $error = '分类名称不能为空';

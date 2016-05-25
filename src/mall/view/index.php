@@ -28,12 +28,12 @@
         <!-- <div class="festival-line"></div> -->
         <ul class="tj-types">
             <li>
-                <a>
+                <a href="/mall/Category/index?catId=100004000">
                     <i class="icon"></i><label>食品</label>
                 </a>
             </li>
             <li>
-                <a>
+                <a href="/mall/Category/index?catId=100003000">
                     <i class="icon"></i><label>美妆</label>
                 </a>
             </li>

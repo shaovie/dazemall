@@ -66,7 +66,7 @@
                 <label>运费</label>
                 <span class="price right"><i>&yen;</i><b><?php echo number_format($order['postage'], 2, '.', '')?></b></span>
             </li>
-            <?php if(!empty($order['couponPayment'])):?>
+            <?php if(!empty((float)$order['couponPayment'])):?>
             <li class="clearfix">
                 <label>优惠券</label>
                 <span class="price right"><i>&yen;</i><b><?php echo $order['couponPayment'];?></b></span>
@@ -74,33 +74,27 @@
             <?php endif;?>
             <li class="clearfix">
                 <label>合计</label>
-                <span class="price price-total right"><i>&yen;</i><b><?php echo number_format($order['calcTotalAmount'], 2, '.', '')?></b></span>
+                <span class="price price-total right"><i>&yen;</i><b><?php echo $order['orderAmount']?></b></span>
             </li>
         </ul>
     </section>
     <section class="money-calculate">
         <div class="calculate">
-            <span class="price"><i>&yen;</i><b><?php echo number_format($order['totalAmount'], 2, '.', '')?></b></span>
+            <span class="price"><i>&yen;</i><b><?php echo $order['totalPrice']?></b></span>
             <span>+</span>
-            <span class="price"><i>&yen;</i><b><?php echo number_format($order['postage'], 2, '.', '')?></b></span>运费
+            <span class="price"><i>&yen;</i><b><?php echo $order['postage']?></b></span>运费
             <span>
                 <span>-</span>
-                <span class="price"><i>&yen;</i><b><?php echo number_format($order['accountPayment'], 2, '.', '')?></b></span>余额
+                <span class="price"><i>&yen;</i><b><?php echo $order['acPayAmount']?></b></span>余额
             </span>
-            <?php if($order['taobiPayment']>0):?>
-            <span id="J-minus-taobi">
-                <span>-</span>
-                <span class="price"><i>&yen;</i><b><?php echo number_format($order['taobiPayment'], 2, '.', '')?></b></span>淘币
-            </span>
-            <?php endif;?>
-            <?php if(!empty($order['couponPayment'])):?>
+            <?php if(!empty((float)$order['couponPayment'])):?>
             <span>
                 <span>-</span>
-                <span class="price"><i>&yen;</i><b><?php echo number_format($order['couponPayment'], 2, '.', '')?></b></span>优惠券
+                <span class="price"><i>&yen;</i><b><?php echo $order['couponPayment']?></b></span>优惠券
             </span>
             <?php endif;?>
         </div>
-        <div class="result"><?php echo $order['iPayType']?>已支付:<span class="price"><i>&yen;</i><b><?php echo number_format($order['onlinePayment'], 2, '.', '')?></b></span></div>
+        <div class="result"><?php echo $order['payTypeDesc']?>已支付:<span class="price"><i>&yen;</i><b><?php echo $order['payAmount']?></b></span></div>
     </section>
     <?php endif?>
     <?php

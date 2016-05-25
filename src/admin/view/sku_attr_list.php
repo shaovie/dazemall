@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="/asset/js/goods.js"></script>
 </head>
 <body class="no-skin">
-    <h3 class="header smaller lighter blue"><span style="margin-right:20px">sku属性列表</span><a href="/admin/SkuAttr/addPage" class="btn btn-primary">新建</a></h3>
+    <h3 class="header smaller lighter blue"><span style="margin-right:20px">sku属性列表</span><a href="/admin/SkuAttr/addPage" class="btn btn-primary">新建</a><span class="refresh">刷新</span></h3>
 	<form action="" class="form-horizontal" method="post" onsubmit="return formcheck(this)">
 		<table class="table table-striped table-bordered table-hover">
 			<thead>

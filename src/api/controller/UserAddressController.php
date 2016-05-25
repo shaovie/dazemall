@@ -51,53 +51,6 @@ class UserAddressController extends ApiController
         $this->ajaxReturn(0, '', '', array('data' => $retList));
     }
 
-    public function add()
-    {
-        $this->checkLoginAndNotice();
-
-        $reName = $this->postParam('name', ''); // 收件人
-        $rePhone = $this->postParam('phone', '');
-        $provinceId = (int)$this->postParam('provinceId', 0);
-        $cityId = (int)$this->postParam('cityId', 0);
-        $districtId = (int)$this->postParam('districtId', 0);
-        $detail = $this->postParam('detailAddr', '');
-        $reIdCard = $this->postParam('reIdCard', '');
-        $isDefault = (int)$this->postParam('isDefault', 0);
-
-        $sysCityCodeBook = include(CONFIG_PATH . '/city_code_book.php');
-        $reName = preg_replace('/\s|　/', '', $reName);
-        if (!Check::isName($reName)
-            || !Check::isPhone($rePhone)
-            || !isset($sysCityCodeBook[$provinceId])
-            || !isset($sysCityCodeBook[$cityId])
-            || !isset($sysCityCodeBook[$districtId])
-            || empty($detail) || strlen($detail) > 255) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, '输入不合法，请重新输入');
-            return ;
-        }
-
-        if ($isDefault == 1) {
-            UserAddressModel::clearDefaultAddr($this->userId());
-        }
-        $ret = UserAddressModel::newOne(
-            $this->userId(),
-            $reName,
-            $rePhone,
-            UserAddressModel::ADDR_TYPE_UNKNOW,
-            $provinceId,
-            $cityId,
-            $districtId,
-            $detail,
-            $reIdCard,
-            $isDefault
-        );
-        if ($ret === false) {
-            $this->ajaxReturn(ERR_SYSTEM_ERROR, '系统异常，保存地址失败');
-            return ;
-        }
-        $this->ajaxReturn(0, '');
-    }
-
     public function setDefault()
     {
         $this->checkLoginAndNotice();
@@ -119,19 +72,19 @@ class UserAddressController extends ApiController
     {
         $this->checkLoginAndNotice();
 
-        $addrId = $this->postParam('id', 0);
-        $reName = $this->postParam('name', ''); // 收件人
-        $rePhone = $this->postParam('phone', '');
-        $provinceId = (int)$this->postParam('provinceId', 0);
-        $cityId = (int)$this->postParam('cityId', 0);
-        $districtId = (int)$this->postParam('districtId', 0);
-        $detail = $this->postParam('detailAddr', '');
-        $reIdCard = $this->postParam('reIdCard', '');
-        $isDefault = (int)$this->postParam('isDefault', 0);
+        $addrId = $this->getParam('id', 0);
+        $reName = $this->getParam('name', ''); // 收件人
+        $rePhone = $this->getParam('phone', '');
+        $provinceId = (int)$this->getParam('provinceId', 0);
+        $cityId = (int)$this->getParam('cityId', 0);
+        $districtId = (int)$this->getParam('districtId', 0);
+        $detail = $this->getParam('detailAddr', '');
+        $reIdCard = $this->getParam('reIdCard', '');
+        $isDefault = (int)$this->getParam('isDefault', 0);
 
         $sysCityCodeBook = include(CONFIG_PATH . '/city_code_book.php');
         $reName = preg_replace('/\s|　/', '', $reName);
-        if (!Check::isName($reName)
+        if (empty($reName) || strlen($reName) > 30
             || !Check::isPhone($rePhone)
             || !isset($sysCityCodeBook[$provinceId])
             || !isset($sysCityCodeBook[$cityId])
@@ -145,22 +98,37 @@ class UserAddressController extends ApiController
             UserAddressModel::clearDefaultAddr($this->userId());
         }
 
-        $ret = UserAddressModel::update(
-            $this->userId(),
-            $addrId,
-            array(
-                're_name' => $reName,
-                're_phone' => $rePhone,
-                'province_id' => $provinceId,
-                'city_id' => $cityId,
-                'district_id' => $districtId,
-                'detail_addr' => $detail,
-                're_id_card' => $reIdCard,
-                'is_default' => $isDefault
-            )
-        );
+        if ($addrId > 0) {
+            $ret = UserAddressModel::update(
+                $this->userId(),
+                $addrId,
+                array(
+                    're_name' => $reName,
+                    're_phone' => $rePhone,
+                    'province_id' => $provinceId,
+                    'city_id' => $cityId,
+                    'district_id' => $districtId,
+                    'detail_addr' => $detail,
+                    're_id_card' => $reIdCard,
+                    'is_default' => $isDefault
+                )
+            );
+        } else {
+            $ret = UserAddressModel::newOne(
+                $this->userId(),
+                $reName,
+                $rePhone,
+                UserAddressModel::ADDR_TYPE_UNKNOW,
+                $provinceId,
+                $cityId,
+                $districtId,
+                $detail,
+                $reIdCard,
+                $isDefault
+            );
+        }
         if ($ret === false) {
-            $this->ajaxReturn(ERR_SYSTEM_ERROR, '系统异常，更新地址失败');
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '系统异常，保存地址失败');
             return ;
         }
         $this->ajaxReturn(0, '');
@@ -188,7 +156,7 @@ class UserAddressController extends ApiController
         $data = array();
         $sysCityCode = include(CONFIG_PATH . '/city_code.php');
         foreach ($sysCityCode as $key => $val) {
-            if (true || $key == 370000)
+            if ($key == 370000)
                 $data[] = array('region_name' => $val['name'], 'region_id' => $key);
         }
         $this->ajaxReturn(0, '', '', array('data' => $data));
@@ -197,12 +165,14 @@ class UserAddressController extends ApiController
     {
         $provinceId = intval($this->getParam('province_id', 0));
         $data = array();
-        $sysCityCode = include(CONFIG_PATH . '/city_code.php');
-        if (isset($sysCityCode[$provinceId])) {
-            $cityList = $sysCityCode[$provinceId]['city'];
-            foreach ($cityList as $key => $val) {
-                if (true || $key == 371700)
-                    $data[] = array('region_name' => $val['name'], 'region_id' => $key);
+        if ($provinceId > 0) {
+            $sysCityCode = include(CONFIG_PATH . '/city_code.php');
+            if (isset($sysCityCode[$provinceId])) {
+                $cityList = $sysCityCode[$provinceId]['city'];
+                foreach ($cityList as $key => $val) {
+                    if ($key == 371700)
+                        $data[] = array('region_name' => $val['name'], 'region_id' => $key);
+                }
             }
         }
         $this->ajaxReturn(0, '', '', array('data' => $data));
@@ -212,12 +182,13 @@ class UserAddressController extends ApiController
         $provinceId = intval($this->getParam('province_id', 0));
         $cityId = intval($this->getParam('city_id', 0));
         $data = array();
-        $sysCityCode = include(CONFIG_PATH . '/city_code.php');
-        if (isset($sysCityCode[$provinceId])) {
-            $distList = $sysCityCode[$provinceId]['city'][$cityId]['district'];
-            Log::rinfo(json_encode($distList, JSON_UNESCAPED_UNICODE));
-            foreach ($distList as $key => $val) {
-                $data[] = array('region_name' => $val, 'region_id' => $key);
+        if ($provinceId > 0 && $cityId > 0) {
+            $sysCityCode = include(CONFIG_PATH . '/city_code.php');
+            if (isset($sysCityCode[$provinceId])) {
+                $distList = $sysCityCode[$provinceId]['city'][$cityId]['district'];
+                foreach ($distList as $key => $val) {
+                    $data[] = array('region_name' => $val, 'region_id' => $key);
+                }
             }
         }
         $this->ajaxReturn(0, '', '', array('data' => $data));

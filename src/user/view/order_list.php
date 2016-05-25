@@ -111,7 +111,7 @@
                         <dt>订单编号</dt>
                         <dd><?php echo $order['orderId']?></dd>
                         <dt>订单金额</dt>
-                        <dd><span class="price"><i>&yen;</i><b><?php echo number_format($order['totalAmount'], 2, '.', '')?></b></span></dd>
+                        <dd><span class="price"><i>&yen;</i><b><?php echo $order['orderAmount']?></b></span></dd>
                         <dt>商品件数</dt>
                         <dd><?php echo $order['goodsNumber']?></dd>
                     </dl>

@@ -31,7 +31,7 @@ class SendMailController extends JobController
                         continue ; // drop it
                     } else {
                         $data['retry'] = 1;
-                        Nosql::lPush($nk, json_encode($data));
+                        Nosql::rPush($nk, json_encode($data));
                     }
                 }
             } while (true);

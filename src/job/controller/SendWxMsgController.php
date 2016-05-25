@@ -29,12 +29,18 @@ class SendWxMsgController extends JobController
 
         do {
             $now = time();
+            $size = intval(Nosql::lSize($nk));
+            $n = 0;
             do {
+                if ($n >= $size) {
+                    break;
+                }
                 $rawMsg = Nosql::lPop($nk);
                 if ($rawMsg === false
                     || !isset($rawMsg[0])) {
                     break ;
                 }
+                $n++;
                 $data = json_decode($rawMsg, true);
                 if ($now > $data['time']) {
                     Nosql::rPush(Nosql::NK_ASYNC_SEND_WX_MSG_QUEUE, $rawMsg);

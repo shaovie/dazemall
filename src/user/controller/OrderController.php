@@ -11,6 +11,7 @@ use \src\common\Check;
 use \src\user\model\UserModel;
 use \src\mall\model\OrderGoodsModel;
 use \src\user\model\UserOrderModel;
+use \src\user\model\UserAddressModel;
 use \src\mall\model\GoodsModel;
 use \src\pay\model\PayModel;
 
@@ -32,8 +33,9 @@ class OrderController extends UserController
     public function toPay()
     {
         $orderList = UserOrderModel::fetchSomeOrder(
-            array('user_id', 'pay_state'), array($this->userId(), PayModel::PAY_ST_UNPAY),
-            array('and'),
+            array('user_id', 'pay_state', 'order_state'),
+            array($this->userId(), PayModel::PAY_ST_UNPAY, UserOrderModel::ORDER_ST_CREATED),
+            array('and', 'and'),
             1,
             5
         );
@@ -53,6 +55,7 @@ class OrderController extends UserController
             5
         );
         $data = $this->fillOrderList($orderList);
+        UserOrderModel::cancelOrder($this->userId(), '01160524070227934');
         $data['isToTakeDelivery'] = true;
         $this->display('order_list', $data);
     }
@@ -79,7 +82,7 @@ class OrderController extends UserController
     {
         $orderList = UserOrderModel::fetchSomeOrder(
             array('user_id', 'order_state!='),
-            array($this->userId(),UserOrderModel::ORDER_ST_CREATED),
+            array($this->userId(), UserOrderModel::ORDER_ST_CREATED),
             array('and'),
             1,
             5
@@ -91,7 +94,7 @@ class OrderController extends UserController
 
     public function orderFinished()
     {
-        $orderId = $this->getParam('order_id', '');
+        $orderId = $this->getParam('orderId', '');
         if (empty($orderId)) {
             $this->showNotice('订单未找到', '/User/MyOrder/finished');
             exit();
@@ -126,10 +129,17 @@ class OrderController extends UserController
     public function toPayOrderListNextPage()
     {
         $page = intval($this->getParam('page', 1));
-        if ($page < 1) {
+        if ($page < 1)
             $page = 1;
-        }
-        $data = $this->getOrderList(1, $page);
+        
+        $orderList = UserOrderModel::fetchSomeOrder(
+            array('user_id', 'pay_state', 'order_state'),
+            array($this->userId(), PayModel::PAY_ST_UNPAY, UserOrderModel::ORDER_ST_CREATED),
+            array('and', 'and'),
+            $page,
+            5
+        );
+        $data = $this->fillOrderList($orderList);
         $this->ajaxReturn(0, '', '', $data);
     }
     public function toTakeDeliveryOrderListNextPage()
@@ -188,7 +198,7 @@ class OrderController extends UserController
             $val['orderStateDesc'] = '创建成功';
             if ($order['order_state'] == UserOrderModel::ORDER_ST_FINISHED)
                 $val['orderStateDesc'] = '完成';
-            else if ($order['order_state'] == UserOrderModel::ORDER_ST_CREATED)
+            else if ($order['order_state'] == UserOrderModel::ORDER_ST_CANCELED)
                 $val['orderStateDesc'] = '取消';
             $orderList[] = $val;
         }
@@ -206,6 +216,7 @@ class OrderController extends UserController
             return array();
         }
 
+        $order['orderId'] = $orderId;
         $order['fullAddr'] = UserAddressModel::getFullAddr($order);
         $goodsList = OrderGoodsModel::fetchOrderGoodsById($orderId);
         foreach($goodsList as &$val) {
@@ -216,6 +227,16 @@ class OrderController extends UserController
             }
         }
         $order['goodsList'] = $goodsList;
+        $order['payTypeDesc'] = PayModel::payTypeDesc($order['ol_pay_type']);
+        $order['payAmount'] = number_format($order['ol_pay_amount'], 2, '.', '');
+        if ((int)($order['order_amount'] * 100) == (int)($order['ac_pay_amount'] * 100)) {
+            $order['payTypeDesc'] = '余额支付';
+            $order['payAmount'] = number_format($order['ac_pay_amount'], 2, '.', '');
+        }
+        $order['couponPayment'] = number_format($order['coupon_pay_amount'], 2, '.', '');
+        $order['orderAmount'] = number_format($order['order_amount'], 2, '.', '');
+        $order['totalPrice'] = number_format($order['order_amount'] - $order['postage'], 2, '.', '');
+        $order['acPayAmount'] = number_format($order['ac_pay_amount'], 2, '.', '');
 
         $order['deliverfyStateDesc'] = '';
         if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_NOT)
@@ -224,45 +245,8 @@ class OrderController extends UserController
             $order['deliverfyStateDesc'] = '发货中';
         else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_RECV)
             $order['deliverfyStateDesc'] = '已签收';
+        $order['postage'] = number_format($order['postage'], 2, '.', '');
 
-        $order['iPayType'] = '微信';
-        if ($order['onlinePayType'] == 1) {
-            $order['iPayType'] = '支付宝';
-        } else if ($order['onlinePayType'] == 2) {
-            $order['iPayType'] = '微信';
-        } else if ($order['onlinePayType'] == 3) {
-            $order['iPayType'] = '银联';
-        }
-        $logisticsList = array();
-        foreach ($order['productList'] as $product) {
-            $skuTexts = explode('|', $product['skuTexts']);
-            $skuValuesText = explode('|', $product['skuValuesText']);
-            $sku = '';
-            foreach ($skuTexts as $key => $val) {
-                if (!empty($val)) {
-                    $sku .= $val . ':' . $skuValuesText[$key] . ' ';
-                }
-            }
-            $product['iSkuInfo'] = $sku;
-            if (!empty($product['logisticsNumber'])
-                && strlen($product['logisticsNumber']) > 1) {
-                $logisticsId = $product['logisticsNumber'];
-                if (!isset($logisticsList[$logisticsId])) {
-                    $logisticsList[$logisticsId] = array($product);
-                } else {
-                    $logisticsList[$logisticsId][] = $product;
-                }
-            } else {
-                // 没有物流编号的就放到一个数组里边集中显示
-                if (!isset($logisticsList[0])) {
-                    $logisticsList[0] = array($product);
-                } else {
-                    $logisticsList[0][] = $product;
-                }
-            }
-        }
-        unset($order['productList']);
-        $order['logisticsList'] = $logisticsList;
         $data = array(
             'order' => $order,
         );

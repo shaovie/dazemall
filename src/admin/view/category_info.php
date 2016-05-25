@@ -52,7 +52,19 @@
 			</div>
 		</div>
 		
-		<div class="form-group">
+        <div class="form-group">
+            <label class="col-sm-2 control-label no-padding-left"> 状态：</label>
+            <div class="col-sm-9" id="state-radio">
+                <div style="margin-right:20px;display:inline;">
+                   <input type="radio" name="state" value="0" <?php if (isset($info['state']) && $info['state'] == 0) { echo 'checked="true"';}?> >无效
+                </div>
+                <div style="margin-right:20px;display:inline;">
+                   <input type="radio" name="state" value="1" <?php if (isset($info['state'])) { if ($info['state'] == 1) { echo 'checked="true"';}} else {echo 'checked="true"';}?> >有效
+               </div>
+          </div>
+       </div>
+
+	   <div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 分类图片</label>
 			<div class="col-sm-9">
 				<div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 160px; height: 160px;">
@@ -84,13 +96,13 @@
 	<script>
         $('#save-btn').click(function(){
             var url = $("#save-form").attr("action");
-
             $.post(url,{
                 catId:$("#catId").val(),
                 parentId:$("#parentId").val(),
                 name:$("#cateName").val(),
                 imageUrl:$("#thumb_img").val(),
-                sort:$("#sort").val()
+                sort:$("#sort").val(),
+                state:$("#state-radio input[name='state']:checked").val()
                 },function(data){
                 if(data.code==0) {
                     alert(data.msg);

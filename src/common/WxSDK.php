@@ -313,8 +313,6 @@ class WxSDK
         }
         if (strlen($body) > 32) {
             $body = mb_substr($body, 0, 9, 'utf-8') . '...';
-            Log::pay('jsapipay error - body out of length limit!');
-            return false;
         }
 
         $data = array(

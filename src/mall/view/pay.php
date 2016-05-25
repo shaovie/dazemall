@@ -91,7 +91,7 @@
 	<li id="J-money-last">
 		<label>余额</label>
 		<div class="col-r">
-			<span class="price"><i>&yen;</i><b><?php echo number_format($cash, 2, '.', ''); ?></b></span>
+			<span class="price"><i>&yen;</i><b><?php echo $cash; ?></b></span>
 			<i class="icon-radio"></i>
 		</div>
 	</li>

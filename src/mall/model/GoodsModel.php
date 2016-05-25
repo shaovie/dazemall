@@ -163,10 +163,10 @@ class GoodsModel
 
     public static function fetchGoodsByCategory($categoryId, $page, $pageSize)
     {
-        $page = $page > 0 ? $page - 1 : $page;
-
         $level = GoodsCategoryModel::calcLevel($categoryId);
         if ($level == 1) {
+            $page = $page > 0 ? $page - 1 : $page;
+
             $lv_1 = (int)($categoryId / 1000000) * 1000000;
             $lv_2 = ((int)($categoryId / 1000000) + 1) * 1000000;
             $sql = 'select * from g_goods where category_id > ' . $lv_1
@@ -192,10 +192,14 @@ class GoodsModel
         if (empty($goodsList))
             return $data;
         foreach ($goodsList as $goods) {
-            $g['goodsId'] = $goods['goodsId'];
+            $g['goodsId'] = $goods['id'];
+            $g['name'] = $goods['name'];
             $g['imageUrl'] = $goods['image_url'];
             $g['salePrice'] = number_format($goods['sale_price'], 2, '.', '');
-            $g['discount'] = 5.0;
+            $g['discount'] = ($goods['sale_price'] / $goods['market_price']) * 10.0;
+            if ($g['discount'] >= 10.0)
+                $g['discount'] = 0.0;
+            $g['discount'] = number_format($g['discount'], 1, '.', '');
             $data[] = $g;
         }
         return $data;
