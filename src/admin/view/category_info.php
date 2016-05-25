@@ -41,7 +41,8 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 排序</label>
 			<div class="col-sm-9">
-				<input id="sort" type="text" readonly="readonly" name="sort" class="col-xs-10 col-sm-2" value="0">
+				<input id="sort" type="text" name="sort" class="col-xs-10 col-sm-2" value="<?php if (isset($info['sort'])){echo $info['sort'];}?>">
+				<p class="help-block">&nbsp;数值越大，排序越靠前（当前最大可用值<?php echo time();?>）</p>
 			</div>
 		</div>
 	

@@ -87,7 +87,8 @@ class GoodsCategoryController extends AdminController
             $catInfo['parentId'],
             $catInfo['name'],
             $catInfo['image_url'],
-            $catInfo['state']
+            $catInfo['state'],
+            $catInfo['sort']
         );
         if ($ret === false || (int)$ret <= 0) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败');

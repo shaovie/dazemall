@@ -41,7 +41,7 @@ class GoodsModuleGListModel
             '*',
             array('module_id'), array($moduleId),
             false,
-            array('sort'), array('asc')
+            array('sort'), array('desc')
         );
         return $ret === false ? array() : $ret;
     }

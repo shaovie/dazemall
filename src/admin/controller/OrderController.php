@@ -30,9 +30,16 @@ class OrderController extends AdminController
 
         $totalNum = UserOrderModel::fetchOrderCount([], [], []);
         $orderList = UserOrderModel::fetchSomeOrder([], [], [], $page, self::ONE_PAGE_SIZE);
+        $orderList = $this->fillOrderListInfo($orderList);
         $error = '';
         $searchParams = [];
-        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Order/listPage', $searchParams);
+        $pageHtml = $this->pagination(
+            $totalNum,
+            $page,
+            self::ONE_PAGE_SIZE,
+            '/admin/Order/listPage',
+            $searchParams
+        );
         $data = array(
             'orderList' => $orderList,
             'totalOrderNum' => $totalNum,
@@ -130,6 +137,7 @@ class OrderController extends AdminController
             return ;
         }
 
+        $orderList = $this->fillOrderListInfo($orderList);
         $pageHtml = $this->pagination(
             $totalNum,
             $page,
@@ -200,5 +208,37 @@ class OrderController extends AdminController
         $orderInfo['goodsList'] = $goodsList;
         $data['order'] = $orderInfo;
         return $data;
+    }
+
+    private function fillOrderListInfo($orderList)
+    {
+        foreach ($orderList as &$order) {
+            $order['olPayAmount'] = number_format($order['ol_pay_amount'], 2, '.', '');
+            $order['olPayTypeDesc'] = PayModel::payTypeDesc($order['ol_pay_type']);
+
+            $order['payStateDesc'] = $order['pay_state'];
+            if ($order['pay_state'] == PayModel::PAY_ST_UNPAY)
+                $order['payStateDesc'] = '未支付';
+            else if ($order['pay_state'] == PayModel::PAY_ST_SUCCESS)
+                $order['payStateDesc'] = '支付成功';
+
+            $order['orderState'] = $order['order_state'];
+            $order['orderStateDesc'] = '创建成功';
+            if ($order['order_state'] == UserOrderModel::ORDER_ST_FINISHED)
+                $order['orderStateDesc'] = '完成';
+            else if ($order['order_state'] == UserOrderModel::ORDER_ST_CANCELED)
+                $order['orderStateDesc'] = '取消';
+
+            $order['deliverfyStateDesc'] = '';
+            if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_NOT)
+                $order['deliverfyStateDesc'] = '未发货';
+            else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_ING)
+                $order['deliverfyStateDesc'] = '发货中';
+            else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_RECV)
+                $order['deliverfyStateDesc'] = '已签收';
+            else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_CONFIRM)
+                $order['deliverfyStateDesc'] = '确认收货';
+        }
+        return $orderList;
     }
 }

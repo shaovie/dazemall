@@ -408,12 +408,14 @@ class OrderModel
         $ret = UserModel::addCash($userId, $orderInfo['ac_pay_amount']);
         if ($ret !== true) {
             DB::getDB('w')->rollBack();
+            UserOrderModel::onRollback($orderId);
+            UserModel::onRollback($userId);
             return false;
         }
         $userCash = UserModel::getCash($userId);
         $ret = UserBillModel::newOne(
             $userId,
-            $newOrderId,
+            $orderId,
             '',
             UserBillModel::BILL_TYPE_IN,
             UserBillModel::BILL_FROM_ORDER_CASH_REFUND,
@@ -423,9 +425,13 @@ class OrderModel
         );
         if ($ret !== true) {
             DB::getDB('w')->rollBack();
+            UserOrderModel::onRollback($orderId);
+            UserModel::onRollback($userId);
             return false;
         }
         if (DB::getDB('w')->commit() === false) {
+            UserOrderModel::onRollback($orderId);
+            UserModel::onRollback($userId);
             return false;
         }
         return true;

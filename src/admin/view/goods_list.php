@@ -55,6 +55,7 @@
 			<th class="text-center" style="width:140px;">价格</th>
 			<th class="text-center" style="width:260px;">时间</th>
 			<th class="text-center" style="width:200px;">状态</th>
+			<th class="text-center" style="width:100px;">排序</th>
 			<th class="text-center">操作</th>
 		</tr>
         <?php foreach ($goodsList as $goods):?>
@@ -78,6 +79,9 @@
             </td>
 			<td style="text-align:left;vertical-align:middle;">
                 <div>上架状态：<?php echo $goods['state']?></div>
+			</td>
+			<td style="text-align:center;vertical-align:middle;">
+                <div><?php echo $goods['sort']?></div>
 			</td>
 			<td style="text-align:center;vertical-align:middle;">
 				<a target="_blank" class="btn btn-xs btn-info" href="/mall/Goods/detail?goodsId=<?php echo $goods['id']?>">预览</a>

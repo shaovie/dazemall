@@ -44,12 +44,7 @@ class UserModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
-        $userId = $ret;
-        $ret = UserDetailModel::newOne($userId);
-        if ($ret === false) {
-            return false;
-        }
-        return $userId;
+        return $ret;
     }
 
     public static function newOne_(
@@ -159,7 +154,7 @@ class UserModel
         }
 
         $sql = "update u_user set cash_amount = cash_amount - $amount"
-            . " where user_id = $userId and amount >= $amount";
+            . " where id = $userId and cash_amount >= $amount";
         $ret = DB::getDB('w')->rawExec($sql);
         if ($ret === false) {
             return false;
@@ -176,7 +171,7 @@ class UserModel
         }
 
         $sql = "update u_user set cash_amount = cash_amount + $amount"
-            . " where user_id = $userId";
+            . " where id = $userId";
         $ret = DB::getDB('w')->rawExec($sql);
         if ($ret === false) {
             return false;
@@ -235,6 +230,11 @@ class UserModel
             $rel
         );
         return $ret === false ? 0 : $ret;
+    }
+
+    public static function onRollback($userId)
+    {
+        self::onUpdateData($userId);
     }
 
     private static function onUpdateData($userId)

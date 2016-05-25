@@ -18,7 +18,13 @@ class CategoryController extends BaseController
         if ($page < 1)
             $page = 1;
 
-        $goodsList = GoodsModel::fetchGoodsByCategory($catId, $page, GoodsModel::CATEGORY_LIST_PAGESIZE);
+        $goodsList = array();
+        if ($catId == 0) {
+            $goodsList = GoodsModel::fetchSomeGoods(array('state'), array(GoodsModel::GOODS_ST_UP), [],
+                1, GoodsModel::CATEGORY_LIST_PAGESIZE);
+        } else {
+            $goodsList = GoodsModel::fetchGoodsByCategory($catId, $page, GoodsModel::CATEGORY_LIST_PAGESIZE);
+        }
         $goodsList = GoodsModel::fillShowGoodsListData($goodsList);
         $this->ajaxReturn(0, '', '', array('goodsList' => $goodsList));
     }

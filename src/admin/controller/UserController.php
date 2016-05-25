@@ -8,7 +8,9 @@ namespace src\admin\controller;
 
 use \src\common\Util;
 use \src\common\Check;
+use \src\common\DB;
 use \src\user\model\UserModel;
+use \src\user\model\UserBillModel;
 
 class UserController extends AdminController
 {
@@ -28,7 +30,13 @@ class UserController extends AdminController
 
         $searchParams = [];
         $error = '';
-        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/User/listPage', $searchParams);
+        $pageHtml = $this->pagination(
+            $totalNum,
+            $page,
+            self::ONE_PAGE_SIZE,
+            '/admin/User/listPage',
+            $searchParams
+        );
         $data = array(
             'userList' => $userList,
             'totalUserNum' => $totalNum,
@@ -76,7 +84,13 @@ class UserController extends AdminController
             }
         } while(false);
 
-        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/User/search', $searchParams);
+        $pageHtml = $this->pagination(
+            $totalNum,
+            $page,
+            self::ONE_PAGE_SIZE,
+            '/admin/User/search',
+            $searchParams
+        );
         $data = array(
             'userList' => $userList,
             'totalUserNum' => $totalNum,
@@ -85,5 +99,52 @@ class UserController extends AdminController
             'error' => $error
         );
         $this->display("user_list", $data);
+    }
+
+    public function recharge()
+    {
+        $userId = $this->postParam('uid', 0);
+        $money = (float)$this->postParam('money', 0.00);
+
+        if ($money <= 0.0001) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '金额无效');
+            return ;
+        }
+
+        // 余额退还
+        if (DB::getDB('w')->beginTransaction() === false) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '系统错误');
+            return false;
+        }
+        $ret = UserModel::addCash($userId, $money);
+        if ($ret !== true) {
+            DB::getDB('w')->rollBack();
+            UserModel::onRollback($userId);
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '系统错误');
+            return false;
+        }
+        $userCash = UserModel::getCash($userId);
+        $ret = UserBillModel::newOne(
+            $userId,
+            '',
+            '',
+            UserBillModel::BILL_TYPE_IN,
+            UserBillModel::BILL_FROM_SYS_RECHARGE,
+            $money,
+            $userCash + $money,
+            $this->account . ' recharge in houtai'
+        );
+        if ($ret !== true) {
+            DB::getDB('w')->rollBack();
+            UserModel::onRollback($userId);
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '系统错误');
+            return false;
+        }
+        if (DB::getDB('w')->commit() === false) {
+            UserModel::onRollback($userId);
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '系统错误');
+            return false;
+        }
+        $this->ajaxReturn(0, '');
     }
 }

@@ -9,6 +9,8 @@ namespace src\user\model;
 use \src\common\DB;
 use \src\common\Util;
 use \src\common\Cache;
+use \src\user\model\UserModel;
+use \src\user\model\UserDetailModel;
 
 class WxUserModel
 {
@@ -49,6 +51,11 @@ class WxUserModel
             $data['headimgurl']
         );
         if ($newUserId === false) {
+            $wdb->rollBack();
+            return false;
+        }
+        $ret = UserDetailModel::newOne($newUserId);
+        if ($ret === false) {
             $wdb->rollBack();
             return false;
         }

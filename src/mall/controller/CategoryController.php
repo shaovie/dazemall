@@ -25,7 +25,13 @@ class CategoryController extends MallController
             $data['parentCatId'] = GoodsCategoryModel::getParentId($catId);
         }
         $data['catList'] = GoodsCategoryModel::getAllCategoryByParentId($data['parentCatId']);
-        $goodsList = GoodsModel::fetchGoodsByCategory($catId, 1, GoodsModel::CATEGORY_LIST_PAGESIZE);
+        $goodsList = array();
+        if ($catId == 0) {
+            $goodsList = GoodsModel::fetchSomeGoods(array('state'), array(GoodsModel::GOODS_ST_UP), [],
+                1, GoodsModel::CATEGORY_LIST_PAGESIZE);
+        } else {
+            $goodsList = GoodsModel::fetchGoodsByCategory($catId, 1, GoodsModel::CATEGORY_LIST_PAGESIZE);
+        }
         $data['goodsList'] = GoodsModel::fillShowGoodsListData($goodsList);
         $data['title'] = $cateName;
         $data['ajaxUrl'] = '/api/Category/getListData?catId=' . $catId;

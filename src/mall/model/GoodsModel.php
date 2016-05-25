@@ -172,7 +172,7 @@ class GoodsModel
             $sql = 'select * from g_goods where category_id > ' . $lv_1
                 . ' and category_id < ' . $lv_2
                 . ' and state = ' . self::GOODS_ST_UP
-                . ' order by sort asc limit ' . ($page * $pageSize) . ',' . $pageSize;
+                . ' order by sort desc, id desc limit ' . ($page * $pageSize) . ',' . $pageSize;
             $ret = DB::getDB('r')->rawQuery($sql);
             return $ret === false ? array() : $ret;
         }
@@ -214,7 +214,7 @@ class GoodsModel
             '*',
             $conds, $vals,
             $rel,
-            array('sort'), array('asc'),
+            array('sort', 'id'), array('desc', 'desc'),
             array($page * $pageSize, $pageSize)
         );
 

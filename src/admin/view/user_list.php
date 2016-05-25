@@ -73,6 +73,48 @@
 		</tbody>
 	</table>
     <?php echo $pageHtml;?>
+		<!--弹窗-->
+		<div id="modal-confirmsend" class="modal fade">
+			<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">充值</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group" style="height:25px;">
+					<label class="col-sm-3 control-label no-padding-right"> 金额：</label>
+					<div class="col-sm-9">
+						<input type="text" name="money" id="money" class="span5">
+					</div>
+				</div>      	
+			</div>
+			<div class="modal-footer">
+                <input type="hidden" name="uid" value="" id="uid"/>
+				<button type="button" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- END -->
+    <script>
+        function recharge(id){
+          $('#uid').val(id);
+          $('#modal-confirmsend').modal('show');
+        }
+        $('#confirmsend-btn').click(function(){
+            var url = "/admin/User/recharge";
+            $.post(url,{uid:$('#uid').val(),money:$('#money').val()},function(data){
+                if(data.code==0) {
+                    window.location.href= data.url;
+                } else {
+                    alert(data.msg);
+                    return false;
+                }
+            },'json');
+        });
+    </script>
 </body>
 </html>
 

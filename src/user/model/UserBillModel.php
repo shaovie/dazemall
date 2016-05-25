@@ -7,6 +7,7 @@
 namespace src\user\model;
 
 use \src\common\Cache;
+use \src\common\DB;
 use \src\common\Log;
 
 class UserBillModel
@@ -18,6 +19,7 @@ class UserBillModel
     const BILL_FROM_ORDER_OL_PAY      = 101; // 在线支付
 
     const BILL_FROM_ORDER_CASH_REFUND = 200; // 余额退还
+    const BILL_FROM_SYS_RECHARGE      = 201; // 系统充值
 
     public static function newOne(
         $userId,
@@ -117,5 +119,6 @@ class UserBillModel
         }
         return empty($ret) ? array() : $ret;
     }
+
 }
 

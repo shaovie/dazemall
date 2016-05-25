@@ -50,7 +50,7 @@
 				<input type="text" name="sort" id="sort"
                 onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" 
                 value="<?php if (!empty($module['sort'])){echo $module['sort'];}?>">
-				<p class="help-block">数值越小，排序越靠前</p>
+				<p class="help-block">数值越大，排序越靠前（当前最大可用值<?php echo time();?>）</p>
           	</div>
 		</div>
 	

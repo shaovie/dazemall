@@ -52,7 +52,7 @@ class GoodsModuleModel
     {
         $sql = "select * from m_goods_module where (begin_time = 0 or begin_time <= $now)"
             . " and (end_time = 0 or end_time >= $now)"
-            . " order by sort asc";
+            . " order by sort desc";
         $ret = DB::getDB()->rawQuery($sql);
         return $ret === false ? array() : $ret;
     }
@@ -92,7 +92,7 @@ class GoodsModuleModel
             '*',
             $conds, $vals,
             $rel,
-            array('sort'), array('asc'),
+            array('sort'), array('desc'),
             array($page * $pageSize, $pageSize)
         );
 

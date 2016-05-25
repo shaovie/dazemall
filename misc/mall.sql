@@ -163,6 +163,7 @@ create table u_bill (
 
     user_id             int unsigned not null default 0,
     order_id            varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
+    order_pay_id        varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
     bill_type           tinyint not null default 0,                 # 流水类型 1:收入 2:支出
     bill_from           int not null default 0,                     # 流水来源
     amount              decimal(10,2) not null default 0.0,         # 本次交易金额
@@ -182,6 +183,7 @@ create table o_order (
     id                  int unsigned not null auto_increment,
 
     order_id            varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
+    order_pay_id        varchar(20) not null default '',            # 01 + 150223 + 492933 + 32
     user_id             int unsigned not null default 0,
 
     -- 收货信息
@@ -222,6 +224,7 @@ create table o_order (
 
     primary key (`id`),
     unique key order_id(`order_id`),
+    unique key order_pay_id(`order_pay_id`),
     index idx_user_id_order_state(`user_id`, `order_state`),
     index idx_user_id_pay_state(`user_id`, `pay_state`),
     index idx_re_phone(`re_phone`),

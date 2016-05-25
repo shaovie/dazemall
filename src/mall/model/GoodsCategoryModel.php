@@ -13,7 +13,7 @@ use \src\common\DB;
 
 class GoodsCategoryModel
 {
-    public static function newOne($categoryId, $name, $imageUrl)
+    public static function newOne($categoryId, $name, $imageUrl, $state, $sort)
     {
         $categoryId = self::genCategoryId($categoryId);
         if ($categoryId == false) {
@@ -22,6 +22,8 @@ class GoodsCategoryModel
         $data = array(
             'category_id' => $categoryId,
             'name' => $name,
+            'sort' => $sort,
+            'state' => $state,
             'image_url' => $imageUrl,
             'ctime' => CURRENT_TIME,
             'mtime' => CURRENT_TIME,
@@ -62,7 +64,7 @@ class GoodsCategoryModel
             '*',
             array('id>'), array('0'),
             false,
-            array('category_id'), array('asc')
+            array('sort'), array('desc')
         );
         return $ret === false ? array() : $ret;
     }
@@ -70,15 +72,15 @@ class GoodsCategoryModel
     public static function getAllCategoryByParentId($categoryId)
     {
         if ($categoryId == 0) {
-            $sql = 'select * from g_category where (category_id % 1000000) = 0';
+            $sql = 'select * from g_category where (category_id % 1000000) = 0 and state=1 order by sort desc';
         } else {
             $level = self::calcLevel($categoryId);
             if ($level == 1) {
                 $v = (int)($categoryId / 1000000);
-                $sql = "select * from g_category where (category_id % 1000000) != 0 and (category_id % 1000) = 0 and floor(category_id / 1000000) = $v";
+                $sql = "select * from g_category where (category_id % 1000000) != 0 and (category_id % 1000) = 0 and floor(category_id / 1000000) = $v and state=1 order by sort desc";
             } else if ($level == 2) {
                 $v = (int)($categoryId / 1000);
-                $sql = "select * from g_category where (category_id % 1000) != 0 and floor(category_id / 1000) = $v";
+                $sql = "select * from g_category where (category_id % 1000) != 0 and floor(category_id / 1000) = $v and state=1 order by sort desc";
             } else {
                 return array();
             }
@@ -130,6 +132,8 @@ class GoodsCategoryModel
 
     public static function calcLevel($categoryId)
     {
+        if ($categoryId == 0)
+            return 1;
         $level1 = (int)($categoryId / 1000000);
         $level2 = (int)((int)($categoryId / 1000) % 1000);
         $level3 = (int)($categoryId % 1000);
@@ -143,6 +147,8 @@ class GoodsCategoryModel
 
     public static function getCateName($categoryId)
     {
+        if ($categoryId == 0)
+            return '全部';
         $cateInfo = self::findCategoryById($categoryId);
         if (!empty($cateInfo))
             return $cateInfo['name'];

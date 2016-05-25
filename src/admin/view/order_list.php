@@ -51,13 +51,14 @@
 		<thead>
 			<tr>
 				<th style="width:120px;text-align:center;">订单编号</th>
+				<th style="width:100px;text-align:center;">下单用户编号</th>
 				<th style="width:100px;text-align:center;">收货人姓名</th>
-				<th style="width:90px;text-align:center;">联系电话</th>
-				<th style="width:100px;text-align:center;">支付方式</th>
-				<th style="width:100px;text-align:center;">配送方式</th>
+				<th style="width:90px;text-align:center;">收货人电话</th>
+				<th style="width:150px;text-align:center;">支付</th>
 				<th style="width:60px;text-align:center;">运费</th>
 				<th style="width:100px;text-align:center;">总价</th>
-				<th style="width:150px;text-align:center;">状态</th>
+				<th style="width:120px;text-align:center;">状态</th>
+				<th style="width:120px;text-align:center;">发货状态</th>
 				<th style="width:250px;text-align:center;">时间</th>
 				<th>操作</th>
 			</tr>
@@ -66,30 +67,26 @@
             <?php foreach ($orderList as $order):?>
 			<tr>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $order['order_id']?></td>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $order['user_id']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $order['re_name']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $order['re_phone']?></td>
-				<td style="text-align:center;vertical-align:middle;"><?php echo $order['ol_pay_type']?> </td>
-				<td style="text-align:center;vertical-align:middle;">默认</td>
+				<td style="text-align:left;vertical-align:middle;">
+                <div><?php if ($order['olPayAmount'] > 0.0001){echo $order['olPayTypeDesc'] . '支付：' . $order['olPayAmount'];}?></div>
+                <div><?php echo '余额支付：' . $order['ac_pay_amount']?></div>
+                </td>
                 <td style="text-align:center;vertical-align:middle;"><?php echo $order['postage']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $order['order_amount']?></td>
                 <td style="text-align:left;vertical-align:middle;">
-                    <?php if ($order['pay_state'] == 0):?>
-                    <div>支付：<span class="label label-warning">未支付</span> </div>
-                    <?php elseif ($order['pay_state'] == 1):?>
-                    <div>支付：<span class="label label-success">支付成功</span> </div>
+                    <div>支付：<span ><?php echo $order['payStateDesc']?></span> </div>
+                    <div>订单：<span ><?php echo $order['orderStateDesc']?></span> </div>
+                </td>
+                <td style="text-align:center;vertical-align:middle;">
+                    <?php if ($order['delivery_state'] == \src\user\model\UserOrderModel::ORDER_DELIVERY_ST_NOT):?>
+                    <div><span class="label label-warning"><?php echo $order['deliverfyStateDesc']?></span></div>
                     <?php else:?>
-                    <div>支付：<span class="label label-important">未知</span> </div>
+                    <?php echo $order['deliverfyStateDesc']?>
                     <?php endif?>
-
-                    <?php if ($order['order_state'] == 0):?>
-                    <div>订单：<span class="label label-warning">提交成功</span> </div>
-                    <?php elseif ($order['order_state'] == 1):?>
-                    <div>订单：<span class="label label-success">订单完成</span> </div>
-                    <?php elseif ($order['order_state'] == 2):?>
-                    <div>订单：<span class="label label-info">订单取消</span> </div>
-                    <?php else:?>
-                    <div>订单：<span class="label label-important">未知</span> </div>
-                    <?php endif?>
+                </td>
 				<td style="text-align:left;vertical-align:middle;">
                     <div>支付时间：<?php echo empty($order['pay_time']) ? '' : date('Y-m-d H:i:s', $order['pay_time'])?></div>
                     <div>下单时间：<?php echo date('Y-m-d H:i:s', $order['ctime'])?></div>

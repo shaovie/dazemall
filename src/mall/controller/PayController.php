@@ -129,23 +129,22 @@ class PayController extends MallController
     {
         $this->checkLoginAndNotice();
 
-        if (OrderModel::checkRepeatOrder($this->userId())) {
-            $this->ajaxReturn(ERR_OPT_FREQ_LIMIT, '请不要重复提交订单...', '', ['orderId' => '']);
-            return ;
-        }
-
         $addrId = intval($this->postParam('address_id', 0));
         $cartIds = $this->postParam('ids', array());
         $payType = intval($this->postParam('pay_type', 0));
         $isCash  = intval($this->postParam('is_cash', 0));
         $couponId  = intval($this->postParam('coupon_id', 0));
-        $addrId = 1;// TODO
 
         $orderId = trim($this->postParam('orderId', ''));
         if (!empty($orderId)) {
             $url = '/mall/Pay/payAgain?showwxpaytitle=1&orderId=' . $orderId;
             $this->ajaxReturn(0, '', $url, ['orderId' => '']); // 跳转到待支付
             exit();
+        }
+
+        if (OrderModel::checkRepeatOrder($this->userId())) {
+            $this->ajaxReturn(ERR_OPT_FREQ_LIMIT, '请不要重复提交订单...', '', ['orderId' => '']);
+            return ;
         }
 
         $validCarts = array();
@@ -193,11 +192,6 @@ class PayController extends MallController
     {
         $this->checkLoginAndNotice();
 
-        if (OrderModel::checkRepeatOrder($this->userId())) {
-            $this->ajaxReturn(ERR_OPT_FREQ_LIMIT, '请不要重复提交订单...', '', ['orderId' => '']);
-            return ;
-        }
-
         $addrId = intval($this->postParam('address_id', 0));
         $goodsId = $this->postParam('ids', array());
         if (count($goodsId) != 1) {
@@ -211,8 +205,6 @@ class PayController extends MallController
         $skuValue = trim($this->postParam('skuValue', ''));
         $amount = intval($this->postParam('amount', 0));
         $goodsId = $goodsId[0];
-        $addrId = 1;// TODO
-        $goodsId = 14;// TODO
 
         if ($goodsId <= 0
             || $amount <= 0
@@ -228,6 +220,12 @@ class PayController extends MallController
             $this->ajaxReturn(0, '', $url, ['orderId' => '']); // 跳转到待支付
             exit();
         }
+
+        if (OrderModel::checkRepeatOrder($this->userId())) {
+            $this->ajaxReturn(ERR_OPT_FREQ_LIMIT, '请不要重复提交订单...', '', ['orderId' => '']);
+            return ;
+        }
+
 
         $goodsInfo = GoodsModel::findGoodsById($goodsId);
         if (empty($goodsInfo)) {
@@ -282,6 +280,10 @@ class PayController extends MallController
         $orderInfo = UserOrderModel::findOrderByOrderId($orderId);
         if (empty($orderInfo)) {
             $this->showNotice('订单不存在', '/user/Order');
+            return ;
+        }
+        if ($orderInfo['pay_state'] == PayModel::PAY_ST_SUCCESS) {
+            header('Location: /user/Order/toTakeDelivery');
             return ;
         }
         $orderGoods = OrderGoodsModel::fetchOrderGoodsById($orderId);
@@ -431,12 +433,21 @@ class PayController extends MallController
         if (!empty($address)) {
             $address['fullAddr'] = UserAddressModel::getFullAddr($address);
         }
+        if (!empty($orderInfo)) {
+            $leftTime = UserOrderModel::ORDER_PAY_LAST_TIME - (CURRENT_TIME - (int)$orderInfo['ctime']);
+            if ($leftTime < 0)
+                $leftTime = 0;
+            $orderInfo['leftTime'] = $leftTime;
+            $orderInfo['ctime'] = date('Y-m-d H:i:s', $orderInfo['ctime']);
+        }
         $data = array(
+            'title'     => empty($orderInfo) ? '支付' : '待支付',
             'orderType' => $orderType,
-            'orderId'   => empty($orderInfo) ? '' : $orderInfo['order_id'],
+            'orderInfo'   => $orderInfo,
             'goodsList' => $goodsList,
             'address'   => $address,
-            'orderAmount'=> $orderAmount,
+            'toPayAmount'=> number_format($toPayAmount, 2, '.', ''),
+            'orderAmount'=> number_format($orderAmount, 2, '.', ''),
             'postage'   => number_format($postage, 2, '.', ''),
             'freePostage'=>number_format($freePostage, 2, '.', ''),
             'cash'      => number_format($cashAmount, 2, '.', ''),

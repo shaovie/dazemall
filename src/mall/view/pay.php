@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-	<title>支付</title>
+	<title><?php echo $title?></title>
     <?php src\common\JsCssLoader::outCss('modules/pay-new/index.less');?>
 </head>
 <body>
@@ -16,6 +16,14 @@
     <!--地址：删除-->
     <input type="hidden" id="J-ajaxurl-address-del" value="/api/UserAddress/del" />
 <form id="J-pay-form" action="<?php echo $action?>" method="post" enctype="application/x-www-form-urlencoded">
+    <?php if (!empty($orderInfo)):?>
+    <section class="order-info">
+        <p>订单编号：<?php echo $orderInfo['order_id'];?></p>
+        <p class="date"><span>下单时间：<?php echo $orderInfo['ctime'];?></span></p>
+        <div class="timer">待支付<span id="J-wait-timer" timer="<?php echo $orderInfo['leftTime']?>"></span></div>
+    </section>
+    <?php endif?>
+
 	<?php if (empty($address)):?>
 	<section id="J-address" class="address no-address">
 		<input type="hidden" id="J-addr-id" class="address no-address" name="address_id" value=""/>
@@ -88,7 +96,7 @@
 	</ul>
 </section>
 <ul class="money-list">
-	<li id="J-money-last">
+	<li id="J-money-last" <?php if (empty($orderInfo)) {echo 'class="usable"';}?> >
 		<label>余额</label>
 		<div class="col-r">
 			<span class="price"><i>&yen;</i><b><?php echo $cash; ?></b></span>
@@ -125,7 +133,7 @@
 	<div class="result">
     <span >需付</span>：
     <span class="price"><i>&yen;</i>
-    <b ><?php echo $orderAmount;?></b></span>
+    <b ><?php echo $toPayAmount;?></b></span>
     </div>
 </section>
 <div class="error-tip">为避免订单失效，建议您在<b>30分钟</b>内完成支付</div>
@@ -140,7 +148,7 @@
 <input id="J-use-last" name="is_cash" type="hidden" value="0" />
 <input id="J-pay-type" name="pay_type" type="hidden" value="2" />
 <input id="J-need-pay" name="total_price" type="hidden" value="<?php echo $orderAmount; ?>" />
-<input id="J-order-id" name="orderId" type="hidden" value="<?php echo $orderId?>" />
+<input id="J-order-id" name="orderId" type="hidden" value="<?php echo (empty($orderInfo) ? '' : $orderInfo['order_id'])?>" />
     <?php
         src\common\JsCssLoader::outJs('lib/mod.js');
         src\common\JsCssLoader::outJs('pay-new/index');

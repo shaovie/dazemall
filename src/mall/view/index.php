@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li>
-                <a>
+                <a href="/mall/Category/index?catId=0">
                     <i class="icon"></i><label>保健</label>
                 </a>
             </li>

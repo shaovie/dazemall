@@ -41,7 +41,7 @@ class PayModel
         } else if ($t == self::PAY_TYPE_WX) {
             return '微信';
         }
-        return '未知';
+        return '';
     }
 }
 

@@ -122,7 +122,7 @@ class GoodsController extends AdminController
             $goodsInfo['market_price'],
             $goodsInfo['sale_price'],
             $goodsInfo['jifen'],
-            0,//$goodsInfo['sort'],
+            $goodsInfo['sort'],
             $goodsInfo['state'],
             $goodsInfo['image_url'],
             $goodsInfo['detail'],
@@ -188,6 +188,7 @@ class GoodsController extends AdminController
         $updateData['market_price'] = $goodsInfo['market_price'];
         $updateData['sale_price'] = $goodsInfo['sale_price'];
         $updateData['jifen'] = $goodsInfo['jifen'];
+        $updateData['sort'] = $goodsInfo['sort'];
         $updateData['image_url'] = $goodsInfo['image_url'];
         $updateData['category_id'] = $goodsInfo['category_id'];
         $ret = GoodsModel::updateGoodsInfo($goodsInfo['id'], $updateData);
@@ -253,6 +254,7 @@ class GoodsController extends AdminController
         $goodsInfo['market_price'] = floatval($this->postParam('marketPrice', 0.00));
         $goodsInfo['sale_price'] = floatval($this->postParam('salePrice', 0.00));
         $goodsInfo['jifen'] = intval($this->postParam('jifen', 0));
+        $goodsInfo['sort'] = intval($this->postParam('sort', 0));
         $goodsInfo['image_url'] = trim($this->postParam('imageUrl', ''));
         $goodsInfo['image_urls'] = trim($this->postParam('imageUrls', ''));
         $goodsInfo['detail'] = $this->postParam('detail', '');

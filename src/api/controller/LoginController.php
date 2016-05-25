@@ -84,7 +84,13 @@ class LoginController extends UserBaseController
             $headimgurl = $this->wxUserInfo['headimgurl'];
             $sex = $this->wxUserInfo['sex'];
         }
-        $ret = UserModel::newOne(
+
+        $wdb = DB::getDB('w');
+        if ($wdb->beginTransaction() === false) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '注册失败-系统出现异常，请稍后重试');
+            return ;
+        }
+        $newUserId = UserModel::newOne(
             $phone,
             $passwd,
             $nickname,
@@ -92,7 +98,18 @@ class LoginController extends UserBaseController
             $headimgurl,
             UserModel::USER_ST_DEFAULT
         );
-        if (!$ret) {
+        if ($newUserId === false) {
+            $wdb->rollBack();
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '注册失败-系统出现异常，请稍后重试');
+            return ;
+        }
+        $ret = UserDetailModel::newOne($newUserId);
+        if ($ret === false) {
+            $wdb->rollBack();
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '注册失败-系统出现异常，请稍后重试');
+            return ;
+        }
+        if ($wdb->commit() === false) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '注册失败-系统出现异常，请稍后重试');
             return ;
         }

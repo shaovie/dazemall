@@ -292,6 +292,10 @@ class UserOrderModel
         return '';
     }
 
+    public static function onRollback($orderId)
+    {
+        self::onRollback($orderId);
+    }
 
     private static function onUpdateData($orderId)
     {

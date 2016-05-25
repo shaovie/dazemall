@@ -61,7 +61,7 @@ class BannerModel
     {
         $sql = "select * from m_banner where (begin_time = 0 or begin_time <= $now)"
             . " and (end_time = 0 or end_time > $now)"
-            . " and show_area = $showArea order by sort asc";
+            . " and show_area = $showArea order by sort desc";
         $ret = DB::getDB()->rawQuery($sql);
         return $ret === false ? array() : $ret;
     }

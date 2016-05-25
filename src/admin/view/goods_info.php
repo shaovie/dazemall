@@ -47,6 +47,16 @@
                     <input type="radio" name="state" value="2" id="isshow2" <?php if (isset($goods['state']) && $goods['state'] == 2) { echo 'checked="true"';}?> >上架销售</div>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-left">排序：</label>
+			<div class="col-sm-9">
+				<input type="text" name="sort" id="sort"
+                onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+                value="<?php if (isset($goods['sort'])){echo $goods['sort'];}?>">
+				<p class="help-block">数值越大，排序越靠前（当前最大可用值<?php echo time();?>）</p>
+          	</div>
+		</div>
 		
 		<div class="form-group">
            <label class="col-sm-2 control-label no-padding-left"> 商品类别：</label>
@@ -60,14 +70,14 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 销售价：</label>
 			<div class="col-sm-9">
-				<input type="number" name="marketPrice" id="marketprice" value="<?php if (!empty($goods['market_price'])){echo $goods['market_price'];}?>">&nbsp;元
+				<input type="number" name="marketPrice" id="marketprice" value="<?php if (isset($goods['market_price'])){echo $goods['market_price'];}?>">&nbsp;元
 			</div>
 		</div>
 				
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 市场售价：</label>
 			<div class="col-sm-9">
-				<input type="number" name="salePrice" id="saleprice" value="<?php if (!empty($goods['sale_price'])){echo $goods['sale_price'];}?>">&nbsp;元
+				<input type="number" name="salePrice" id="saleprice" value="<?php if (isset($goods['sale_price'])){echo $goods['sale_price'];}?>">&nbsp;元
 			</div>
 		</div>
 		
@@ -236,6 +246,7 @@
 			<label class="col-sm-2 control-label no-padding-left"></label>
 			<div class="col-sm-9">
 				<button type="button" id="save-btn" class="btn btn-primary span2" >保存商品信息</button>
+				<button type="button" id="back" class="btn btn-warning span2">返回</button>
 			</div>
 		</div>
 		
@@ -278,6 +289,7 @@
                 goodsId:$("#goodsId").val(),
                 cateId:$('#cateid').val(),
                 name:$("#goodsname").val(),
+                sort:$("#sort").val(),
                 state:$("#state-radio input[name='state']:checked").val(),
                 marketPrice:$("#marketprice").val(),
                 salePrice:$("#saleprice").val(),
