@@ -1,8 +1,3 @@
-if [ `whoami` == 'root' ]; then
-    yum -y install pcre-devel openssl-devel zlib-devel
-    yum -y install libxml2-devel curl-devel  mysql-devel libmcrypt-devel libpng-devel libjpeg-devel freetype-devel
-fi
-
 ROOT_PATH=/home/daze
 
 #### install nginx 
@@ -136,11 +131,11 @@ chmod u+x ${ROOT_PATH}/shell/*
 
 cd ../
 
-echo "reset config ok !!!"
+echo "reset config ok"
 
 #### tar
 cd ${ROOT_PATH}/
 tar -zcf tmp/daze-install.tar.gz nginx php redis shell
 
-echo "tar daze-install.tar.gz ok !!!"
+echo "tar daze-install.tar.gz ok"
 

@@ -87,7 +87,8 @@ class GzhEventController extends WeiXinController
 
     private function handleText($postData)
     {
-        EventModel::onActivateForGZH($postData['FromUserName']);
+        $openid = $postData['FromUserName'];
+        EventModel::onActivateForGZH($openid);
         return EventModel::onText($openid, $postData['Content']);
     }
 
