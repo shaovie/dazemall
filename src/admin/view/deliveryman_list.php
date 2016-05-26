@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=10">    
+	<link href="/asset/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/asset/css/ace.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/asset/css/ace-rtl.min.css">
+    <link rel="stylesheet" href="/asset/css/ace-skins.min.css">
+    <!--[if lte IE 8]>
+	<link rel="stylesheet" href="/asset/css/ace-ie.min.css" />
+    <![endif]-->
+	<link href="/asset/css/common.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome.min.css">
+	<script type="text/javascript" src="/asset/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/asset/js/common.js"></script>
+	<script type="text/javascript" src="/asset/js/bootstrap.min.js"></script> 
+	<link type="text/css" rel="stylesheet" href="/asset/css/default.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome-ie7.min.css">
+    <![endif]-->
+</head>
+<body class="no-skin">
+	<h3 class="header smaller lighter blue"><a href="/admin/Deliveryman/addPage" class="btn btn-primary">新增快递员</a><span class="refresh">刷新</span></h3>
+	<table class="table table-striped table-bordered table-hover">
+		<tbody>
+		<tr>
+			<th class="text-center" style="width:150px;">姓名</th>
+			<th class="text-center" style="width:240px;">手机号</th>
+			<th class="text-center" style="width:240px;">状态</th>
+			<th class="text-center" style="width:200px;">创建时间</th>
+			<th class="text-center">操作</th>
+		</tr>
+        <?php foreach ($deliverymanList as $deliveryman):?>
+		<tr>
+			<td style="text-align:center;vertical-align:middle;">
+                <div><?php echo $deliveryman['name']?></div>
+            </td>
+			<td style="text-align:center;vertical-align:middle;">
+                <div><?php echo $deliveryman['phone']?></div>
+			</td>
+			<td style="text-align:center;vertical-align:middle;">
+                <div><?php echo $deliveryman['state'] == 0 ? '无效' : '有效'?></div>
+			</td>
+			<td style="text-align:center;vertical-align:middle;">
+				<?php echo date('Y-m-d H:i:s', $deliveryman['ctime'])?>
+            </td>
+			<td style="text-align:center;vertical-align:middle;">
+				<a class="btn btn-xs btn-info" href="/admin/Deliveryman/info?id=<?php echo $deliveryman['id']?>">编辑</a>
+                <a class="btn btn-xs btn-info" href="/admin/Deliveryman/stateOpt?id=<?php echo $deliveryman['id'];?>" onclick="return confirm(&#39;确认要操作吗？&#39;);return false;"><?php echo $deliveryman['state'] == 1 ? '置为无效' : '置为有效'?></a>
+			</td>
+		</tr>
+        <?php endforeach?>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="/asset/css/ace.min.css">
     <link rel="stylesheet" href="/asset/css/ace-rtl.min.css">
     <link rel="stylesheet" href="/asset/css/ace-skins.min.css">
+	<link type="text/css" rel="stylesheet" href="/asset/css/default.css">
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="/asset/css/ace-ie.min.css" />
     <![endif]-->
@@ -110,9 +111,9 @@
                              添加新商品                                  
                              </a>  
 						</li>                               
-                        <li> <a onclick="navtoggle(&#39;商品管理 - &gt; 管理分类&#39;)" href="/admin/GoodsCategory" target="main">
+                        <li> <a onclick="navtoggle(&#39;商品管理 - &gt; 分类管理&#39;)" href="/admin/GoodsCategory" target="main">
                               <i class="icon-double-angle-right"></i>
-                              管理分类                              
+                              分类管理                              
                               </a>
 						</li>
                         <li> <a onclick="navtoggle(&#39;商品管理 - &gt; SKU管理&#39;)" href="/admin/SkuAttr/listPage" target="main">
@@ -135,11 +136,6 @@
                          所有订单                                  
                         </a>
 						</li>
-						<li> <a onclick="navtoggle(&#39;订单管理 - &gt; 批量发货&#39;)" href="/admin/Order/listPage" target="main">
-		                     <i class="icon-double-angle-right"></i>
-		                      批量发货                                  
-		                     </a>   
-						</li>        
                     </ul>
                 </li>
 				<li>
@@ -225,15 +221,30 @@
                     </a>                    
                     <ul class="submenu">
 					    <li>
-                            <a onclick="navtoggle(&#39;权限管理 - &gt; 新增用户 &#39;)" href="/admin/Auth" target="main">
+                            <a onclick="navtoggle(&#39;权限管理 - &gt; 新增用户 &#39;)" href="/admin/Employee/addPage" target="main">
                              <i class="icon-double-angle-right"></i>
                                  新增用户                                
                             </a>
                         </li>
 						<li>
-                            <a onclick="navtoggle(&#39;权限管理 - &gt; 管理员列表 &#39;)" href="/admin/Auth" target="main">
+                            <a onclick="navtoggle(&#39;权限管理 - &gt; 管理员列表 &#39;)" href="/admin/Employee/listPage" target="main">
                             <i class="icon-double-angle-right"></i>
                                 管理员列表                                
+                            </a>
+                        </li>
+					</ul>
+				</li>
+				<li>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-user"></i>
+                        <span class="menu-text"> 快递员</span>
+                        <b class="arrow icon-angle-down"></b>
+                    </a>                    
+                    <ul class="submenu">
+						<li>
+                            <a onclick="navtoggle(&#39;快递员 - &gt; 快递员列表 &#39;)" href="/admin/Deliveryman/listPage" target="main">
+                            <i class="icon-double-angle-right"></i>
+                                快递员列表                                
                             </a>
                         </li>
 					</ul>
@@ -263,12 +274,11 @@
                 </div><!-- #nav-search -->
             </div>
             <div class="page-content" style="padding: 1px 13px 24px;">
-	            <iframe scrolling="yes" frameborder="0" style="width:100%;min-height: 1000px; overflow:visible; height:100%;" name="main" id="main" src="<?php echo $iframe?>"></iframe>
+	            <iframe scrolling="yes" frameborder="0" style="width:100%;min-height:850px; overflow:visible;" name="main" id="main" src="<?php echo $iframe?>"></iframe>
             </div>
         </div>
 
     </div><!-- /.main-container-inner -->
 
 </div>
-
 </body></html>

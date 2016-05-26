@@ -40,8 +40,13 @@
 				<td><input name="phone" type="text" value="<?php if (isset($search['phone'])) {echo $search['phone'];}?>"></td>
 				<td style="vertical-align: middle;font-size: 14px;font-weight:bold;">收货人手机：</td>
                 <td width="350"><input name="rePhone" type="text" value="<?php if (isset($search['rePhone'])) {echo $search['rePhone'];}?>"></td>
-                <td><input type="submit" name="submit" value=" 查 询 " class="btn btn-sm  btn-primary">
-                   <?php if (!empty($error)):?><span style="margin-left:20px;color:red;font-size:12px;"><?php {echo $error;}?><?php endif?></span>
+                <td>
+                <input type="submit" name="submit" value=" 查 询 " class="btn btn-sm  btn-primary">
+                   <?php if (!empty($error)):?>
+                   <span style="margin-left:20px;color:red;font-size:12px;">
+                   <?php {echo $error;}?>
+                   <?php endif?>
+                   </span>
                 </td>
 			</tr>
 		</tbody>
@@ -58,7 +63,7 @@
 				<th style="width:60px;text-align:center;">运费</th>
 				<th style="width:100px;text-align:center;">总价</th>
 				<th style="width:120px;text-align:center;">状态</th>
-				<th style="width:120px;text-align:center;">发货状态</th>
+				<th style="width:120px;text-align:center;">发货</th>
 				<th style="width:250px;text-align:center;">时间</th>
 				<th>操作</th>
 			</tr>
@@ -82,9 +87,10 @@
                 </td>
                 <td style="text-align:center;vertical-align:middle;">
                     <?php if ($order['delivery_state'] == \src\user\model\UserOrderModel::ORDER_DELIVERY_ST_NOT):?>
-                    <div><span class="label label-warning"><?php echo $order['deliverfyStateDesc']?></span></div>
+                    <div><span class="label label-warning"><?php echo $order['deliveryStateDesc']?></span></div>
                     <?php else:?>
-                    <?php echo $order['deliverfyStateDesc']?>
+                    <?php echo $order['deliveryStateDesc']?>
+                    <div><?php if (!empty($order['deliverymanName'])) {echo "快递员：" . $order['deliverymanName'];}?></div>
                     <?php endif?>
                 </td>
 				<td style="text-align:left;vertical-align:middle;">
@@ -92,13 +98,47 @@
                     <div>下单时间：<?php echo date('Y-m-d H:i:s', $order['ctime'])?></div>
                 </td>
 				<td style="text-align:left;vertical-align:middle;">
-                    <a class="btn btn-xs btn-info" href="/admin/Order/info?orderId=<?php echo $order['order_id']?>"><i class="icon-edit"></i>查看详情</a>
+                    <a class="btn btn-xs btn-info" target="_blank" href="/admin/Order/info?orderId=<?php echo $order['order_id']?>"><i class="icon-edit"></i>查看详情</a>
                     &nbsp;<a class="btn btn-xs btn-info" href="/admin/Order/orderPrint?orderId=<?php echo $order['order_id'];?>" target="_bank">订单打印 </a>
                 </td>
 			</tr>
             <?php endforeach?>
 		</tbody>
 	</table>
-    <?php echo $pageHtml;?>
-</body>
+   <!-- 右下角弹窗 -->
+    <div id="pop">
+       <div id="popHead">
+          <a id="popClose" title="关闭">关闭</a>
+          <span>温馨提示</span>
+       </div>
+       <div id="popContent">
+          <dl>
+             <dt id="popTitle">有新订单啦</dt>
+             <dd id="popIntro">刚刚有人下单啦，快去看看!</dd>
+          </dl>
+          <p id="popMore"><a href="/admin/Order/info" target="_blank">查看 »</a></p>
+       </div>
+    </div>
+    <!--E-->
+    <script>
+      $(function(){
+         function showDiv(orderId) {
+             $('#popMore a').attr('href', '/admin/Order/info?orderId=' + orderId);
+             $('#pop').slideDown(1000).delay(4000).fadeOut(200);
+         }
+         $('#popClose').click(function(){
+             $('#pop').hide();
+         });
+         function request() {
+            var url = '/admin/Order/newOrder';
+            $.get(url, function(data){
+               if (data) {
+                 showDiv(data);
+               }
+           });
+         };
+         window.setInterval(request,6000); 
+      });
+    </script>
+    </body>
 </html>

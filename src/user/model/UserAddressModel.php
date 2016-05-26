@@ -130,11 +130,15 @@ class UserAddressModel
     public static function getFullAddr($addr)
     {
         $sysCityCodeBook = include_once(CONFIG_PATH . '/city_code_book.php');
-        $fullAddr = $sysCityCodeBook[$addr['province_id']]
+        $regionAddr = $sysCityCodeBook[$addr['province_id']]
             . $sysCityCodeBook[$addr['city_id']]
-            . $sysCityCodeBook[$addr['district_id']]
-            . $addr['detail_addr'];
-        return $fullAddr;
+            . $sysCityCodeBook[$addr['district_id']];
+        $detail = $addr['detail_addr'];
+        return array(
+            'fullAddr' => $regionAddr . $detail,
+            'regionAddr' => $regionAddr,
+            'detail' => $detail
+        );
     }
 
     public static function setDefaultAddr($userId, $addrId, $val = 1)

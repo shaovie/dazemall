@@ -33,6 +33,16 @@ class EmployeeModel
         return (int)$ret;
     }
 
+    public static function getAllEmp()
+    {
+        $ret = DB::getDB('r')->fetchAll(
+            'b_employee',
+            '*',
+            [], []
+        );
+        return $ret === false ? array() : $ret;
+    }
+
     public static function findEmployeeByAccount($account, $fromDb = 'w')
     {
         if (empty($account)) {
@@ -59,9 +69,36 @@ class EmployeeModel
         return $ret;
     }
 
+    public static function update($account, $data)
+    {
+        if (empty($data)) {
+            return true;
+        }
+        $ret = DB::getDB('w')->update(
+            'b_employee',
+            $data,
+            array('account'), array($account),
+            false,
+            1
+        );
+        self::onUpdateData($account);
+        return $ret !== false;
+    }
+
+    private static function onUpdateData($account)
+    {
+        Cache::del(Cache::CK_EMPLOYEE_INFO_FOR_AC . $account);
+        self::findEmployeeByAccount($account, 'w');
+    }
+
     public static function onLoginOk($account)
     {
         Session::setEmpSession($account);
+    }
+
+    public static function onLogout($account)
+    {
+        Session::delEmpSession($account);
     }
 }
 

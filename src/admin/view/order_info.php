@@ -39,6 +39,10 @@
 				<td><label for="">付款时间：</label></td>
 				<td><?php echo $order['payTime']?></td>
 			</tr>
+			<tr>
+				<td><label for="">系统备注：</label></td>
+				<td><?php echo $order['sysRemark'];?></td>
+			</tr>
 		</tbody>
 		</table>
 		<h3 class="header smaller lighter blue">收货人信息</h3>
@@ -91,9 +95,19 @@
 			<tr>
 				<th style="width:50px"></th>
 				<td>
-					<button type="button" class="btn btn-primary span2" name="confirmsend" data-toggle="modal" data-target="#modal-confirmsend" value="confirmsend">确认发货</button>
-					<button type="submit" class="btn btn-danger span2" onclick="return confirm(&#39;确认付款此订单吗？&#39;); return false;" name="confrimpay" value="confrimpay">确认付款</button>
-					<button type="submit" class="btn span2" name="close" onclick="return confirm(&#39;永久关闭此订单吗？&#39;); return false;" value="close">关闭订单</button>
+					<button type="button" class="btn btn-primary span2" name="confirmsend"
+                    data-toggle="modal" data-target="#modal-confirmsend" value="confirmsend"
+                    <?php if ($order['payState'] != \src\pay\model\PayModel::PAY_ST_SUCCESS
+                        || $order['deliveryState'] != \src\user\model\UserOrderModel::ORDER_DELIVERY_ST_NOT) { echo 'disabled="disabled"';}?>
+                    >确认发货</button>
+					<button type="button" class="btn btn-danger span2" onclick="doConfirmPay()"
+                    name="confirmpay" id="confirmpay-btn" value="confrimpay"
+                    <?php if ($order['payState'] == \src\pay\model\PayModel::PAY_ST_SUCCESS) {
+                        echo 'disabled="disabled"';
+                    }?>
+                    >确认付款</button>
+					<button type="button" class="btn span2" name="close" onclick="" value="close" disabled="disabled">关闭订单</button>
+                    <a class="btn btn-info" href="/admin/Order/orderPrint?orderId=<?php echo $order['orderId'];?>" target="_bank">订单打印 </a>
 				</td>
 			</tr>
 		</tbody>
@@ -108,25 +122,19 @@
 			</div>
 			<div class="modal-body">      	
 				<div class="form-group">
-					<label class="col-sm-2 control-label no-padding-left"> 快递公司：</label>
+					<label class="col-sm-2 control-label no-padding-left"> 快递员：</label>
 					<div class="col-sm-9">
-						<select name="express">
+						<select id="deliveryman" name="express">
 							<option value="-1" data-name="">无需快递</option>
-					        <option value="aae" data-name="aae全球专递">aae全球专递</option>
-			 				<option value="huitongkuaidi" data-name="汇通快运">汇通快运</option>
+                            <?php foreach ($deliverymanList as $man):?> 
+					        <option value="<?php echo $man['id']?>" data-name=""><?php echo $man['name']?></option>
+                            <?php endforeach?>
 			 			</select>
 					</div>
 				</div>
-      	
-				<div class="form-group">
-					<label class="col-sm-2 control-label no-padding-left"> 快递单号：</label>
-					<div class="col-sm-9">
-						<input type="text" name="expresssn" class="span5">
-					</div>
-				</div>      	
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" name="confirmsend" value="yes">确认发货</button>      	
+				<button type="button" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">确认发货</button>      	
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭窗口</button>
 			</div>
 			</div>
@@ -134,5 +142,38 @@
 	</div>
 	<!-- END -->
 	</form>
+	<script>
+        $('#confirmsend-btn').click(function(){
+            var url = "/admin/Order/confirmDelivery";
+            var data = {
+                 id:$("#deliveryman option:selected").val(),
+                 orderId:"<?php echo $order['orderId']?>"
+            };
+            $.post(url,data,function(data){
+                if(data.code==0) {
+                    window.location.href= data.url;
+                } else {
+                    alert(data.msg);
+                    return false;
+                }
+            },'json');
+        });
+        function doConfirmPay() {
+            if (confirm('确认付款此订单吗？')) {
+                var url = "/admin/Order/confirmPayOk";
+                var data = {
+                    orderId:"<?php echo $order['orderId']?>"
+                };
+                $.post(url,data,function(data){
+                    if(data.code==0) {
+                        window.location.href= data.url;
+                    } else {
+                        alert(data.msg);
+                        return false;
+                    }
+                },'json');
+            }
+        };
+	</script>
 </body>
 </html>

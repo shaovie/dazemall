@@ -46,12 +46,19 @@ class Session
         Nosql::set(Nosql::NK_USER_SESSOIN . $key, json_encode($data));
     }
 
-    public static function setEmpSession($account) {
+    public static function setEmpSession($account)
+    {
         $data['account'] = $account;
         $data['userAgent'] = isset($_SERVER['HTTP_USER_AGENT']) ?
             $_SERVER['HTTP_USER_AGENT'] : '';
         $key = self::getSid('emp');
         Nosql::set(Nosql::NK_ADMIN_SESSOIN . $key, json_encode($data));
+    }
+
+    public static function delEmpSession($account)
+    {
+        $key = self::getSid('emp');
+        Nosql::del(Nosql::NK_ADMIN_SESSOIN . $key);
     }
 }
 

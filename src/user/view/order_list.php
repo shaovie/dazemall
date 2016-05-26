@@ -80,7 +80,7 @@
             <a href="/user/Order/orderToTakeDelivery?orderId=<?php echo $order['orderId']?>">
                 <p class="top-info clearfix">
                     <span class="date"><label>下单时间：</label><b><?php echo $order['ctime']; ?></b></span>
-                    <span class="state right"><?php echo $order['deliverfyStateDesc']?></span>
+                    <span class="state right"><?php echo $order['deliveryStateDesc']?></span>
                 </p>
                 <div class="order-info dib-wrap">
                     <div class="img-wrap dib" style="background-image: url(<?php echo $order['showImageUrl']?>)"></div>

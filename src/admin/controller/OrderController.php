@@ -7,6 +7,7 @@
 namespace src\admin\controller;
 
 use \src\common\Util;
+use \src\common\Nosql;
 use \src\common\Check;
 use \src\user\model\UserOrderModel;
 use \src\user\model\UserAddressModel;
@@ -14,6 +15,7 @@ use \src\user\model\UserModel;
 use \src\pay\model\PayModel;
 use \src\mall\model\OrderGoodsModel;
 use \src\mall\model\GoodsModel;
+use \src\mall\model\DeliverymanModel;
 
 class OrderController extends AdminController
 {
@@ -159,8 +161,9 @@ class OrderController extends AdminController
     {
         $orderId = trim($this->getParam('orderId', ''));
         $order = UserOrderModel::findOrderByOrderId($orderId, 'r');
-        $orderInfo = $this->fillPrintOrderInfo($order);
-        $this->display('order_info', $orderInfo);
+        $data = $this->fillPrintOrderInfo($order);
+        $data['deliverymanList'] = DeliverymanModel::getAllDeliveryman();
+        $this->display('order_info', $data);
     }
 
     public function orderPrint()
@@ -169,6 +172,29 @@ class OrderController extends AdminController
         $order = UserOrderModel::findOrderByOrderId($orderId, 'r');
         $data = $this->fillPrintOrderInfo($order);
         $this->display('order_print', $data);
+    }
+
+    public function newOrder()
+    {
+        $nk = Nosql::NK_PAYOK_ORDER_FOR_NOTIFY_ADMIN_QUEUE;
+        $ret = Nosql::lPop($nk);
+        echo $ret === false ? '' : $ret;
+    }
+
+    public function confirmDelivery()
+    {
+        $orderId = trim($this->postParam('orderId', ''));
+        $deliverymanId = $this->postParam('id', '');
+        if ($deliverymanId <= 0)
+            $deliverymanId = 0;
+        UserOrderModel::confirmDelivery($deliverymanId, $orderId);
+        $this->ajaxReturn(0, '', '/admin/Order/info?orderId=' . $orderId);
+    }
+    public function confirmPayOk()
+    {
+        $orderId = trim($this->postParam('orderId', ''));
+        UserOrderModel::manualConfirmPayOk($orderId, $this->account);
+        $this->ajaxReturn(0, '', '/admin/Order/info?orderId=' . $orderId);
     }
 
     private function fillPrintOrderInfo($order)
@@ -185,17 +211,27 @@ class OrderController extends AdminController
         $orderInfo['payType'] = PayModel::payTypeDesc($order['ol_pay_type']);
         $orderInfo['orderId'] = $order['order_id'];
         $orderInfo['payTime'] = '';
+        $orderInfo['payState'] = $order['pay_state'];
         if ($order['pay_state'] == PayModel::PAY_ST_SUCCESS)
             $orderInfo['payTime'] = date('Y-m-d H:i:s', $order['pay_time']);
         else if ($order['pay_state'] == PayModel::PAY_ST_UNPAY)
             $orderInfo['payTime'] = '未支付';
         else
             $orderInfo['payTime'] = '未知';
-        $orderInfo['deliveryTime'] = $order['delivery_time'];
-        $orderInfo['fullAddr'] = UserAddressModel::getFullAddr($order);
+
+        $orderInfo['deliveryState'] = $order['delivery_state'];
+        $orderInfo['deliveryTime'] = '';
+        if (!empty($order['delivery_time'])) 
+            $orderInfo['deliveryTime'] = date('Y-m-d H:i:s', $order['delivery_time']);
+        $orderInfo['deliverymanName'] = DeliverymanModel::getDeliverymanName($order['deliveryman_id']);
+        $fullAddr = UserAddressModel::getFullAddr($order);
+        $orderInfo['regionAddr'] = $fullAddr['regionAddr'];
+        $orderInfo['detailAddr'] = $fullAddr['detail'];
+        $orderInfo['fullAddr'] = $fullAddr['fullAddr'];
         $orderInfo['reName'] = $order['re_name'];
         $orderInfo['rePhone'] = $order['re_phone'];
         $orderInfo['orderAmount'] = $order['order_amount'];
+        $orderInfo['sysRemark'] = $order['sys_remark'];
 
         $goodsList = OrderGoodsModel::fetchOrderGoodsById($order['order_id']);
         foreach($goodsList as &$val) {
@@ -229,15 +265,19 @@ class OrderController extends AdminController
             else if ($order['order_state'] == UserOrderModel::ORDER_ST_CANCELED)
                 $order['orderStateDesc'] = '取消';
 
-            $order['deliverfyStateDesc'] = '';
-            if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_NOT)
-                $order['deliverfyStateDesc'] = '未发货';
-            else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_ING)
-                $order['deliverfyStateDesc'] = '发货中';
-            else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_RECV)
-                $order['deliverfyStateDesc'] = '已签收';
-            else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_CONFIRM)
-                $order['deliverfyStateDesc'] = '确认收货';
+            $order['sysRemark'] = $order['sys_remark'];
+            $order['deliverymanName'] = '';
+            $order['deliveryStateDesc'] = '';
+            if ($order['pay_state'] == PayModel::PAY_ST_SUCCESS) {
+                if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_NOT)
+                    $order['deliveryStateDesc'] = '未发货';
+                else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_ING)
+                    $order['deliveryStateDesc'] = '发货中';
+                else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_RECV)
+                    $order['deliveryStateDesc'] = '已签收';
+                else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_CONFIRM)
+                    $order['deliveryStateDesc'] = '确认收货';
+            }
         }
         return $orderList;
     }

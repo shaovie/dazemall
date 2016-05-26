@@ -49,7 +49,7 @@
             <?php if ($order['order_state'] == 2)/*已取消*/:?>
                 <span class="state dib">已取消</span>
             <?php else:?>
-                <span class="state dib"><?php echo $order['deliverfyStateDesc']?></span>
+                <span class="state dib"><?php echo $order['deliveryStateDesc']?></span>
                 <?php if ($order['delivery_state'] == 2)/*发货中*/:?>
                     <div class="btn-wrap dib">
                         <a class="j-ajax btnl" ajax-url="/user/yOrder/confirmTakeDelivery" ajax-data='{"orderId":"<?php echo $order['orderId']?>"}' ajax-type="post">确认收货</a>

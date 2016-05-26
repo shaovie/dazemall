@@ -186,13 +186,13 @@ class OrderController extends UserController
             $val['showImageUrl'] = $showImageUrl;
             $val['goodsNumber'] = count($goodsList);
             $val['orderAmount'] = number_format($order['order_amount'], 2, '.', '');
-            $val['deliverfyStateDesc'] = '';
+            $val['deliveryStateDesc'] = '';
             if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_NOT)
-                $val['deliverfyStateDesc'] = '未发货';
+                $val['deliveryStateDesc'] = '未发货';
             else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_ING)
-                $val['deliverfyStateDesc'] = '发货中';
+                $val['deliveryStateDesc'] = '发货中';
             else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_RECV)
-                $val['deliverfyStateDesc'] = '已签收';
+                $val['deliveryStateDesc'] = '已签收';
 
             $val['orderState'] = $order['order_state'];
             $val['orderStateDesc'] = '创建成功';
@@ -217,7 +217,7 @@ class OrderController extends UserController
         }
 
         $order['orderId'] = $orderId;
-        $order['fullAddr'] = UserAddressModel::getFullAddr($order);
+        $order['fullAddr'] = UserAddressModel::getFullAddr($order)['fullAddr'];
         $goodsList = OrderGoodsModel::fetchOrderGoodsById($orderId);
         foreach($goodsList as &$val) {
             $goodsInfo = GoodsModel::findGoodsById($val['goods_id']);
@@ -238,13 +238,13 @@ class OrderController extends UserController
         $order['totalPrice'] = number_format($order['order_amount'] - $order['postage'], 2, '.', '');
         $order['acPayAmount'] = number_format($order['ac_pay_amount'], 2, '.', '');
 
-        $order['deliverfyStateDesc'] = '';
+        $order['deliveryStateDesc'] = '';
         if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_NOT)
-            $order['deliverfyStateDesc'] = '未发货';
+            $order['deliveryStateDesc'] = '未发货';
         else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_ING)
-            $order['deliverfyStateDesc'] = '发货中';
+            $order['deliveryStateDesc'] = '发货中';
         else if ($order['delivery_state'] == UserOrderModel::ORDER_DELIVERY_ST_RECV)
-            $order['deliverfyStateDesc'] = '已签收';
+            $order['deliveryStateDesc'] = '已签收';
         $order['postage'] = number_format($order['postage'], 2, '.', '');
 
         $data = array(

@@ -431,7 +431,7 @@ class PayController extends MallController
         }
         $address = UserAddressModel::getDefaultAddr($this->userId());
         if (!empty($address)) {
-            $address['fullAddr'] = UserAddressModel::getFullAddr($address);
+            $address['fullAddr'] = UserAddressModel::getFullAddr($address)['fullAddr'];
         }
         if (!empty($orderInfo)) {
             $leftTime = UserOrderModel::ORDER_PAY_LAST_TIME - (CURRENT_TIME - (int)$orderInfo['ctime']);

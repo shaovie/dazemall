@@ -21,8 +21,8 @@ class UserOrderModel
     const MAX_ATTACH_LEN        = 255;
 
     // 订单前缀
-    const ORDER_PRE_COMMON      = '01';  // 普通单品订单
-    const ORDER_PRE_PAYMENT     = '02';  // 在线支付订单号
+    const ORDER_PRE_COMMON      = '10';  // 普通单品订单
+    const ORDER_PRE_PAYMENT     = '11';  // 在线支付订单号
 
     // 订单状态
     const ORDER_ST_CREATED      = 0;
@@ -65,48 +65,48 @@ class UserOrderModel
         $couponId,
         $postage,
         $attach
-    ) {
-        if (empty($orderId)
-            || empty($orderPayId)
-            || empty($orderEnv)
-            || empty($userId)) {
-            return false;
-        }
+            ) {
+                if (empty($orderId)
+                    || empty($orderPayId)
+                    || empty($orderEnv)
+                    || empty($userId)) {
+                    return false;
+                }
 
-        $data = array(
-            'order_id' => $orderId,
-            'order_pay_id' => $orderPayId,
-            'user_id' => $userId,
-            're_name' => Util::emojiEncode($reName),
-            're_phone' => $rePhone,
-            'addr_type' => $addrType,
-            'province_id' => $provinceId,
-            'city_id' => $cityId,
-            'district_id' => $districtId,
-            'detail_addr' => $detailAddr,
-            're_id_card' => $reIdCard,
-            'pay_state' => $payState,
-            'order_state' => self::ORDER_ST_CREATED,
-            'order_amount' => $orderAmount,
-            'ol_pay_amount' => $olPayAmount,
-            'ac_pay_amount' => $acPayAmount,
-            'ol_pay_type' => $olPayType,
-            'coupon_pay_amount' => $couponPayAmount,
-            'coupon_id' => $couponId,
-            'postage' => $postage,
-            'order_env' => $orderEnv,
-            'remark' => '',
-            'attach' => $attach,
-            'ctime' => CURRENT_TIME,
-            'mtime' => CURRENT_TIME,
-            'm_user' => 'sys'
-        );
-        $ret = DB::getDB('w')->insertOne('o_order', $data);
-        if ($ret === false || (int)$ret <= 0) {
-            return false;
-        }
-        return true;
-    }
+                $data = array(
+                    'order_id' => $orderId,
+                    'order_pay_id' => $orderPayId,
+                    'user_id' => $userId,
+                    're_name' => Util::emojiEncode($reName),
+                    're_phone' => $rePhone,
+                    'addr_type' => $addrType,
+                    'province_id' => $provinceId,
+                    'city_id' => $cityId,
+                    'district_id' => $districtId,
+                    'detail_addr' => $detailAddr,
+                    're_id_card' => $reIdCard,
+                    'pay_state' => $payState,
+                    'order_state' => self::ORDER_ST_CREATED,
+                    'order_amount' => $orderAmount,
+                    'ol_pay_amount' => $olPayAmount,
+                    'ac_pay_amount' => $acPayAmount,
+                    'ol_pay_type' => $olPayType,
+                    'coupon_pay_amount' => $couponPayAmount,
+                    'coupon_id' => $couponId,
+                    'postage' => $postage,
+                    'order_env' => $orderEnv,
+                    'remark' => '',
+                    'attach' => $attach,
+                    'ctime' => CURRENT_TIME,
+                    'mtime' => CURRENT_TIME,
+                    'm_user' => 'sys'
+                        );
+                $ret = DB::getDB('w')->insertOne('o_order', $data);
+                if ($ret === false || (int)$ret <= 0) {
+                    return false;
+                }
+                return true;
+            }
 
     public static function findOrderByOrderPayId($orderPayId, $fromDb = 'w')
     {
@@ -233,6 +233,34 @@ class UserOrderModel
         return true;
     }
 
+    public static function manualConfirmPayOk($orderId, $mUser)
+    {
+        if (empty($orderId)) {
+            return false;
+        }
+
+        $orderInfo = self::findOrderByOrderId($orderId);
+        if (empty($orderInfo)) 
+            return ;
+        if ($orderInfo['pay_state'] != PayModel::PAY_ST_UNPAY) {
+            return false;
+        }
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('pay_state' => PayModel::PAY_ST_SUCCESS,
+                'pay_time' => CURRENT_TIME,
+                'sys_remark' => $mUser . ' manual confirm pay ok',
+            ),
+            array('order_id'), array($orderId)
+        );
+        self::onUpdateData($orderInfo['order_id']);
+
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        self::payOkNotifyToAdmin($orderInfo);
+        return true;
+    }
     public static function onPayOk($orderPayId)
     {
         if (empty($orderPayId)) {
@@ -250,6 +278,7 @@ class UserOrderModel
         $orderInfo = self::findOrderByOrderPayId($orderPayId);
         if (!empty($orderInfo)) {
             self::onUpdateData($orderInfo['order_id']);
+            self::payOkNotifyToAdmin($orderInfo);
         }
         return true;
     }
@@ -266,6 +295,27 @@ class UserOrderModel
             array('order_id', 'user_id', 'order_state'),
             array($orderId, $userId, self::ORDER_ST_CREATED),
             array('and', 'and')
+        );
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        self::onUpdateData($orderId);
+        return true;
+    }
+
+    public static function confirmDelivery($deliverymanId, $orderId)
+    {
+        if (empty($orderId)) {
+            return false;
+        }
+
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('deliveryman_id' => $deliverymanId,
+                'delivery_time' => CURRENT_TIME,
+                'delivery_state' => self::ORDER_DELIVERY_ST_ING),
+            array('order_id'),
+            array($orderId)
         );
         if ($ret === false || (int)$ret <= 0) {
             return false;
@@ -301,6 +351,16 @@ class UserOrderModel
     {
         Cache::del(Cache::CK_ORDER_INFO . $orderId);
         self::findOrderByOrderId($orderId, 'w');
+    }
+
+    private static function payOkNotifyToAdmin($orderInfo)
+    {
+        $nk = Nosql::NK_PAYOK_ORDER_FOR_NOTIFY_ADMIN_QUEUE;
+        $lsize = Nosql::lSize($nk);
+        if ((int)$lsize > 100) {
+            Nosql::del($nk);
+        }
+        Nosql::rPush($nk, $orderInfo['order_id']);
     }
 }
 

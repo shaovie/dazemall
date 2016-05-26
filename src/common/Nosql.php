@@ -41,6 +41,9 @@ class Nosql
     const NK_ASYNC_ORDER_PAY_REMIND_QUEUE = 'async_order_pay_remind_queue:';
     const NK_ASYNC_CANCEL_ORDER_QUEUE = 'async_cancel_order_queue:';
     
+    //= queue
+    const NK_PAYOK_ORDER_FOR_NOTIFY_ADMIN_QUEUE = 'payok_order_for_notify_admin_queue:';
+
     //= for weixin
     const NK_ACTIVATE_FOR_GZH        = 'activate_for_gzh:'; const NK_ACTIVATE_FOR_GZH_EXPIRE = 120;
 

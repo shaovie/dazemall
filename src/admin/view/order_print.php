@@ -9,10 +9,10 @@
 <tr><td align="left">下单时间：</td><td><?php echo date('Y-m-d H:i:s', $order['ctime'])?></td> </tr>
 <tr><td align="left">付款时间：</td><td><?php echo $order['payTime']?></td></tr>
 <tr><td align="left">支付方式：</td><td><?php echo $order['payType']?></td></tr>
-<tr><td align="left">发货时间：</td><td><?php echo date('Y-m-d H:i:s', $order['deliveryTime'])?></td></tr>
-<tr><td align="left">配送方式：</td><td>默认</td></tr>
-<tr><td align="left">收货地址：</td><td><?php echo mb_substr($order['fullAddr'], 0, 6)?></td></tr>
-<tr><td colspan="7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo mb_substr($order['fullAddr'], 6)?>&nbsp;</tr>
+<tr><td align="left">发货时间：</td><td><?php echo $order['deliveryTime']?></td></tr>
+<tr><td align="left">配 送 员：</td><td><?php echo $order['deliverymanName']?></td></tr>
+<tr><td align="left">收货地址：</td><td><?php echo $order['regionAddr']?></td></tr>
+<tr><td colspan="7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $order['detailAddr']?>&nbsp;</tr>
 <tr><td align="left">收 货 人：</td><td><?php echo $order['reName']?>&nbsp;</td></tr>
 <tr><td align="left">手 机 号：</td><td><?php echo $order['rePhone']?>&nbsp;</td></tr>
 </table>
