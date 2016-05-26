@@ -1,0 +1,14 @@
+server {
+    listen       80;
+    server_name  localhost;
+
+    access_log  /data/logs/localhost.access.log  main;
+    error_log   /data/logs/localhost.error.log warn;
+
+    location / {
+        root   /data/htdocs/localhost;
+        index  index.html index.php;
+        expires 60d;
+    }
+}
+

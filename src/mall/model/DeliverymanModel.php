@@ -25,6 +25,7 @@ class DeliverymanModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
+        self::onUpdateData($ret);
         return (int)$ret;
     }
 
@@ -60,11 +61,20 @@ class DeliverymanModel
 
     public static function getAllDeliveryman()
     {
-        $ret = DB::getDB('r')->fetchAll(
-            'b_deliveryman',
-            '*',
-            [], []
-        );
+        $ck = Cache::CK_ALL_DELIVERYMAN;
+        $ret = Cache::get($ck);
+        if ($ret !== false) {
+            $ret = json_decode($ret, true);
+        } else {
+            $ret = DB::getDB('r')->fetchAll(
+                'b_deliveryman',
+                '*',
+                [], []
+            );
+            if (!empty($ret)) {
+                Cache::set($ck, json_encode($ret));
+            }
+        }
         return $ret === false ? array() : $ret;
     }
 
@@ -86,7 +96,7 @@ class DeliverymanModel
     private static function onUpdateData($id)
     {
         Cache::del(Cache::CK_DELIVERYMAN_INFO_FOR_ID . $id);
-        self::findDeliverymanById($id, 'w');
+        Cache::del(Cache::CK_ALL_DELIVERYMAN);
     }
 }
 

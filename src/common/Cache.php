@@ -48,6 +48,7 @@ class Cache
     //= for employee
     const CK_EMPLOYEE_INFO_FOR_AC    = 'employee_info_for_ac:';
     const CK_DELIVERYMAN_INFO_FOR_ID = 'deliveryman_info_for_id:';
+    const CK_ALL_DELIVERYMAN         = 'all_deliveryman:';
 
     //= global
     const CK_MALL_GLOBAL_CONFIG      = 'mall_global_config:';

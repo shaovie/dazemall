@@ -201,6 +201,7 @@ create table o_order (
     pay_time            int not null default 0,                     # 支付时间
     order_state         tinyint not null default 0,                 # 0:创建 1:完成 2:取消
     delivery_state      tinyint not null default 0,                 # 0:未发货 1:发货中 2:已签收 3: 确认收货
+    deliveryman_id      int unsigned not null default 0,            # 快递员ID
     delivery_time       int not null default 0,                     # 发货时间
 
     order_amount        decimal(10,2) not null default 0.0,         # 订单总金额
@@ -214,6 +215,7 @@ create table o_order (
 
     order_env           tinyint not null default 0,                 # 下单环境：1:IOS 2:Android 3:WX
     remark              varchar(255) not null default '',           # 客户备注信息
+    sys_remark          varchar(255) not null default '',           # 系统备注信息
 
     attach              varchar(255) not null default '',           # json格式附属信息
 
@@ -582,5 +584,17 @@ create table b_employee(
     index idx_account(`account`),
     index idx_phone(`phone`)
 )engine=InnoDB default charset=utf8;
-insert into b_employee(account,passwd,name,phone,ctime)values('admin',md5('admin'),'管理员','13800138000',unix_timestamp());
+insert into b_employee(account,passwd,name,phone,ctime)values('admin',md5('admin'),'管理员','13800138000',1,unix_timestamp());
 
+drop table if exists b_deliveryman;
+create table b_deliveryman(
+    id                  int unsigned not null auto_increment,
+
+    name                varchar(255) not null default '',
+    phone               char(11) not null default '',
+    state               tinyint not null default 0,                 # 用户状态
+
+    ctime               int not null default 0,                     # 创建时间
+
+    primary key (`id`)
+)engine=InnoDB default charset=utf8;
