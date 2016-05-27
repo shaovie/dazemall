@@ -50,7 +50,8 @@ class Nosql
     //= for user
     const NK_REG_SMS_CODE            = 'reg_sms_code:'; const NK_REG_SMS_CODE_EXPIRE = 1800;
 
-    const NK_GOODS_SOLD_OUT          = 'goods_sold_out:'; const NK_GOODS_SOLD_OUT_EXPIRE = 600;
+    const NK_GOODS_SOLD_OUT          = 'goods_sold_out:'; const NK_GOODS_SOLD_OUT_EXPIRE = 180;
+    const NK_GOODS_SKU_KUCUN_ALARM   = 'goods_sku_kucun_alarm:'; const NK_GOODS_SKU_KUCUN_ALARM_EXPIRE = 600;
 
     //= public static methods
     //
