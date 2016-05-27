@@ -148,7 +148,14 @@ class OrderController extends UserController
         if ($page < 1) {
             $page = 1;
         }
-        $data = $this->getOrderList(2, $page);
+        $orderList = UserOrderModel::fetchSomeOrder(
+            array('user_id', 'pay_state', 'delivery_state!='),
+            array($this->userId(), PayModel::PAY_ST_SUCCESS, UserOrderModel::ORDER_DELIVERY_ST_CONFIRM),
+            array('and', 'and'),
+            $page,
+            5
+        );
+        $data = $this->fillOrderList($orderList);
         $this->ajaxReturn(0, '', '', $data);
     }
     public function finishedOrderListNextPage()
@@ -157,7 +164,14 @@ class OrderController extends UserController
         if ($page < 1) {
             $page = 1;
         }
-        $data = $this->getOrderList(3, $page);
+        $orderList = UserOrderModel::fetchSomeOrder(
+            array('user_id', 'order_state!='),
+            array($this->userId(), UserOrderModel::ORDER_ST_CREATED),
+            array('and'),
+            $page,
+            5
+        );
+        $data = $this->fillOrderList($orderList);
         $this->ajaxReturn(0, '', '', $data);
     }
 

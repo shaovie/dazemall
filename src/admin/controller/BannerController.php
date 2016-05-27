@@ -14,11 +14,6 @@ class BannerController extends AdminController
 {
     const ONE_PAGE_SIZE = 10;
 
-    public function index()
-    {
-        $this->display("banner_list");
-    }
-
     public function listPage()
     {
         $page = $this->getParam('page', 1);

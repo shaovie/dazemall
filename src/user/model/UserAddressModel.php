@@ -50,6 +50,7 @@ class UserAddressModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
+        self::onUpdateData($userId);
         return true;
     }
 
@@ -124,7 +125,7 @@ class UserAddressModel
                 return $addr;
             }
         }
-        return $addr[0];
+        return $addrList[0];
     }
 
     public static function getFullAddr($addr)
@@ -148,7 +149,7 @@ class UserAddressModel
         }
         $ret = DB::getDB('w')->update(
             'u_address',
-            array('is_default' => $val),
+            array('is_default' => $val, 'mtime' => CURRENT_TIME),
             array('id', 'user_id'), array($addrId, $userId),
             array('and'),
             1
@@ -177,7 +178,7 @@ class UserAddressModel
 
     public static function clearDefaultAddr($userId)
     {
-        $addr = self::findDefaultAddr($userId);
+        $addr = self::getDefaultAddr($userId);
         if (empty($addr)) {
             return ;
         }

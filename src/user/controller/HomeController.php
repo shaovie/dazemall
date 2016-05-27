@@ -12,7 +12,6 @@ use \src\user\model\UserModel;
 
 class HomeController extends UserController 
 {
-
     public function index()
     {
         $headimgurl = empty($this->userInfo['headimgurl']) ? '' : $this->userInfo['headimgurl'];

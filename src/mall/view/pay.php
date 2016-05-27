@@ -25,7 +25,7 @@
     <?php endif?>
 
 	<?php if (empty($address)):?>
-	<section id="J-address" class="address no-address">
+	<section <?php if (empty($orderInfo)) {echo 'id="J-address"';}?> class="address no-address">
 		<input type="hidden" id="J-addr-id" class="address no-address" name="address_id" value=""/>
 		<a>
 			<i class="icon-addr"></i>
@@ -42,7 +42,7 @@
 			<i class="icon-arrow"></i>
 		</a>
 	<?php else:?>
-		<section id="J-address" class="address">
+		<section <?php if (empty($orderInfo)) {echo 'id="J-address"';}?> class="address">
 	<input type="hidden" id="J-addr-id" name="address_id" value="<?php echo $address['id'];?>"/>
 	<a>
 		<i class="icon-addr"></i>

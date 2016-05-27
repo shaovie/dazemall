@@ -86,7 +86,7 @@
 		<button id="J-btn-buy" class="btnl">立即购买</button>
 	</footer> -->
 
-	<a herf="/mall/Cart" class="cart"><i id="J-cart-num"></i></a>
+	<a href="/mall/Cart" class="cart"><i id="J-cart-num"></i></a>
 
 	<div id="J-panel-cm"  class="panel-cm">
 		<div class="mask"></div>

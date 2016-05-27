@@ -60,6 +60,7 @@ class UserAddressController extends ApiController
             $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
             return ;
         }
+        UserAddressModel::clearDefaultAddr($this->userId());
         $ret = UserAddressModel::setDefaultAddr($this->userId(), $addrId, 1);
         if ($ret === false) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '设置默认地址失败');
@@ -72,15 +73,15 @@ class UserAddressController extends ApiController
     {
         $this->checkLoginAndNotice();
 
-        $addrId = $this->getParam('id', 0);
-        $reName = $this->getParam('name', ''); // 收件人
-        $rePhone = $this->getParam('phone', '');
-        $provinceId = (int)$this->getParam('provinceId', 0);
-        $cityId = (int)$this->getParam('cityId', 0);
-        $districtId = (int)$this->getParam('districtId', 0);
-        $detail = $this->getParam('detailAddr', '');
-        $reIdCard = $this->getParam('reIdCard', '');
-        $isDefault = (int)$this->getParam('isDefault', 0);
+        $addrId = $this->postParam('id', 0);
+        $reName = $this->postParam('name', ''); // 收件人
+        $rePhone = $this->postParam('phone', '');
+        $provinceId = (int)$this->postParam('provinceId', 0);
+        $cityId = (int)$this->postParam('cityId', 0);
+        $districtId = (int)$this->postParam('districtId', 0);
+        $detail = $this->postParam('detailAddr', '');
+        $reIdCard = $this->postParam('reIdCard', '');
+        $isDefault = (int)$this->postParam('isDefault', 0);
 
         $sysCityCodeBook = include(CONFIG_PATH . '/city_code_book.php');
         $reName = preg_replace('/\s|　/', '', $reName);
