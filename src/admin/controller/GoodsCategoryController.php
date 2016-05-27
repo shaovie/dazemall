@@ -86,7 +86,6 @@ class GoodsCategoryController extends AdminController
         $ret = GoodsCategoryModel::newOne(
             $catInfo['parentId'],
             $catInfo['name'],
-            $catInfo['image_url'],
             $catInfo['state'],
             $catInfo['sort']
         );
@@ -118,7 +117,6 @@ class GoodsCategoryController extends AdminController
         }
         $updateData = array(
             'name' => $catInfo['name'],
-            'image_url' => $catInfo['image_url'],
             'sort' => $catInfo['sort'],
             'state' => $catInfo['state']
         );
@@ -139,7 +137,6 @@ class GoodsCategoryController extends AdminController
         $catInfo['parentId'] = $this->postParam('parentId', 0);
         $catInfo['name'] = trim($this->postParam('name', ''));
         $catInfo['sort'] = intval($this->postParam('sort', 0));
-        $catInfo['image_url'] = trim($this->postParam('imageUrl', ''));
         $catInfo['state'] = intval($this->postParam('state', 0));
 
         if (empty($catInfo['name'])) {

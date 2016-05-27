@@ -64,27 +64,6 @@
                </div>
           </div>
        </div>
-
-	   <div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left"> 分类图片</label>
-			<div class="col-sm-9">
-				<div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 160px; height: 160px;">
-					
-               <?php if(!empty($info['image_url'])){?>
-                   <img src="<?php echo $info['image_url'];?>" />
-                  <a href='javascript:void(0)' onclick='delThumbImg(this);return false;'>删除</a>
-               <?php }?>
-				</div>
-				<!-- SWFUpload控件 -->
-				<div id="divSWFUploadUI">
-                <p>
-                    <span id="spanButtonPlaceholder"></span>
-					<input id="btnCancel" type="hidden" value="全部取消" disabled="disabled"/>
-                 </p>
-				</div>
-              <!-- END -->
-			</div>
-		</div>
 	
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> </label>
@@ -92,7 +71,6 @@
 				<input name="button" type="button" value="提交" id="save-btn" class="btn btn-primary span3">
 			</div>
 		</div>
-		<input type="hidden" id="thumb_img" name="thumb_img" class="thumb_img" value="<?php if (!empty($info['image_url'])){echo $info['image_url'];} ?>">
 	</form>
 	<script>
         $('#save-btn').click(function(){
@@ -101,7 +79,6 @@
                 catId:$("#catId").val(),
                 parentId:$("#parentId").val(),
                 name:$("#cateName").val(),
-                imageUrl:$("#thumb_img").val(),
                 sort:$("#sort").val(),
                 state:$("#state-radio input[name='state']:checked").val()
                 },function(data){

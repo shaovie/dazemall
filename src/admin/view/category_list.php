@@ -28,7 +28,6 @@
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
-					<th class="text-center" style="width:100px;">分类图片</th>
 					<th class="text-center" style="width:80px;">分类名称</th>
 					<th class="text-center" style="width:50px;">显示顺序</th>
 					<th class="text-center" style="width:50px;">当前状态</th>
@@ -38,8 +37,6 @@
 			<tbody>
             <?php foreach ($categoryList as $cat):?>
 			<tr>
-				<td style="padding:0px;margin:0px;">
-                <p style="text-align:center;vertical-align:middle;margin:2px 0px;"> <img src="<?php echo $cat['image_url']?> " height="60" width="60"></p></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $cat['name']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $cat['sort']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo ($cat['state']==1)?'有效':'无效';?></td>

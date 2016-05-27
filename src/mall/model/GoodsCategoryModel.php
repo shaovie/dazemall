@@ -13,7 +13,7 @@ use \src\common\DB;
 
 class GoodsCategoryModel
 {
-    public static function newOne($categoryId, $name, $imageUrl, $state, $sort)
+    public static function newOne($categoryId, $name, $state, $sort)
     {
         $categoryId = self::genCategoryId($categoryId);
         if ($categoryId == false) {
@@ -24,7 +24,6 @@ class GoodsCategoryModel
             'name' => $name,
             'sort' => $sort,
             'state' => $state,
-            'image_url' => $imageUrl,
             'ctime' => CURRENT_TIME,
             'mtime' => CURRENT_TIME,
         );
