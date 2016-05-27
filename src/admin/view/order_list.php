@@ -134,11 +134,13 @@
             $.get(url, function(data){
                if (data) {
                  showDiv(data);
+                 $('#audio')[0].play();
                }
            });
          };
          window.setInterval(request,6000); 
       });
     </script>
+    <audio id="audio"><source src="/asset/ogg/notify.ogg" type="audio/ogg"></audio>
     </body>
 </html>
