@@ -141,6 +141,6 @@
          window.setInterval(request,6000); 
       });
     </script>
-    <audio id="audio"><source src="/asset/ogg/notify.ogg" type="audio/ogg"></audio>
+    <audio id="audio"><source src="/asset/audio/notify.mp3" type="audio/mpeg"></audio>
     </body>
 </html>

@@ -249,6 +249,21 @@
                         </li>
 					</ul>
 				</li>
+				<li>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-info-sign"></i>
+                        <span class="menu-text"> 商城配置</span>
+                        <b class="arrow icon-angle-down"></b>
+                    </a>                    
+                    <ul class="submenu">
+					    <li>
+                            <a onclick="navtoggle(&#39;商城配置 - &gt; 参数配置 &#39;)" href="/admin/GlobalConfig/info" target="main">
+                             <i class="icon-double-angle-right"></i>
+                                 参数配置                                
+                            </a>
+                        </li>
+					</ul>
+				</li>
             </ul>
 
             <script type="text/javascript">

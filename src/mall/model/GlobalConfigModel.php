@@ -30,5 +30,11 @@ class GlobalConfigModel
         }
         return $ret === false ? array() : $ret;
     }
+
+    public static function update($data)
+    {
+        DB::getDB('w')->update('s_global_config', $data, [], []);
+        Cache::del(Cache::CK_MALL_GLOBAL_CONFIG);
+    }
 }
 

@@ -557,7 +557,7 @@ create table m_goods_module_glist (
 drop table if exists s_global_config;
 create table s_global_config (
 
-    free_postage        decimal(10,2) not null default 28.0,         # 免邮费，订单金额
+    free_postage        decimal(10,2) not null default 28.0,        # 免邮费，订单金额
     postage             decimal(10,2) not null default 3.0,         # 邮费
 
     mtime               int not null default 0,                     # 创建时间
@@ -584,7 +584,7 @@ create table b_employee(
     index idx_account(`account`),
     index idx_phone(`phone`)
 )engine=InnoDB default charset=utf8;
-insert into b_employee(account,passwd,name,phone,ctime)values('admin',md5('admin'),'管理员','13800138000',1,unix_timestamp());
+insert into b_employee(account,passwd,name,phone,ctime)values('admin',md5('dazeadmin'),'管理员','13800138000',1,unix_timestamp());
 
 drop table if exists b_deliveryman;
 create table b_deliveryman(
