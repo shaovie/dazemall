@@ -59,44 +59,6 @@
             </li> -->
         </ul>
     </section>
-    <section class="tj-section">
-        <div class="chr-ms-title">
-            <div class="section-title3 title-ms">
-                <h3><i class="icon-ms"></i>疯狂秒杀</h3>
-            </div>
-            <div id="J-miao-nav" class="miao-time">
-                <span class="active">10:00</span>
-                <span>17:00</span>
-                <span>21:00</span>
-            </div>
-        </div>
-        <ul id="J-miao-list" class="banner-list">
-            <li>
-                <div class="img-wrap" data-original="/static/images/index-new/test/3.jpg">
-                    <div class="empty"></div>
-                </div>
-                <div class="banner-info clearfix">
-                    <span class="qi">2折起</span>
-                    <span class="banner-title">海洋基因嫩颜秘诀专场海洋基因嫩颜秘诀专场海洋基因嫩颜秘诀专场</span>
-                    <span class="J-banner-timer banner-timer right" timer="21100">剩1天</span>
-                </div>
-            </li>
-            <li act-id="25">
-                <div class="img-wrap" data-original="/static/images/index-new/test/2.jpg">
-                    <div class="ready-tip">
-                        <p>距离开抢</p>
-                        <p class="J-miao-timer" timer="1000">10:50:10</p>
-                        <a class="ready-btn"><i class="icon-ling"></i><label>开抢提醒</label></a>
-                    </div>
-                </div>
-                <div class="banner-info clearfix">
-                    <span class="qi">2折起</span>
-                    <span class="banner-title">海洋基因嫩颜秘诀专场</span>
-                    <span class="J-banner-timer banner-timer right" timer="21100">剩1天</span>
-                </div>
-            </li>
-        </ul>
-    </section>
     <?php if (!empty($goodsModuleList)):?>
     <?php foreach ($goodsModuleList as $module):?>
     <section class="tj-section">
