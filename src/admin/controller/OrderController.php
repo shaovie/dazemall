@@ -65,6 +65,8 @@ class OrderController extends AdminController
             $endTime = trim($this->getParam('endTime', ''));
             $phone = trim($this->getParam('phone', ''));
             $rePhone = trim($this->getParam('rePhone', ''));
+            $deliveryState = intval($this->getParam('deliveryState', -1));
+            $today = intval($this->getParam('today', 0));
             if ((!empty($rePhone) && !Check::isPhone($rePhone))
                 || (!empty($phone) && !Check::isPhone($phone))) {
                 $error = '手机号码无效';
@@ -103,6 +105,21 @@ class OrderController extends AdminController
                         }
                     }
                 }
+                if ($today == 1) {
+                    $searchParams['today'] = 1;
+                    $dt = strtotime(date('Y-m-d', CURRENT_TIME) . ' 00:00:00');
+                    $conds[] = 'ctime>=';
+                    $vals[] = $dt;
+                    if (count($conds) > 1) {
+                        $rel[] = 'and';
+                    }
+                    $dt += 86400 - 1;
+                    $conds[] = 'ctime<=';
+                    $vals[] = $dt;
+                    if (count($conds) > 1) {
+                        $rel[] = 'and';
+                    }
+                }
                 if (!empty($phone)) {
                     $searchParams['phone'] = $phone;
                     $userInfo = UserModel::findUserByPhone($phone);
@@ -122,6 +139,22 @@ class OrderController extends AdminController
                         $rel[] = 'and';
                     }
                 }
+                if ($deliveryState != -1) {
+                    $searchParams['deliveryState'] = $deliveryState;
+                    $conds[] = 'delivery_state';
+                    $vals[] = $deliveryState;
+                    if (count($conds) > 1) {
+                        $rel[] = 'and';
+                    }
+                    if ($deliveryState == UserOrderModel::ORDER_DELIVERY_ST_NOT) {
+                        $conds[] = 'pay_state';
+                        $vals[] = PayModel::PAY_ST_SUCCESS;
+                        if (count($conds) > 1) {
+                            $rel[] = 'and';
+                        }
+                    }
+                }
+
                 if (!empty($conds)) {
                     $totalNum = UserOrderModel::fetchOrderCount($conds, $vals, $rel);
                     $orderList = UserOrderModel::fetchSomeOrder(

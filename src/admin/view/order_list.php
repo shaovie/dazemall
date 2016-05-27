@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="/asset/js/datetimepicker.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 </head>
 <body class="no-skin">
-<h3 class="header smaller lighter blue">订单管理<span style="margin-left:30px;color:#666;font-size:18px;">订单总数：<?php echo $totalOrderNum?></span><span class="refresh">刷新</span></h3>
+<h3 class="header smaller lighter blue">订单管理<span style="margin-left:30px;color:#666;font-size:18px;">订单总数：<?php echo $totalOrderNum?></span><span style="margin-left:20px;color:red;font-size:12px;"><?php if (!empty($error)){echo $error;}?></span><span class="refresh">刷新</span></h3>
 <form action="/admin/Order/search" method="get" >	
 	<table class="table" border="0" style="width:95%;" align="center">
 		<tbody>
@@ -41,12 +41,9 @@
 				<td style="vertical-align: middle;font-size: 14px;font-weight:bold;">收货人手机：</td>
                 <td width="350"><input name="rePhone" type="text" value="<?php if (isset($search['rePhone'])) {echo $search['rePhone'];}?>"></td>
                 <td>
-                <input type="submit" name="submit" value=" 查 询 " class="btn btn-sm  btn-primary">
-                   <?php if (!empty($error)):?>
-                   <span style="margin-left:20px;color:red;font-size:12px;">
-                   <?php {echo $error;}?>
-                   <?php endif?>
-                   </span>
+                <input type="submit" name="submit" value=" 查 询 " class="btn btn-sm btn-primary">
+                <input type="button" name="undelivery" value="未发货" class="btn btn-sm btn-warning" onclick="searchUndelivery();">
+                <input type="button" name="undelivery" value="今日订单" class="btn btn-sm btn-info" onclick="todayOrder();">
                 </td>
 			</tr>
 		</tbody>
@@ -119,6 +116,7 @@
           <p id="popMore"><a href="/admin/Order/info" target="_blank">查看 »</a></p>
        </div>
     </div>
+    <?php echo $pageHtml;?>
     <!--E-->
     <script>
       $(function(){
@@ -140,6 +138,14 @@
          };
          window.setInterval(request,6000); 
       });
+    function searchUndelivery() {
+        var url = '/admin/Order/search?deliveryState=0';
+        window.location.href = url;
+    }
+    function todayOrder() {
+        var url = '/admin/Order/search?today=1';
+        window.location.href = url;
+    }
     </script>
     <audio id="audio"><source src="/asset/audio/notify.mp3" type="audio/mpeg"></audio>
     </body>
