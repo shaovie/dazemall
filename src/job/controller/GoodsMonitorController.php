@@ -71,8 +71,8 @@ class GoodsMonitorController extends JobController
                     'keyword1' => array('value' => $goods['goods_id'], 'color' => '#173177'),
                     'keyword2' => array('value' => GoodsModel::goodsName($goods['goods_id']),
                         'color' => '#173177'),
-                    'keyword3' => array('value' => $goods['s'], 'color' => '#173177'),
-                    'remark' => array('value' => '商品规格(' $goods['sku_attr']['sku_value'] . ')',
+                    'keyword3' => array('value' => $goods['amount'], 'color' => '#173177'),
+                    'remark' => array('value' => '商品规格(' $goods['sku_attr'] . ':' . $goods['sku_value'] . ')',
                             'color' => '#173177')
                 );
                 AsyncModel::asyncSendTplMsg($wxUserInfo['openid'], $tplMsg, 0);
