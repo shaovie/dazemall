@@ -60,6 +60,19 @@ class SkuAttrModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function findSkuAttrByAttr($attr, $fromDb = 'w')
+    {
+        if (empty($attr)) {
+            return array();
+        }
+        $ret = DB::getDB($fromDb)->fetchOne(
+            'g_sku_attr',
+            '*',
+            array('attr'), array($attr)
+        );
+        return $ret === false ? array() : $ret;
+    }
+
     public static function fetchAllSkuAttr()
     {
         $ret = DB::getDB('r')->fetchAll(

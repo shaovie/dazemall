@@ -101,10 +101,11 @@ class GoodsController extends AdminController
 
     public function addPage()
     {
+        $defaultAttr = '默认';
         $data = array(
             'title' => '新增商品',
             'goods' => array(),
-            'curSkuAttr' => '默认',
+            'curSkuAttr' => $defaultAttr,
             'skuAttrList' => SkuAttrModel::fetchAllSkuAttr(),
             'allSkuValueList' => array(),
             'skuValueList' => array(),

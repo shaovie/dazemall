@@ -145,7 +145,10 @@
                <div class="sku_info" id="skuAttr-radio">
                <?php foreach ($skuAttrList as $skuAttr):?>
                  <label class="radio inline">
-                    <input type="radio" name="sku_radio" sku-id="<?php echo $skuAttr['id']?>" value="<?php echo $skuAttr['attr']?>" onclick="getSkuAttr(this)" <?php if ($skuAttr['attr'] == $curSkuAttr) {echo 'checked="checked"';} if(isset($goods['id'])) {echo 'disabled="disabled;"';} ?>><?php echo $skuAttr['attr']?>
+                    <input type="radio" name="sku_radio" sku-id="<?php echo $skuAttr['id']?>"
+                    value="<?php echo $skuAttr['attr']?>" onclick="getSkuAttr(this)" 
+                     <?php if ($skuAttr['attr'] == $curSkuAttr) {echo 'checked="checked"';}
+                     if(isset($goods['id'])) {echo 'disabled="disabled;"';} ?>><?php echo $skuAttr['attr']?>
                  </label>
                <?php endforeach?>
                </div>
@@ -269,6 +272,8 @@
        $(document).ready(function(){
            if( $('#goodsId').val() > 0) {
               createTable(true, skuValue);
+           } else {
+                $("#skuAttr-radio input[name='sku_radio']:checked").click();
            }
        });
        $('#save-btn').click(function(){
