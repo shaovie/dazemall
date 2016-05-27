@@ -82,7 +82,13 @@ class GoodsController extends AdminController
             }
         } while(false);
 
-        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Goods/search', $searchParams);
+        $pageHtml = $this->pagination(
+            $totalNum,
+            $page,
+            self::ONE_PAGE_SIZE,
+            '/admin/Goods/search',
+            $searchParams
+        );
         $data = array(
             'goodsList' => $goodsList,
             'totalGoodsNum' => $totalNum,

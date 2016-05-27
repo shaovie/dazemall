@@ -559,6 +559,9 @@ create table s_global_config (
 
     free_postage        decimal(10,2) not null default 28.0,        # 免邮费，订单金额
     postage             decimal(10,2) not null default 3.0,         # 邮费
+    kucun_alarm         int unsigned not null default 20,           #
+    kucun_alarm_users   varchar(255) not null default '',           #
+    kucun_alarm_tpl     varchar(255) not null default '',           #
 
     mtime               int not null default 0,                     # 创建时间
     m_user              varchar(31) not null default ''             # 修改人

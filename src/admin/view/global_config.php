@@ -38,6 +38,31 @@
 			</div>
 		</div>
 
+        <br/>
+		<div class="form-group" style="margin-bottom:1px;">
+			<label class="col-sm-2 control-label no-padding-left"> 库存预警：</label>
+        </div>
+		<div class="form-group" style="margin-bottom:5px;">
+			<label class="col-sm-2 control-label no-padding-left"> 阀值：</label>
+			<div class="col-sm-9">
+				<input type="text" id="kucun_alarm" maxlength="100" class="span7" value="<?php if (!empty($info['kucun_alarm'])){echo $info['kucun_alarm'];}?>">
+			</div>
+		</div>
+		<div class="form-group" style="margin-bottom:5px;">
+			<label class="col-sm-2 control-label no-padding-left"> 通知：</label>
+			<div class="col-sm-9">
+				<input type="text" id="kucun_alarm_users" maxlength="100" class="span7" value="<?php if (!empty($info['kucun_alarm_users'])){echo $info['kucun_alarm_users'];}?>">
+                用户编号，多个以英文,分隔。如 23,219
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-left"> 通知模板：</label>
+			<div class="col-sm-9">
+				<input type="text" id="kucun_alarm_tpl" maxlength="100" class="span7" value="<?php if (!empty($info['kucun_alarm_tpl'])){echo $info['kucun_alarm_tpl'];}?>">
+                预警信息会以微信模板消息形式通知
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"></label>
 			<div class="col-sm-9">
@@ -51,7 +76,10 @@
             var url = $("#save-form").attr("action");
             $.post(url,{
                 postage:$("#postage").val(),
-                freePostage:$("#free_postage").val()
+                freePostage:$("#free_postage").val(),
+                kucun_alarm:$("#kucun_alarm").val(),
+                kucun_alarm_users:$("#kucun_alarm_users").val(),
+                kucun_alarm_tpl:$("#kucun_alarm_tpl").val()
                 },function(data){
                 if(data.code==0) {
                     alert(data.msg);

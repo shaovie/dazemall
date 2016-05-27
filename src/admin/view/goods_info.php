@@ -68,14 +68,14 @@
 		
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left"> 销售价：</label>
+			<label class="col-sm-2 control-label no-padding-left"> 市场售价：</label>
 			<div class="col-sm-9">
 				<input type="number" name="marketPrice" id="marketprice" value="<?php if (isset($goods['market_price'])){echo $goods['market_price'];}?>">&nbsp;元
 			</div>
 		</div>
 				
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left"> 市场售价：</label>
+			<label class="col-sm-2 control-label no-padding-left"> 实际销售价：</label>
 			<div class="col-sm-9">
 				<input type="number" name="salePrice" id="saleprice" value="<?php if (isset($goods['sale_price'])){echo $goods['sale_price'];}?>">&nbsp;元
 			</div>

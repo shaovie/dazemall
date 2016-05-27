@@ -27,8 +27,11 @@ class GlobalConfigController extends AdminController
     {
         $freePostage = floatval($this->postParam('freePostage', ''));
         $postage = floatval($this->postParam('postage', ''));
+        $kucunAlarm = intval($this->postParam('kucun_alarm', 0));
+        $kucunAlarmUsers = trim($this->postParam('kucun_alarm_users', ''));
+        $kucunAlarmTpl = trim($this->postParam('kucun_alarm_tpl', ''));
 
-        if ($freePostage < 0.0 || $postage < 0.0) {
+        if ($freePostage < 0.0 || $postage < 0.0 || $kucunAlarm < 0) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '数据无效');
             return ;
         }
@@ -41,6 +44,9 @@ class GlobalConfigController extends AdminController
         $updateData = array(
             'free_postage' => $freePostage,
             'postage' => $postage,
+            'kucun_alarm' => $kucunAlarm,
+            'kucun_alarm_users' => $kucunAlarmUsers,
+            'kucun_alarm_tpl' => $kucunAlarmTpl,
         );
         GlobalConfigModel::update($updateData);
 
