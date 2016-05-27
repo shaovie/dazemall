@@ -24,9 +24,10 @@ class GoodsMonitorController extends JobController
             . ' group by goods_id having s<=0';
         $goodsList = DB::getDB('r')->rawQuery($sql);
         if (!empty($goodsList)) {
-        foreach ($goodsList as $goods) {
-            $nk = Nosql::NK_GOODS_SOLD_OUT . $goods['goods_id'];
-            Nosql::setEx($nk, Nosql::NK_GOODS_SOLD_OUT_EXPIRE, '0');
+            foreach ($goodsList as $goods) {
+                $nk = Nosql::NK_GOODS_SOLD_OUT . $goods['goods_id'];
+                Nosql::setEx($nk, Nosql::NK_GOODS_SOLD_OUT_EXPIRE, '0');
+            }
         }
 
         $cfg = GlobalConfigModel::getConfig();
