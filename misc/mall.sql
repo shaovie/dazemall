@@ -316,7 +316,7 @@ create table g_category (
     category_id         int unsigned not null default 0,            # 品类ID
     sort                int not null default 0,                     # 顺序
     name                varchar(255) not null default '',           # 品类名
-    image_url           varchar(255) not null default '',           # 图标
+    state               tinyint not null default 0,                 # sku状态 0:有效 1:无效
 
     ctime               int not null default 0,                     # 创建时间
     mtime               int not null default 0,                     # 修改时间
