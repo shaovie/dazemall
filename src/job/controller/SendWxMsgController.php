@@ -60,12 +60,16 @@ class SendWxMsgController extends JobController
         $beginTime = time();
 
         do {
+            $now = time();
+            $size = intval(Nosql::lSize($nk));
+            $n = 0;
             do {
                 $rawMsg = Nosql::lPop($nk);
                 if ($rawMsg === false
                     || !isset($rawMsg[0])) {
                     break;
                 }
+                $n++;
                 $data = json_decode($rawMsg, true);
                 $ret = $this->processMsg($data);
                 if ($ret === false) {
@@ -101,6 +105,7 @@ class SendWxMsgController extends JobController
     private function sendTplMsg($data)
     {
         $msg = json_encode($data, JSON_UNESCAPED_UNICODE);
+        Log::rinfo('xx' . $msg);
         return WxSDK::sendTplMsg($msg);
     }
 

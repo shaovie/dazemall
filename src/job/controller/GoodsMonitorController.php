@@ -58,12 +58,12 @@ class GoodsMonitorController extends JobController
                 $tplMsg['topcolor'] = '#FF0000';
                 $tplMsg['data'] = array(
                     'first'    => array('value' => '有1件商品的库存数量低于' . $cfg['kucun_alarm']
-                        . '件，请及时补充库存\n\n', 'color' => '#173177'),
+                        . "件，请及时补充库存\n", 'color' => '#173177'),
                     'keyword1' => array('value' => $goods['goods_id'], 'color' => '#173177'),
                     'keyword2' => array('value' => GoodsModel::goodsName($goods['goods_id']),
                         'color' => '#173177'),
                     'keyword3' => array('value' => $goods['s'], 'color' => '#173177'),
-                    'remark' => array('value' => "\n\n请您及时付款以免过期，前往支付>>", 'color' => '#173177')
+                    'remark' => array('value' => '', 'color' => '#173177')
                 );
                 AsyncModel::asyncSendTplMsg($wxUserInfo['openid'], $tplMsg, 0);
             }

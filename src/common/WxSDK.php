@@ -255,7 +255,7 @@ class WxSDK
     // send template message
     public static function sendTplMsg($msg/*raw json*/)
     {
-        if (empty($openid) || empty($msg)) {
+        if (empty($msg)) {
             return true;
         }
         $accessToken = self::getAccessToken();
