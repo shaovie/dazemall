@@ -62,6 +62,10 @@ class GoodsCategoryController extends AdminController
     public function addPage()
     {
         $parentId = $this->getParam('parentId', 0);
+        if (GoodsCategoryModel::calcLevel($parentId) == 2) {
+            echo "不能再添加子分类";
+            return ;
+        }
         $data = array(
             'title' => '新建分类',
             'parentId' => $parentId,
@@ -79,7 +83,8 @@ class GoodsCategoryController extends AdminController
             $this->ajaxReturn(ERR_PARAMS_ERROR, $error);
             return ;
         }
-        if ($catInfo['parentId'] % 1000 != 0) {
+        if ($catInfo['parentId'] % 1000 != 0
+            || GoodsCategoryModel::calcLevel($catInfo['parentId']) == 2) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '不能添加子类');
             return ;
         }
