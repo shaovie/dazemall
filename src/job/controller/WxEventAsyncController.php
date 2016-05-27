@@ -17,7 +17,7 @@ class WxEventAsyncController extends JobController
 {
     const ASYNC_WX_EVENT_QUEUE_SIZE = 2;
 
-    public function send()
+    public function process()
     {
         $this->spawnTask(self::ASYNC_WX_EVENT_QUEUE_SIZE);
     }
