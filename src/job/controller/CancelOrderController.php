@@ -21,7 +21,7 @@ class CancelOrderController extends JobController
     public function patrolCancelOrder()
     {
         if (date('H:i') != '05:30')
-            ;//return ;
+            return ;
 
         $orderList = UserOrderModel::fetchSomeOrder(
             array('ctime<', 'pay_state', 'order_state'),
