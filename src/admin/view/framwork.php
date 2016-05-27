@@ -6,24 +6,24 @@
 	<title>大泽商城后台管理系统</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
-    <link href="/asset/css/bootstrap.min.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome.min.css">
-    <script type="text/javascript" src="/asset/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="/asset/js/bootstrap.min.js"></script>
+    <link href="/asset/css/bootstrap.min.css<?php echo '?v=' . ASSETS_VERSION;?>" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome.min.css<?php echo '?v=' . ASSETS_VERSION;?>">
+    <script type="text/javascript" src="/asset/js/jquery-1.10.2.min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+    <script type="text/javascript" src="/asset/js/bootstrap.min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 
-    <script src="/asset/js/ace-elements.min.js"></script>
-    <script src="/asset/js/ace.min.js"></script>
-	<link rel="stylesheet" href="/asset/css/ace.min.css">
-    <link rel="stylesheet" href="/asset/css/ace-rtl.min.css">
-    <link rel="stylesheet" href="/asset/css/ace-skins.min.css">
-	<link type="text/css" rel="stylesheet" href="/asset/css/default.css">
+    <script src="/asset/js/ace-elements.min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+    <script src="/asset/js/ace.min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+	<link rel="stylesheet" href="/asset/css/ace.min.css<?php echo '?v=' . ASSETS_VERSION;?>">
+    <link rel="stylesheet" href="/asset/css/ace-rtl.min.css<?php echo '?v=' . ASSETS_VERSION;?>">
+    <link rel="stylesheet" href="/asset/css/ace-skins.min.css<?php echo '?v=' . ASSETS_VERSION;?>">
+	<link type="text/css" rel="stylesheet" href="/asset/css/default.css<?php echo '?v=' . ASSETS_VERSION;?>">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="/asset/css/ace-ie.min.css" />
+    <link rel="stylesheet" href="/asset/css/ace-ie.min.css<?php echo '?v=' . ASSETS_VERSION;?>" />
     <![endif]-->
     <!-- ace settings handler -->
-    <script src="/asset/js/ace-extra.min.js"></script>
+    <script src="/asset/js/ace-extra.min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
     <!--[if IE 7]>
-    <link rel="stylesheet" href="/asset/css/font-awesome-ie7.min.css">
+    <link rel="stylesheet" href="/asset/css/font-awesome-ie7.min.css<?php echo '?v=' . ASSETS_VERSION;?>">
     <![endif]-->
     <style>body{background-color: #F8FAFC;}</style>
     <script type="text/javascript">

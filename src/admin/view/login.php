@@ -6,9 +6,9 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<!--<link rel="shortcut icon" href="http://localhost/favicon.ico" type="image/x-icon">-->
-	<link rel="stylesheet" href="/asset/css/component-min.css">
-	<link rel="stylesheet" href="/asset/css/jbox-min.css">
-	<link rel="stylesheet" href="/asset/css/common_login_reg.css">
+	<link rel="stylesheet" href="/asset/css/component-min.css<?php echo '?v=' . ASSETS_VERSION;?>">
+	<link rel="stylesheet" href="/asset/css/jbox-min.css<?php echo '?v=' . ASSETS_VERSION;?>">
+	<link rel="stylesheet" href="/asset/css/common_login_reg.css<?php echo '?v=' . ASSETS_VERSION;?>">
 </head>
 <body>
 	<form method="post" target="_parent" name="login" id="login-form" action="/admin/Login/in">
@@ -39,11 +39,11 @@
 		<span class="tooltips-arrow tooltips-arrow-left"><em>◆</em><i>◆</i></span>
 		<span class="tooltips-content">请输入密码</span>
 	</div>
-	<script src="/asset/js/lib-min.js"></script>
-	<script src="/asset/js/jquery.jbox-min.js"></script>
-	<script src="/asset/js/common_login_reg.js"></script>
+	<script src="/asset/js/lib-min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+	<script src="/asset/js/jquery.jbox-min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+	<script src="/asset/js/common_login_reg.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 	<!--[if lt IE 10]>
-		<script src="asset/js/jquery.placeholder-min.js"></script>
+		<script src="asset/js/jquery.placeholder-min.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 		<script>
 		$(function(){
 			//修复IE下的placeholder
