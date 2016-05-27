@@ -6,14 +6,14 @@
 
 -- md5 len = 32
 
---\ 表名前缀说明
+-- 表名前缀说明
 -- u: 用户相关的表
 -- o: 订单相关的表
 -- g: 商品相关的表
 -- s: 系统全局的表
 -- b: 运营后台的表
 
------------------------------------用户相关-----------------------------------
+-- ---------------------------------用户相关-----------------------------------
 -- 用户基本信息表
 drop table if exists u_user;
 create table u_user (
@@ -176,7 +176,7 @@ create table u_bill (
     index idx_user_id_bill_type(`user_id`, `bill_type`)
 )engine=InnoDB default charset=utf8;
 
------------------------------------订单相关-----------------------------------
+-- ---------------------------------订单相关-----------------------------------
 -- 订单基础表
 drop table if exists o_order;
 create table o_order (
@@ -262,7 +262,7 @@ create table o_order_goods (
     index idx_order_id(`order_id`)
 )engine=InnoDB default charset=utf8;
 
------------------------------------商品相关表-----------------------------------
+-- ---------------------------------商品相关表-----------------------------------
 -- 商品表
 drop table if exists g_goods;
 create table g_goods (
@@ -438,7 +438,7 @@ create table g_goods_comment_like (
     index idx_comment_id_user_id(`comment_id`, `user_id`)
 )engine=InnoDB default charset=utf8;
 
------------------------------------营销工具类表-----------------------------------
+-- --------------------------------营销工具类表-----------------------------------
 -- 营销活动信息表
 drop table if exists m_activity;
 create table m_activity (
@@ -553,7 +553,7 @@ create table m_goods_module_glist (
     index idx_module_id_goods_id(`module_id`, `goods_id`)
 )engine=InnoDB default charset=utf8;
 
------------------------------------全局配置表---------------------------------
+-- --------------------------------全局配置表---------------------------------
 drop table if exists s_global_config;
 create table s_global_config (
 
@@ -566,7 +566,7 @@ create table s_global_config (
 )engine=InnoDB default charset=utf8;
 insert into s_global_config values();
 
------------------------------------后台相关-----------------------------------
+-- --------------------------------后台相关-----------------------------------
 drop table if exists b_employee;
 create table b_employee(
     id                  int unsigned not null auto_increment,
@@ -584,7 +584,7 @@ create table b_employee(
     index idx_account(`account`),
     index idx_phone(`phone`)
 )engine=InnoDB default charset=utf8;
-insert into b_employee(account,passwd,name,phone,ctime)values('admin',md5('dazeadmin'),'管理员','13800138000',1,unix_timestamp());
+insert into b_employee(account,passwd,name,phone,state,ctime)values('admin',md5('dazeadmin'),'管理员','13800138000',1,unix_timestamp());
 
 drop table if exists b_deliveryman;
 create table b_deliveryman(
