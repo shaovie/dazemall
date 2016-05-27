@@ -73,5 +73,5 @@ const ERR_SYSTEM_BUSY           = 105; // 系统繁忙
 const ERR_OPT_FAIL              = 106; // 操作失败
 const ERR_NOT_LOGIN             = 107; // 未登录或未注册
 
-const ASSETS_VERSION            = 107; // 未登录或未注册
+const ASSETS_VERSION            = 1;
 
