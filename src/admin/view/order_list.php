@@ -137,7 +137,7 @@
            });
          };
          window.setInterval(request,6000); 
-      });
+    });
     function searchUndelivery() {
         var url = '/admin/Order/search?deliveryState=0';
         window.location.href = url;
