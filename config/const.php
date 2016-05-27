@@ -30,7 +30,7 @@ define('SELF_IP',               $_SERVER['SELF_IP']);
 
 //= for assets
 define('ASSETS_USE_CDN', isset($_SERVER['ASSETS_USE_CDN']) ? (int)($_SERVER['ASSETS_USE_CDN']) == 1 : false);
-const ASSETS_CDN_DOMAIN         = 'cdn.taojinzi.com';
+const ASSETS_CDN_DOMAIN         = 'cdn.dazemall.com';
 
 //= for mysql
 // dsn=mysql:host=127.0.0.1;port=3306;dbname=user;charset=utf8
