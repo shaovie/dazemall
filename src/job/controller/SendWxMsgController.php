@@ -13,7 +13,7 @@ use \src\job\model\AsyncModel;
 
 class SendWxMsgController extends JobController
 {
-    const ASYNC_SEND_WX_MSG_QUEUE_SIZE = 4;
+    const ASYNC_SEND_WX_MSG_QUEUE_SIZE = 2;
 
     // 即时发送
     public function send()
