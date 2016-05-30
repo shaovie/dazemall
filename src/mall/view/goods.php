@@ -52,22 +52,22 @@
 		<ul class="tj-types dib-wrap">
 			<li class="dib">
 				<a>
-					<i class="icon icon-by"></i><label>全场包邮</label>
+					<i class="icon icon-by"></i><label>快速到货</label>
 				</a>
 			</li>
 			<li class="dib">
 				<a>
-					<i class="icon icon-js"></i><label>极速到货</label>
+					<i class="icon icon-js"></i><label>源头正品</label>
 				</a>
 			</li>
 			<li class="dib">
 				<a>
-					<i class="icon icon-bt"></i><label>淘金补贴</label>
+					<i class="icon icon-bt"></i><label>坏件必赔</label>
 				</a>
 			</li>
 			<li class="dib">
 				<a>
-					<i class="icon icon-zp"></i><label>正品保证</label>
+					<i class="icon icon-zp"></i><label>全城最惠</label>
 				</a>
 			</li>
 		</ul>
