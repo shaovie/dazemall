@@ -127,5 +127,12 @@
         src\common\JsCssLoader::outJs('index-new/index');
     ?>
     <script type="text/javascript">require('index-new/index');</script>
+
+    <?php 
+        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+        $rnd = mt_rand(1, 2147483647);
+        $url = "http://c.cnzz.com/wapstat.php?siteid=1259357091&r=$referer&rnd=$rnd";
+        echo '<img src="' . $url . '" width="0" height="0"/>';
+    ?>
 </body>
 </html>
