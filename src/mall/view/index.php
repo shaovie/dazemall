@@ -28,57 +28,47 @@
         <!-- <div class="festival-line"></div> -->
         <ul class="tj-types">
             <li>
-                <a href="/mall/Category/index?catId=100004000">
-                    <i class="icon"></i><label>食品</label>
+                <a href="/mall/Category/index?catId=100000000">
+                    <i class="icon"></i><label>生鲜到家</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=100003000">
-                    <i class="icon"></i><label>美妆</label>
+                <a href="/mall/Category/index?catId=101000000">
+                    <i class="icon"></i><label>鲜果到家</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=0">
-                    <i class="icon"></i><label>保健</label>
+                <a href="/mall/Category/index?catId=102000000">
+                    <i class="icon"></i><label>零食百货</label>
                 </a>
             </li>
             <li>
-                <a>
-                    <i class="icon"></i><label>其它</label>
+                <a href="/mall/Category/index?catId=103000000">
+                    <i class="icon"></i><label>海鲜肉类</label>
                 </a>
             </li>
-            <!-- <li>
-                <a>
-                    <i class="icon"></i><label>居家</label>
-                </a>
-            </li> -->
         </ul>
         <ul class="tj-types2">
             <li>
-                <a href="/mall/Category/index?catId=100004000">
-                    <i class="icon"></i><label>食品</label>
+                <a href="/mall/Category/index?catId=104000000">
+                    <i class="icon"></i><label>牛奶饮品</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=100003000">
-                    <i class="icon"></i><label>美妆</label>
+                <a href="/mall/Category/index?catId=105000000">
+                    <i class="icon"></i><label>粮油副食</label>
+                </a>
+            </li>
+            <li>
+                <a href="/mall/Category/index?catId=106000000">
+                    <i class="icon"></i><label>清洁护理</label>
                 </a>
             </li>
             <li>
                 <a href="/mall/Category/index?catId=0">
-                    <i class="icon"></i><label>保健</label>
+                    <i class="icon"></i><label>全部</label>
                 </a>
             </li>
-            <li>
-                <a>
-                    <i class="icon"></i><label>母婴</label>
-                </a>
-            </li>
-            <!-- <li>
-                <a>
-                    <i class="icon"></i><label>居家</label>
-                </a>
-            </li> -->
         </ul>
     </section>
     <?php if (!empty($goodsModuleList)):?>
