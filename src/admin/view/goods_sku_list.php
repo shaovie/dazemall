@@ -20,6 +20,8 @@
     <!--[if IE 7]>
     <link rel="stylesheet" href="/asset/css/fontawesome3/css/font-awesome-ie7.min.css<?php echo '?v=' . ASSETS_VERSION;?>">
     <![endif]-->
+	<link type="text/css" rel="stylesheet" href="/asset/css/datetimepicker.css<?php echo '?v=' . ASSETS_VERSION;?>">
+	<script type="text/javascript" src="/asset/js/datetimepicker.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 	<script type="text/javascript" src="/asset/js/goods.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 </head>
 <body class="no-skin">
@@ -139,6 +141,14 @@
 	<!-- END -->
 	</form>
 	<script>
+        $(document).ready(function(){
+           $('#mpBeginTimeV,#mpEndTimeV').datetimepicker({
+              format: "yyyy-mm-dd hh:ii:00",
+              minView: "0",
+              //pickerPosition: "top-right",
+              autoclose: true
+            });
+        });
         function modifyGoodsInfo(id, goodsId, e, type) {
             if (type == 1) {
                 var title = '库存';

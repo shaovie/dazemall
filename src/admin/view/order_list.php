@@ -119,6 +119,14 @@
     <?php echo $pageHtml;?>
     <!--E-->
     <script>
+        $(document).ready(function(){
+           $('#beginTime,#endTime').datetimepicker({
+              format: "yyyy-mm-dd hh:ii:00",
+              minView: "0",
+              //pickerPosition: "top-right",
+              autoclose: true
+            });
+        });
       $(function(){
          function showDiv(orderId) {
              $('#popMore a').attr('href', '/admin/Order/info?orderId=' + orderId);
