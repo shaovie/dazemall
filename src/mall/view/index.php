@@ -44,12 +44,34 @@
             </li>
             <li>
                 <a>
-                    <i class="icon"></i><label>母婴</label>
+                    <i class="icon"></i><label>其它</label>
+                </a>
+            </li>
+            <!-- <li>
+                <a>
+                    <i class="icon"></i><label>居家</label>
+                </a>
+            </li> -->
+        </ul>
+        <ul class="tj-types2">
+            <li>
+                <a href="/mall/Category/index?catId=100004000">
+                    <i class="icon"></i><label>食品</label>
+                </a>
+            </li>
+            <li>
+                <a href="/mall/Category/index?catId=100003000">
+                    <i class="icon"></i><label>美妆</label>
+                </a>
+            </li>
+            <li>
+                <a href="/mall/Category/index?catId=0">
+                    <i class="icon"></i><label>保健</label>
                 </a>
             </li>
             <li>
                 <a>
-                    <i class="icon"></i><label>其它</label>
+                    <i class="icon"></i><label>母婴</label>
                 </a>
             </li>
             <!-- <li>

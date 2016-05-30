@@ -25,7 +25,7 @@
 <body class="no-skin">
     <input id="goodsId" name="goodsId" type="hidden" value="<?php echo (isset($goods['id']) ? $goods['id'] : 0);?>"/>
     <input type="hidden" id="J-ajaxurl-addCart" value="/api/Cart/add" />
-    <input type="hidden" id="J-ajaxurl-quickBuy" value="/api/Order/immediateBuy" />
+    <input type="hidden" id="J-ajaxurl-quickBuy" value="/mall/Pay/quickBuy" />
     <input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
 	<h3 class="header smaller lighter blue"><?php echo $title?></h3>
 	<form action="<?php echo $action?>" method="post" enctype="multipart/form-data" class="form-horizontal" role="form" id="save-form">

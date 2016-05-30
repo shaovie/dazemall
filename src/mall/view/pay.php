@@ -96,7 +96,7 @@
 	</ul>
 </section>
 <ul class="money-list">
-	<li id="J-money-last" <?php if (empty($orderInfo)) {echo 'class="usable"';}?> >
+	<li id="J-money-last" <?php  echo (empty($orderInfo) ? 'class="usable"' : 'class="disabled"');?> >
 		<label>余额</label>
 		<div class="col-r">
 			<span class="price"><i>&yen;</i><b><?php echo $cash; ?></b></span>
@@ -121,14 +121,15 @@
 		<span class="price"><i>&yen;</i><b><?php echo number_format($orderAmount-$postage, 2, '.', ''); ?></b></span>
 		<span>+</span>
 		<span class="price"><i>&yen;</i><b><?php echo $postage; ?></b></span>运费
+        <!--
 		<span id="J-minus-ticket">
 			<span>-</span>
-			<span class="price"><i>&yen;</i><b></b></span>优惠券
+			<span class="price"><i>&yen;</i><b>0.00</b></span>优惠券
 		</span>
 		<span id="J-minus-content">
 			<span>-</span>
-			<span class="price"><i>&yen;</i><b><?php echo $cash?></b></span>余额
-		</span>
+			<span class="price"><i>&yen;</i><b>0.00</b></span>余额
+		</span> -->
 	</div>
 	<div class="result">
     <span >需付</span>：
@@ -136,7 +137,7 @@
     <b ><?php echo $toPayAmount;?></b></span>
     </div>
 </section>
-<div class="error-tip">为避免订单失效，建议您在<b>30分钟</b>内完成支付</div>
+<div class="error-tip">为避免订单失效，建议您在<b><?php echo $payLastTime;?>分钟</b>内完成支付</div>
 <footer>
     <a class="J-pay-btn btnl btnl-yue" type="0">余额安全支付</a>
     <a class="J-pay-btn btnl btnl-wx" type="2">微信安全支付</a>

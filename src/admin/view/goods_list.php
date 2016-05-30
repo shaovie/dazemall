@@ -49,13 +49,13 @@
 	<table class="table table-striped table-bordered table-hover">
 		<tbody>
 		<tr>
-			<th class="text-center" style="width:100px;">主图</th>
+			<th class="text-center" style="width:80px;">主图</th>
 			<th class="text-center" style="width:250px;">商品</th>
-			<th class="text-center" style="width:250px;">品类</th>
-			<th class="text-center" style="width:140px;">价格</th>
-			<th class="text-center" style="width:260px;">时间</th>
-			<th class="text-center" style="width:200px;">状态</th>
-			<th class="text-center" style="width:100px;">排序</th>
+			<th class="text-center" style="width:200px;">品类</th>
+			<th class="text-center" style="width:120px;">价格</th>
+			<th class="text-center" style="width:200px;">时间</th>
+			<th class="text-center" style="width:150px;">状态</th>
+			<th class="text-center" style="width:60px;">排序</th>
 			<th class="text-center">操作</th>
 		</tr>
         <?php foreach ($goodsList as $goods):?>
@@ -75,7 +75,7 @@
                 <div>销售价：<?php echo $goods['sale_price']?></div>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
-				<div>创建时间：<?php echo date('Y-m-d H:i:s', $goods['ctime'])?></div>
+				<div>创建：<?php echo date('Y-m-d H:i:s', $goods['ctime'])?></div>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
                 <div>上架状态：<?php echo $goods['state']?></div>

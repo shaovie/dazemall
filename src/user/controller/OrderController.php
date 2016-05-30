@@ -8,6 +8,7 @@ namespace src\user\controller;
 
 use \src\common\Util;
 use \src\common\Check;
+use \src\common\Log;
 use \src\user\model\UserModel;
 use \src\mall\model\OrderGoodsModel;
 use \src\user\model\UserOrderModel;
@@ -55,7 +56,6 @@ class OrderController extends UserController
             5
         );
         $data = $this->fillOrderList($orderList);
-        UserOrderModel::cancelOrder($this->userId(), '01160524070227934');
         $data['isToTakeDelivery'] = true;
         $this->display('order_list', $data);
     }
@@ -211,9 +211,9 @@ class OrderController extends UserController
             $val['orderState'] = $order['order_state'];
             $val['orderStateDesc'] = '创建成功';
             if ($order['order_state'] == UserOrderModel::ORDER_ST_FINISHED)
-                $val['orderStateDesc'] = '完成';
+                $val['orderStateDesc'] = '已完成';
             else if ($order['order_state'] == UserOrderModel::ORDER_ST_CANCELED)
-                $val['orderStateDesc'] = '取消';
+                $val['orderStateDesc'] = '已取消';
             $orderList[] = $val;
         }
         $data = array(

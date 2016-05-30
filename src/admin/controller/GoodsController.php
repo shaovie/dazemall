@@ -15,6 +15,7 @@ use \src\mall\model\SkuAttrModel;
 use \src\mall\model\SkuValueModel;
 use \src\mall\model\GoodsDetailModel;
 use \src\mall\model\GoodsCategoryModel;
+use \src\mall\model\TimingMPriceModel;
 
 class GoodsController extends AdminController
 {
@@ -78,7 +79,8 @@ class GoodsController extends AdminController
             } else {
                 if ($state >= 0)
                     $totalNum = GoodsModel::fetchGoodsCount(array('state'), array($state), false);
-                    $goodsList = GoodsModel::fetchSomeGoods(array('state'), array($state), false, $page, self::ONE_PAGE_SIZE);
+                    $goodsList = GoodsModel::fetchSomeGoods(array('state'),
+                        array($state), false, $page, self::ONE_PAGE_SIZE);
             }
         } while(false);
 
@@ -217,13 +219,18 @@ class GoodsController extends AdminController
     {
         $goodsId = intval($this->getParam('goodsId', 0));
         $skuList = GoodsSKUModel::fetchAllSKUInfo($goodsId); 
+        $mpList = array();
         foreach ($skuList as &$sku) {
             $sku['sku'] = $sku['sku_attr'] . '：' . $sku['sku_value'];
             $sku['sale_price'] = number_format($sku['sale_price'], 2, '.', '');
+            $mpriceInfo = TimingMPriceModel::getInfo($sku['id']);
+            $mpList[] = $mpriceInfo;
         }
         $data = array(
+            'goodsName' => GoodsModel::goodsName($goodsId),
             'goodsId' => $goodsId,
             'skuList' => $skuList,
+            'mpList' => $mpList,
         );
         $this->display('goods_sku_list', $data);
     }
@@ -237,7 +244,7 @@ class GoodsController extends AdminController
             $this->ajaxReturn(0, '', '/admin/Goods/skuPage?goodsId=' . $goodsId);
             return ;
         }
-        $this->ajaxReturn(0, '不能改成负数', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+        $this->ajaxReturn(ERR_PARAMS_ERROR, '不能改成负数');
     }
     
     public function modifySalePrice()
@@ -245,12 +252,60 @@ class GoodsController extends AdminController
         $id = intval($this->postParam('id', 0));
         $goodsId = intval($this->postParam('goodsId', 0));
         $price = floatval($this->postParam('price', 0));
+        $synchShowPrice = intval($this->postParam('synchShowPrice', 0));
         if ($price >= 0) {
             GoodsSKUModel::setSalePrice($id, $goodsId, $price, $this->account);
+            if ($synchShowPrice) {
+                GoodsModel::updateGoodsInfo($goodsId, array('sale_price' => $price));
+            }
             $this->ajaxReturn(0, '', '/admin/Goods/skuPage?goodsId=' . $goodsId);
             return ;
         }
-        $this->ajaxReturn(0, '价格不正确', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+        $this->ajaxReturn(ERR_PARAMS_ERROR, '价格不正确');
+    }
+
+    public function modifyTimingMPrice()
+    {
+        $skuId = intval($this->postParam('skuId', 0));
+        $goodsId = intval($this->postParam('goodsId', 0));
+        $mpriceId = intval($this->postParam('mpriceId', 0));
+        $mpBeginTime = trim($this->postParam('mpBeginTime', ''));
+        $mpEndTime = trim($this->postParam('mpEndTime', ''));
+        $mpToPrice = floatval($this->postParam('mpToPrice', 0.0));
+        $setState = intval($this->postParam('setstate', 0));
+        $synchShowPrice = intval($this->postParam('synchShowPrice', 0));
+
+        $beginTime = strtotime($mpBeginTime);
+        $endTime = strtotime($mpEndTime);
+        if ($beginTime == false || $endTime == false || $beginTime >= $endTime) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '时间格式不对');
+            return ;
+        }
+        if ($endTime <= CURRENT_TIME) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '结束时间不能小于当前时间');
+            return ;
+        }
+        if ($mpToPrice <= 0.001 || (int)($mpToPrice * 100) == 0) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '价格不能为0或负数');
+            return ;
+        }
+        if ($mpriceId == 0) {
+            TimingMPriceModel::newOne($skuId, $beginTime, $endTime, $mpToPrice, $synchShowPrice);
+            $this->ajaxReturn(0, '', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+            return ;
+        }
+
+        $updateData = array(
+            'begin_time' => $beginTime,
+            'end_time' => $endTime,
+            'to_price' => $mpToPrice,
+            'synch_sale_price' => $synchShowPrice,
+        );
+        if ($setState) {
+            $updateData['state'] = 0;
+        }
+        TimingMPriceModel::update($mpriceId, $skuId, $updateData);
+        $this->ajaxReturn(0, '操作成功', '/admin/Goods/skuPage?goodsId=' . $goodsId);
     }
 
     private function fetchFormParams(&$goodsInfo, &$error)

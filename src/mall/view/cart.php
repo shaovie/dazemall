@@ -51,7 +51,7 @@
 					<input class="J-price" type="hidden" value="<?php echo $cart['salePrice']?>"/>
 					<input type="hidden" class="J-id" value="<?php echo $cart['id']?>">
 					<input type="hidden" class="J-checkbox-val" name="cartId[]"  value="<?php echo $cart['id']?>">
-					<div class="radio warning"><i class="icon-radio"></i></div>
+					<div class="radio"><i class="icon-radio"></i></div>
 					<a href="/mall/Goods/detail?goodsId=<?php echo $cart['goodsId']?>">
 						<div class="img-content">
                         <?php if (false):?>

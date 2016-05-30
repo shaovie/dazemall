@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="/asset/js/goods.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 </head>
 <body class="no-skin">
-    <h3 class="header smaller lighter blue"><span style="margin-right:20px">库存管理</span></h3>
+    <h3 class="header smaller lighter blue"><span style="margin-right:20px">库存管理</span><span><?php echo $goodsName?></span><span class="refresh">刷新</span></h3>
     <input id="goodsId" name="goodsId" type="hidden" value="<?php echo $goodsId;?>"/>
 	<form action="" class="form-horizontal" method="post" onsubmit="return formcheck(this)">
 		<table class="table table-striped table-bordered table-hover">
@@ -32,22 +32,38 @@
 					<th class="text-center" style="width:80px;">商品SKU</th>
 					<th class="text-center" style="width:50px;">价格</th>
 					<th class="text-center" style="width:50px;">现有库存</th>
+					<th class="text-center" style="width:120px;">定时调价</th>
 					<th class="text-center" style="width:80px;">修改人</th>
 					<th class="text-center" style="width:80px;">修改时间</th>
 					<th class="text-center" style="width:80px;">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-            <?php foreach ($skuList as $item):?>
+            <?php foreach ($skuList as $idx => $item):?>
 			<tr>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['sku']?></td>
 				<td style="text-align:center;vertical-align:middle;" class="sale_price"><?php echo $item['sale_price']?></td>
 				<td style="text-align:center;vertical-align:middle;" class="amount"><?php echo $item['amount']?></td>
+				<td style="text-align:left;vertical-align:middle;" class="modify_price">
+                <div>周期：<?php echo (empty($mpList[$idx]['begin_time']) ? '' : date('Y-m-d H:i:s', $mpList[$idx]['begin_time']))
+                . ' - '
+                . (empty($mpList[$idx]['end_time']) ? '' : date('Y-m-d H:i:s', $mpList[$idx]['end_time']))?></div>
+                <div>调成：<?php echo empty($mpList[$idx]['to_price']) ? '' : $mpList[$idx]['to_price']?></div>
+                <div>状态：<?php $st = array('未开始','调整成功','已恢复');echo !isset($mpList[$idx]['state']) ? '' : $st[$mpList[$idx]['state']]?></div>
+                </td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['m_user']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo date('Y-m-d H:i:s', $item['mtime'])?></td>
 				<td style="text-align:center;vertical-align:middle;">
 					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 1)" >修改库存</button>
 					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 2)" >修改价格</button>
+					<button type="button" class="btn btn-danger span2" onclick="timeingModifyPrice(<?php echo $item['id']?>,
+                    <?php echo empty($mpList[$idx]['state']) ? 0 :$mpList[$idx]['state']?>,
+                    <?php echo empty($mpList[$idx]['synch_sale_price']) ? 0 :$mpList[$idx]['synch_sale_price']?>,
+                    <?php echo $item['goods_id']?>,
+                    <?php echo empty($mpList[$idx]['id']) ? 0 :$mpList[$idx]['id']?>,
+                    <?php echo empty($mpList[$idx]['begin_time']) ? 0 : ("'" . date('Y-m-d H:i:s', $mpList[$idx]['begin_time']) . "'")?>,
+                    <?php echo empty($mpList[$idx]['end_time']) ? 0 : ("'" . date('Y-m-d H:i:s', $mpList[$idx]['end_time']) . "'")?>,
+                    <?php echo empty($mpList[$idx]['to_price']) ? 0 : $mpList[$idx]['to_price']?>, this)" >定时调价</button>
 				</td>
 			</tr>
             <?php endforeach?>
@@ -63,15 +79,55 @@
 				<h4 class="modal-title">修改库存</h4>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
+				<div class="form-group" id="kucunAndPrice">
 					<label class="col-sm-2 control-label no-padding-left"> 库存：</label>
 					<div class="col-sm-9">
 						<input type="text" name="newValue" id="newValue" class="span5">
 					</div>
-				</div>      	
+				</div>
+				<div class="form-group" id="mpBeginTime">
+					<label class="col-sm-2 control-label no-padding-left">开始时间：</label>
+					<div class="col-sm-9">
+						<input type="text" name="mpBeginTimeV" id="mpBeginTimeV" class="span5">
+                        格式：2016-05-27 18:13:24
+					</div>
+				</div>
+				<div class="form-group" id="mpEndTime">
+					<label class="col-sm-2 control-label no-padding-left">结束时间：</label>
+					<div class="col-sm-9">
+						<input type="text" name="mpEndTimeV" id="mpEndTimeV" class="span5">
+                        格式：2016-05-27 18:13:24
+					</div>
+				</div>
+				<div class="form-group" id="mpToPrice">
+					<label class="col-sm-2 control-label no-padding-left">调整价格：</label>
+					<div class="col-sm-9">
+						<input type="text" name="mpToPriceV" id="mpToPriceV" class="span5">
+                        <p style="margin-top:10px;"><span style="padding:4px;" class="label-warning">到期后自动恢复成开始调价前那一刻的价格</span></p>
+					</div>
+				</div>
+				<div class="form-group" id="isShowPrice">
+					<label class="col-sm-2 control-label no-padding-left"> 同步销售价：</label>
+					<div class="col-sm-9">
+                        <input type="checkbox" id="synchShowPrice" value="1"/>&nbsp;同步为商品销售价(未选SKU的展示价)
+					</div>
+				</div>
+
+				<div class="form-group" id="mpState">
+					<label class="col-sm-2 control-label no-padding-left">状态：</label>
+					<div class="col-sm-9">
+                    <div style="margin-right:20px;display:inline;">
+                    <input type="radio" name="setstate" id="noreset" value="0">保持不变
+                    </div>
+                    <div style="margin-right:20px;display:inline;">
+                    <input type="radio" name="setstate" id="reset" value="1">重置状态
+                    </div>
+                    <p id="stateDesc" style="margin-top:10px;"></p>
+                    </div>
 			</div>
 			<div class="modal-footer">
                 <input type="hidden" name="sku_id" value="" id="sku_id"/>
+                <input type="hidden" name="mpriceId" value="" id="mpriceId"/>
                 <input type="hidden" value="" id="type"/>
                 <input type="hidden" name="goods_id" value="" id="goods_id"/>
 				<button type="button" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
@@ -87,9 +143,11 @@
             if (type == 1) {
                 var title = '库存';
                 var oldValue = $(e).closest('tr').find('td.amount').text();
+                $('#setShowPrice').hide();
             } else if(type == 2) {
                 var title = '价格';
                 var oldValue = $(e).closest('tr').find('td.sale_price').text();
+                $('#setShowPrice').show();
             }
             $('#modal-confirmsend .modal-title').eq(0).text('修改'+title);
             $('#modal-confirmsend .control-label').eq(0).text(title + '：');
@@ -97,24 +155,77 @@
             $('#type').val(type);
             $('#sku_id').val(id);
             $('#goods_id').val(goodsId);
+            $('#kucunAndPrice').show();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpState').hide();
+            $('#modal-confirmsend').modal('show');
+        }
+        function timeingModifyPrice(id, state, synchShowPrice, goodsId, mpriceId, beginTime, endTime, toPrice, e) {
+            var title = '定时调价';
+            $('#modal-confirmsend .modal-title').eq(0).text('定时调价');
+            $('#mpBeginTimeV').val(beginTime == 0 ? '' : beginTime);
+            $('#mpEndTimeV').val(endTime == 0 ? '' : endTime);
+            $('#mpToPriceV').val(toPrice == 0 ? '' : toPrice);
+            $('#type').val(99993);
+            if (state == 1) {
+                $("#reset").attr("checked","checked");
+                $("#stateDesc").text('当前状态：调整成功  (不可再编辑)');
+            } else {
+                if (state == 0) {
+                    $("#noreset").attr("checked","checked");
+                    $("#stateDesc").text('当前状态：未开始  (状态保持不变即可)');
+                } else {
+                    $("#reset").attr("checked","checked");
+                    $("#stateDesc").text('当前状态：已恢复  (要想重新调整价格，需要将状态重置)');
+                }
+            }
+            if (synchShowPrice)
+                $("#synchShowPrice").attr("checked","checked");
+            $('#sku_id').val(id);
+            $('#goods_id').val(goodsId);
+            $('#mpriceId').val(mpriceId);
+            $('#kucunAndPrice').hide();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpState,#setShowPrice').show();
             $('#modal-confirmsend').modal('show')
         }
         $('#confirmsend-btn').click(function(){
-            var url = "/admin/Goods/" + (($('#type').val() ==1) ? 'modifyKuCun' : 'modifySalePrice');
-            var param = $('#type').val() ==1 ? 'amount' : 'price';
-            var data = {
-                 id:$("#sku_id").val(), 
-                 goodsId:$("#goods_id").val()
-            };
-            data[param] = $('#newValue').val();
-            $.post(url,data,function(data){
-                if(data.code==0) {
-                    window.location.href= data.url;
-                } else {
-                    alert(data.msg);
-                    return false;
-                }
-            },'json');
+            if ($('#type').val() == 99993) {
+                var url = "/admin/Goods/modifyTimingMPrice";
+                var data = {
+                     skuId:$("#sku_id").val(), 
+                     goodsId:$("#goods_id").val(),
+                     mpriceId:$("#mpriceId").val(), 
+                     mpBeginTime:$("#mpBeginTimeV").val(),
+                     mpEndTime:$("#mpEndTimeV").val(),
+                     setstate:$("#mpState input[name='setstate']:checked").val(),
+                     synchShowPrice:($('#synchShowPrice:checked').length == 1 ? 1 : 0),
+                     mpToPrice:$("#mpToPriceV").val()
+                };
+                $.post(url,data,function(data){
+                    if(data.code==0) {
+                        window.location.href= data.url;
+                    } else {
+                        alert(data.msg);
+                        return false;
+                    }
+                },'json');
+            } else {
+                var url = "/admin/Goods/" + (($('#type').val() ==1) ? 'modifyKuCun' : 'modifySalePrice');
+                var param = $('#type').val() ==1 ? 'amount' : 'price';
+                var data = {
+                     id:$("#sku_id").val(), 
+                     synchShowPrice:($('#synchShowPrice:checked').length == 1 ? 1 : 0),
+                     goodsId:$("#goods_id").val()
+                };
+                data[param] = $('#newValue').val();
+                $.post(url,data,function(data){
+                    if(data.code==0) {
+                        window.location.href= data.url;
+                    } else {
+                        alert(data.msg);
+                        return false;
+                    }
+                },'json');
+            }
         });
 	</script>
 </body>

@@ -18,6 +18,7 @@ use \src\user\model\UserAddressModel;
 use \src\mall\model\CartModel;
 use \src\mall\model\OrderModel;
 use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsSKUModel;
 use \src\mall\model\OrderGoodsModel;
 use \src\mall\model\GlobalConfigModel;
 use \src\mall\model\PostageModel;
@@ -77,24 +78,62 @@ class PayController extends MallController
             || $amount <= 0
             || !Check::isSkuAttr($skuAttr)
             || !Check::isSkuValue($skuValue)) {
-            $this->showNotice('请求参数错误', '/mall/Goods/detail?goodsId=' . $goodsId);
-            return ;
-        }
-
-        $goodsSKU = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
-        if (empty($goodsSKU)) {
-            $this->showNotice('请选择商品SKU', '/mall/Goods/detail?goodsId=' . $goodsId);
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '请求参数错误');
             return ;
         }
 
         $goodsInfo = GoodsModel::findGoodsById($goodsId);
         if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
-            $this->showNotice('该商品无效SKU', '/mall/Goods/detail?goodsId=' . $goodsId);
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '该商品无效SKU');
+            return ;
+        }
+        $goodsSku = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
+        if (empty($goodsSku)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '商品规格无效SKU');
+            return ;
+        }
+        if ($goodsSku['amount'] < $amount) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '商品库存不足');
+            return ;
+        }
+
+        $this->ajaxReturn(0, '', '/mall/Pay/showQuickBuy?'
+            . 'goodsId=' . $goodsId
+            . '&skuAttr=' . $skuAttr
+            . '&skuValue=' . $skuValue
+            . '&amount=' . $amount
+        );
+    }
+
+    public function showQuickBuy()
+    {
+        $this->checkLoginAndNotice();
+
+        $goodsId = intval($this->getParam('goodsId', 0));
+        $skuAttr = trim($this->getParam('skuAttr', ''));
+        $skuValue = trim($this->getParam('skuValue', ''));
+        $amount = intval($this->getParam('amount', 0));
+
+        if ($goodsId <= 0
+            || $amount <= 0
+            || !Check::isSkuAttr($skuAttr)
+            || !Check::isSkuValue($skuValue)) {
+            $this->showNotice('请求参数错误', '/mall/Goods/detail?goodsId=' . $goodsId);
+            return ;
+        }
+
+        $goodsInfo = GoodsModel::findGoodsById($goodsId);
+        if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+            $this->showNotice('该商品无效', '/mall/Goods/detail?goodsId=' . $goodsId);
             return ;
         }
         $goodsSku = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
         if (empty($goodsSku)) {
             $this->showNotice('商品规格无效SKU', '/mall/Goods/detail?goodsId=' . $goodsId);
+            return ;
+        }
+        if ($goodsSku['amount'] < $amount) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '商品库存不足');
             return ;
         }
         $goodsList = array(
@@ -442,6 +481,7 @@ class PayController extends MallController
         }
         $data = array(
             'title'     => empty($orderInfo) ? '支付' : '待支付',
+            'payLastTime' => (int)(UserOrderModel::ORDER_PAY_LAST_TIME / 60),
             'orderType' => $orderType,
             'orderInfo'   => $orderInfo,
             'goodsList' => $goodsList,

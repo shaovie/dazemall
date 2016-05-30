@@ -39,6 +39,16 @@ class GoodsSKUModel
         return true;
     }
 
+    public static function findSkuIfnoById($id, $fromDb)
+    {
+        $ret = DB::getDB($fromDb)->fetchOne(
+            'g_goods_sku',
+            '*',
+            array('id'), array($id),
+            array()
+        );
+        return $ret === false ? array() : $ret;
+    }
     public static function fetchAllSKUInfo($goodsId)
     {
         if (empty($goodsId)) {
@@ -117,7 +127,7 @@ class GoodsSKUModel
     public static function setSalePrice($id, $goodsId, $price, $user)
     {
         if (empty($id) || empty($goodsId)) {
-            return true;
+            return false;
         }
         $ret = DB::getDB('w')->update(
             'g_goods_sku',
@@ -212,6 +222,11 @@ class GoodsSKUModel
         }
         self::onUpdateData($goodsId);
         return $ret > 0;
+    }
+
+    public static function onRollback($goodsId)
+    {
+        Cache::del(Cache::CK_GOODS_SKU . $goodsId);
     }
 
     //= private methods
