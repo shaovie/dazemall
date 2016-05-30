@@ -8,8 +8,9 @@ namespace src\api\controller;
 
 use \src\common\BaseController;
 use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsLikeModel;
 
-class GoodsController extends BaseController
+class GoodsController extends ApiController
 {
     public function moreComment()
     {
@@ -20,12 +21,38 @@ class GoodsController extends BaseController
     public function likeInfo()
     {
         $goodsId = intval($this->getParam('g', 0));
-        $likeNum = 10;
+        $isLiked = GoodsLikeModel::hadLiked($this->userId(), $goodsId);
+        $likeNum = 0;
+        $goodsInfo = GoodsModel::findGoodsById($goodsId);
+        if (!empty($goodsInfo))
+            $likeNum = $goodsInfo['like_count'];
+
+        $likeUsers = GoodsLikeModel::fetchLikeUsers($goodsId);
+        
         $data = array(
-            'isSupport'    => !empty($isLiked['isLiked']) ? 0 : 1,
+            'isSupport'    => $isLiked ? 1 : 0,
             'supportTotal' => $likeNum,
-            'supportList'  => array(array('headImg' => ''));
+            'supportList'  => $likeUsers,
         );
         $this->ajaxReturn(0, '', '', $data);
+    }
+
+    public function likeGoods()
+    {
+        $goodsId = intval($this->getParam('g', 0));
+
+        if (!$this->hadLogin()) {
+            $this->ajaxReturn(ERR_NOT_LOGIN, '登录后才能点赞');
+            return ;
+        }
+        if (!GoodsLikeModel::hadLiked($this->userId(), $goodsId))
+            GoodsLikeModel::likeGoods($this->userId(), $goodsId);
+        $this->ajaxReturn(
+            0,
+            '',
+            '',
+            array('headImg' => Util::wxSmallHeadImgUrl($this->userInfo['headimgurl']))
+        );
+    }
 }
 

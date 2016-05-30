@@ -9,6 +9,8 @@ namespace src\mall\model;
 use \src\common\Cache;
 use \src\common\Log;
 use \src\common\DB;
+use \src\common\Util;
+use \src\user\model\UserModel;
 
 class GoodsLikeModel
 {
@@ -31,9 +33,50 @@ class GoodsLikeModel
         return true;
     }
 
+    public static function fetchLikeUsers($goodsId)
+    {
+        $ck = Cache::CK_GOODS_LIKE_USERS . $goodsId;
+        $ret = Cache::get($ck);
+        if ($ret !== false) {
+            $ret = json_encode($ret);
+        } else {
+            $ret = DB::getDB()->fetchSome(
+                'g_goods_like',
+                array('goods_id'), array($goodsId),
+                array(),
+                array('id', 'desc'),
+                array(14)
+            );
+            if (!empty($ret)) {
+                $data = array();
+                foreach ($ret as $item) {
+                    $userInfo = UserModel::findUserById($item['user_id']);
+                    if (!empty($userInfo)) {
+                        $v['headImg'] = Util::wxSmallHeadImgUrl($userInfo['headimgurl']);
+                        $data[] = $v;
+                    }
+                }
+                if (!empty($data)) {
+                    Cache::setEx($ck, json_encode($data), Cache::CK_GOODS_LIKE_USERS_EXPIRE);
+                }
+            }
+        }
+        return $ret === false ? array() : $ret;
+    }
+
+    public static function likeGoods($userId, $goodsId)
+    {
+        self::newOne($userId, $goodsId);
+        Cache::del(Cache::CK_GOODS_HAD_LIKE . $goodsId . ':' . $userId);
+        Cache::del(Cache::CK_GOODS_LIKE_USERS . $goodsId);
+    }
+
     // return true or false
     public static function hadLiked($userId, $goodsId)
     {
+        if (empty($userId) || empty($goodsId)) {
+            return false;
+        }
         $ck = Cache::CK_GOODS_HAD_LIKE . $goodsId . ':' . $userId;
         $ret = Cache::get($ck);
         if ($ret === false) {

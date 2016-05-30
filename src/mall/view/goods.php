@@ -10,8 +10,8 @@
 	<input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
     <input type="hidden" id="J-ajaxurl-addCart" value="/api/Cart/add" />
     <input type="hidden" id="J-ajaxurl-quickBuy" value="/mall/Pay/quickBuy" />
-    <input type="hidden" id="J-ajaxurl-moreComment" value="/api/Goods/moreComment" />
-    <input type="hidden" id="J-ajaxurl-initProductLikeData" value="/api/Goods/likeNum" />
+    <!-- <input type="hidden" id="J-ajaxurl-moreComment" value="/api/Goods/moreComment" /> -->
+    <input type="hidden" id="J-ajaxurl-initProductLikeData" value="/api/Goods/likeInfo" />
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
 	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
@@ -72,15 +72,18 @@
 			</li>
 		</ul>
 	</section>
-    <!--
     <section class="comment-section">
         <div class="nav-wrap">
             <ul class="comment-nav">
-                <li id="J-support-btn"><i class="icon-support"></i>总喜欢数(<span class="J-num">0</span>)</li>
-                <li><i class="icon-discuss"></i>总评价数(<span id="J-discuss-amount">0</span>)</li>
+                <li id="J-support-btn"><i class="icon-support"></i>喜欢(<span class="J-num">0</span>)</li>
+                <li></li>
             </ul>
         </div>
-    </section> -->
+        <div class="comment-content">
+            <ul class="support-list">
+            </ul>
+        </div>
+    </section>
 	<section class="goods-des">
 		<div class="section-title">商品详情</div>
 		<div class="goods-des-content">

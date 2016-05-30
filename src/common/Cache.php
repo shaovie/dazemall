@@ -36,6 +36,7 @@ class Cache
     const CK_ORDER_INFO              = 'order_info:'; const CK_ORDER_INFO_EXPIRE = 7200;
     const CK_CART_LIST               = 'cart_list:'; const CK_CART_LIST_EXPIRE = 86400;
     const CK_GOODS_HAD_LIKE          = 'goods_had_like:'; const CK_GOODS_HAD_LIKE_EXPIRE = 86400;
+    const CK_GOODS_LIKE_USERS        = 'goods_like_users'; const CK_GOODS_LIKE_USERS_EXPIRE = 86400;
     const CK_GOODS_COMMENT_HAD_LIKE  = 'goods_comment_had_like:'; const CK_GOODS_COMMENT_HAD_LIKE_EXPIRE = 86400;
     const CK_GOODS_HAD_COMMENT       = 'goods_had_comment:'; const CK_GOODS_HAD_COMMENT_EXPIRE = 86400;
     const CK_GOODS_INFO              = 'goods_info:'; const CK_GOODS_INFO_EXPIRE = 86400;
