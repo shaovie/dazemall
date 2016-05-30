@@ -132,6 +132,10 @@ class SkuValueController extends AdminController
             $this->ajaxReturn(ERR_PARAMS_ERROR, $error);
             return ;
         }
+        if ($skuAttrInfo['skuValue'] == '默认') {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '不能编辑默认属性值');
+            return ;
+        }
         $updateData = array(
             'value' => $skuValueInfo['skuValue'],
             'state' => $skuValueInfo['state'],

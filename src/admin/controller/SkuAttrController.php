@@ -83,6 +83,10 @@ class SkuAttrController extends AdminController
             $this->ajaxReturn(ERR_PARAMS_ERROR, $error);
             return ;
         }
+        if ($skuAttrInfo['skuAttr'] == '默认') {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '不能编辑默认属性');
+            return ;
+        }
         $ret = SkuAttrModel::newOne(
             $skuAttrInfo['skuAttr'],
             $skuAttrInfo['state'],
