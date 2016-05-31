@@ -40,6 +40,7 @@ class UserCartModel
         if ($ret === false || (int)$ret <= 0) {
             return false;
         }
+        self::onUpdateData($userId);
         return true;
     }
 
