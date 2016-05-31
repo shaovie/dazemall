@@ -12,8 +12,8 @@ use \src\common\Cache;
 use \src\common\Session;
 use \src\user\model\WxUserModel;
 use \src\user\model\UserDetailModel;
-use \src\user\model\CouponGiveCfgModel;
 use \src\user\model\UserCouponModel;
+use \src\mall\model\CouponGiveCfgModel;
 
 class UserModel
 {
