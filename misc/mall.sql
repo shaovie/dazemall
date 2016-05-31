@@ -602,8 +602,9 @@ create table r_order_per_day (
     order_num           int unsigned not null default 20,           #
     seller_amount       decimal(10,2) not null default 0.0,         #
 
-    ctime               int not null default 0                      # 创建时间
+    ctime               int not null default 0,                     # 创建时间
 
+    primary key (`id`) 
 )engine=InnoDB default charset=utf8;
 
 drop table if exists r_goods_per_day;
@@ -616,8 +617,9 @@ create table r_goods_per_day (
     seller_num          int unsigned not null default 20,           #
     seller_amount       decimal(10,2) not null default 0.0,         #
 
-    ctime               int not null default 0                      # 创建时间
+    ctime               int not null default 0,                     # 创建时间
 
+    primary key (`id`) 
 )engine=InnoDB default charset=utf8;
 
 -- --------------------------------后台相关-----------------------------------
