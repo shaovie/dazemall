@@ -444,13 +444,13 @@ drop table if exists m_activity;
 create table m_activity (
     id                  int unsigned not null auto_increment,
 
-    act_type            int not null default 0,                     # 活动类型
-    title               varchar(255) not null default '',           # 标题
-    description         text not null default '',                   # 详细描述
+    show_area           int not null default 0,                     # 显示区域
     image_url           varchar(255) not null default '',           # 展示图片
     image_urls          varchar(2048) not null default '',          # 商品轮播图片(json格式)
     begin_time          int not null default 0,                     # 开始时间
     end_time            int not null default 0,                     # 结束时间
+    sort                int not null default 0,                     # 顺序
+    remark              varchar(255) not null default '',           # 备注
 
     ctime               int not null default 0,                     # 创建时间
 
@@ -465,19 +465,12 @@ create table m_activity_goods (
 
     act_id              int unsigned not null default 0,            # 活动ID
     goods_id            int unsigned not null default 0,            # 商品ID
-    sku_attr            varchar(36) not null default '',            # sku属性
-    sku_value           varchar(60) not null default '',            # sku属性值
-    sale_price          decimal(10,2) not null default 0.0,         # 商品销售价        
-    amount              int not null default 0,                     # 库存数量
-
-    begin_time          int not null default 0,                     # 开始时间
-    end_time            int not null default 0,                     # 结束时间
+    sort                int not null default 0,                     # 顺序
 
     ctime               int not null default 0,                     # 创建时间
 
     primary key (`id`),
-    index idx_act_id_time(`act_id`, `begin_time`, `end_time`),
-    unique key key_act_id_goods_id_sku(`act_id`, `goods_id`, `sku_attr`, `sku_value`)
+    unique key key_act_id_goods_id(`act_id`, `goods_id`)
 )engine=InnoDB default charset=utf8;
 
 -- 定时调价
@@ -520,6 +513,18 @@ create table m_coupon_cfg (
 
     primary key (`id`)
 )engine=InnoDB default charset=utf8;
+
+-- 优惠券发放配置表
+drop table if exists m_coupon_give_cfg;
+create table m_coupon_give_cfg (
+    user_reg_coupon     varchar(255) not null default '',           # 新人注册赠送优惠券
+    order_full_coupon   varchar(255) not null default '',           # 单笔订单满赠送优惠券
+    order_amount        decimal(10,2) not null default 0.0,         # 订单限定金额
+
+    mtime               int not null default 0                      # 修改时间
+
+)engine=InnoDB default charset=utf8;
+insert into m_coupon_give_cfg values();
 
 -- banner配置
 drop table if exists m_banner;
@@ -577,7 +582,6 @@ create table m_goods_module_glist (
 -- --------------------------------全局配置表---------------------------------
 drop table if exists s_global_config;
 create table s_global_config (
-
     free_postage        decimal(10,2) not null default 28.0,        # 免邮费，订单金额
     postage             decimal(10,2) not null default 3.0,         # 邮费
     kucun_alarm         int unsigned not null default 20,           #
@@ -589,6 +593,32 @@ create table s_global_config (
 
 )engine=InnoDB default charset=utf8;
 insert into s_global_config values();
+
+-- --------------------------------报表相关-----------------------------------
+drop table if exists r_order_per_day;
+create table r_order_per_day (
+    id                  int unsigned not null auto_increment,
+
+    order_num           int unsigned not null default 20,           #
+    seller_amount       decimal(10,2) not null default 0.0,         #
+
+    ctime               int not null default 0                      # 创建时间
+
+)engine=InnoDB default charset=utf8;
+
+drop table if exists r_goods_per_day;
+create table r_goods_per_day (
+    id                  int unsigned not null auto_increment,
+
+    goods_id            int unsigned not null default 0,            # 商品ID
+    sku_attr            varchar(36) not null default '',            # sku属性
+    sku_value           varchar(60) not null default '',            # sku属性值
+    seller_num          int unsigned not null default 20,           #
+    seller_amount       decimal(10,2) not null default 0.0,         #
+
+    ctime               int not null default 0                      # 创建时间
+
+)engine=InnoDB default charset=utf8;
 
 -- --------------------------------后台相关-----------------------------------
 drop table if exists b_employee;

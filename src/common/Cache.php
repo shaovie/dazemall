@@ -53,6 +53,7 @@ class Cache
 
     //= global
     const CK_MALL_GLOBAL_CONFIG      = 'mall_global_config:';
+    const CK_COUPON_GIVE_CONFIG      = 'coupon_give_config:';
 
     //= public static methods
     //

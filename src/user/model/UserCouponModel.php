@@ -10,6 +10,7 @@ use \src\common\DB;
 use \src\common\Util;
 use \src\common\Cache;
 use \src\mall\model\GoodsCategoryModel;
+use \src\mall\model\CouponCfgModel;
 
 class UserCouponModel
 {
@@ -204,6 +205,30 @@ class UserCouponModel
         }
 
         return $result;
+    }
+
+    public static function giveCoupons($userId, $coupons)
+    {
+        if (empty($coupons) || empty($userId))
+            return ;
+        foreach ($coupons as $couponId) {
+            $couponCfgInfo = CouponCfgModel::findCouponById($couponId);
+            if (empty($couponCfgInfo)
+                || $couponCfgInfo['state'] == CouponCfgModel::COUPON_ST_INVALID) {
+                continue;
+                self::newOne(
+                    $userId,
+                    $couponCfgInfo['id'],
+                    $couponCfgInfo['begin_time'],
+                    $couponCfgInfo['end_time'],
+                    $couponCfgInfo['name'],
+                    $couponCfgInfo['remark'],
+                    $couponCfgInfo['coupon_amount'],
+                    $couponCfgInfo['order_amount'],
+                    $couponCfgInfo['category_id']
+                );
+            }
+        }
     }
 
     private static function getSomeCoupon($userId, $state, $page, $size)

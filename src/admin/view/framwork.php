@@ -170,6 +170,16 @@
                             首页商品模块列表
                             </a>   
 						</li>
+						<li> <a onclick="navtoggle(&#39;营销管理 - &gt; 活动页管理&#39;)" href="/admin/Activity/listPage" target="main">
+                            <i class="icon-double-angle-right"></i>
+                            活动页列表
+                            </a>   
+						</li>
+						<li> <a onclick="navtoggle(&#39;优惠券管理 - &gt; 优惠券管理&#39;)" href="/admin/Coupon/listPage" target="main">
+                            <i class="icon-double-angle-right"></i>
+                            优惠券管理
+                            </a>
+						</li>
                     </ul>
 				</li>
 				<li>
@@ -182,34 +192,16 @@
                     </a>
                     <ul class="submenu">         
                            <li>
-                                <a href="/admin/xx" target="main">                              
+                                <a href="/admin/Report/order" target="main">                              
                                 <i class="icon-double-angle-right"></i>
-                                    零售生意报告                                    
+                                    订单报表
                                 </a>
                             </li>
 							<li>
-                                <a href="orderstatistics" target="main">                              
+                                <a href="/admin/Report/goods" target="main">                              
                                 <i class="icon-double-angle-right"></i>
-                                    订单统计                                    
+                                    商品报表
                                 </a>
-                            </li>
-							<li>
-                                <a href="saledetails" target="main">                              
-                                <i class="icon-double-angle-right"></i>
-                                    商品销售明细                                    
-                                </a>
-                            </li>
-							<li>
-                                <a href="productsaleranking" target="main">                              
-                                     <i class="icon-double-angle-right"></i>
-                                        商品销售排行                                    
-                                </a>
-                            </li>
-							<li>
-                                 <a href="productsalestatistics" target="main">                              
-                                    <i class="icon-double-angle-right"></i>
-                                        商品访问与购买比                                    
-                                    </a>
                             </li>
 					</ul>
                  </li>

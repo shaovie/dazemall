@@ -71,6 +71,13 @@
             </li>
         </ul>
     </section>
+    <?php if (!empty($actList)):?>
+    <section class="banner-xx">
+    <?php foreach ($actList as $act):?>
+    <a href="/mall/Activity/index?actId=<?php echo $act['id']?> >" class="img-wrap" data-original="<?php echo $act['image_url']?>"></a>
+    <?php endforeach?>
+    </section>
+    <?php endif?>
     <?php if (!empty($goodsModuleList)):?>
     <?php foreach ($goodsModuleList as $module):?>
     <section class="tj-section">

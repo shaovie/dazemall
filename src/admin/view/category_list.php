@@ -28,6 +28,7 @@
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
+					<th class="text-center" style="width:80px;">编号</th>
 					<th class="text-center" style="width:80px;">分类名称</th>
 					<th class="text-center" style="width:50px;">显示顺序</th>
 					<th class="text-center" style="width:50px;">当前状态</th>
@@ -37,6 +38,7 @@
 			<tbody>
             <?php foreach ($categoryList as $cat):?>
 			<tr>
+				<td style="text-align:center;vertical-align:middle;"><?php echo $cat['category_id']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $cat['name']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $cat['sort']?></td>
 				<td style="text-align:center;vertical-align:middle;">

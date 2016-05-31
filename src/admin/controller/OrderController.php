@@ -265,6 +265,7 @@ class OrderController extends AdminController
         $orderInfo['rePhone'] = $order['re_phone'];
         $orderInfo['orderAmount'] = $order['order_amount'];
         $orderInfo['sysRemark'] = $order['sys_remark'];
+        $orderInfo['postage'] = $order['postage'];
 
         $goodsList = OrderGoodsModel::fetchOrderGoodsById($order['order_id']);
         foreach($goodsList as &$val) {

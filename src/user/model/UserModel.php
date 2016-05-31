@@ -12,6 +12,8 @@ use \src\common\Cache;
 use \src\common\Session;
 use \src\user\model\WxUserModel;
 use \src\user\model\UserDetailModel;
+use \src\user\model\CouponGiveCfgModel;
+use \src\user\model\UserCouponModel;
 
 class UserModel
 {
@@ -248,6 +250,13 @@ class UserModel
     }
 
     //= 业务逻辑
+    public static function onNewUser($userId)
+    {
+        $coupons = CouponGiveCfgModel::getUserRegCoupons();
+        if (!empty($coupons)) {
+            UserCouponModel::giveCoupons($userId, $coupons);
+        }
+    }
     public static function onLoginOk($userId, $wxOpenId)
     {
         Session::setUserSession($userId, $wxOpenId);

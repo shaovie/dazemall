@@ -15,7 +15,8 @@ class BannerModel
 {
     const SHOW_AREA_HOME_TOP = 1; // 首页顶部
 
-    const LINK_TYPE_GOODS = 1; // 链接商品
+    const LINK_TYPE_GOODS    = 1; // 链接商品
+    const LINK_TYPE_ACTIVITY = 2; // 链接活动页
 
     public static function newOne(
         $showArea,
@@ -79,6 +80,8 @@ class BannerModel
             $v['link'] = '';
             if ($banner['link_type'] == self::LINK_TYPE_GOODS)
                 $v['link'] = '/mall/Goods/detail?goodsId=' . $banner['link_value'];
+            elseif ($banner['link_type'] == self::LINK_TYPE_ACTIVITY)
+                $v['link'] = '/mall/Activity/index?actId=' . $banner['link_value'];
             $data[] = $v;
         }
         return $data;
@@ -153,7 +156,7 @@ class BannerModel
 
     public static function showAreaDesc($area)
     {
-        if ($area == 1) {
+        if ($area == self::SHOW_AREA_HOME_TOP) {
             return '首页顶部';
         }
         return 'null';

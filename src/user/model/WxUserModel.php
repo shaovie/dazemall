@@ -68,6 +68,7 @@ class WxUserModel
         if ($wdb->commit() === false) {
             return false;
         }
+        UserModel::onNewUser($newUserId);
         return true;
     }
 

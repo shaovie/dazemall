@@ -36,22 +36,24 @@
 <!-- 发票抬头和发票内容 -->
 <tr><td colspan="2"> </td>
 <!-- 商品总金额 -->
-<td colspan="2" align="left">商品总金额：￥<?php echo $order['orderAmount']?></td>
+<td colspan="2" align="left">商品总金额：￥<?php echo $order['orderAmount'] - $order['postage']?></td>
 </tr>
 </table>
 <table width="227px" border="0">
 <tr align="left">
-<td> <!-- 订单总金额 -->
-= 订单总金额：￥<?php echo $order['orderAmount']?> </td>
+<td>= 运费&nbsp;&nbsp;&nbsp;：￥<?php echo $order['postage']?> </td>
 </tr>
 <tr align="left">
-<td>
+<td>= 订单总金额：￥<?php echo $order['orderAmount']?> </td>
+</tr>
+<tr align="left">
+<td> </td>
 <!-- 如果已付了部分款项, 减去已付款金额 -->
 <!-- 如果使用了余额支付, 减去已使用的余额 -->
 <!-- 如果使用了积分支付, 减去已使用的积分 -->
 <!-- 如果使用了红包支付, 减去已使用的红包 -->
-<!-- 应付款金额 -->
-= 应付款金额：￥69.25 </td>
+<!-- 应付款金额
+= 应付款金额：￥69.25 </td> -->
 </tr>
 </table>
 <br/>

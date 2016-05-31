@@ -20,6 +20,30 @@ class CartController extends ApiController
         $this->ajaxReturn(0, '', '', array('number' => $cartAmount));
     }
 
+    public function autoAdd()
+    {
+        $this->checkLoginAndNotice();
+
+        $goodsId = (int)$this->postParam('goodsId', 0);
+
+        $skuList = GoodsSKUModel::findAllValidSKUInfo($goodsId);
+        if (empty($skuList)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '');
+            return ;
+        }
+        if (count($skuList) > 1) {
+            $this->ajaxReturn(0, '', '/mall/Goods/detail?goodsId=' . $goodsId);
+            return ;
+        }
+
+        $optResult = $this->doAddCart($goodsId, $skuList[0]['sku_attr'], $skuList[0]['sku_value'], 1);
+        if ($optResult['code'] != 0) {
+            $this->ajaxReturn($optResult['code'], $optResult['desc']);
+            return ;
+        }
+        $this->ajaxReturn(0, '');
+    }
+
     // 加入购物车
     public function add()
     {
@@ -30,58 +54,9 @@ class CartController extends ApiController
         $skuValue = trim($this->postParam('skuValue', ''));
         $amount = (int)$this->postParam('amount', 0);
 
-        if ($goodsId <= 0
-            || !Check::isSkuAttr($skuAttr)
-            || !Check::isSkuValue($skuValue)
-            || $amount <= 0) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
-            return ;
-        }
-
-        $goodsSKU = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
-        if (empty($goodsSKU)) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, '请选择商品SKU');
-            return ;
-        }
-
-        $goodsInfo = GoodsModel::findGoodsById($goodsId);
-        if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, '该商品无效');
-            return ;
-        }
-
-        $cartAmount = UserCartModel::getCartAmount($this->userId());
-        if ($cartAmount > CartModel::MAX_CART_GOODS_AMOUNT) {
-            $this->ajaxReturn(ERR_OPT_FAIL, '您的购物车已满，赶快清理一下吧');
-            return ;
-        }
-
-        $cartGoods = UserCartModel::getCartGoods(
-            $this->userId(),
-            $goodsId,
-            $skuAttr,
-            $skuValue
-        );
-        if (!empty($cartGoods)) {
-            UserCartModel::modifyAmount(
-                $this->userId(),
-                $cartGoods['id'],
-                $cartGoods['amount'] + $amount
-            );
-            $this->ajaxReturn(0, '');
-            return ;
-        }
-
-        $ret = UserCartModel::newOne(
-            $this->userId(),
-            $goodsId,
-            $skuAttr,
-            $skuValue,
-            $amount,
-            '' // attach
-        );
-        if ($ret === false) {
-            $this->ajaxReturn(ERR_SYSTEM_ERROR, '系统错误，加入购物车失败');
+        $optResult = $this->doAddCart($goodsId, $skuAttr, $skuValue, $amount);
+        if ($optResult['code'] != 0) {
+            $this->ajaxReturn($optResult['code'], $optResult['desc']);
             return ;
         }
         $this->ajaxReturn(0, '');
@@ -118,6 +93,71 @@ class CartController extends ApiController
         }
         UserCartModel::delCart($this->userId(), $cartId);
         $this->ajaxReturn(0, '');
+    }
+
+    private function doAddCart($goodsId, $skuAttr, $skuValue, $amount)
+    {
+        $optResult = array('code' => ERR_PARAMS_ERROR, 'desc' => '', 'result' => array());
+        if ($goodsId <= 0
+            || !Check::isSkuAttr($skuAttr)
+            || !Check::isSkuValue($skuValue)
+            || $amount <= 0) {
+            $optResult['desc'] = '参数错误';
+            return $optResult;
+        }
+
+        $goodsSKU = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
+        if (empty($goodsSKU)) {
+            $optResult['desc'] = '请选择商品SKU';
+            return $optResult;
+        }
+
+        $goodsInfo = GoodsModel::findGoodsById($goodsId);
+        if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+            $optResult['desc'] = '该商品无效';
+            return $optResult;
+        }
+
+        $cartAmount = UserCartModel::getCartAmount($this->userId());
+        if ($cartAmount > CartModel::MAX_CART_GOODS_AMOUNT) {
+            $optResult['code'] = ERR_OPT_FAIL;
+            $optResult['desc'] = '您的购物车已满，赶快结算吧';
+            return $optResult;
+        }
+
+        $cartGoods = UserCartModel::getCartGoods(
+            $this->userId(),
+            $goodsId,
+            $skuAttr,
+            $skuValue
+        );
+        if (!empty($cartGoods)) {
+            UserCartModel::modifyAmount(
+                $this->userId(),
+                $cartGoods['id'],
+                $cartGoods['amount'] + $amount
+            );
+            $optResult['code'] = 0;
+            $optResult['desc'] = '';
+            return $optResult;
+        }
+
+        $ret = UserCartModel::newOne(
+            $this->userId(),
+            $goodsId,
+            $skuAttr,
+            $skuValue,
+            $amount,
+            '' // attach
+        );
+        if ($ret === false) {
+            $optResult['code'] = ERR_SYSTEM_ERROR;
+            $optResult['desc'] = '系统错误，加入购物车失败';
+            return $optResult;
+        }
+        $optResult['code'] = 0;
+        $optResult['desc'] = '';
+        return $optResult;
     }
 }
 
