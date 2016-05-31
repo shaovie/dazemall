@@ -191,14 +191,12 @@
                         <b class="arrow icon-angle-down"></b>
                     </a>
                     <ul class="submenu">         
-                           <li>
-                                <a href="/admin/Report/order" target="main">                              
+                           <li><a onclick="navtoggle(&#39;数据报表 - &gt; 订单报表&#39;)" href="/admin/Report/order" target="main">                              
                                 <i class="icon-double-angle-right"></i>
                                     订单报表
                                 </a>
                             </li>
-							<li>
-                                <a href="/admin/Report/goods" target="main">                              
+							<li><a onclick="navtoggle(&#39;数据报表 - &gt; 商品报表&#39;)" href="/admin/Report/goods" target="main">                              
                                 <i class="icon-double-angle-right"></i>
                                     商品报表
                                 </a>
