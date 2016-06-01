@@ -119,7 +119,7 @@
     </section>
     <?php endforeach?>
     <?php endif?>
-    <a href="/mall/Cart" class="cart"><i>2</i></a>
+    <a href="/mall/Cart" class="cart"><i></i></a>
     <ul class="nav">
         <li class="mall active">
             <a>

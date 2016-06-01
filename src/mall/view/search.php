@@ -53,6 +53,7 @@
         </div>
     </div>
     <?php endif?>
+    <a href="/mall/Cart" class="cart"><i></i></a>
 	<div id="J-loading" class="loading-icon-wrap"><i class="loading-icon"></i></div>
 	<!-- <div class="copyright"><i></i></div> -->
     <?php
