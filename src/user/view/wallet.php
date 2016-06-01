@@ -46,7 +46,7 @@
 					<span class="price <?php if($val['bill_type']==1) echo 'income';?>">
 					      <?php echo $val['amount']?>
 					</span>
-					<span class="date"><?php echo date('m-d H:i', $val['ctime'])?></span>
+					<span class="date"><?php echo $val['ctime']?></span>
 				</li>
 				<?php }
 			   }?>
@@ -59,7 +59,7 @@
 					<span class="price <?php if($val['bill_type']==1) echo 'income';?>">
 					      <?php echo $val['amount']?>
 					</span>
-					<span class="date"><?php echo date('m-d H:i', $val['ctime'])?></span>
+					<span class="date"><?php echo $val['ctime']?></span>
 				</li>
 				<?php }
 			  }?>
