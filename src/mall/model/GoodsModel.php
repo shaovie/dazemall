@@ -132,7 +132,7 @@ class GoodsModel
         $key = str_replace('%', '\%', $key);
 
         $ck = Cache::CK_GOODS_SEARCH_RESULT . $key;
-        if ($nowPage > 0)
+        if ($nowPage == 0)
             $ret = false;
         else
             $ret = Cache::get($ck);
@@ -144,7 +144,7 @@ class GoodsModel
                 . " and name like '%" . trim($key) . "%'"
                 . ' order by sort desc, id desc limit ' . $pageSize * $nowPage . ', ' . $pageSize;
             $ret = DB::getDB('r')->rawQuery($sql);
-            if (!empty($ret)) {
+            if (!empty($ret) && $nowPage == 0) {
                 Cache::setEx($ck, Cache::CK_GOODS_SEARCH_RESULT_EXPIRE, json_encode($ret));
             }
         }
