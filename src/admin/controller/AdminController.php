@@ -44,7 +44,7 @@ class AdminController extends BaseController
 
     protected function doLogin()
     {
-        $key = Session::getSid('emp');
+        $key = Session::getSid('emp', HT_HOST);
         $employeeInfo = Nosql::get(Nosql::NK_ADMIN_SESSOIN . $key);
         if (!empty($employeeInfo)) {
             $userAgent = '';
@@ -66,7 +66,7 @@ class AdminController extends BaseController
 
     protected function doLogout()
     {
-        $key = Session::getSid('emp');
+        $key = Session::getSid('emp', HT_HOST);
         Nosql::del(Nosql::NK_ADMIN_SESSOIN . $key);
     }
     protected function toLogin()

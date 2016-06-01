@@ -8,6 +8,7 @@
 	<?php src\common\JsCssLoader::outCss('modules/wallet/index.less');?>
 </head>
 <body>
+    <input id="J-ajax-url" type="hidden" value="/api/User/walletList"/>
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
 	<a href="/user/Order" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>

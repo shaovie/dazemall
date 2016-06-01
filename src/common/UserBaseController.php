@@ -39,7 +39,7 @@ class UserBaseController extends BaseController
 
     public function doLogin()
     {
-        $key = Session::getSid('user');
+        $key = Session::getSid('user', APP_HOST);
         $userInfo = Nosql::get(Nosql::NK_USER_SESSOIN . $key);
         if (!empty($userInfo)) {
             $userAgent = '';
