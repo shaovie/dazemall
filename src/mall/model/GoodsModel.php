@@ -105,7 +105,7 @@ class GoodsModel
         if (empty($goodsId)) {
             return array();
         }
-        $ck = Cache::CK_GOODS_INFO . $goodsId; // TODO 商品被修改时一定要记得刷新缓存（比如供应商后台）
+        $ck = Cache::CK_GOODS_INFO . $goodsId;
         $ret = Cache::get($ck);
         if ($ret !== false) {
             $ret = json_decode($ret, true);
@@ -131,10 +131,23 @@ class GoodsModel
         $key = str_replace('_', '\_', $key);
         $key = str_replace('%', '\%', $key);
 
-        $sql = 'select * from g_goods where state=' . self::GOODS_ST_UP
-            . " and name like '%" . trim($key) . "%'"
-            . ' order by sort desc, id desc limit ' . $pageSize * $nowPage . ', ' . $pageSize;
-        $ret = DB::getDB('r')->rawQuery($sql);
+        $ck = Cache::CK_GOODS_SEARCH_RESULT . $key;
+        if ($nowPage > 0)
+            $ret = false;
+        else
+            $ret = Cache::get($ck);
+
+        if ($ret !== false) {
+            $ret = json_decode($ret, true);
+        } else {
+            $sql = 'select * from g_goods where state=' . self::GOODS_ST_UP
+                . " and name like '%" . trim($key) . "%'"
+                . ' order by sort desc, id desc limit ' . $pageSize * $nowPage . ', ' . $pageSize;
+            $ret = DB::getDB('r')->rawQuery($sql);
+            if (!empty($ret)) {
+                Cache::setEx($ck, Cache::CK_GOODS_SEARCH_RESULT_EXPIRE, json_encode($ret));
+            }
+        }
         return $ret === false ? array() : $ret;
     }
 
