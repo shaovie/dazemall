@@ -17,7 +17,7 @@
             <div class="swipe-wrap">
             <?php foreach ($bannerList as $banner):?>
                 <div>
-                      <a href="<?php echo $banner['link']?>" >
+                      <a href="<?php echo (empty($banner['link']) ? '#' : $banner['link'])?>" >
                         <div class="img-wrap" tjz-bgimg="<?php echo $banner['imageUrl']?>"></div>
                       </a>
                 </div>
