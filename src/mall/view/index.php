@@ -72,9 +72,9 @@
         </ul>
     </section>
     <?php if (!empty($actList)):?>
-    <section class="banner-xx">
+    <section class="banner-1212">
     <?php foreach ($actList as $act):?>
-    <a href="/mall/Activity/index?actId=<?php echo $act['id']?> >" class="img-wrap" data-original="<?php echo $act['image_url']?>"></a>
+    <a href="/mall/Activity/index?actId=<?php echo $act['id']?>" class="img-wrap" data-original="<?php echo $act['image_url']?>"></a>
     <?php endforeach?>
     </section>
     <?php endif?>

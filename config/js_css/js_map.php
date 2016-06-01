@@ -66,7 +66,7 @@
                'common/fix-top/index'   => '/static/pkg/auto_combine_fd5d9.js', 
                'common/gotop/index'   => '/static/pkg/auto_combine_c3941.js', 
                'search-panel/index'   => '/static/pkg/auto_combine_c3941.js', 
-               'goods-list/index'   => '/static/pkg/auto_combine_54aeb.js', 
+               'goods-list/index'   => '/static/pkg/auto_combine_00ce4.js', 
                'goods/index'   => '/static/pkg/auto_combine_176bb.js', 
                'extend/lazyload'   => '/static/pkg/auto_combine_87538.js', 
                'index-new/index'   => '/static/pkg/auto_combine_c3941.js', 

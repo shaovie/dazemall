@@ -18,24 +18,20 @@
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
 	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
 </header>
-	<ul class="goods-order">
-		<li class="cat-panel">
-			<a id="J-cat-btn"><i class="icon-cat"></i>
-            <span class="cat-name"><?php echo $catId == $parentCatId ? '全部' : $title;?>
-            </span></a>
-			<ul id="J-cat-list" class="cat-list">
-				<li>
-					<a href="/mall/Category/index?catId=<?php echo $parentCatId?>">全部</a>
-				</li>
-                <?php if (!empty($catList)):?>
-                <?php foreach ($catList as $cat):?>
-                <li <?php if ($catId == $cat['category_id']) echo 'class="active"';?> >
-                <a href="/mall/Category/index?catId=<?php echo $cat['category_id']?>"><?php echo $cat['name'];?></a>
-                <?php endforeach?>
-                <?php endif?>
-			</ul>
-		</li>
-	</ul>
+    <?php if (!empty($act['image_urls'])): ?>
+	<div id="banner" class='swipe'>
+		<div class="swipe-wrap">
+        <?php foreach ($act['image_urls'] as $img):?>
+			<div>
+			      <a href="#">
+			      	<div class="img-wrap" tjz-bgimg="<?php echo $img?>"></div>
+				  </a>
+			</div>
+        <?php endforeach?>
+		</div>
+		<div id="bannerPager"><span id="page"></span></div>
+	</div>
+    <?php endif?>
 	<section id="J-goods-list" class="goods-list">
         <?php if (!empty($goodsList)):?>
         <?php foreach ($goodsList as $goods):?>

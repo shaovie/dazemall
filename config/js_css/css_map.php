@@ -57,7 +57,7 @@
                'modules/goods-comment/index.less'   => '/static/pkg/auto_combine_b9b8b.css', 
                'modules/common/gotop/index.less'   => '/static/pkg/auto_combine_a3939.css', 
                'modules/search-panel/index.less'   => '/static/pkg/auto_combine_a3939.css', 
-               'modules/goods-list/index.less'   => '/static/pkg/auto_combine_bb3f0.css', 
+               'modules/goods-list/index.less'   => '/static/pkg/auto_combine_3de80.css', 
                'modules/goods/index.less'   => '/static/pkg/auto_combine_bbedc.css', 
                'modules/index-new/index.less'   => '/static/pkg/auto_combine_a3939.css', 
                'modules/index-new2/index.less'   => '/static/pkg/auto_combine_52b68.css', 

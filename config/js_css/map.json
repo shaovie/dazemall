@@ -1117,6 +1117,7 @@
                 "common/bubble/bubble",
                 "common/timer/timer",
                 "common/fix-top/index",
+                "common/swiper/index",
                 "common/gotop/index",
                 "search-panel/index",
                 "modules/goods-list/index.less"
@@ -3079,7 +3080,7 @@
             ]
         },
         "auto_js_56": {
-            "uri": "/static/pkg/auto_combine_54aeb.js",
+            "uri": "/static/pkg/auto_combine_00ce4.js",
             "type": "js",
             "has": [
                 "underscore",
@@ -3095,13 +3096,15 @@
                 "common/page-loader/index",
                 "common/timer/timer",
                 "common/fix-top/index",
+                "common/swipe/swipe",
+                "common/swiper/index",
                 "common/gotop/index",
                 "search-panel/index",
                 "goods-list/index"
             ]
         },
         "auto_css_57": {
-            "uri": "/static/pkg/auto_combine_bb3f0.css",
+            "uri": "/static/pkg/auto_combine_3de80.css",
             "type": "css",
             "has": [
                 "modules/common/common.less",
@@ -3112,6 +3115,8 @@
                 "modules/common/alert/alert.less",
                 "modules/common/confirm-service/index.less",
                 "modules/common/login-pop/index.less",
+                "modules/common/swipe/swipe.less",
+                "modules/common/swiper/index.less",
                 "modules/common/gotop/index.less",
                 "modules/search-panel/index.less",
                 "modules/goods-list/index.less"

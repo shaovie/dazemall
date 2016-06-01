@@ -44,20 +44,29 @@ class ActivityGoodsModel
         );
         return $ret === false ? array() : $ret;
     }
-    public static function findSomeValidActGoods($actId, $beginTime, $endTime, $nextId, $size)
+    public static function fillGoodsList($actId)
     {
-        if (empty($actId) || $size <= 0) {
+        if (empty($actId))
             return array();
+
+        $data = array();
+        $goods = self::getAllGoods($actId);
+        if (empty($goods))
+            continue;
+
+        $glist = array();
+        foreach ($goods as $g) {
+            $ginfo = GoodsModel::findGoodsById($g['goods_id']);
+            if (!empty($ginfo) && $ginfo['state'] == GoodsModel::GOODS_ST_UP) {
+                $v['goodsId'] = $ginfo['id'];
+                $v['name'] = $ginfo['name'];
+                $v['imageUrl'] = $ginfo['image_url'];
+                $v['marketPrice'] = number_format($ginfo['market_price'], 2, '.', '');
+                $v['salePrice'] = number_format($ginfo['sale_price'], 2, '.', '');
+                $glist[] = $v;
+            }
         }
-        $ret = DB::getDB()->fetchSome(
-            'm_activity_goods',
-            '*',
-            array('act_id', 'begin_time >=', 'end_time <', 'id>'), array($actId, $beginTime, $endTime, $nextId),
-            array('and', 'and', 'and'),
-            array('id'), array('asc'),
-            array($size)
-        );
-        return $ret === false ? array() : $ret;
+        return $glist;
     }
     public static function getGoodsInfo($actId, $goodsId)
     {

@@ -18,14 +18,19 @@ class ActivityController extends MallController
         if (!empty($actInfo)) {
             $actInfo['image_urls'] = explode("|", $actInfo['image_urls']);
         }
-        $goodsList = array();
+        $goodsList = ActivityGoodsModel::fillGoodsList($actId);
         $data = array(
             'title' => empty($actInfo) ? '' : $actInfo['title'],
             'act' => $actInfo,
             'goodsList' => $goodsList,
-            'ajaxUrl' => '/api/Activity/getListData?actId=' . $actId,
+            'ajaxUrl' => '/mall/Activity/getListData?actId=' . $actId,
         );
-        $this->display('activity', $data);
+        $this->display('act_goods_list', $data);
+    }
+
+    public function getListData()
+    {
+        $this->ajaxReturn(0, '', '', array('goodsList' => array()));
     }
 }
 
