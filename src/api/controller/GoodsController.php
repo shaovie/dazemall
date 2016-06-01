@@ -63,7 +63,7 @@ class GoodsController extends ApiController
         $page = intval($this->getParam('page', 1));
         $res = GoodsModel::search($key, $page);
         $goodsList = GoodsModel::fillShowGoodsListData($res);
-        $this->ajaxReturn(0, '', '', array('goodslist' => $goodsList));
+        $this->ajaxReturn(0, '', '', array('goodsList' => $goodsList));
     }
 }
 

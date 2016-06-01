@@ -132,7 +132,7 @@ class GoodsModel
         $key = str_replace('%', '\%', $key);
 
         $ck = Cache::CK_GOODS_SEARCH_RESULT . $key;
-        if ($nowPage == 0)
+        if ($nowPage != 0)
             $ret = false;
         else
             $ret = Cache::get($ck);
