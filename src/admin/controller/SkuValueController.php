@@ -153,6 +153,23 @@ class SkuValueController extends AdminController
         $this->ajaxReturn(0, '保存成功', '/admin/SkuValue/listPage?attrId=' . $skuValueInfo['attrId']);
     }
 
+    public function del()
+    {
+        $id = $this->getParam('id', 0);
+        $attrId = $this->getParam('attrId', 0);
+        if ($id == 0) {
+            header('Location: /admin/SkuValue/listPage?attrId=' . $attrId);
+            return ;
+        }
+        $ret = SkuValueModel::findSkuValueById($id);
+        if (empty($ret) || $ret['value'] == '默认') {
+            header('Location: /admin/SkuValue/listPage?attrId=' . $attrId);
+            return ;
+        }
+        SkuValueModel::del($id);
+        header('Location: /admin/SkuValue/listPage?attrId=' . $attrId);
+    }
+
     public function getSkuValue()
     {
         $attrId = intval($this->getParam('attrId', 0));

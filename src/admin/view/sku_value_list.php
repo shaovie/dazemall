@@ -47,6 +47,7 @@
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['m_user']?></td>
 				<td style="text-align:center;vertical-align:middle;">
 					<a class="btn btn-xs btn-info" href="/admin/SkuValue/info?id=<?php echo $item['id'];?>"><i class="icon-edit"></i>&nbsp;编&nbsp;辑&nbsp;</a>&nbsp;&nbsp;
+                    <a class="btn btn-xs btn-info" href="/admin/SkuValue/del?attrId=<?php echo $attrId?>&id=<?php echo $item['id'];?>" onclick="return confirm(&#39;确认删除吗？&#39;);return false;">删除</a>
 				</td>
 			</tr>
             <?php endforeach?>

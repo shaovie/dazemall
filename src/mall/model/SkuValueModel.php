@@ -48,6 +48,17 @@ class SkuValueModel
         return $ret !== false;
     }
 
+    public static function del($id)
+    {
+        $ret = DB::getDB('w')->delete(
+            'g_sku_value',
+            array('id'), array($id),
+            false,
+            1
+        );
+        return $ret === false ? false : true;
+    }
+
     public static function findSkuValueById($id, $fromDb = 'w')
     {
         if (empty($id)) {
