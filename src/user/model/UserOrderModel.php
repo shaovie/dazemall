@@ -14,6 +14,7 @@ use \src\common\Util;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsSKUModel;
 use \src\user\model\UserModel;
+use \src\user\model\UserBillModel;
 use \src\pay\model\PayModel;
 
 class UserOrderModel
@@ -255,6 +256,16 @@ class UserOrderModel
             array('order_id'), array($orderId)
         );
         self::onUpdateData($orderInfo['order_id']);
+        $ret = UserBillModel::newOne(
+            $orderInfo['user_id'],
+            $orderInfo['order_id'],
+            '',
+            UserBillModel::BILL_TYPE_OUT,
+            UserBillModel::BILL_FROM_ORDER_OL_PAY,
+            $orderInfo['ol_pay_amount'],
+            UserModel::getCash($orderInfo['user_id']),
+            $mUser . ' manual confirm pay ok' 
+        );
 
         if ($ret === false || (int)$ret <= 0) {
             return false;
@@ -305,6 +316,16 @@ class UserOrderModel
         }
         $orderInfo = self::findOrderByOrderPayId($orderPayId);
         if (!empty($orderInfo)) {
+            $ret = UserBillModel::newOne(
+                $orderInfo['user_id'],
+                $orderInfo['order_id'],
+                $orderPayId,
+                UserBillModel::BILL_TYPE_OUT,
+                UserBillModel::BILL_FROM_ORDER_OL_PAY,
+                $orderInfo['ol_pay_amount'],
+                UserModel::getCash($orderInfo['user_id']),
+                'ol pay ok'
+            );
             self::onUpdateData($orderInfo['order_id']);
             self::payOkNotifyToAdmin($orderInfo);
         }

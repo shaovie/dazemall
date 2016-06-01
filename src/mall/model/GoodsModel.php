@@ -161,6 +161,43 @@ class GoodsModel
         return 'null';
     }
 
+    public static function fetchAllGoodsCountByCategory($categoryId)
+    {
+        $level = GoodsCategoryModel::calcLevel($categoryId);
+        if ($level == 1) {
+            $lv_1 = (int)($categoryId / 1000000) * 1000000;
+            $lv_2 = ((int)($categoryId / 1000000) + 1) * 1000000;
+            $sql = 'select count(*) as c from g_goods where category_id > ' . $lv_1
+                . ' and category_id < ' . $lv_2;
+            $ret = DB::getDB('r')->rawQuery($sql);
+            return empty($ret) ? 0 : (int)$ret[0]['c'];
+        }
+        
+        return self::fetchGoodsCount(array('category_id'), array($categoryId), false);
+    }
+    public static function fetchAllGoodsByCategory($categoryId, $page, $pageSize)
+    {
+        $level = GoodsCategoryModel::calcLevel($categoryId);
+        if ($level == 1) {
+            $page = $page > 0 ? $page - 1 : $page;
+
+            $lv_1 = (int)($categoryId / 1000000) * 1000000;
+            $lv_2 = ((int)($categoryId / 1000000) + 1) * 1000000;
+            $sql = 'select * from g_goods where category_id > ' . $lv_1
+                . ' and category_id < ' . $lv_2
+                . ' order by sort desc, id desc limit ' . ($page * $pageSize) . ',' . $pageSize;
+            $ret = DB::getDB('r')->rawQuery($sql);
+            return $ret === false ? array() : $ret;
+        }
+        
+        return self::fetchSomeGoods(
+            array('category_id', 'state'),
+            array($categoryId, self::GOODS_ST_UP),
+            array('and'),
+            $page,
+            $pageSize
+        );
+    }
     public static function fetchGoodsByCategory($categoryId, $page, $pageSize)
     {
         $level = GoodsCategoryModel::calcLevel($categoryId);

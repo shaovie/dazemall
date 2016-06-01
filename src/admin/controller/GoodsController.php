@@ -33,11 +33,17 @@ class GoodsController extends AdminController
             $goods['category_name'] = GoodsCategoryModel::fullCateName($goods['category_id'], $cateName);
         }
 
+        $categoryList = GoodsCategoryModel::getAllCategory();
+        foreach ($categoryList as &$cat) {
+            $cat['name'] = GoodsCategoryModel::fullCateName($cat['category_id'], $cat['name']);
+        }
+
         $searchParams = [];
         $error = '';
         $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Goods/listPage', $searchParams);
         $data = array(
             'goodsList' => $goodsList,
+            'categoryList' => $categoryList,
             'totalGoodsNum' => $totalNum,
             'pageHtml' => $pageHtml,
             'search' => $searchParams,
@@ -55,9 +61,11 @@ class GoodsController extends AdminController
         do {
             $page = $this->getParam('page', 1);
             $state = intval($this->getParam('status', -1));
+            $catId = intval($this->getParam('catId', -1));
             $searchParams['status'] = $state;
+            $searchParams['catId'] = $catId;
             $keyword = trim($this->getParam('keyword', ''));
-            if ($state == -1 && empty($keyword)) {
+            if ($catId == -1 && $state == -1 && empty($keyword)) {
                 header('Location: /admin/Goods/listPage');
                 return ;
             }
@@ -77,10 +85,14 @@ class GoodsController extends AdminController
                     }
                 }
             } else {
-                if ($state >= 0)
+                if ($state >= 0) {
                     $totalNum = GoodsModel::fetchGoodsCount(array('state'), array($state), false);
                     $goodsList = GoodsModel::fetchSomeGoods(array('state'),
                         array($state), false, $page, self::ONE_PAGE_SIZE);
+                } elseif ($catId > 0) {
+                    $totalNum = GoodsModel::fetchAllGoodsCountByCategory($catId);
+                    $goodsList = GoodsModel::fetchAllGoodsByCategory($catId, $page, self::ONE_PAGE_SIZE);
+                }
             }
         } while(false);
 
@@ -92,6 +104,11 @@ class GoodsController extends AdminController
             }
         }
 
+        $categoryList = GoodsCategoryModel::getAllCategory();
+        foreach ($categoryList as &$cat) {
+            $cat['name'] = GoodsCategoryModel::fullCateName($cat['category_id'], $cat['name']);
+        }
+
         $pageHtml = $this->pagination(
             $totalNum,
             $page,
@@ -101,6 +118,7 @@ class GoodsController extends AdminController
         );
         $data = array(
             'goodsList' => $goodsList,
+            'categoryList' => $categoryList,
             'totalGoodsNum' => $totalNum,
             'pageHtml' => $pageHtml,
             'search' => $searchParams,
