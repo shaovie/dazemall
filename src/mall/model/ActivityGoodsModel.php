@@ -52,7 +52,7 @@ class ActivityGoodsModel
         $data = array();
         $goods = self::getAllGoods($actId);
         if (empty($goods))
-            continue;
+            return array();
 
         $glist = array();
         foreach ($goods as $g) {
