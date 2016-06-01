@@ -242,7 +242,8 @@ class UserOrderModel
         $orderInfo = self::findOrderByOrderId($orderId);
         if (empty($orderInfo)) 
             return ;
-        if ($orderInfo['pay_state'] != PayModel::PAY_ST_UNPAY) {
+        if ($orderInfo['order_state'] == UserOrderModel::ORDER_ST_CANCELED
+            || $orderInfo['pay_state'] != PayModel::PAY_ST_UNPAY) {
             return false;
         }
         $ret = DB::getDB('w')->update(
@@ -259,6 +260,33 @@ class UserOrderModel
             return false;
         }
         self::payOkNotifyToAdmin($orderInfo);
+        return true;
+    }
+    public static function manualConfirmSign($orderId, $mUser)
+    {
+        if (empty($orderId)) {
+            return false;
+        }
+
+        $orderInfo = self::findOrderByOrderId($orderId);
+        if (empty($orderInfo)) 
+            return ;
+        if ($orderInfo['order_state'] == UserOrderModel::ORDER_ST_CANCELED
+            || $orderInfo['delivery_state'] != UserOrderModel::ORDER_DELIVERY_ST_ING) {
+            return false;
+        }
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('delivery_state' => UserOrderModel::ORDER_DELIVERY_ST_RECV,
+                'sys_remark' => $mUser . ' manual confirm sign',
+            ),
+            array('order_id'), array($orderId)
+        );
+        self::onUpdateData($orderInfo['order_id']);
+
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
         return true;
     }
     public static function onPayOk($orderPayId)

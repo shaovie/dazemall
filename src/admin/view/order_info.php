@@ -97,16 +97,26 @@
 				<td>
 					<button type="button" class="btn btn-primary span2" name="confirmsend"
                     data-toggle="modal" data-target="#modal-confirmsend" value="confirmsend"
-                    <?php if ($order['payState'] != \src\pay\model\PayModel::PAY_ST_SUCCESS
-                        || $order['deliveryState'] != \src\user\model\UserOrderModel::ORDER_DELIVERY_ST_NOT) { echo 'disabled="disabled"';}?>
+                    <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED
+                        || $order['payState'] != \src\pay\model\PayModel::PAY_ST_SUCCESS
+                        || $order['deliveryState'] != \src\user\model\UserOrderModel::ORDER_DELIVERY_ST_NOT) {
+                        echo 'disabled="disabled"';
+                    }?>
                     >确认发货</button>
 					<button type="button" class="btn btn-danger span2" onclick="doConfirmPay()"
                     name="confirmpay" id="confirmpay-btn" value="confrimpay"
-                    <?php if ($order['payState'] == \src\pay\model\PayModel::PAY_ST_SUCCESS) {
+                    <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED
+                        || $order['payState'] == \src\pay\model\PayModel::PAY_ST_SUCCESS) {
                         echo 'disabled="disabled"';
                     }?>
                     >确认付款</button>
 					<button type="button" class="btn span2" name="close" onclick="" value="close" disabled="disabled">关闭订单</button>
+					<button type="button" class="btn span2 btn-info" name="sign" onclick="orderSign()" value="sign"
+                    <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED
+                        || $order['deliveryState'] != \src\user\model\UserOrderModel::ORDER_DELIVERY_ST_ING) {
+                        echo 'disabled="disabled"';
+                    }?>
+                    >订单签收</button>
                     <a class="btn btn-info" href="/admin/Order/orderPrint?orderId=<?php echo $order['orderId'];?>" target="_bank">订单打印 </a>
 				</td>
 			</tr>
@@ -158,6 +168,22 @@
                 }
             },'json');
         });
+        function orderSign() {
+            if (confirm('确认签收此订单吗？')) {
+                var url = "/admin/Order/confirmSign";
+                var data = {
+                    orderId:"<?php echo $order['orderId']?>"
+                };
+                $.post(url,data,function(data){
+                    if(data.code==0) {
+                        window.location.href= data.url;
+                    } else {
+                        alert(data.msg);
+                        return false;
+                    }
+                },'json');
+            }
+        }
         function doConfirmPay() {
             if (confirm('确认付款此订单吗？')) {
                 var url = "/admin/Order/confirmPayOk";

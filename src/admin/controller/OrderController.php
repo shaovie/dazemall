@@ -229,6 +229,12 @@ class OrderController extends AdminController
         UserOrderModel::manualConfirmPayOk($orderId, $this->account);
         $this->ajaxReturn(0, '', '/admin/Order/info?orderId=' . $orderId);
     }
+    public function confirmSign()
+    {
+        $orderId = trim($this->postParam('orderId', ''));
+        UserOrderModel::manualConfirmSign($orderId, $this->account);
+        $this->ajaxReturn(0, '', '/admin/Order/info?orderId=' . $orderId);
+    }
 
     private function fillPrintOrderInfo($order)
     {
@@ -243,6 +249,7 @@ class OrderController extends AdminController
         $orderInfo['ctime'] = $order['ctime'];
         $orderInfo['payType'] = PayModel::payTypeDesc($order['ol_pay_type']);
         $orderInfo['orderId'] = $order['order_id'];
+        $orderInfo['orderState'] = $order['order_state'];
         $orderInfo['payTime'] = '';
         $orderInfo['payState'] = $order['pay_state'];
         if ($order['pay_state'] == PayModel::PAY_ST_SUCCESS)
