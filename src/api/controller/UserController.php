@@ -14,8 +14,8 @@ class UserController extends ApiController
     public function wxShareLog()
     {
         Log::rinfo(json_encode($_POST));
-        $shareType = $this->postParmas('type', 0);
-        $shareParams = $this->postParmas('params', '');
+        $shareType = $this->postParams('type', 0);
+        $shareParams = $this->postParams('params', '');
         $this->ajaxReturn(0, '');
     }
 }
