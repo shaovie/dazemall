@@ -6,6 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection"  content="telephone=no">
     <title>大泽商城</title>
+    <?php include CONFIG_PATH . '/wx_share.php';?>
     <?php src\common\JsCssLoader::outCss('modules/index-new/index.less');?>
 </head>
 <body>
