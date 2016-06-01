@@ -6,6 +6,7 @@
 
 namespace src\api\controller;
 
+use \src\common\Util;
 use \src\common\BaseController;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsLikeModel;
@@ -20,7 +21,7 @@ class GoodsController extends ApiController
 
     public function likeInfo()
     {
-        $goodsId = intval($this->getParam('g', 0));
+        $goodsId = intval($this->getParam('goodsId', 0));
         $isLiked = GoodsLikeModel::hadLiked($this->userId(), $goodsId);
         $likeNum = 0;
         $goodsInfo = GoodsModel::findGoodsById($goodsId);
@@ -39,20 +40,24 @@ class GoodsController extends ApiController
 
     public function likeGoods()
     {
-        $goodsId = intval($this->getParam('g', 0));
+        $goodsId = intval($this->getParam('goodsId', 0));
 
         if (!$this->hadLogin()) {
             $this->ajaxReturn(ERR_NOT_LOGIN, '登录后才能点赞');
             return ;
         }
-        if (!GoodsLikeModel::hadLiked($this->userId(), $goodsId))
+        if (!GoodsLikeModel::hadLiked($this->userId(), $goodsId)) {
             GoodsLikeModel::likeGoods($this->userId(), $goodsId);
-        $this->ajaxReturn(
-            0,
-            '',
-            '',
-            array('headImg' => Util::wxSmallHeadImgUrl($this->userInfo['headimgurl']))
-        );
+            GoodsModel::doLikeGoods($goodsId);
+            $this->ajaxReturn(
+                0,
+                '',
+                '',
+                array('headImg' => Util::wxSmallHeadImgUrl($this->userInfo['headimgurl']))
+            );
+            return ;
+        }
+        $this->ajaxReturn(0, '', '', array('headImg' => ''));
     }
 }
 

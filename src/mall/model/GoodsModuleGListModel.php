@@ -108,6 +108,10 @@ class GoodsModuleGListModel
                     $v['imageUrl'] = $ginfo['image_url'];
                     $v['marketPrice'] = number_format($ginfo['market_price'], 2, '.', '');
                     $v['salePrice'] = number_format($ginfo['sale_price'], 2, '.', '');
+                    $v['discount'] = ($ginfo['sale_price'] / $ginfo['market_price']) * 10.0;
+                    if ($v['discount'] >= 10.0)
+                        $v['discount'] = 0.0;
+                    $v['discount'] = number_format($v['discount'], 1, '.', '');
                     $glist[] = $v;
                 }
             }

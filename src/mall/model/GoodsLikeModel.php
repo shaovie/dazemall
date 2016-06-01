@@ -38,13 +38,14 @@ class GoodsLikeModel
         $ck = Cache::CK_GOODS_LIKE_USERS . $goodsId;
         $ret = Cache::get($ck);
         if ($ret !== false) {
-            $ret = json_encode($ret);
+            $ret = json_decode($ret, true);
         } else {
             $ret = DB::getDB()->fetchSome(
                 'g_goods_like',
+                '*',
                 array('goods_id'), array($goodsId),
                 array(),
-                array('id', 'desc'),
+                array('id'), array('desc'),
                 array(14)
             );
             if (!empty($ret)) {
@@ -57,8 +58,9 @@ class GoodsLikeModel
                     }
                 }
                 if (!empty($data)) {
-                    Cache::setEx($ck, json_encode($data), Cache::CK_GOODS_LIKE_USERS_EXPIRE);
+                    Cache::setEx($ck, Cache::CK_GOODS_LIKE_USERS_EXPIRE, json_encode($data));
                 }
+                $ret = $data;
             }
         }
         return $ret === false ? array() : $ret;

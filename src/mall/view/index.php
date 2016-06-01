@@ -95,7 +95,9 @@
                         <div class="item-title"><?php echo $goods['name'] ?></div>
                         <div class="item-price">
                             <span class="price">&yen; <?php echo $goods['salePrice'] ?></span>
-                            <label class="btn btn-sm">7.8折</label>
+                            <?php if (true && (float)$goods['discount'] > 0.00):?>
+                            <label class="btn btn-sm"><?php echo $goods['discount']?>折</label>
+                            <?php endif?>
                         </div>
                     </div>
                 </a>

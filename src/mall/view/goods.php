@@ -11,7 +11,7 @@
     <input type="hidden" id="J-ajaxurl-addCart" value="/api/Cart/add" />
     <input type="hidden" id="J-ajaxurl-quickBuy" value="/mall/Pay/quickBuy" />
     <!-- <input type="hidden" id="J-ajaxurl-moreComment" value="/api/Goods/moreComment" /> -->
-    <input type="hidden" id="J-ajaxurl-initProductLikeData" value="/api/Goods/likeInfo" />
+    <input type="hidden" id="J-ajaxurl-initProductLikeData" value="/api/Goods/likeInfo?goodsId=<?php echo $goodsId?>" />
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
 	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
@@ -75,7 +75,7 @@
     <section class="comment-section">
         <div class="nav-wrap">
             <ul class="comment-nav">
-                <li id="J-support-btn"><i class="icon-support"></i>喜欢(<span class="J-num">0</span>)</li>
+                <li id="J-support-btn" ajax-url="/api/Goods/likeGoods?goodsId=<?php echo $goodsId?>"><i class="icon-support"></i>喜欢(<span class="J-num">0</span>)</li>
                 <li></li>
             </ul>
         </div>

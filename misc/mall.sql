@@ -395,7 +395,7 @@ create table g_goods_like (
     ctime               int not null default 0,                     # 创建时间
 
     primary key (`id`),
-    index idx_goods_id_user_id(`goods_id`, `user_id`)
+    unique key key_goods_id_user_id(`goods_id`, `user_id`)
 )engine=InnoDB default charset=utf8;
 
 -- 商品评价表
