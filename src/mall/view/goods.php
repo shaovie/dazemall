@@ -4,6 +4,8 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 	<title>商品详情</title>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <?php include CONFIG_PATH . '/wx_share_raw_code.php'?>
     <?php src\common\JsCssLoader::outCss('modules/goods/index.less');?>
 </head>
 <body isPop="login">
@@ -37,8 +39,7 @@
 					<div class="item-title"><?php echo $name?></div>
                     <?php $price = explode('.', $salePrice);?>
 					<ul class="item-b">
-						<li><span class="price price-cur">
-                        <label>现价：</label><i>&yen;</i>
+						<li><span class="price price-cur"><label>现价：</label><i>&yen;</i>
                         <b><?php echo $price[0]?>.<small><?php echo $price[1]?></small></b>
                         </span></li>
 					</ul>

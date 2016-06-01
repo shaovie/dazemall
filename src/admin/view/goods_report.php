@@ -23,18 +23,18 @@
 	<script type="text/javascript" src="/asset/js/datetimepicker.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 </head>
 <body class="no-skin">
-	<table class="table" border="0" style="width:95%;" align="center">
+	<table class="table table-striped table-bordered table-hover" style="margin-top:10px;">
 		<tbody>
 			<tr>
-			<td style="vertical-align: middle;font-size: 14px;font-weight: bold;width:110px">时间：</td>
-			<td colspan="2">
+			<td>
+                <span>时间</span>
 				<input name="beginTime" id="beginTime" type="text" value="" > - <input id="endTime" name="endTime" type="text" value="" >		
             <input type="button" name="undelivery" value="查询" class="btn btn-sm btn-info" onclick="search();">
 			</td>	
 		    </tr>
 		</tbody>
 	</table>
-	<table class="table table-striped table-bordered table-hover" style="margin-top:10px;">
+	<table class="table table-striped table-bordered table-hover">
 		<tbody>
 		<tr>
             <th class="text-left" style="width:100px;" width="100">&nbsp;&nbsp;&nbsp;&nbsp;类别<br />日期</th>	
