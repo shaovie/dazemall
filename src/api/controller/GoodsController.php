@@ -40,12 +40,9 @@ class GoodsController extends ApiController
 
     public function likeGoods()
     {
-        $goodsId = intval($this->getParam('goodsId', 0));
+        $this->checkLoginAndNotice();
 
-        if (!$this->hadLogin()) {
-            $this->ajaxReturn(ERR_NOT_LOGIN, '登录后才能点赞');
-            return ;
-        }
+        $goodsId = intval($this->getParam('goodsId', 0));
         if (!GoodsLikeModel::hadLiked($this->userId(), $goodsId)) {
             GoodsLikeModel::likeGoods($this->userId(), $goodsId);
             GoodsModel::doLikeGoods($goodsId);
@@ -58,6 +55,15 @@ class GoodsController extends ApiController
             return ;
         }
         $this->ajaxReturn(0, '', '', array('headImg' => ''));
+    }
+
+    public function search()
+    {
+        $key = $this->getParam('key', '');
+        $page = intval($this->getParam('page', 1));
+        $res = GoodsModel::search($key, $page);
+        $goodsList = GoodsModel::fillShowGoodsListData($res);
+        $this->ajaxReturn(0, '', '', array('goodslist' => $goodsList));
     }
 }
 

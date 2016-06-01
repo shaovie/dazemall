@@ -13,6 +13,16 @@
 	<input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
 	
     <div class="wrap">
+    <form class="serch-panel-form" action="/mall/Goods/search">
+        <div id="J-search-panel" class="search-panel">
+            <div class="search-wrap">
+                <i class="icon-search"></i>
+                <input name="key" type="search" placeholder="请输入商品名称" value="西红柿" />
+                <i class="icon-clear"></i>
+            </div>
+            <button type="submit">搜索</button>
+        </div>
+    </form>
 	<section class="tj-section">
         <div id="banner" class='swipe'>
             <div class="swipe-wrap">

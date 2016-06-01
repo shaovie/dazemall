@@ -16,8 +16,8 @@
 	
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
-	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
-</header>
+	<a href="/user/Order" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
+    </header>
     <?php if (!empty($act['image_urls'])): ?>
 	<div id="banner" class='swipe'>
 		<div class="swipe-wrap">

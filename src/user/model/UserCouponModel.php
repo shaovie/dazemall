@@ -69,32 +69,41 @@ class UserCouponModel
 
     public static function getSomeUnusedCoupon($userId, $page, $size)
     {
-        return self::getSomeCoupon($userId, self::COUPON_ST_UNUSED, $page, $size);
+        if (empty($userId))
+            return array();
+        return self::getSomeCoupon(
+            array('user_id', 'state', 'end_time>'), array($userId, self::COUPON_ST_UNUSED, CURRENT_TIME),
+            array('and', 'and'),
+            array('begin_time'), array('asc'),
+            $page,
+            $size
+        );
     }
 
     public static function getSomeUsedCoupon($userId, $page, $size)
     {
-        return self::getSomeCoupon($userId, self::COUPON_ST_USED, $page, $size);
+        if (empty($userId))
+            return array();
+        return self::getSomeCoupon(
+            array('user_id', 'state'), array($userId, self::COUPON_ST_USED),
+            array('and'),
+            array('begin_time'), array('asc'),
+            $page,
+            $size
+        );
     }
 
     public static function getSomeExpiredCoupon($userId, $page, $size)
     {
-        if (empty($userId)) {
+        if (empty($userId))
             return array();
-        }
-
-        $page = $page > 0 ? $page - 1 : $page;
-
-        $ret = DB::getDB()->fetchSome(
-            'u_coupon',
-            '*',
-            array('user_id', 'end_time<='), array($userId, CURRENT_TIME),
-            array('and'),
+        return self::getSomeCoupon(
+            array('user_id', 'state', 'end_time<='), array($userId, self::COUPON_ST_UNUSED, CURRENT_TIME),
+            array('and', 'and'),
             array('end_time'), array('desc'),
-            array($page * $size, $size)
+            $page,
+            $size
         );
-
-        return $ret === false ? array() : $ret;
     }
 
     public static function useCoupon($userId, $couponId)
@@ -231,20 +240,16 @@ class UserCouponModel
         }
     }
 
-    private static function getSomeCoupon($userId, $state, $page, $size)
+    private static function getSomeCoupon($conds, $vals, $rels, $order, $orderType, $page, $size)
     {
-        if (empty($userId)) {
-            return array();
-        }
-
         $page = $page > 0 ? $page - 1 : $page;
 
         $ret = DB::getDB()->fetchSome(
             'u_coupon',
             '*',
-            array('user_id', 'state'), array($userId, self::COUPON_ST_UNUSED),
-            array('and'),
-            array('begin_time'), array('asc'),
+            $conds, $vals,
+            $rels,
+            $order, $orderType,
             array($page * $size, $size)
         );
 

@@ -122,6 +122,22 @@ class GoodsModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function search($key, $page)
+    {
+        if (empty($key))
+            return array();
+        $nowPage = $page > 0 ? $page - 1 : $page;
+        $pageSize = 12;
+        $key = str_replace('_', '\_', $key);
+        $key = str_replace('%', '\%', $key);
+
+        $sql = 'select * from g_goods where state=' . self::GOODS_ST_UP
+            . " and name like '%" . trim($key) . "%'"
+            . ' order by sort desc, id desc limit ' . $pageSize * $nowPage . ', ' . $pageSize;
+        $ret = DB::getDB('r')->rawQuery($sql);
+        return $ret === false ? array() : $ret;
+    }
+
     public static function goodsCategory($goodsId)
     {
         $goodsInfo = self::findGoodsById($goodsId);

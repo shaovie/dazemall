@@ -69,7 +69,7 @@
 	<ul class="cart-list">
 		<?php foreach($goodsList as $goods): ?>
 		<li>
-			<input type="hidden" name="ids[]" value="<?php echo $goods['id']; ?>"/>
+			<input type="hidden" name="cartId[]" value="<?php echo $goods['id']; ?>"/>
 			<div class="img-wrap" style="background-image:url(<?php echo $goods['imageUrl'];?>)"></div>
 			<div class="goods-info">
 				<p class="goods-title"><?php echo $goods['name'];?></p>

@@ -53,31 +53,21 @@ class UserBillModel
         return true;
     }
 
-    public static function getSomeBill($userId, $nextId, $size)
+    public static function getSomeBill($conds, $vals, $rels, $page, $size)
     {
-        if (empty($userId) || $size <= 0) {
+        if ($size <= 0) {
             return array();
         }
-        $nextId = (int)$nextId;
-        if ($nextId > 0) {
-            $ret = DB::getDB()->fetchSome(
-                'u_bill',
-                '*',
-                array('user_id', 'id<'), array($userId, $nextId),
-                array('and'),
-                array('id'), array('desc'),
-                array($size)
-            );
-        } else {
-            $ret = DB::getDB()->fetchSome(
-                'u_bill',
-                '*',
-                array('user_id'), array($userId),
-                false,
-                array('id'), array('desc'),
-                array($size)
-            );
-        }
+        $page = $page > 0 ? $page - 1 : $page;
+
+        $ret = DB::getDB()->fetchSome(
+            'u_bill',
+            '*',
+            $conds, $vals,
+            $rels,
+            array('id'), array('desc'),
+            array($page * $size, $size)
+        );
         return empty($ret) ? array() : $ret;
     }
 
@@ -118,6 +108,20 @@ class UserBillModel
             );
         }
         return empty($ret) ? array() : $ret;
+    }
+
+    public static function getDesc($t)
+    {
+        if ($t == self::BILL_FROM_ORDER_CASH_PAY) {
+            return '余额支付';
+        } elseif ($t == self::BILL_FROM_ORDER_OL_PAY) {
+            return '在线支付';
+        } elseif ($t == self::BILL_FROM_ORDER_CASH_REFUND) {
+            return '余额退还';
+        } elseif ($t == self::BILL_FROM_SYS_RECHARGE) {
+            return '系统充值';
+        }
+        return '未知';
     }
 
 }

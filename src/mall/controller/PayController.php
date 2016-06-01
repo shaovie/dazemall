@@ -169,7 +169,7 @@ class PayController extends MallController
         $this->checkLoginAndNotice();
 
         $addrId = intval($this->postParam('address_id', 0));
-        $cartIds = $this->postParam('ids', array());
+        $cartIds = $this->postParam('cartId', array());
         $payType = intval($this->postParam('pay_type', 0));
         $isCash  = intval($this->postParam('is_cash', 0));
         $couponId  = intval($this->postParam('coupon_id', 0));
@@ -232,7 +232,7 @@ class PayController extends MallController
         $this->checkLoginAndNotice();
 
         $addrId = intval($this->postParam('address_id', 0));
-        $goodsId = $this->postParam('ids', array());
+        $goodsId = $this->postParam('cartId', array());
         if (count($goodsId) != 1) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '请求参数有误...', '', ['orderId' => '']);
             return 0;

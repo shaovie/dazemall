@@ -16,21 +16,18 @@
     </section>
     <ul class="wealth-list">
         <li>
-            <a href="#">
-                <label><?php echo $user['cash'];?>元</label>
-                <p>余额</p>
+            <a href="/user/Wallet">
+                <p>我的钱包</p>
             </a>
         </li>
         <li>
-            <a href="#">
-                <label><?php echo $user['couponAmount'];?>个</label>
+            <a href="/user/Coupon/myCoupon">
                 <p>优惠券</p>
             </a>
         </li>
         <li>
             <a href="#">
-                <label><?php echo $user['jifen'];?></label>
-                <p>积分</p>
+                <p>商城积分</p>
             </a>
         </li>
     </ul>

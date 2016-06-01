@@ -17,7 +17,7 @@
     <input type="hidden" id="J-ajaxurl-address-del" value="/api/UserAddress/del" />
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
-	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
+	<a href="/user/Order" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
     </header>
 	<section id="J-address-section"></section>
 	<?php

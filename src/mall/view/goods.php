@@ -16,8 +16,8 @@
     <input type="hidden" id="J-ajaxurl-initProductLikeData" value="/api/Goods/likeInfo?goodsId=<?php echo $goodsId?>" />
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
-	<a href="/user/Home" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
-</header>
+	<a href="/user/Order" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
+    </header>
 	<section class="goods-item">
 		<div id="banner" class='swipe'>
 	<div class="swipe-wrap">
@@ -86,7 +86,7 @@
         </div>
     </section>
 	<section class="goods-des">
-		<div class="section-title">商品详情</div>
+		<!-- <div class="section-title">商品详情</div> -->
 		<div class="goods-des-content">
         <?php echo empty($goodsDetail) ? '' : $goodsDetail; ?>
 		</div>

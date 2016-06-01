@@ -4,7 +4,7 @@
  * @Date   2015-12-03
  */
 
-namespace src\mall\controller;
+namespace src\user\controller;
 
 use \src\common\BaseController;
 use \src\common\Util;

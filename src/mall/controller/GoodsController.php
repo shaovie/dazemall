@@ -19,7 +19,7 @@ class GoodsController extends MallController
 
         $goodsInfo = GoodsModel::findGoodsById($goodsId);
         if (empty($goodsInfo)) {
-            echo '<h1>商品不存在</h1>';
+            $this->showNotice('商品不存在', '/');
             return ;
         }
         $goodsDetail = GoodsDetailModel::findGoodsDetailById($goodsId);
@@ -58,6 +58,21 @@ class GoodsController extends MallController
         $data['shareCfg'] = $shareCfg;
 
         $this->display('goods', $data);
+    }
+
+    public function search()
+    {
+        $key = $this->getParam('key', '');
+        $page = intval($this->getParam('page', 1));
+        $res = GoodsModel::search($key, $page);
+        $goodsList = GoodsModel::fillShowGoodsListData($res);
+        $data = array(
+            'key'        => $key,
+            'goodsList'  => $goodsList,
+            'orderBy'    => 'price',
+            'orderType'  => 'up',
+        );
+        $this->display('search', $data);
     }
 }
 
