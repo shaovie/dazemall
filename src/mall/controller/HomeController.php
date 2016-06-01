@@ -6,6 +6,7 @@
 
 namespace src\mall\controller;
 
+use \src\common\WxSDK;
 use \src\mall\model\BannerModel;
 use \src\mall\model\GoodsModuleModel;
 use \src\mall\model\ActivityModel;
