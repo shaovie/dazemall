@@ -36,13 +36,13 @@
 					</select>
 				</li>
 				<li style="float:left;list-style-type:none;">
-					<span>关键字</span>	<input style="margin-right:10px;margin-top:10px;width:200px; height:34px; line-height:28px; padding:2px 5px" name="keyword" id="" type="text" value="<?php if (!empty($search['keyword'])) {echo $search['keyword'];} ?>" placeholder="商品编号/商品名称">
+					<span>关键字</span>	<input style="margin-right:10px;margin-top:10px;width:160px; height:34px; line-height:28px; padding:2px 5px" name="keyword" id="" type="text" value="<?php if (!empty($search['keyword'])) {echo $search['keyword'];} ?>" placeholder="商品编号/商品名称">
 				</li>
 				<li style="float:left;list-style-type:none;">
 					<input type="submit" name="submit" class="btn btn-sm btn-primary" style="margin-right:10px;margin-top:10px;" value="搜索"></li>
 
 				<li style="float:left;list-style-type:none;">
-					<select name="category" id="category" style="margin-right:10px;margin-top:10px;width: 100px; height:34px; line-height:28px; padding:2px 0">
+					<select name="category" id="category" style="margin-right:10px;margin-top:10px;width: 160px; height:34px; line-height:28px; padding:2px 0">
 					    <option value="-1" <?php if (!isset($search['catId']) || $search['catId'] == -1) { echo 'selected="selected"';}?> >商品种类</option>
                         <?php foreach ($categoryList as $cate):?>
 					    <option value="<?php echo $cate['category_id']?>" <?php if (isset($search['catId']) && $search['catId'] == $cate['category_id']) { echo 'selected="selected"';}?> ><?php echo $cate['name']?></option>
