@@ -19,10 +19,11 @@ define('JS_CSS_CONFIG_PATH',    EDITION == 'test' ? ROOT_PATH . '/config/js_css_
 
 define('CURRENT_TIME',          $_SERVER['REQUEST_TIME']); // 不敏感的时间可以取这个值
 define('APP_HOST',              $_SERVER['APP_HOST']);
+define('PAY_HOST',              $_SERVER['PAY_HOST']);
+define('HT_HOST',               $_SERVER['HT_HOST']);
 
 //= for cookie
 define('COOKIE_PREFIX',         $_SERVER['COOKIE_PREFIX']);
-define('COOKIE_DOMAIN',         $_SERVER['COOKIE_DOMAIN']);
 
 define('APP_URL_BASE',          'http://' . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : APP_HOST));
 

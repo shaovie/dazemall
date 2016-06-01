@@ -11,11 +11,11 @@ class Session
     public static $cookie = array(
         'pre' => COOKIE_PREFIX . '_',
         'path'=> '/',
-        'domain' => COOKIE_DOMAIN,
+        'domain' => '',
         'expire' => 2592000
     );
 
-    public static function getSid($key = 'user')
+    public static function getSid($key, $domain)
     {
         $key = self::$cookie['pre'] . $key;
         if (!empty($_COOKIE[$key])) {
@@ -29,7 +29,7 @@ class Session
             $value,
             CURRENT_TIME + self::$cookie['expire'],
             self::$cookie['path'],
-            self::$cookie['domain']
+            $domain
         );
         return $value;
     }
@@ -42,7 +42,7 @@ class Session
         $data['wxOpenId'] = $wxOpenId;
         $data['userAgent'] = isset($_SERVER['HTTP_USER_AGENT']) ?
             $_SERVER['HTTP_USER_AGENT'] : '';
-        $key = self::getSid('user');
+        $key = self::getSid('user', APP_HOST);
         Nosql::set(Nosql::NK_USER_SESSOIN . $key, json_encode($data));
     }
 
@@ -51,13 +51,13 @@ class Session
         $data['account'] = $account;
         $data['userAgent'] = isset($_SERVER['HTTP_USER_AGENT']) ?
             $_SERVER['HTTP_USER_AGENT'] : '';
-        $key = self::getSid('emp');
+        $key = self::getSid('emp', HT_HOST);
         Nosql::set(Nosql::NK_ADMIN_SESSOIN . $key, json_encode($data));
     }
 
     public static function delEmpSession($account)
     {
-        $key = self::getSid('emp');
+        $key = self::getSid('emp', HT_HOST);
         Nosql::del(Nosql::NK_ADMIN_SESSOIN . $key);
     }
 }

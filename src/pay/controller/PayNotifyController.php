@@ -64,7 +64,7 @@ class PayNotifyController extends PayController
                 $data['out_trade_no'], // 商户订单号
                 $data['total_fee'],    // 订单总金额
                 $data['cash_fee']) === true) { // 订单现金支付金额
-            Nosql::setex($nk, Nosql::NK_PAY_NOTIFY_DE_DUPLICATION_EXPIRE, 'x');
+            Nosql::setEx($nk, Nosql::NK_PAY_NOTIFY_DE_DUPLICATION_EXPIRE, 'x');
             echo '<xml><return_code>SUCCESS</return_code><return_msg>OK</return_msg></xml>';
             Log::pay('wexin unified pay notify success : ' . json_encode($data));
             return ;

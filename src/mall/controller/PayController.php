@@ -552,7 +552,7 @@ class PayController extends MallController
             $orderDesc,
             ceil($totalAmount * 100), // 防止超过2位小数
             Util::getIp(),
-            APP_URL_BASE . '/pay/PayNotify/wxUnified'
+            'http://' . PAY_HOST . '/pay/PayNotify/wxUnified'
         );
         if ($jsParams === false) {
             $optResult['desc'] = '向微信申请支付失败，稍重试';
