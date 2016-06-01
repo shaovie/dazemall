@@ -106,7 +106,8 @@
                         <div class="item-title"><?php echo $goods['name'] ?></div>
                         <div class="item-price">
                             <span class="price">&yen; <?php echo $goods['salePrice'] ?></span>
-                            <?php if (true && (float)$goods['discount'] > 0.00):?>
+                            <label class="btn-sm J-add-cart" goods-id="<?php echo $goods['goodsId']?>"></label>
+                            <?php if (false && (float)$goods['discount'] > 0.00):?>
                             <label class="btn btn-sm"><?php echo $goods['discount']?>折</label>
                             <?php endif?>
                         </div>
