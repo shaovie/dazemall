@@ -50,12 +50,14 @@ class GoodsController extends MallController
         $data['defaultSku'] = $skuValue[0];
         $data['skuJson'] = json_encode($skuJson);
 
+        /*
         $data['signPackage'] = WxSDK::getSignPackage();
         $shareCfg['title'] = $data['name'];
         $shareCfg['desc'] = '';
         $shareCfg['img'] = $data['imageUrl'];
         $shareCfg['url'] = APP_URL_BASE . '/mall/Goods/detail?goodsId=' . $goodsId;
         $data['shareCfg'] = $shareCfg;
+        */
         $this->display('goods', $data);
     }
 }
