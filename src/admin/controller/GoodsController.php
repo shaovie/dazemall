@@ -84,6 +84,14 @@ class GoodsController extends AdminController
             }
         } while(false);
 
+        if (!empty($goodsList)) {
+            foreach ($goodsList as &$goods) {
+                $goods['state'] =  GoodsModel::getStateDesc($goods['state']);
+                $cateName = GoodsCategoryModel::getCateName($goods['category_id']);
+                $goods['category_name'] = GoodsCategoryModel::fullCateName($goods['category_id'], $cateName);
+            }
+        }
+
         $pageHtml = $this->pagination(
             $totalNum,
             $page,

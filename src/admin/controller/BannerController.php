@@ -180,7 +180,7 @@ class BannerController extends AdminController
             $error = '链接值不能超过255字符';
             return false;
         }
-        if ($bannerInfo['showArea'] == -1) {
+        if ($bannerInfo['show_area'] == -1) {
             $error = '展示区域无效';
             return false;
         }

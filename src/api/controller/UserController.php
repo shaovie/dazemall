@@ -11,7 +11,7 @@ use \src\common\Log;
 
 class UserController extends ApiController
 {
-    public static wxShareLog()
+    public function wxShareLog()
     {
         Log::rinfo(json_encode($_POST));
         $shareType = $this->postParmas('type', 0);
