@@ -444,6 +444,7 @@ drop table if exists m_activity;
 create table m_activity (
     id                  int unsigned not null auto_increment,
 
+    title               varchar(255) not null default '',           # 展示标题
     show_area           int not null default 0,                     # 显示区域
     image_url           varchar(255) not null default '',           # 展示图片
     image_urls          varchar(2048) not null default '',          # 商品轮播图片(json格式)
