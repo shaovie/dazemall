@@ -9,6 +9,8 @@
 <body>
 	<!--列表url-->
 	<input id="J-ajax-url" type="hidden" value="<?php echo $ajaxUrl?>" />
+    <!--添加到购物车-->
+    <input id="J-ajaxurl-addCart" type="hidden" value="/api/Cart/autoAdd" />
 	
 	<header>
 	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
@@ -37,6 +39,7 @@
 			<div class="goods-title"><?php echo $goods['name']?></div>
 			<div class="clearfix">
 				<label class="price"><i>&yen;</i><b><?php echo $goods['salePrice']?></b></label>
+                <label class="btn-sm J-add-cart" goods-id="<?php echo $goods['goodsId']?>"></label>
                 <?php if (true || (float)$goods['discount'] > 0.00):?>
 				<label class="btn btn-sm right"><?php echo $goods['discount']?>折</label>
                 <?php endif?>

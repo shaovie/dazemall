@@ -11,6 +11,8 @@
 </head>
 <body>
 	<input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
+    <!--添加到购物车-->
+    <input id="J-ajaxurl-addCart" type="hidden" value="/api/Cart/autoAdd" />
 	
     <div class="wrap">
     <form class="serch-panel-form" action="/mall/Goods/search">

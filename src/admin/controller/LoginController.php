@@ -23,6 +23,10 @@ class LoginController extends BaseController
     // view
     public function index()
     {
+        if ($_SERVER['HTTP_HOST'] != HT_HOST) {
+            echo '拒绝访问';
+            exit();
+        }
         $this->display('login');
     }
 

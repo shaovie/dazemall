@@ -10,6 +10,11 @@ class HomeController extends AdminController
 {
     public function index()
     {
+        if ($_SERVER['HTTP_HOST'] != HT_HOST) {
+            echo '拒绝访问';
+            exit();
+        }
+
         $data = array(
             'iframe' => '/admin/Order/listPage',
             'account' => $this->account,
