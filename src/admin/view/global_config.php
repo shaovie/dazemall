@@ -88,7 +88,7 @@
                 freePostage:$("#free_postage").val(),
                 kucun_alarm:$("#kucun_alarm").val(),
                 kucun_alarm_users:$("#kucun_alarm_users").val(),
-                kucun_alarm_tpl:$("#kucun_alarm_tpl").val()
+                kucun_alarm_tpl:$("#kucun_alarm_tpl").val(),
                 search_key:$("#search_key").val()
                 },function(data){
                 if(data.code==0) {
