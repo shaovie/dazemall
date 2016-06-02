@@ -360,7 +360,8 @@ class UserOrderModel
 
         $ret = DB::getDB('w')->update(
             'o_order',
-            array('delivery_state' => self::ORDER_DELIVERY_ST_CONFIRM),
+            array('delivery_state' => self::ORDER_DELIVERY_ST_CONFIRM,
+                'order_state' => self::ORDER_ST_FINISHED),
             array('order_id', 'user_id'), array($orderId, $userId),
             array('and')
         );

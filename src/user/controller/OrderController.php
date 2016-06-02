@@ -116,7 +116,7 @@ class OrderController extends UserController
         }
 
         UserOrderModel::userConfirmDeliveryOk($this->userId(), $orderId);
-        $url = '/user/Order/orderToTakeDelivery?orderId=' . $orderId;
+        $url = '/user/Order/toTakeDelivery';
         $this->ajaxReturn(0, '', $url);
     }
 
