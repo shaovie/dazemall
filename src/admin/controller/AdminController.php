@@ -72,6 +72,7 @@ class AdminController extends BaseController
     protected function toLogin()
     {
         header('Location: /admin/Login');
+        exit();
     }
 
     function pagination($total, $pindex, $psize, $url, $params)

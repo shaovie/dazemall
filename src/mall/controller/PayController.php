@@ -326,7 +326,7 @@ class PayController extends MallController
         }
         if ($orderInfo['pay_state'] == PayModel::PAY_ST_SUCCESS) {
             header('Location: /user/Order/toTakeDelivery');
-            return ;
+            exit();
         }
         $orderGoods = OrderGoodsModel::fetchOrderGoodsById($orderId);
         if (empty($orderGoods)) {
