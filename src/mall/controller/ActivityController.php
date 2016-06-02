@@ -18,7 +18,7 @@ class ActivityController extends MallController
         $actInfo = ActivityModel::findActivityById($actId);
         if (empty($actInfo)
             || ($actInfo['begin_time'] > CURRENT_TIME
-                || $actInfo['end_time'] < CURRENT_TIME)) {
+                || ($actInfo['end_time'] > 0 && $actInfo['end_time'] < CURRENT_TIME))) {
             $this->showNotice('抱歉，活动已结束~~');
             return;
         }
