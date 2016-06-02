@@ -8,6 +8,7 @@ namespace src\job\controller;
 
 use \src\common\Nosql;
 use \src\common\Log;
+use \src\common\DB;
 use \src\job\model\AsyncModel;
 use \src\mall\model\OrderModel;
 use \src\mall\model\goodsModel;
