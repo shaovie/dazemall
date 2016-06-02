@@ -52,7 +52,7 @@
                 <span class="state dib"><?php echo $order['deliveryStateDesc']?></span>
                 <?php if ($order['delivery_state'] == 2)/*发货中*/:?>
                     <div class="btn-wrap dib">
-                        <a class="j-ajax btnl" ajax-url="/user/yOrder/confirmTakeDelivery" ajax-data='{"orderId":"<?php echo $order['orderId']?>"}' ajax-type="post">确认收货</a>
+                        <a class="j-ajax btnl" ajax-url="/user/Order/confirmTakeDelivery" ajax-data='{"orderId":"<?php echo $order['orderId']?>"}' ajax-type="post">确认收货</a>
                     </div>
                 <?php endif?>
             <?php endif?>
