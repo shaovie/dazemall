@@ -111,6 +111,15 @@ class SkuValueController extends AdminController
             $this->ajaxReturn(ERR_PARAMS_ERROR, $error);
             return ;
         }
+        $ret = SkuValueModel::fetchSomeSkuValue(
+            array('attr_id', 'value'),
+            array($skuValueInfo['attrId'], $skuValueInfo['skuValue']),
+            array('and'),
+            1, 2);
+        if (!empty($ret)) {
+            $this->ajaxReturn(ERR_SYSTEM_ERROR, '属性值已经存在');
+            return ;
+        }
         $ret = SkuValueModel::newOne(
             $skuValueInfo['attrId'],
             $skuValueInfo['skuValue'],
