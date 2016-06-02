@@ -606,7 +606,7 @@ drop table if exists r_order_per_day;
 create table r_order_per_day (
     id                  int unsigned not null auto_increment,
 
-    order_num           int unsigned not null default 20,           #
+    order_num           int unsigned not null default 0,            #
     seller_amount       decimal(10,2) not null default 0.0,         #
 
     ctime               int not null default 0,                     # 创建时间
@@ -621,7 +621,7 @@ create table r_goods_per_day (
     goods_id            int unsigned not null default 0,            # 商品ID
     sku_attr            varchar(36) not null default '',            # sku属性
     sku_value           varchar(60) not null default '',            # sku属性值
-    seller_num          int unsigned not null default 20,           #
+    seller_num          int unsigned not null default 0,            #
     seller_amount       decimal(10,2) not null default 0.0,         #
 
     ctime               int not null default 0,                     # 创建时间
