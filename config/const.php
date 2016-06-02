@@ -62,6 +62,8 @@ define('WX_PAY_APP_SECRET',     $_SERVER['WX_PAY_APP_SECRET']);
 define('WX_PAY_MCHID',          $_SERVER['WX_PAY_MCHID']);
 define('WX_PAY_KEY',            $_SERVER['WX_PAY_KEY']);
 
+define('TMP_DELIVERY_NOTIFY',   $_SERVER['TMP_DELIVERY_NOTIFY']);
+
 //= alipay config
 const ALI_PAY_PARTNER_ID        = '2088411445174760';
 

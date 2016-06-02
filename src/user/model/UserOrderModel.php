@@ -389,6 +389,7 @@ class UserOrderModel
             return false;
         }
         self::onUpdateData($orderId);
+        self::onStartDelivery($orderId, $deliverymanId);
         return true;
     }
 
