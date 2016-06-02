@@ -44,6 +44,9 @@
 <td>= 运费&nbsp;&nbsp;&nbsp;：￥<?php echo $order['postage']?> </td>
 </tr>
 <tr align="left">
+<td>= 优惠券金额：￥<?php echo $order['couponPayAmount']?> </td>
+</tr>
+<tr align="left">
 <td>= 订单总金额：￥<?php echo $order['orderAmount']?> </td>
 </tr>
 <tr align="left">
