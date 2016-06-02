@@ -588,6 +588,7 @@ create table s_global_config (
     kucun_alarm         int unsigned not null default 20,           #
     kucun_alarm_users   varchar(255) not null default '',           #
     kucun_alarm_tpl     varchar(255) not null default '',           #
+    search_key          varchar(255) not null default '',           #
 
     mtime               int not null default 0,                     # 创建时间
     m_user              varchar(31) not null default ''             # 修改人

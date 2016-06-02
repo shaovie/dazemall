@@ -31,6 +31,12 @@ class GlobalConfigModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function searchKey()
+    {
+        $ret = self::getConfig();
+        return $ret['search_key'];
+    }
+
     public static function update($data)
     {
         DB::getDB('w')->update('s_global_config', $data, [], []);

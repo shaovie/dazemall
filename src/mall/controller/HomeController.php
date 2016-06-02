@@ -11,6 +11,7 @@ use \src\mall\model\BannerModel;
 use \src\mall\model\GoodsModuleModel;
 use \src\mall\model\ActivityModel;
 use \src\mall\model\GoodsModuleGListModel;
+use \src\mall\model\GlobalConfigModel;
 
 class HomeController extends MallController
 {
@@ -21,6 +22,7 @@ class HomeController extends MallController
         $moduleGoodsList = GoodsModuleGListModel::fillGoodsList($goodsModuleList);
         $actList = ActivityModel::findAllValidActivity(CURRENT_TIME, ActivityModel::SHOW_AREA_HOME);
         $data = array(
+            'searchKey' => GlobalConfigModel::searchKey(),
             'bannerList' => $bannerList,
             'goodsModuleList' => $moduleGoodsList,
             'actList' => $actList,

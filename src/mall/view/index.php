@@ -19,7 +19,7 @@
         <div id="J-search-panel" class="search-panel">
             <div class="search-wrap">
                 <i class="icon-search"></i>
-                <input name="key" type="search" placeholder="请输入商品名称" value="西红柿" />
+                <input name="key" type="search" placeholder="请输入商品名称" value="<?php echo $searchKey?>" />
                 <i class="icon-clear"></i>
             </div>
             <button type="submit">搜索</button>
