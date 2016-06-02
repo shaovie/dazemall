@@ -54,5 +54,6 @@
 			</tbody>
 		</table>
 	</form>
+    <?php echo $pageHtml;?>
 </body>
 </html>
