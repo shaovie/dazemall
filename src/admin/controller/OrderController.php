@@ -326,49 +326,4 @@ class OrderController extends AdminController
         }
         return $orderList;
     }
-
-    private static function onStartDelivery($orderId, $deliverymanId)
-    {
-        $orderInfo = self::findOrderByOrderId($orderId);
-        if (empty($orderInfo))
-            return ;
-        $wxUserInfo = WxUserModel::findUserByUserId($orderInfo['user_id']);
-        if (!empty($wxUserInfo['openid'])) {
-            $goodsList = OrderGoodsModel::fetchOrderGoodsById($orderId);
-            foreach($goodsList as &$val) {
-                $goodsInfo = GoodsModel::findGoodsById($val['goods_id']);
-                if (!empty($goodsInfo)) {
-                    $val['name'] = $goodsInfo['name'];
-                }
-            }
-            $orderDesc = $goodsList[0]['name'];
-            if (count($goodsList) > 1)
-                $orderDesc .= '; ' . $goodsList[1]['name'];
-            $fullAddr = UserAddressModel::getFullAddr($orderInfo);
-            $fullAddr = $fullAddr['fullAddr'];
-            $deliverymanInfo = DeliverymanModel::findDeliverymanById($deliverymanId);
-            $deliverymanName = '商城配送';
-            $deliverymanPhone = '400-803-0530';
-            if (!empty($deliverymanInfo)) {
-                $deliverymanName = $deliverymanInfo['name'];
-                $deliverymanPhone = $deliverymanInfo['phone'];
-            }
-
-            $tplMsg['touser'] = $wxUserInfo['openid'];
-            $tplMsg['template_id'] = TMP_DELIVERY_NOTIFY;
-            $tplMsg['url'] = APP_URL_BASE . '/user/Order/toTakeDelivery';
-            $tplMsg['topcolor'] = '#FF0000';
-            $tplMsg['data'] = array(
-                'first'    => array('value' => "您好，您的订单已经发货啦！\n", 'color' => '#173177'),
-                'keyword1' => array('value' => $orderDesc, 'color' => '#173177'),
-                'keyword2' => array('value' => date('Y-m-d H:i:s', $orderInfo['ctime']),
-                    'color' => '#173177'),
-                'keyword3' => array('value' => $fullAddr, 'color' => '#173177'),
-                'keyword4' => array('value' => $deliverymanName, 'color' => '#173177'),
-                'keyword5' => array('value' => $deliverymanPhone, 'color' => '#173177'),
-                'remark' => array('value' => "\n祝您购物愉快！", 'color' => '#173177')
-            );
-            AsyncModel::asyncSendTplMsg($wxUserInfo['openid'], $tplMsg, 0);
-        }
-    }
 }
