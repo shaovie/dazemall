@@ -20,7 +20,7 @@ class GoodsModel
     const GOODS_ST_VALID           = 1;  // 有效
     const GOODS_ST_UP              = 2;  // 上架-展示在商城中
 
-    const CATEGORY_LIST_PAGESIZE   = 12;
+    const CATEGORY_LIST_PAGESIZE   = 16;
 
     public static function newOne(
         $name,
