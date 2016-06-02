@@ -348,7 +348,7 @@ class OrderController extends AdminController
             $fullAddr = $fullAddr['fullAddr'];
             $deliverymanInfo = DeliverymanModel::findDeliverymanById($deliverymanId);
             $deliverymanName = '商城配送';
-            $deliverymanPhone = '134234234';
+            $deliverymanPhone = '400-803-0530';
             if (!empty($deliverymanInfo)) {
                 $deliverymanName = $deliverymanInfo['name'];
                 $deliverymanPhone = $deliverymanInfo['phone'];
