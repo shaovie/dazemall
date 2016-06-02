@@ -30,7 +30,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> SKU属性名称</label>
 			<div class="col-sm-9">												
-				<input type="text" id="skuAttr" name="skuAttr" class="col-xs-10 col-sm-2" value="<?php if (!empty($info['attr'])){echo $info['attr'];}?>">
+				<input type="text" id="skuAttr" name="skuAttr" class="col-xs-10 col-sm-2" value="<?php if (!empty($info['attr'])){echo $info['attr'];}?>" <?php if (!empty($info['attr'])){echo 'readonly="readonly"';}?> >
 			</div>
 		</div>
 
