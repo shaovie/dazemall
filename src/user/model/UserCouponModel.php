@@ -7,6 +7,7 @@
 namespace src\user\model;
 
 use \src\common\DB;
+use \src\common\Log;
 use \src\common\Util;
 use \src\common\Cache;
 use \src\mall\model\GoodsCategoryModel;
@@ -149,9 +150,9 @@ class UserCouponModel
                 if ($coupon['category_id'] == 0 // 无品类限制
                     || GoodsCategoryModel::checkBelongCategoryOrNot(
                         $coupon['category_id'],
-                        $goods['category_id'])
+                        $goods['categoryId'])
                 ) {
-                    $totalPrice += $goods['sale_price'];
+                    $totalPrice += $goods['salePrice'];
                 }
             }
             if ($totalPrice > 0.0001) {
@@ -170,17 +171,17 @@ class UserCouponModel
             return array();
         }
         $func = function($v1, $v2) {
-            if ((float)$v1['coupon_amount'] == (float)$v2['coupon_amount']) {
+            if ((float)$v1['coupon_amount'] - (float)$v2['coupon_amount'] < 0.001) {
                 return 0;
             }
             return (float)$v1['coupon_amount'] > (float)$v2['coupon_amount'] ? 1 : -1;
         };
-        $ret = usort($couponList, $func);
-        return end($ret);
+        usort($couponList, $func);
+        return end($couponList);
     }
 
     // 计算优惠券优惠金额
-    public static function calcCouponPayAmount($couponInfo, $goodsList)
+    public static function checkCouponForPayment($couponInfo, $goodsList)
     {
         $result = array('code' => ERR_OPT_FAIL, 'desc' => '', 'result' => array());
         if ($couponInfo['state'] == self::COUPON_ST_USED) {
@@ -213,6 +214,8 @@ class UserCouponModel
             return $result;
         }
 
+        $result['code'] = 0;
+        $result['desc'] = '';
         return $result;
     }
 

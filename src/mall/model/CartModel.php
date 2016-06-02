@@ -63,6 +63,8 @@ class CartModel
         $data['skuAttr'] = $cart['sku_attr'];
         $data['skuValue'] = $cart['sku_value'];
         $data['imageUrl'] = $goodsInfo['image_url'];
+        $data['categoryId'] = $goodsInfo['category_id'];
+        $data['category_id'] = $goodsInfo['category_id'];
         return $data;
     }
 

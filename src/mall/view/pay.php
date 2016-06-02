@@ -15,6 +15,8 @@
     <input type="hidden" id="J-ajaxurl-address-save" value="/api/UserAddress/edit" />
     <!--地址：删除-->
     <input type="hidden" id="J-ajaxurl-address-del" value="/api/UserAddress/del" />
+    <!--优惠券列表-->
+    <input type="hidden" id="J-ajaxurl-ticketList" ajax-params='<?php echo "xx,dd";?>' value="/api/User/getOrderCouponList" />
 <form id="J-pay-form" action="<?php echo $action?>" method="post" enctype="application/x-www-form-urlencoded">
     <?php if (!empty($orderInfo)):?>
     <section class="order-info">
@@ -113,19 +115,22 @@
 		<span class="ticket-num"><b><?php echo $avalidCouponAmount?></b>张优惠券可用</span>
 		<i class="icon-arrow"></i>
 	</div>
-	<?php endif;?>
+	<?php else:?>
 	<div class="no-ticket right">暂无优惠券可用</div>
+    <?php endif?>
 </section>
 <section class="money-calculate">
 	<div class="calculate">
 		<span class="price"><i>&yen;</i><b><?php echo number_format($orderAmount-$postage, 2, '.', ''); ?></b></span>
 		<span>+</span>
 		<span class="price"><i>&yen;</i><b><?php echo $postage; ?></b></span>运费
-        <!--
+        <?php if(!empty($coupon)):?>
 		<span id="J-minus-ticket">
 			<span>-</span>
-			<span class="price"><i>&yen;</i><b>0.00</b></span>优惠券
+			<span class="price"><i>&yen;</i><b><?php echo $coupon['coupon_amount']?></b></span>优惠券
 		</span>
+        <?php endif?>
+        <!--
 		<span id="J-minus-content">
 			<span>-</span>
 			<span class="price"><i>&yen;</i><b>0.00</b></span>余额
@@ -142,7 +147,7 @@
     <a class="J-pay-btn btnl btnl-yue" type="0">余额安全支付</a>
     <a class="J-pay-btn btnl btnl-wx" type="2">微信安全支付</a>
 </footer>
-<input id="J-use-ticket" name="coupon_id" type="hidden" value="<?php echo !empty($coupon) ? $coupon[0]['coupon_id'] : '';?>" />
+<input id="J-use-ticket" name="coupon_id" type="hidden" value="<?php echo !empty($coupon) ? $coupon['id'] : '';?>" />
 <input id="J-total-val" type="hidden" value="<?php echo $orderAmount; ?>" />
 <input id="J-trans-val" type="hidden" value="0.00"/>
 <input id="J-last-val" type="hidden" value="<?php echo $cash; ?>"/>

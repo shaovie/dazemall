@@ -347,7 +347,7 @@ class OrderModel
                 return array('category_id' => $goods['category_id'], 'sale_price' => $sku['sale_price']);
             };
             $gl = array_map($func, $goodsListSKUInfo, $goodsList);
-            $ret = UserCouponModel::calcCouponPayAmount($userId, $couponId, $gl);
+            $ret = UserCouponModel::checkCouponForPayment($couponInfo, $gl);
             if ($ret['code'] != 0) {
                 return $ret;
             }

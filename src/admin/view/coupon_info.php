@@ -31,31 +31,42 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 名称：</label>
 			<div class="col-sm-9">
-				<input type="text" name="name" id="name" maxlength="100" class="span7" value="<?php if (!empty($coupon['name'])){echo $coupon['name'];}?>">
+				<input type="text" name="name" id="name" maxlength="100" class="span7" value="<?php if (!empty($coupon['name'])){echo $coupon['name'];}?>"
+                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                >
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 备注：</label>
 			<div class="col-sm-9">
-				<input type="text" name="remark" id="remark" maxlength="100" class="span7" value="<?php if (!empty($coupon['remark'])){echo $coupon['remark'];}?>">
+				<input type="text" name="remark" id="remark" maxlength="100" class="span7" value="<?php if (!empty($coupon['remark'])){echo $coupon['remark'];}?>"
+                >
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 状态：</label>
 			<div class="col-sm-9" id="state-radio">
 				<div style="margin-right:20px;display:inline;">
-                    <input type="radio" name="state" value="0" id="isshow0" <?php if (isset($coupon['state']) && $coupon['state'] == 0) { echo 'checked="true"';}?> >无效</div>
+                    <input type="radio" name="state" value="0" id="isshow0" <?php if (isset($coupon['state']) && $coupon['state'] == 0) { echo 'checked="true"';}?>
+                <?php if (isset($coupon['id'])){echo 'disabled="disabled"';}?>
+                    >无效</div>
 
 				<div style="margin-right:20px;display:inline;">
-                    <input type="radio" name="state" value="1" id="isshow1" <?php if (isset($coupon['state']) && $coupon['state'] == 1) { echo 'checked="true"';}?> `>有效</div>
+                    <input type="radio" name="state" value="1" id="isshow1" <?php if (isset($coupon['state']) && $coupon['state'] == 1) { echo 'checked="true"';}?> 
+                <?php if (isset($coupon['id'])){echo 'disabled="disabled"';}?>
+                    >有效</div>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 有效时间段：</label>
 			<div class="col-sm-9">
-				<input type="text" name="beginTime" id="beginTime" maxlength="100" class="span7" value="<?php if (!empty($coupon['begin_time'])){echo date('Y-m-d H:i:s', $coupon['begin_time']);}?>" placeholder="开始时间"> - 
-				<input type="text" name="endTime" id="endTime" maxlength="100" class="span7" value="<?php if (!empty($coupon['end_time'])){echo date('Y-m-d H:i:s', $coupon['end_time']);}?>" placeholder="结束时间">
+				<input type="text" name="beginTime" id="beginTime" maxlength="100" class="span7" value="<?php if (!empty($coupon['begin_time'])){echo date('Y-m-d H:i:s', $coupon['begin_time']);}?>" placeholder="开始时间"
+                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                > - 
+				<input type="text" name="endTime" id="endTime" maxlength="100" class="span7" value="<?php if (!empty($coupon['end_time'])){echo date('Y-m-d H:i:s', $coupon['end_time']);}?>" placeholder="结束时间"
+                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                >
 				<p class="help-block">格式：2016-01-18 12:30:23，开始时间不填，默认当前时间，结束时间不填，意为永远</p>
 			</div>
 		</div>
@@ -65,7 +76,9 @@
 			<div class="col-sm-9">
 				<input type="text" name="category_id" id="category_id"
                 onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" 
-                value="<?php if (!empty($coupon['category_id'])){echo $coupon['category_id'];}?>">
+                value="<?php if (!empty($coupon['category_id'])){echo $coupon['category_id'];}?>"
+                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                >
 				<p class="help-block">输入品类编号（0 为全品类）(只限一个品类)</p>
           	</div>
 		</div>
@@ -73,14 +86,18 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 面额：</label>
 			<div class="col-sm-9">
-				<input type="number" name="couponAmount" id="couponAmount" value="<?php if (isset($coupon['coupon_amount'])){echo $coupon['coupon_amount'];}?>">&nbsp;元
+				<input type="number" name="couponAmount" id="couponAmount" value="<?php if (isset($coupon['coupon_amount'])){echo $coupon['coupon_amount'];}?>"
+                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                >&nbsp;元
 			</div>
 		</div>
 				
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 订单限定金额：</label>
 			<div class="col-sm-9">
-				<input type="number" name="orderAmount" id="orderAmount" value="<?php if (isset($coupon['order_amount'])){echo $coupon['order_amount'];}?>">&nbsp;元
+				<input type="number" name="orderAmount" id="orderAmount" value="<?php if (isset($coupon['order_amount'])){echo $coupon['order_amount'];}?>"
+                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                >&nbsp;元
 			</div>
 		</div>
 	

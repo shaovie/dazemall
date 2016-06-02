@@ -15,6 +15,7 @@ use \src\user\model\UserModel;
 use \src\user\model\UserOrderModel;
 use \src\user\model\UserCartModel;
 use \src\user\model\UserAddressModel;
+use \src\user\model\UserCouponModel;
 use \src\mall\model\CartModel;
 use \src\mall\model\OrderModel;
 use \src\mall\model\GoodsModel;
@@ -143,6 +144,8 @@ class PayController extends MallController
                 'name' => $goodsInfo['name'],
                 'sku' => $skuAttr . '：' . $skuValue,
                 'salePrice' => number_format($goodsSku['sale_price'], 2, '.', ''),
+                'categoryId' => $goodsInfo['category_id'],
+                'category_id' => $goodsInfo['category_id'],
                 'amount' => $amount,
 
                 // for calc price
@@ -343,6 +346,8 @@ class PayController extends MallController
                     'name' => $goodsInfo['name'],
                     'sku' => $goods['sku_attr'] . '：' . $goods['sku_value'],
                     'salePrice' => number_format($goods['price'], 2, '.', ''),
+                    'categoryId' => $goodsInfo['category_id'],
+                    'category_id' => $goodsInfo['category_id'],
                     'amount' => $goods['amount'],
 
                     // for calc price
@@ -453,7 +458,14 @@ class PayController extends MallController
     private function showPayPage($orderType, $action, $goodsList, $goodsInfo, $orderInfo)
     {
         $optResult = array('code' => ERR_OPT_FAIL, 'desc' => '', 'result' => array());
-        $ret = OrderModel::calcPrice($this->userId(), $goodsList, 0 /* TODO */);
+
+        $couponList = UserCouponModel::getAvalidCouponListForOrder($this->userId(), $goodsList);
+        $couponList = array(); // TODO
+        $coupon = UserCouponModel::getBestCoupon($couponList);
+        $couponId = 0;
+        if (!empty($coupon))
+            $couponId = $coupon['coupon_id'];
+        $ret = OrderModel::calcPrice($this->userId(), $goodsList, $couponId);
         if ($ret['code'] != 0)
             return $ret;
         $toPayAmount = (float)$ret['result']['toPayAmount'];
@@ -491,7 +503,8 @@ class PayController extends MallController
             'postage'   => number_format($postage, 2, '.', ''),
             'freePostage'=>number_format($freePostage, 2, '.', ''),
             'cash'      => number_format($cashAmount, 2, '.', ''),
-            'coupon'    => array(),
+            'coupon'    => $coupon,
+            'avalidCouponAmount' => count($couponList),
             'action'    => $action,
         );
         if (!empty($goodsInfo))

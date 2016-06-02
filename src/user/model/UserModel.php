@@ -252,7 +252,7 @@ class UserModel
     //= 业务逻辑
     public static function onNewUser($userId)
     {
-        return ;
+        return ; // TODO
         $coupons = CouponGiveCfgModel::getUserRegCoupons();
         if (!empty($coupons)) {
             UserCouponModel::giveCoupons($userId, $coupons);
