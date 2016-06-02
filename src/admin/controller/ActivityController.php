@@ -26,7 +26,7 @@ class ActivityController extends AdminController
         $page = $this->getParam('page', 1);
 
         $totalNum = ActivityModel::fetchActivityCount([], [], []);
-        $actList = ActivityModel::fetchSomeActivity2([], [], [], $page, self::ONE_PAGE_SIZE);
+        $actList = ActivityModel::fetchSomeActivity([], [], [], $page, self::ONE_PAGE_SIZE);
         if (!empty($actList)) {
             foreach ($actList as &$act) {
                 $act['showArea'] = ActivityModel::showAreaDesc($act['show_area']);

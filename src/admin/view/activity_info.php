@@ -38,7 +38,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 展示区域：</label>
 			<div class="col-sm-9">
-            <select id="showArea" name="showArea" style="margin-right:10px;width: 100px;">
+            <select id="showArea" name="showArea" style="margin-right:10px;width: 156px;">
                 <option value="-1" <?php if (!isset($act['show_area']) || $act['show_area'] == -1) { echo 'selected="selected"';}?> >选择</option>
                 <option value="1" <?php if (isset($act['show_area']) && $act['show_area'] == 1) { echo 'selected="selected"';}?> >隐藏</option>
                 <option value="2" <?php if (isset($act['show_area']) && $act['show_area'] == 2) { echo 'selected="selected"';}?> >首页</option>
@@ -130,7 +130,7 @@
               <div id="prev_thumb_img2" class="fileupload-preview thumbnail" style="width: 140px; height: 150px;">
                <?php if(!empty($act['wx_share_img'])){?>
                    <img src="<?php echo $act['wx_share_img'];?>" />
-                  <a href='javascript:void(0)' onclick='delThumbImg(this);return false;'>删除</a>
+                  <a href='javascript:void(0)' onclick='delThumbImg2(this);return false;'>删除</a>
                <?php }?>
               </div>
               <!-- SWFUpload控件 -->
