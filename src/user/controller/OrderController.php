@@ -114,16 +114,10 @@ class OrderController extends UserController
             $this->ajaxReturn(1, '参数错误');
             exit();
         }
-        $apiData = array(
-            'orderId' => $orderId,
-        );        
-        $response = WeMallApi::confirmTakeDelivery($apiData);
-        if (isset($response['success']) && $response['success'] == 1) {
-           $url = WE_MALL_URL_BASE . '/User/MyOrder/orderToTakeDelivery?order_id=' . $orderId;
-           $this->ajaxReturn(0, '', $url);
-        } else {
-           $this->ajaxReturn(1, '确认收货-', $response['message']); 
-        }
+
+        UserOrderModel::userConfirmDeliveryOk($this->userId(), $orderId);
+        $url = '/user/Order/orderToTakeDelivery?orderId=' . $orderId;
+        $this->ajaxReturn(0, '', $url);
     }
 
     public function toPayOrderListNextPage()

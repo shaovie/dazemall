@@ -352,6 +352,24 @@ class UserOrderModel
         return true;
     }
 
+    public static function userConfirmDeliveryOk($userId, $orderId)
+    {
+        if (empty($userId) || empty($orderId)) {
+            return false;
+        }
+
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('delivery_state' => self::ORDER_DELIVERY_ST_CONFIRM),
+            array('order_id', 'user_id'), array($orderId, $userId),
+            array('and')
+        );
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        self::onUpdateData($orderId);
+        return true;
+    }
     public static function confirmDelivery($deliverymanId, $orderId)
     {
         if (empty($orderId)) {
