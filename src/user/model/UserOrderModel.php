@@ -465,7 +465,7 @@ class UserOrderModel
 
             $tplMsg['touser'] = $wxUserInfo['openid'];
             $tplMsg['template_id'] = TMP_DELIVERY_NOTIFY;
-            $tplMsg['url'] = APP_URL_BASE . '/user/Order/toTakeDelivery';
+            $tplMsg['url'] = 'http://' . APP_HOST . '/user/Order/toTakeDelivery';
             $tplMsg['topcolor'] = '#FF0000';
             $tplMsg['data'] = array(
                 'first'    => array('value' => "您好，您的订单已经发货啦！\n", 'color' => '#173177'),
