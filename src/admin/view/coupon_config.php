@@ -32,11 +32,11 @@
 			<div class="col-sm-9">
 				<input type="text" name="userReg" id="userReg" value="<?php if (isset($coupon['user_reg_coupon'])){echo $coupon['user_reg_coupon'];}?>">
 				<p class="help-block">输入优惠券编号，填写多个以英文,分隔</p>
-                <hr/>
 			</div>
 		</div>
 
 		<div class="form-group" style="margin-bottom:1px;">
+                <hr/>
 			<label class="col-sm-2 control-label no-padding-left">单笔订单满赠送优惠券</label>
         </div>
 		<div class="form-group">
@@ -50,11 +50,11 @@
 			<div class="col-sm-9">
 				<input type="text" name="order" id="order" value="<?php if (isset($coupon['order_full_coupon'])){echo $coupon['order_full_coupon'];}?>">
 				<p class="help-block">输入优惠券编号，填写多个以英文,分隔</p>
-                <hr/>
 			</div>
 		</div>
 	
 		<div class="form-group">
+                <hr/>
 			<label class="col-sm-2 control-label no-padding-left"></label>
 			<div class="col-sm-9">
 				<button type="button" id="save-btn" class="btn btn-primary span2" >保存</button>

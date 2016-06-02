@@ -38,8 +38,8 @@
 			</div>
 		</div>
 
-        <br/>
 		<div class="form-group" style="margin-bottom:1px;">
+                <hr/>
 			<label class="col-sm-2 control-label no-padding-left"> 库存预警：</label>
         </div>
 		<div class="form-group" style="margin-bottom:5px;">
@@ -64,6 +64,15 @@
 		</div>
 
 		<div class="form-group">
+                <hr/>
+			<label class="col-sm-2 control-label no-padding-left"> 搜索默认关键字：</label>
+			<div class="col-sm-9">
+				<input type="text" name="search_key" id="search_key" maxlength="100" class="span7" value="<?php if (!empty($info['search_key'])){echo $info['search_key'];}?>">
+			</div>
+		</div>
+
+		<div class="form-group">
+                <hr/>
 			<label class="col-sm-2 control-label no-padding-left"></label>
 			<div class="col-sm-9">
 				<button type="button" id="save-btn" class="btn btn-primary span2" >保存</button>

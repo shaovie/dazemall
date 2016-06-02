@@ -30,6 +30,7 @@ class GlobalConfigController extends AdminController
         $kucunAlarm = intval($this->postParam('kucun_alarm', 0));
         $kucunAlarmUsers = trim($this->postParam('kucun_alarm_users', ''));
         $kucunAlarmTpl = trim($this->postParam('kucun_alarm_tpl', ''));
+        $searchKey = trim($this->postParam('search_key', ''));
 
         if ($freePostage < 0.0 || $postage < 0.0 || $kucunAlarm < 0) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '数据无效');
@@ -47,6 +48,7 @@ class GlobalConfigController extends AdminController
             'kucun_alarm' => $kucunAlarm,
             'kucun_alarm_users' => $kucunAlarmUsers,
             'kucun_alarm_tpl' => $kucunAlarmTpl,
+            'search_key' => $searchKey,
         );
         GlobalConfigModel::update($updateData);
 
