@@ -49,9 +49,9 @@ class OrderController extends UserController
     public function toTakeDelivery()
     {
         $orderList = UserOrderModel::fetchSomeOrder(
-            array('user_id', 'pay_state', 'delivery_state!=', 'delivery_state!='),
-            array($this->userId(), PayModel::PAY_ST_SUCCESS, UserOrderModel::ORDER_DELIVERY_ST_CONFIRM, UserOrderModel::ORDER_DELIVERY_ST_RECV),
-            array('and', 'and', 'and'),
+            array('user_id', 'pay_state', 'delivery_state!='),
+            array($this->userId(), PayModel::PAY_ST_SUCCESS, UserOrderModel::ORDER_DELIVERY_ST_CONFIRM),
+            array('and', 'and'),
             1,
             5
         );
