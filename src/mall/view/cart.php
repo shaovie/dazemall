@@ -9,10 +9,6 @@
 <body>
 	<!--购物车产品数量更新-->
 	<input id="J-ajaxurl-updateNum" type="hidden" value="/api/Cart/modifyAmount" />
-	<header>
-	<a href="/" class="btn-fir"><i class="icon-fir"></i><label>首页</label></a>
-	<a href="/user/Order" class="btn-order"><i class="icon-order"></i><label>我的订单</label></a>
-    </header>
 <?php if (empty($cartList)):?>
 	<div class="cart-empty">
 		<div class="icon-empty"></div>
