@@ -29,7 +29,7 @@
 	<h3 class="header smaller lighter blue"><?php echo $title?></h3>
 	<form action="<?php echo $action?>" method="post" enctype="multipart/form-data" class="form-horizontal" role="form" id="save-form">
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-left"> 备注：</label>
+			<label class="col-sm-2 control-label no-padding-left"> 标题：</label>
 			<div class="col-sm-9">
 				<input type="text" name="title" id="title" maxlength="100" class="span7" value="<?php if (!empty($act['title'])){echo $act['title'];}?>">
 			</div>
@@ -110,6 +110,39 @@
                 <!-- END -->
 			</div>
 		</div>
+
+		<div class="form-group">
+            <hr/>
+			<label class="col-sm-2 control-label no-padding-left"> 微信分享标题：</label>
+			<div class="col-sm-9">
+				<input type="text" name="wxShareTitle" id="wxShareTitle" maxlength="120" class="span7" value="<?php if (!empty($act['wx_share_title'])){echo $act['wx_share_title'];}?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-left"> 微信分享描述：</label>
+			<div class="col-sm-9">
+				<input style="width:350px" type="text" name="wxShareDesc" id="wxShareDesc" maxlength="240" class="span7" value="<?php if (!empty($act['wx_share_desc'])){echo $act['wx_share_desc'];}?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-left"> 微信分享图：<br><span style="font-size:12px;color:red">（尺寸尽量小于50K）</span></label>
+			<div class="col-sm-9">
+              <div id="prev_thumb_img2" class="fileupload-preview thumbnail" style="width: 140px; height: 150px;">
+               <?php if(!empty($act['wx_share_img'])){?>
+                   <img src="<?php echo $act['wx_share_img'];?>" />
+                  <a href='javascript:void(0)' onclick='delThumbImg(this);return false;'>删除</a>
+               <?php }?>
+              </div>
+              <!-- SWFUpload控件 -->
+              <div id="divSWFUploadUI3">
+                 <p>
+                    <span id="spanButtonPlaceholder3"></span>
+					<input id="btnCancel3" type="hidden" value="全部取消" disabled="disabled"/>
+                 </p>
+              </div>
+              <!-- END -->
+            </div>
+		</div>	
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"></label>
@@ -119,6 +152,7 @@
 		</div>
 		
         <input type="hidden"  id="thumb_img" class="thumb_img" value="<?php if (!empty($act['image_url'])){echo $act['image_url'];}?>">
+        <input type="hidden"  id="thumb_img2" class="thumb_img2" value="<?php if (!empty($act['wx_share_img'])){echo $act['wx_share_img'];}?>">
         <div id="goods_img">
         <?php if (!empty($act['image_urls'])):?>
             <?php foreach($act['image_urls'] as $img):if(!empty($img)):?>
@@ -150,7 +184,10 @@
                 sort:$("#sort").val(),
                 showArea:$("#showArea option:selected").val(),
                 imageUrls:goods_imgs,
-                imageUrl:$("#thumb_img").val()
+                imageUrl:$("#thumb_img").val(),
+                wx_share_title:$("#wxShareTitle").val(),
+                wx_share_desc:$("#wxShareDesc").val(),
+                wx_share_img:$("#thumb_img").val()
                 },function(data){
                 if(data.code==0) {
                     alert(data.msg);

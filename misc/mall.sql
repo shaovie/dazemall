@@ -451,7 +451,9 @@ create table m_activity (
     begin_time          int not null default 0,                     # 开始时间
     end_time            int not null default 0,                     # 结束时间
     sort                int not null default 0,                     # 顺序
-    remark              varchar(255) not null default '',           # 备注
+    wx_share_title      varchar(255) not null default '',           #
+    wx_share_desc       varchar(255) not null default '',           #
+    wx_share_img        varchar(255) not null default '',           #
 
     ctime               int not null default 0,                     # 创建时间
 

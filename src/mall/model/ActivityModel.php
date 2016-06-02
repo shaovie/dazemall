@@ -23,7 +23,10 @@ class ActivityModel
         $imageUrls,
         $beginTime,
         $endTime,
-        $sort
+        $sort,
+        $wxShareTitle,
+        $wxShareDesc,
+        $wxShareImg
     ) {
         $data = array(
             'title' => $title,
@@ -33,6 +36,9 @@ class ActivityModel
             'begin_time' => $beginTime,
             'end_time' => $endTime,
             'sort' => $sort,
+            'wx_share_title' => $wxShareTitle,
+            'wx_share_desc' => $wxShareDesc,
+            'wx_share_img' => $wxShareImg,
             'ctime' => CURRENT_TIME,
         );
         $ret = DB::getDB('w')->insertOne('m_activity', $data);

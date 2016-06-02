@@ -58,7 +58,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 通知模板：</label>
 			<div class="col-sm-9">
-				<input type="text" id="kucun_alarm_tpl" maxlength="100" class="span7" value="<?php if (!empty($info['kucun_alarm_tpl'])){echo $info['kucun_alarm_tpl'];}?>">
+				<input style="width:250px" type="text" id="kucun_alarm_tpl" maxlength="100" class="span7" value="<?php if (!empty($info['kucun_alarm_tpl'])){echo $info['kucun_alarm_tpl'];}?>">
                 预警信息会以微信模板消息形式通知
 			</div>
 		</div>
@@ -67,13 +67,13 @@
             <hr/>
 			<label class="col-sm-2 control-label no-padding-left"> 首页微信分享标题：</label>
 			<div class="col-sm-9">
-				<input type="text" name="wxShareTitle" id="wxShareTitle" maxlength="100" class="span7" value="<?php if (!empty($info['wx_share_title'])){echo $info['wx_share_title'];}?>">
+				<input type="text" name="wxShareTitle" id="wxShareTitle" maxlength="120" class="span7" value="<?php if (!empty($info['wx_share_title'])){echo $info['wx_share_title'];}?>">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left"> 首页微信分享描述：</label>
 			<div class="col-sm-9">
-				<input type="text" name="wxShareDesc" id="wxShareDesc" maxlength="100" class="span7" value="<?php if (!empty($info['wx_share_desc'])){echo $info['wx_share_desc'];}?>">
+				<input style="width:350px" type="text" name="wxShareDesc" id="wxShareDesc" maxlength="240" class="span7" value="<?php if (!empty($info['wx_share_desc'])){echo $info['wx_share_desc'];}?>">
 			</div>
 		</div>
 		<div class="form-group">

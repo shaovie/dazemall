@@ -78,7 +78,10 @@ class ActivityController extends AdminController
             $actInfo['image_urls'],
             empty($actInfo['begin_time']) ? 0 : strtotime($actInfo['begin_time']),
             empty($actInfo['end_time']) ? 0 : strtotime($actInfo['end_time']),
-            $actInfo['sort']
+            $actInfo['sort'],
+            $actInfo['wx_share_title'],
+            $actInfo['wx_share_desc'],
+            $actInfo['wx_share_img']
         );
         if ($actId === false || (int)$actId <= 0) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败');
@@ -121,6 +124,9 @@ class ActivityController extends AdminController
         $updateData['end_time'] = empty($actInfo['end_time']) ? 0 : strtotime($actInfo['end_time']);
         $updateData['image_url'] = $actInfo['image_url'];
         $updateData['image_urls'] = $actInfo['image_urls'];
+        $updateData['wx_share_title'] = $actInfo['wx_share_title'];
+        $updateData['wx_share_desc'] = $actInfo['wx_share_desc'];
+        $updateData['wx_share_img'] = $actInfo['wx_share_img'];
         $ret = ActivityModel::update($actInfo['id'], $updateData);
         if ($ret === false) {
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存失败');
@@ -248,6 +254,10 @@ class ActivityController extends AdminController
         $actInfo['image_urls'] = trim($this->postParam('imageUrls', ''));
         $actInfo['begin_time'] = trim($this->postParam('beginTime', ''));
         $actInfo['end_time'] = trim($this->postParam('endTime', ''));
+        
+        $actInfo['wx_share_title'] = trim($this->postParam('wx_share_title', ''));
+        $actInfo['wx_share_desc'] = trim($this->postParam('wx_share_desc', ''));
+        $actInfo['wx_share_img'] = trim($this->postParam('wx_share_img', ''));
 
         if (strlen($actInfo['title']) > 120) {
             $error = '备注不能超过40个字符';
@@ -273,6 +283,11 @@ class ActivityController extends AdminController
         $gs = explode('|', $actInfo['image_urls']);
         if (count($gs) > 9) {
             $error = '轮播图不能超过9张';
+            return false;
+        }
+        if (strlen($actInfo['wx_share_title']) > 80
+            || strlen($actInfo['wx_share_desc']) > 80) {
+            $error = '微信分享标题或描述不能超过80个字符';
             return false;
         }
         return true;
