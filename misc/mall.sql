@@ -589,6 +589,9 @@ create table s_global_config (
     kucun_alarm_users   varchar(255) not null default '',           #
     kucun_alarm_tpl     varchar(255) not null default '',           #
     search_key          varchar(255) not null default '',           #
+    wx_share_title      varchar(255) not null default '',           #
+    wx_share_desc       varchar(255) not null default '',           #
+    wx_share_img        varchar(255) not null default '',           #
 
     mtime               int not null default 0,                     # 创建时间
     m_user              varchar(31) not null default ''             # 修改人

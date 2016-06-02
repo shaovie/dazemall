@@ -71,8 +71,8 @@ class AdminController extends BaseController
     }
     protected function toLogin()
     {
-        header('Location: /admin/Login');
-        exit();
+        //header('Location: /admin/Login');
+        exit('<script>top.location.href="/admin/Login"</script>');
     }
 
     function pagination($total, $pindex, $psize, $url, $params)

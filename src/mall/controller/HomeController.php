@@ -21,17 +21,18 @@ class HomeController extends MallController
         $goodsModuleList = GoodsModuleModel::fetchAllValidModule(CURRENT_TIME);
         $moduleGoodsList = GoodsModuleGListModel::fillGoodsList($goodsModuleList);
         $actList = ActivityModel::findAllValidActivity(CURRENT_TIME, ActivityModel::SHOW_AREA_HOME);
+        $globalConfig = GlobalConfigModel::getConfig();
         $data = array(
-            'searchKey' => GlobalConfigModel::searchKey(),
+            'searchKey' => $globalConfig['search_key'],
             'bannerList' => $bannerList,
             'goodsModuleList' => $moduleGoodsList,
             'actList' => $actList,
         );
 
         $data['signPackage'] = WxSDK::getSignPackage();
-        $shareCfg['title'] = '大泽商城 百姓商城';
-        $shareCfg['desc'] = '快速送达，源头正品，坏件必赔，全城最惠';
-        $shareCfg['img'] = 'http://cdn2.dazemall.com/images/160531/b3b8dc3bf37391a01aebbe4898b1cdb0.jpg';
+        $shareCfg['title'] = $globalConfig['wx_share_title'];
+        $shareCfg['desc'] = $globalConfig['wx_share_desc'];
+        $shareCfg['img'] = $globalConfig['wx_share_img'];
         $shareCfg['url'] = APP_URL_BASE . '/';
         $data['shareCfg'] = $shareCfg;
 

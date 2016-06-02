@@ -31,6 +31,9 @@ class GlobalConfigController extends AdminController
         $kucunAlarmUsers = trim($this->postParam('kucun_alarm_users', ''));
         $kucunAlarmTpl = trim($this->postParam('kucun_alarm_tpl', ''));
         $searchKey = trim($this->postParam('search_key', ''));
+        $wxShareTitle = trim($this->postParam('wx_share_title', ''));
+        $wxShareDesc = trim($this->postParam('wx_share_desc', ''));
+        $wxShareImg = trim($this->postParam('wx_share_img', ''));
 
         if ($freePostage < 0.0 || $postage < 0.0 || $kucunAlarm < 0) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '数据无效');
@@ -49,6 +52,9 @@ class GlobalConfigController extends AdminController
             'kucun_alarm_users' => $kucunAlarmUsers,
             'kucun_alarm_tpl' => $kucunAlarmTpl,
             'search_key' => $searchKey,
+            'wx_share_title' => $wxShareTitle,
+            'wx_share_desc' => $wxShareDesc,
+            'wx_share_img' => $wxShareImg,
         );
         GlobalConfigModel::update($updateData);
 

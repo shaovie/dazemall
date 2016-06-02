@@ -64,7 +64,40 @@
 		</div>
 
 		<div class="form-group">
-                <hr/>
+            <hr/>
+			<label class="col-sm-2 control-label no-padding-left"> 首页微信分享标题：</label>
+			<div class="col-sm-9">
+				<input type="text" name="wxShareTitle" id="wxShareTitle" maxlength="100" class="span7" value="<?php if (!empty($info['wx_share_title'])){echo $info['wx_share_title'];}?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-left"> 首页微信分享描述：</label>
+			<div class="col-sm-9">
+				<input type="text" name="wxShareDesc" id="wxShareDesc" maxlength="100" class="span7" value="<?php if (!empty($info['wx_share_desc'])){echo $info['wx_share_desc'];}?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-left"> 首页微信分享图：<br><span style="font-size:12px;color:red">（尺寸尽量小于50K）</span></label>
+			<div class="col-sm-9">
+              <div id="prev_thumb_img" class="fileupload-preview thumbnail" style="width: 140px; height: 150px;">
+               <?php if(!empty($info['wx_share_img'])){?>
+                   <img src="<?php echo $info['wx_share_img'];?>" />
+                  <a href='javascript:void(0)' onclick='delThumbImg(this);return false;'>删除</a>
+               <?php }?>
+              </div>
+              <!-- SWFUpload控件 -->
+              <div id="divSWFUploadUI">
+                 <p>
+                    <span id="spanButtonPlaceholder"></span>
+					<input id="btnCancel" type="hidden" value="全部取消" disabled="disabled"/>
+                 </p>
+              </div>
+              <!-- END -->
+            </div>
+		</div>	
+
+		<div class="form-group">
+            <hr/>
 			<label class="col-sm-2 control-label no-padding-left"> 搜索默认关键字：</label>
 			<div class="col-sm-9">
 				<input type="text" name="search_key" id="search_key" maxlength="100" class="span7" value="<?php if (!empty($info['search_key'])){echo $info['search_key'];}?>">
@@ -79,6 +112,7 @@
 			</div>
 		</div>
 		
+        <input type="hidden"  id="thumb_img" class="thumb_img" value="<?php if (!empty($info['wx_share_img'])){echo $info['wx_share_img'];}?>">
 	</form>
 	<script>
         $('#save-btn').click(function(){
@@ -89,6 +123,9 @@
                 kucun_alarm:$("#kucun_alarm").val(),
                 kucun_alarm_users:$("#kucun_alarm_users").val(),
                 kucun_alarm_tpl:$("#kucun_alarm_tpl").val(),
+                wx_share_title:$("#wxShareTitle").val(),
+                wx_share_desc:$("#wxShareDesc").val(),
+                wx_share_img:$("#thumb_img").val(),
                 search_key:$("#search_key").val()
                 },function(data){
                 if(data.code==0) {
@@ -102,5 +139,13 @@
         });
 
 	</script>
+    <!-- SWFupload异步图片上传 -->
+    <script type="text/javascript" src="/asset/js/swfupload/swfupload.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+    <script type="text/javascript" src="/asset/js/swfupload/swfupload.swfobject.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+    <script type="text/javascript" src="/asset/js/swfupload/swfupload.queue.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+    <script type="text/javascript" src="/asset/js/swfupload/fileprogress.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+    <script type="text/javascript" src="/asset/js/swfupload/handlers.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
+    <!-- END -->
+    <script type="text/javascript" src="/asset/js/swfupload/init.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 </body>
 </html>
