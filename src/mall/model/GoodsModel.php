@@ -220,9 +220,9 @@ class GoodsModel
         }
         
         return self::fetchSomeGoods(
-            array('category_id', 'state'),
-            array($categoryId, self::GOODS_ST_UP),
-            array('and'),
+            array('category_id'),
+            array($categoryId),
+            false,
             $page,
             $pageSize
         );
