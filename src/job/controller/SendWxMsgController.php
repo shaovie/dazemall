@@ -105,7 +105,6 @@ class SendWxMsgController extends JobController
     private function sendTplMsg($data)
     {
         $msg = json_encode($data, JSON_UNESCAPED_UNICODE);
-        Log::rinfo('xx' . $msg);
         return WxSDK::sendTplMsg($msg);
     }
 
