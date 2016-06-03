@@ -62,10 +62,10 @@
 			<label class="col-sm-2 control-label no-padding-left"> 有效时间段：</label>
 			<div class="col-sm-9">
 				<input type="text" name="beginTime" id="beginTime" maxlength="100" class="span7" value="<?php if (!empty($coupon['begin_time'])){echo date('Y-m-d H:i:s', $coupon['begin_time']);}?>" placeholder="开始时间"
-                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                <?php if (isset($coupon['id'])){echo 'disabled="disabled"';}?>
                 > - 
 				<input type="text" name="endTime" id="endTime" maxlength="100" class="span7" value="<?php if (!empty($coupon['end_time'])){echo date('Y-m-d H:i:s', $coupon['end_time']);}?>" placeholder="结束时间"
-                <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
+                <?php if (isset($coupon['id'])){echo 'disabled="disabled"';}?>
                 >
 				<p class="help-block">格式：2016-01-18 12:30:23，开始时间不填，默认当前时间，结束时间不填，意为永远</p>
 			</div>

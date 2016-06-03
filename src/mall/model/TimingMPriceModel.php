@@ -69,6 +69,7 @@ class TimingMPriceModel
             return false;
         $limitNum = $info['limit_num'];
         if ($info['state'] != self::ST_SET_OK
+            || (int)$info['limit_num'] == 0
             || (int)$info['limit_num'] >= $curNum) {
             return false;
         }

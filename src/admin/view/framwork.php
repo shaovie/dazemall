@@ -165,6 +165,11 @@
                         轮播图列表
                         </a>
 						</li>
+						<li> <a onclick="navtoggle(&#39;营销管理- &gt; 定时上下架&#39;)" href="/admin/TimingUpDown/listPage" target="main">
+                            <i class="icon-double-angle-right"></i>
+                            定时上下架
+                            </a>
+						</li>
 						<li> <a onclick="navtoggle(&#39;营销管理 - &gt; 首页商品模块列表&#39;)" href="/admin/GoodsModule/listPage" target="main">
                             <i class="icon-double-angle-right"></i>
                             首页商品模块列表
@@ -175,7 +180,7 @@
                             活动页列表
                             </a>   
 						</li>
-						<li> <a onclick="navtoggle(&#39;优惠券管理 - &gt; 优惠券管理&#39;)" href="/admin/Coupon/listPage" target="main">
+						<li> <a onclick="navtoggle(&#39;营销管理 - &gt; 优惠券管理&#39;)" href="/admin/Coupon/listPage" target="main">
                             <i class="icon-double-angle-right"></i>
                             优惠券管理
                             </a>

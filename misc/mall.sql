@@ -277,8 +277,6 @@ create table g_goods (
     state               tinyint not null default 0,                 # 商品状态
                                                                     # 0:无效 1:有效
                                                                     # 2:上架-展示在商城中
-                                                                    # 3:下架-有效
-                                                                    # 4:下架-无效
 
     image_url           varchar(255) not null default '',           # 展示主图
     like_count          int unsigned not null default 0,            # 点赞计数
@@ -496,6 +494,27 @@ create table m_timing_mprice (
 
     primary key (`id`),
     unique key key_goods_sku_id(`goods_sku_id`),
+    index idx_begin_time(`begin_time`)
+)engine=InnoDB default charset=utf8;
+
+-- 定时上下架
+drop table if exists m_timing_updown;
+create table m_timing_updown (
+    id                  int unsigned not null auto_increment,
+
+    goods_id            int unsigned not null default 0,            # 商品ID
+    begin_time          datetime not null default '0000-00-00 00:00:00', # 开始时间
+    end_time            datetime not null default '0000-00-00 00:00:00', # 结束时间
+    timing_type         int not null default 0,                     # 定时类型 1:一次 2:每天
+    opt_type            int not null default 0,                     # 操作类型 1:上架 2:下架(无效)
+    resume_state        tinyint not null default 0,                 # 到期后恢上下架状态
+    state               tinyint not null default 0,                 # 状态 0:未调整 1:调整成功 2:恢复
+
+    ctime               int not null default 0,                     # 创建时间
+    mtime               int not null default 0,                     # 修改时间
+
+    primary key (`id`),
+    unique key key_goods_id(`goods_id`),
     index idx_begin_time(`begin_time`)
 )engine=InnoDB default charset=utf8;
 

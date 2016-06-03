@@ -98,6 +98,7 @@
 				<a target="_blank" class="btn btn-xs btn-info" href="http://<?php echo APP_HOST;?>/mall/Goods/detail?goodsId=<?php echo $goods['id']?>">预览</a>
 				<a class="btn btn-xs btn-info" href="/admin/Goods/editPage?goodsId=<?php echo $goods['id']?>">编辑</a>
 				<a class="btn btn-xs btn-info" href="/admin/Goods/skuPage?goodsId=<?php echo $goods['id']?>">商品SKU</a>
+				<a class="btn btn-xs btn-info" href="/admin/TimingUpDown/editPage?id=<?php echo $goods['id']?>">定时上架</a>
 			</td>
 		</tr>
         <?php endforeach?>
