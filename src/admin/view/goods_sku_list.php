@@ -175,7 +175,7 @@
             $('#sku_id').val(id);
             $('#goods_id').val(goodsId);
             $('#kucunAndPrice').show();
-            $('#mpBeginTime,#mpEndTime,#mpToPrice,$mpLimitNum,#mpState').hide();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpLimitNum,#mpState').hide();
             $('#modal-confirmsend').modal('show');
         }
         function timeingModifyPrice(id,
