@@ -15,6 +15,7 @@ use \src\pay\model\PayModel;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\PostageModel;
 use \src\mall\model\GoodsSKUModel;
+use \src\mall\model\TimingMPriceModel;
 use \src\user\model\UserModel;
 use \src\user\model\UserOrderModel;
 use \src\user\model\UserAddressModel;
@@ -133,6 +134,7 @@ class OrderModel
         $orderAmount = (float)$ret['result']['orderAmount'];
         $postage = (float)$ret['result']['postage'];
         $goodsListSKUInfo = $ret['result']['goodsListSKUInfo'];
+
         $newOrderId = UserOrderModel::genOrderId($orderPrefix, $userId);
         if (empty($newOrderId)) {
             $optResult['code'] = ERR_SYSTEM_BUSY;
@@ -145,8 +147,20 @@ class OrderModel
             $optResult['desc'] = '系统繁忙，创建订单失败，请稍后重试';
             return $optResult;
         }
-        // ! 检查库存
+
         foreach ($goodsListSKUInfo as $idx => $goodsSKU) {
+            // ! 检查限购
+            $limitNum = 0;
+            if (TimingMPriceModel::checkLimitBuy(
+                    $goodsSKU['id'],
+                    $goodsList[$idx]['amount'],
+                    $limitNum)
+            ) {
+                $optResult['desc'] = '抱歉' . $goodsList[$idx]['goodsName'] . '仅限购' . $limitNum . '个';
+                return $optResult;
+            }
+
+            // ! 检查库存
             if ($goodsSKU['amount'] < $goodsList[$idx]['amount']) {
                 if (count($goodsList) == 1) {
                     $optResult['desc'] = '商品库存不足';

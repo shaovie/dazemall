@@ -13,17 +13,31 @@ use \src\common\DB;
 
 class TimingMPriceModel
 {
-    public static function newOne($goodsSkuId, $beginTime, $endTime, $toPrice, $synchShowPrice)
-    {
-        if (empty($goodsSkuId) || empty($beginTime) || empty($endTime) || empty($toPrice)) {
+    const ST_UNSET      = 0;
+    const ST_SET_OK     = 1;
+    const ST_SET_RESUME = 2;
+
+    public static function newOne(
+        $goodsSkuId,
+        $beginTime,
+        $endTime,
+        $toPrice,
+        $limitNum,
+        $synchShowPrice
+    ) {
+        if (empty($goodsSkuId)
+            || empty($beginTime)
+            || empty($endTime)
+            || empty($toPrice)) {
             return false;
         }
         $data = array(
             'goods_sku_id' => $goodsSkuId,
             'begin_time' => $beginTime,
             'end_time' => $endTime,
+            'limit_num' => $limitNum,
             'to_price' => $toPrice,
-            'state' => 0,
+            'state' => self::ST_UNSET,
             'synch_sale_price' => $synchShowPrice,
             'ctime' => CURRENT_TIME,
         );
@@ -48,6 +62,19 @@ class TimingMPriceModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function checkLimitBuy($skuId, $curNum, &$limitNum)
+    {
+        $info = self::getInfo($skuId);
+        if (empty($info))
+            return false;
+        $limitNum = $info['limit_num'];
+        if ($info['state'] != self::ST_SET_OK
+            || (int)$info['limit_num'] >= $curNum) {
+            return false;
+        }
+        return true;
+    }
+
     public static function setResumePrice($id, $resumePrice)
     {
         if (empty($id) || empty($resumePrice)) {
@@ -56,7 +83,7 @@ class TimingMPriceModel
         $ret = DB::getDB('w')->update(
             'm_timing_mprice',
             array('resume_price' => $resumePrice, 'mtime' => CURRENT_TIME),
-            array('id', 'state'), array($id, 1),
+            array('id', 'state'), array($id, self::ST_SET_OK),
             array('and'),
             1
         );

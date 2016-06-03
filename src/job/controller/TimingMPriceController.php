@@ -38,7 +38,8 @@ class TimingMPriceController extends JobController
         $data = DB::getDB('r')->fetchSome(
             'm_timing_mprice',
             '*',
-            array('goods_sku_id>', 'state', 'begin_time<='),  array(0, 0, time()),
+            array('goods_sku_id>', 'state', 'begin_time<='),
+            array(0, TimingMPriceModel::ST_UNSET, time()),
             array('and', 'and'),
             array('begin_time'), array('asc'),
             array(200)
@@ -59,7 +60,7 @@ class TimingMPriceController extends JobController
                 if ($item['synch_sale_price'] == 1)
                     GoodsModel::updateGoodsInfo($skuInfo['goods_id'],
                         array('sale_price' => $item['to_price']));
-                TimingMPriceModel::setState($item['id'], 1);
+                TimingMPriceModel::setState($item['id'], TimingMPriceModel::ST_SET_OK);
                 TimingMPriceModel::setResumePrice($item['id'], $oldPrice);
             }
         }
@@ -70,7 +71,8 @@ class TimingMPriceController extends JobController
         $data = DB::getDB('r')->fetchSome(
             'm_timing_mprice',
             '*',
-            array('goods_sku_id>', 'state', 'end_time<='),  array(0, 1, time()),
+            array('goods_sku_id>', 'state', 'end_time<='),
+            array(0, TimingMPriceModel::ST_SET_OK, time()),
             array('and', 'and'),
             array(), array(),
             array(200)
@@ -90,7 +92,7 @@ class TimingMPriceController extends JobController
                 if ($item['synch_sale_price'] == 1)
                     GoodsModel::updateGoodsInfo($skuInfo['goods_id'],
                         array('sale_price' => $item['resume_price']));
-                TimingMPriceModel::setState($item['id'], 2);
+                TimingMPriceModel::setState($item['id'], TimingMPriceModel::ST_SET_RESUME);
             }
         }
     }

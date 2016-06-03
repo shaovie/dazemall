@@ -27,6 +27,7 @@ class GoodsSKUModel
             'sku_value' => $skuValue,
             'sale_price' => $price,
             'amount' => $amount,
+            'sold_amount' => 0,
             'state' => 1,
             'ctime' => CURRENT_TIME,
             'mtime' => CURRENT_TIME,

@@ -52,6 +52,7 @@
                 . (empty($mpList[$idx]['end_time']) ? '' : date('Y-m-d H:i:s', $mpList[$idx]['end_time']))?></div>
                 <div>调成：<?php echo empty($mpList[$idx]['to_price']) ? '' : $mpList[$idx]['to_price']?></div>
                 <div>状态：<?php $st = array('未开始','调整成功','已恢复');echo !isset($mpList[$idx]['state']) ? '' : $st[$mpList[$idx]['state']]?></div>
+                <div>限购数量：<?php echo empty($mpList[$idx]['limit_num']) ? '0' : $mpList[$idx]['limit_num']?></div>
                 </td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['m_user']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo date('Y-m-d H:i:s', $item['mtime'])?></td>
@@ -65,6 +66,7 @@
                     <?php echo empty($mpList[$idx]['id']) ? 0 :$mpList[$idx]['id']?>,
                     <?php echo empty($mpList[$idx]['begin_time']) ? 0 : ("'" . date('Y-m-d H:i:s', $mpList[$idx]['begin_time']) . "'")?>,
                     <?php echo empty($mpList[$idx]['end_time']) ? 0 : ("'" . date('Y-m-d H:i:s', $mpList[$idx]['end_time']) . "'")?>,
+                    <?php echo empty($mpList[$idx]['limit_num']) ? 0 : $mpList[$idx]['limit_num']?>,
                     <?php echo empty($mpList[$idx]['to_price']) ? 0 : $mpList[$idx]['to_price']?>, this)" >定时调价</button>
 				</td>
 			</tr>
@@ -99,6 +101,13 @@
 					<div class="col-sm-9">
 						<input type="text" name="mpEndTimeV" id="mpEndTimeV" class="span5">
                         格式：2016-05-27 18:13:24
+					</div>
+				</div>
+				<div class="form-group" id="mpLimitNum">
+					<label class="col-sm-2 control-label no-padding-left">每人限购数量：</label>
+					<div class="col-sm-9">
+						<input type="number" name="mpLimitNumV" id="mpLimitNumV" class="span5">
+                        <p style="margin-top:10px;"><span style="padding:4px;" class="label-warning">在本时间段内有效，可以不填，即为不限制</span></p>
 					</div>
 				</div>
 				<div class="form-group" id="mpToPrice">
@@ -166,15 +175,25 @@
             $('#sku_id').val(id);
             $('#goods_id').val(goodsId);
             $('#kucunAndPrice').show();
-            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpState').hide();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,$mpLimitNum,#mpState').hide();
             $('#modal-confirmsend').modal('show');
         }
-        function timeingModifyPrice(id, state, synchShowPrice, goodsId, mpriceId, beginTime, endTime, toPrice, e) {
+        function timeingModifyPrice(id,
+            state,
+            synchShowPrice,
+            goodsId,
+            mpriceId,
+            beginTime,
+            endTime,
+            limitNum,
+            toPrice,
+            e) {
             var title = '定时调价';
             $('#modal-confirmsend .modal-title').eq(0).text('定时调价');
             $('#mpBeginTimeV').val(beginTime == 0 ? '' : beginTime);
             $('#mpEndTimeV').val(endTime == 0 ? '' : endTime);
-            $('#mpToPriceV').val(toPrice == 0 ? '' : toPrice);
+            $('#mpToPriceV').val(toPrice);
+            $('#mpLimitNumV').val(limitNum);
             $('#type').val(99993);
             if (state == 1) {
                 $("#reset").attr("checked","checked");
@@ -194,7 +213,7 @@
             $('#goods_id').val(goodsId);
             $('#mpriceId').val(mpriceId);
             $('#kucunAndPrice').hide();
-            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpState,#setShowPrice').show();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpLimitNum,#mpState,#setShowPrice').show();
             $('#modal-confirmsend').modal('show')
         }
         $('#confirmsend-btn').click(function(){
@@ -206,6 +225,7 @@
                      mpriceId:$("#mpriceId").val(), 
                      mpBeginTime:$("#mpBeginTimeV").val(),
                      mpEndTime:$("#mpEndTimeV").val(),
+                     mpLimitNum:$("#mpLimitNumV").val(),
                      setstate:$("#mpState input[name='setstate']:checked").val(),
                      synchShowPrice:($('#synchShowPrice:checked').length == 1 ? 1 : 0),
                      mpToPrice:$("#mpToPriceV").val()

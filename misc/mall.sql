@@ -373,6 +373,7 @@ create table g_goods_sku (
     sale_price          decimal(10,2) not null default 0.0,         # 销售价
 
     amount              int not null default 0,                     # 库存数量
+    sold_amount         int not null default 0,                     # 销售总量
 
     bar_code            varchar(63) not null default '',            # 条形码
 
@@ -484,6 +485,7 @@ create table m_timing_mprice (
     goods_sku_id        int unsigned not null default 0,            # 商品SKU ID
     begin_time          int not null default 0,                     # 开始时间
     end_time            int not null default 0,                     # 结束时间
+    limit_num           int not null default 0,                     # 限购数量
     to_price            decimal(10,2) not null default 0.0,         # 调整价格 
     resume_price        decimal(10,2) not null default 0.0,         # 到期后恢复价
     synch_sale_price    tinyint not null default 0,                 # 同步商品展示销售价
@@ -493,7 +495,7 @@ create table m_timing_mprice (
     mtime               int not null default 0,                     # 修改时间
 
     primary key (`id`),
-    unique key key_goods_sku_id_state(`goods_sku_id`, `state`),
+    unique key key_goods_sku_id(`goods_sku_id`),
     index idx_begin_time(`begin_time`)
 )engine=InnoDB default charset=utf8;
 

@@ -40,7 +40,13 @@ class GoodsController extends AdminController
 
         $searchParams = [];
         $error = '';
-        $pageHtml = $this->pagination($totalNum, $page, self::ONE_PAGE_SIZE, '/admin/Goods/listPage', $searchParams);
+        $pageHtml = $this->pagination(
+            $totalNum,
+            $page,
+            self::ONE_PAGE_SIZE,
+            '/admin/Goods/listPage',
+            $searchParams
+        );
         $data = array(
             'goodsList' => $goodsList,
             'categoryList' => $categoryList,
@@ -298,6 +304,7 @@ class GoodsController extends AdminController
         $mpBeginTime = trim($this->postParam('mpBeginTime', ''));
         $mpEndTime = trim($this->postParam('mpEndTime', ''));
         $mpToPrice = floatval($this->postParam('mpToPrice', 0.0));
+        $mpLimitNum = intval($this->postParam('mpLimitNum', 0));
         $setState = intval($this->postParam('setstate', 0));
         $synchShowPrice = intval($this->postParam('synchShowPrice', 0));
 
@@ -315,8 +322,18 @@ class GoodsController extends AdminController
             $this->ajaxReturn(ERR_PARAMS_ERROR, '价格不能为0或负数');
             return ;
         }
+        if ($mpLimitNum < 0) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '限购数量负数');
+            return ;
+        }
         if ($mpriceId == 0) {
-            TimingMPriceModel::newOne($skuId, $beginTime, $endTime, $mpToPrice, $synchShowPrice);
+            TimingMPriceModel::newOne($skuId,
+                $beginTime,
+                $endTime,
+                $mpToPrice,
+                $mpLimitNum,
+                $synchShowPrice
+            );
             $this->ajaxReturn(0, '', '/admin/Goods/skuPage?goodsId=' . $goodsId);
             return ;
         }
@@ -325,6 +342,7 @@ class GoodsController extends AdminController
             'begin_time' => $beginTime,
             'end_time' => $endTime,
             'to_price' => $mpToPrice,
+            'limit_num' => $mpLimitNum,
             'synch_sale_price' => $synchShowPrice,
         );
         if ($setState) {

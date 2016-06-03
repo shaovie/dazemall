@@ -23,6 +23,7 @@ use \src\mall\model\GoodsSKUModel;
 use \src\mall\model\OrderGoodsModel;
 use \src\mall\model\GlobalConfigModel;
 use \src\mall\model\PostageModel;
+use \src\mall\model\TimingMPriceModel;
 
 class PayController extends MallController
 {
@@ -98,8 +99,14 @@ class PayController extends MallController
             return ;
         }
 
-        $this->ajaxReturn(0, '', '/mall/Pay/showQuickBuy?'
-            . 'goodsId=' . $goodsId
+        $limitNum = 0;
+        if (TimingMPriceModel::checkLimitBuy($goodsSku['id'], $amount, $limitNum)) {
+            $this->ajaxReturn(ERR_OPT_FAIL, '抱歉，该商品仅限购' . $limitNum . '个');
+            return ;
+        }
+
+        $this->ajaxReturn(0, '', '/mall/Pay/showQuickBuy'
+            . '?goodsId=' . $goodsId
             . '&skuAttr=' . $skuAttr
             . '&skuValue=' . $skuValue
             . '&amount=' . $amount
@@ -267,7 +274,6 @@ class PayController extends MallController
             $this->ajaxReturn(ERR_OPT_FREQ_LIMIT, '请不要重复提交订单...', '', ['orderId' => '']);
             return ;
         }
-
 
         $goodsInfo = GoodsModel::findGoodsById($goodsId);
         if (empty($goodsInfo)) {
