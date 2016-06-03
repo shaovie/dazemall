@@ -9,6 +9,7 @@ namespace src\mall\controller;
 use \src\common\Check;
 use \src\common\WxSDK;
 use \src\common\Util;
+use \src\common\Nosql;
 use \src\common\Log;
 use \src\pay\model\PayModel;
 use \src\user\model\UserModel;
@@ -465,8 +466,11 @@ class PayController extends MallController
     {
         $optResult = array('code' => ERR_OPT_FAIL, 'desc' => '', 'result' => array());
 
+        $nonce = Util::getRandomStr(6);
+        $nk = Nosql::NK_PAY_ORDER_COUPON_CODE . $this->userId() . ':' . $nonce;
+        Nosql::setEx($nk, Nosql::NK_PAY_ORDER_COUPON_CODE_EXPIRE, json_encode($goodsList));
+
         $couponList = UserCouponModel::getAvalidCouponListForOrder($this->userId(), $goodsList);
-        $couponList = array(); // TODO
         $coupon = UserCouponModel::getBestCoupon($couponList);
         $couponId = 0;
         if (!empty($coupon))
@@ -511,6 +515,7 @@ class PayController extends MallController
             'cash'      => number_format($cashAmount, 2, '.', ''),
             'coupon'    => $coupon,
             'avalidCouponAmount' => count($couponList),
+            'getCouponCode' => $nonce,
             'action'    => $action,
         );
         if (!empty($goodsInfo))

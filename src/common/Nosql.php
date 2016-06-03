@@ -28,6 +28,7 @@ class Nosql
     const NK_ORDER_ID_RECORD         = 'order_id_record:'; const NK_ORDER_ID_RECORD_EXPIRE = 86400;
     const NK_ASYNC_ORDER_RESULT      = 'async_order_result:'; const NK_ASYNC_ORDER_RESULT_EXPIRE = 3600;
     const NK_LIMIT_ORDER_FREQ        = 'limit_order_freq:'; const NK_LIMIT_ORDER_FREQ_EXPIRE = 6;
+    const NK_PAY_ORDER_COUPON_CODE   = 'pay_order_coupon_code:'; const NK_PAY_ORDER_COUPON_CODE_EXPIRE = 86400;
 
     //= async job queue
     const NK_ASYNC_EMAIL_QUEUE       = 'async_email_queue:';

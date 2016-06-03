@@ -16,7 +16,7 @@
     <!--地址：删除-->
     <input type="hidden" id="J-ajaxurl-address-del" value="/api/UserAddress/del" />
     <!--优惠券列表-->
-    <input type="hidden" id="J-ajaxurl-ticketList" ajax-params='<?php echo "xx,dd";?>' value="/api/User/getOrderCouponList" />
+    <input type="hidden" id="J-ajaxurl-ticketList" ajax-params='' value="/api/User/getOrderCouponList?code=<?php echo $getCouponCode;?>" />
 <form id="J-pay-form" action="<?php echo $action?>" method="post" enctype="application/x-www-form-urlencoded">
     <?php if (!empty($orderInfo)):?>
     <section class="order-info">

@@ -8,6 +8,7 @@ namespace src\api\controller;
 
 use \src\common\Check;
 use \src\common\Log;
+use \src\common\Nosql;
 use \src\user\model\UserCouponModel;
 use \src\user\model\UserCartModel;
 use \src\user\model\UserBillModel;
@@ -58,46 +59,17 @@ class UserController extends ApiController
     {
         $this->checkLoginAndNotice();
 
-        $uid = $this->userId();
-        $data = array();
-
-        $goodsId = $this->getParam('productId', 0);
-        $skuAttr = $this->getParam('skuAttr', '');
-        $skuValue = $this->getParam('skuValue', '');
-        $amount = $this->getParam('num', 1);
-        $cartIds = $this->getParam('cartId', '');
-
-        $couponList = array();
-        $goodsList = array();
-        if (!empty($goodsId) && !empty($skuAttr) && !empty($skuValue)) {
-            $goodsSkuInfo = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
-            if (!empty($goodsSkuInfo)) {
-                $goodsSkuInfo['category_id'] = GoodsModel::goodsCategory($goodsId);
-                $goodsList[] = $goodsSkuInfo;
-            }
-        } else if(!empty($cartIds)) {
-            $cartIds = explode(',' , $cartIds);
-            if (!empty($cartIds)) {
-                $cartList = UserCartModel::getCartList($this->userId());
-                foreach ($cartList as $cart) {
-                    if (!in_array($cart['id'], $cartIds))
-                        continue;
-                    
-                    $goodsInfo = GoodsModel::findGoodsById($cart['goods_id']);
-                    if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID)
-                        continue;
-                    $goodsSkuInfo = GoodsSKUModel::getSKUInfo($cart['goods_id'],
-                        $cart['sku_attr'], $cart['sku_value']);
-                    if (empty($goodsSkuInfo))
-                        continue;
-                    $goodsList[] = array(
-                        'sale_price' => $goodsSkuInfo['sale_price'],
-                        'category_id' => $goodsInfo['category_id'],
-                    );
-                }
-            }
+        $code = $this->getParam('code', '');
+        $nk = Nosql::NK_PAY_ORDER_COUPON_CODE . $this->userId() . ':' . $code;
+        $ret = Nosql::get($nk);
+        if (empty($ret)) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '请求参数错误');
+            return ;
         }
 
+        $goodsList = json_decode($ret, true);
+
+        $data = array();
         $couponList = UserCouponModel::getAvalidCouponListForOrder($this->userId(), $goodsList);
         $data['list'] = $couponList;
         $this->ajaxReturn(0, '', '', $data);
