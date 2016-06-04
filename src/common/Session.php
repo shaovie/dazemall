@@ -12,7 +12,7 @@ class Session
         'pre' => COOKIE_PREFIX . '_',
         'path'=> '/',
         'domain' => '',
-        'expire' => 2592000
+        'expire' => 25920000 // 10 个月
     );
 
     public static function getSid($key, $domain)
