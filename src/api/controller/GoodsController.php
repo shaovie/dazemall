@@ -72,7 +72,9 @@ class GoodsController extends ApiController
         if (empty($hour)) {
             return ;
         }
-        $this->ajaxReturn(0, '', '', array());
+        $goodsList = array();
+        $alreadyStart = false;
+        $this->ajaxReturn(0, '', '', array('list' => $goodsList, 'activityAlreadyStart' => $alreadyStart));
     }
 }
 
