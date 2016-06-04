@@ -11,6 +11,8 @@ use \src\common\Util;
 use \src\common\Log;
 use \src\common\DB;
 use \src\mall\model\MiaoShaCfgModel;
+use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsSKUModel;
 
 class MiaoShaGoodsModel
 {
@@ -56,12 +58,24 @@ class MiaoShaGoodsModel
             if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
                 continue ; 
             }
+            $sku = GoodsSKUModel::findAllValidSKUInfo($goods['goods_id']);
+            if (empty($sku)) {
+                continue;
+            }
+            $leftAmount = 0;
+            foreach ($sku as $item) {
+                if (abs((float)$item['sale_price'] - (float)$goodsInfo['sale_price']) < 0.001) {
+                    $leftAmount = $sku['amount'];
+                    break;
+                }
+            }
             $goods['goods_id'] = $goodsInfo['id'];
             $goods['name'] = $goodsInfo['name'];
             $goods['image_url'] = $goodsInfo['image_url'];
             $goods['sale_price'] = $goodsInfo['sale_price'];
             $goods['leftTime'] = 0;
-            $goods['soldout'] = 0; // TODO
+            $goods['soldout'] = $leftAmount > 0 ? 0 : 1;
+            $goods['start'] = 1;
         }
         $data['goodsList'] = $goodsList;
         return $data;

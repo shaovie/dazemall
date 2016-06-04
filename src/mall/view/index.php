@@ -111,7 +111,7 @@
                 <div class="img-wrap" style="background-image: url(<?php echo $goods['image_url'];?>)">
                     <?php if ($goods['soldout'] == 1):?>
                     <div class="empty"></div>
-                    <?php elseif ($goods['leftTime'] > 0):?>
+                    <?php elseif ($goods['start'] != 1):?>
                     <div class="ready-tip">
                         <p>距离开抢</p>
                         <p class="J-miao-timer" timer="<?php echo $goods['leftTime']?>">10:50:10</p>
@@ -122,7 +122,7 @@
                     <div class="item-title"><?php echo $goods['name'];?></div>
                     <div class="item-price">
                         <span class="price">&yen; <?php echo $goods['sale_price'];?></span>
-                        <a class="btn-sm <?php if ($goods['soldout'] == 0 && $goods['leftTime'] <= 0) {echo 'J-add-cart';}?>" goods-id="<?php echo $goods['goods_id']?>"></a>
+                        <a class="btn-sm <?php if ($goods['soldout'] == 0 && $goods['start'] == 1) {echo 'J-add-cart';}?>" goods-id="<?php echo $goods['goods_id']?>"></a>
                     </div>
                 </div>
             </a>
