@@ -142,7 +142,7 @@
         <?php foreach ($module['goodsList'] as $goods):?>
             <div class="temai-item dib">
                 <a href="/mall/Goods/detail?goodsId=<?php echo $goods['goodsId']?>">
-                    <div class="img-wrap" style="background-image: url(<?php echo $goods['imageUrl'] ?>)">
+                    <div class="img-wrap" data-original="<?php echo $goods['imageUrl']?>">
                     </div>
                     <div class="item-info">
                         <div class="item-title"><?php echo $goods['name'] ?></div>
