@@ -62,13 +62,15 @@ class MiaoShaGoodsModel
             if (empty($sku)) {
                 continue;
             }
-            $leftAmount = 0;
+            $leftAmount = -1;
             foreach ($sku as $item) {
                 if (abs((float)$item['sale_price'] - (float)$goodsInfo['sale_price']) < 0.001) {
-                    $leftAmount = $sku['amount'];
+                    $leftAmount = $item['amount'];
                     break;
                 }
             }
+            if ($leftAmount == -1)
+                continue;
             $goods['goods_id'] = $goodsInfo['id'];
             $goods['name'] = $goodsInfo['name'];
             $goods['image_url'] = $goodsInfo['image_url'];
