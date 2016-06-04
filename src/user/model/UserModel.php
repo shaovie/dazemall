@@ -234,6 +234,11 @@ class UserModel
         return $ret === false ? 0 : $ret;
     }
 
+    public static function onCommit($userId)
+    {
+        self::onUpdateData($userId);
+    }
+
     public static function onRollback($userId)
     {
         self::onUpdateData($userId);

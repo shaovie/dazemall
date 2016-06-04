@@ -9,6 +9,7 @@ namespace src\user\controller;
 use \src\common\Util;
 use \src\common\Check;
 use \src\user\model\UserModel;
+use \src\user\model\UserCouponModel;
 
 class HomeController extends UserController 
 {
@@ -20,7 +21,7 @@ class HomeController extends UserController
             'nickname' => empty($this->userInfo) ? '未注册' : $this->userInfo['nickname'],
             'phone' => empty($this->userInfo['phone']) ? '未绑定手机号' : $this->userInfo['phone'],
             'cash' => empty($this->userInfo) ? '0.00' : number_format($this->userInfo['cash_amount'], 2, '.', ''),
-            'couponAmount' => 0,
+            'couponAmount' => UserCouponModel::getUnusedCouponCount($this->userId()),
             'jifen' => 0,
             'id' => $this->userId(),
         );

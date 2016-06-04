@@ -137,9 +137,9 @@
 		</span> -->
 	</div>
 	<div class="result">
-    <span >需付</span>：
+    <span id="J-last-text">需付</span>：
     <span class="price"><i>&yen;</i>
-    <b ><?php echo $toPayAmount;?></b></span>
+    <b id="J-last-pay"><?php echo $toPayAmount;?></b></span>
     </div>
 </section>
 <div class="error-tip">为避免订单失效，建议您在<b><?php echo $payLastTime;?>分钟</b>内完成支付</div>

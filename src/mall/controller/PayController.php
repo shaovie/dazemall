@@ -474,7 +474,7 @@ class PayController extends MallController
         $coupon = UserCouponModel::getBestCoupon($couponList);
         $couponId = 0;
         if (!empty($coupon))
-            $couponId = $coupon['coupon_id'];
+            $couponId = $coupon['id'];
         $ret = OrderModel::calcPrice($this->userId(), $goodsList, $couponId);
         if ($ret['code'] != 0)
             return $ret;

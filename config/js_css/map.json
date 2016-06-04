@@ -148,6 +148,7 @@
                 "common/bubble/bubble",
                 "common/confirm/index",
                 "common/timer/timer",
+                "common/nav/index",
                 "modules/cart/index.less"
             ],
             "id": "cart/index"
@@ -392,6 +393,20 @@
             "type": "css",
             "id": "modules/common/bullet/index.less"
         },
+        "common/cart-ani/index": {
+            "uri": "/static/modules/common/cart-ani/index.js",
+            "type": "js",
+            "deps": [
+                "zepto",
+                "modules/common/cart-ani/index.less"
+            ],
+            "id": "common/cart-ani/index"
+        },
+        "modules/common/cart-ani/index.less": {
+            "uri": "/static/modules/common/cart-ani/index.css",
+            "type": "css",
+            "id": "modules/common/cart-ani/index.less"
+        },
         "common/comment-section/index": {
             "uri": "/static/modules/common/comment-section/index.js",
             "type": "js",
@@ -612,6 +627,14 @@
             "uri": "/static/modules/common/mockjs/index.js",
             "type": "js"
         },
+        "common/nav/index": {
+            "uri": "/static/modules/common/nav/index.js",
+            "type": "js",
+            "deps": [
+                "common/ajax/index"
+            ],
+            "id": "common/nav/index"
+        },
         "modules/common/nav/nav.less": {
             "uri": "/static/modules/common/nav/nav.css",
             "type": "css",
@@ -720,6 +743,10 @@
         },
         "modules/common/tuan-steps/index.less": {
             "uri": "/static/modules/common/tuan-steps/index.css",
+            "type": "css"
+        },
+        "modules/common/ui/animate.css": {
+            "uri": "/static/modules/common/ui/animate.css",
             "type": "css"
         },
         "modules/common/ui/func.less": {
@@ -1118,6 +1145,7 @@
                 "common/timer/timer",
                 "common/fix-top/index",
                 "common/swiper/index",
+                "common/cart-ani/index",
                 "common/gotop/index",
                 "search-panel/index",
                 "modules/goods-list/index.less"
@@ -1167,6 +1195,8 @@
                 "common/ajax/index",
                 "common/util/index",
                 "common/alert/alert",
+                "common/cart-ani/index",
+                "common/nav/index",
                 "search-panel/index",
                 "common/gotop/index",
                 "modules/index-new/index.less"
@@ -1614,6 +1644,7 @@
                 "zepto",
                 "common/ajax/index",
                 "common/pop/index",
+                "common/nav/index",
                 "modules/person/index.less"
             ],
             "id": "person/index"
@@ -2404,7 +2435,7 @@
             ]
         },
         "auto_js_8": {
-            "uri": "/static/pkg/auto_combine_20936.js",
+            "uri": "/static/pkg/auto_combine_a1929.js",
             "type": "js",
             "has": [
                 "common/copyright/index",
@@ -2419,6 +2450,7 @@
                 "common/ajax/index",
                 "common/confirm/index",
                 "common/timer/timer",
+                "common/nav/index",
                 "cart/index"
             ]
         },
@@ -3080,7 +3112,7 @@
             ]
         },
         "auto_js_56": {
-            "uri": "/static/pkg/auto_combine_00ce4.js",
+            "uri": "/static/pkg/auto_combine_15000.js",
             "type": "js",
             "has": [
                 "underscore",
@@ -3098,13 +3130,14 @@
                 "common/fix-top/index",
                 "common/swipe/swipe",
                 "common/swiper/index",
+                "common/cart-ani/index",
                 "common/gotop/index",
                 "search-panel/index",
                 "goods-list/index"
             ]
         },
         "auto_css_57": {
-            "uri": "/static/pkg/auto_combine_3de80.css",
+            "uri": "/static/pkg/auto_combine_5bbfd.css",
             "type": "css",
             "has": [
                 "modules/common/common.less",
@@ -3117,6 +3150,7 @@
                 "modules/common/login-pop/index.less",
                 "modules/common/swipe/swipe.less",
                 "modules/common/swiper/index.less",
+                "modules/common/cart-ani/index.less",
                 "modules/common/gotop/index.less",
                 "modules/search-panel/index.less",
                 "modules/goods-list/index.less"
@@ -3169,7 +3203,7 @@
             ]
         },
         "auto_js_60": {
-            "uri": "/static/pkg/auto_combine_c3941.js",
+            "uri": "/static/pkg/auto_combine_d5f31.js",
             "type": "js",
             "has": [
                 "common/copyright/index",
@@ -3185,13 +3219,15 @@
                 "common/confirm-service/index",
                 "common/login-pop/index",
                 "common/ajax/index",
+                "common/cart-ani/index",
+                "common/nav/index",
                 "search-panel/index",
                 "common/gotop/index",
                 "index-new/index"
             ]
         },
         "auto_css_61": {
-            "uri": "/static/pkg/auto_combine_a3939.css",
+            "uri": "/static/pkg/auto_combine_073e3.css",
             "type": "css",
             "has": [
                 "modules/common/copyright/index.less",
@@ -3202,6 +3238,7 @@
                 "modules/common/alert/alert.less",
                 "modules/common/confirm-service/index.less",
                 "modules/common/login-pop/index.less",
+                "modules/common/cart-ani/index.less",
                 "modules/search-panel/index.less",
                 "modules/common/gotop/index.less",
                 "modules/index-new/index.less"
@@ -3849,7 +3886,7 @@
             ]
         },
         "auto_js_106": {
-            "uri": "/static/pkg/auto_combine_28246.js",
+            "uri": "/static/pkg/auto_combine_e7331.js",
             "type": "js",
             "has": [
                 "common/copyright/index",
@@ -3861,6 +3898,7 @@
                 "common/confirm-service/index",
                 "common/login-pop/index",
                 "common/ajax/index",
+                "common/nav/index",
                 "person/index"
             ]
         },

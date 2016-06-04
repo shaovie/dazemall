@@ -415,9 +415,13 @@ class UserOrderModel
         return '';
     }
 
+    public static function onCommit($orderId)
+    {
+        self::onUpdateData($orderId);
+    }
     public static function onRollback($orderId)
     {
-        self::onRollback($orderId);
+        self::onUpdateData($orderId);
     }
 
     private static function onUpdateData($orderId)

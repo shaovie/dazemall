@@ -7,6 +7,7 @@
     <?php src\common\JsCssLoader::outCss('modules/person/index.less');?>
 </head>
 <body>
+	<input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
     <section class="person dib-wrap">
         <div class="img-wrap dib" style="background-image: url('<?php echo $user['imageUrl'];?>')"></div>
         <div class="user-info dib">
@@ -17,16 +18,19 @@
     <ul class="wealth-list">
         <li>
             <a href="/user/Wallet">
+                <label><?php echo $user['cash'];?></label>
                 <p>我的钱包</p>
             </a>
         </li>
         <li>
             <a href="/user/Coupon/myCoupon">
+                <label><?php echo $user['couponAmount'];?>个</label>
                 <p>优惠券</p>
             </a>
         </li>
         <li>
             <a href="#">
+                <label><?php echo $user['jifen'];?></label>
                 <p>商城积分</p>
             </a>
         </li>
@@ -71,7 +75,8 @@
                 <label>大泽商城</label>
             </a>
         </li>
-        <li class="gift dib">
+        <li class="gift dib cart">
+        <span class="cart-num"></span>
             <a href="/mall/Cart">
                 <i class="icon"></i>
                 <label>购物车</label>

@@ -62,10 +62,24 @@ class UserCouponModel
         $ret = DB::getDB()->fetchOne(
             'u_coupon',
             '*',
-            array('user_id', 'coupon_id'), array($userId, $couponId),
+            array('id', 'user_id'), array($couponId, $userId),
             array('and')
         );
         return $ret === false ? array() : $ret;
+    }
+
+    public static function getUnusedCouponCount($userId)
+    {
+        if (empty($userId))
+            return array();
+        $ret = DB::getDB()->fetchCount(
+            'u_coupon',
+            array('user_id', 'state', 'end_time>'), array($userId, self::COUPON_ST_UNUSED, CURRENT_TIME),
+            array('and', 'and')
+        );
+        if ($ret === false)
+            return 0;
+        return $ret;
     }
 
     public static function getSomeUnusedCoupon($userId, $page, $size)
@@ -116,8 +130,28 @@ class UserCouponModel
         $ret = DB::getDB('w')->update(
             'u_coupon',
             $data,
-            array('user_id', 'coupon_id', 'state'),
-            array($userId, $couponId, self::COUPON_ST_UNUSED),
+            array('id', 'user_id', 'state'),
+            array($couponId, $userId, self::COUPON_ST_UNUSED),
+            array('and', 'and'),
+            1
+        );
+        if ($ret === false) {
+            return false;
+        }
+        return $ret > 0;
+    }
+
+    public static function refundCoupon($userId, $couponId)
+    {
+        if (empty($userId) || empty($couponId)) {
+            return false;
+        }
+        $data = array('state' => self::COUPON_ST_UNUSED, 'use_time' => 0);
+        $ret = DB::getDB('w')->update(
+            'u_coupon',
+            $data,
+            array('id', 'user_id', 'state'),
+            array($couponId, $userId, self::COUPON_ST_USED),
             array('and', 'and'),
             1
         );

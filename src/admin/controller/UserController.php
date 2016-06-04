@@ -145,6 +145,7 @@ class UserController extends AdminController
             $this->ajaxReturn(ERR_PARAMS_ERROR, '系统错误');
             return false;
         }
+        UserModel::onCommit($userId);
         $this->ajaxReturn(0, '');
     }
 }

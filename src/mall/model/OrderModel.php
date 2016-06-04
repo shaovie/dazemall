@@ -411,6 +411,7 @@ class OrderModel
 
         if ($orderInfo['ac_pay_amount'] < 0.0001) {
             UserOrderModel::cancelOrder($userId, $orderId);
+            UserCouponModel::refundCoupon($userId, $orderInfo['coupon_id']);
             return true;
         }
 
@@ -448,6 +449,8 @@ class OrderModel
             UserModel::onRollback($userId);
             return false;
         }
+        UserOrderModel::onCommit($orderId);
+        UserModel::onCommit($userId);
         return true;
     }
 

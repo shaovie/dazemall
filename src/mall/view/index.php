@@ -130,7 +130,8 @@
                 <label>大泽商城</label>
             </a>
         </li>
-        <li class="gift">
+        <li class="gift cart">
+        <span class="cart-num"></span>
             <a href="/mall/Cart">
                 <i class="icon"></i>
                 <label>购物车</label>

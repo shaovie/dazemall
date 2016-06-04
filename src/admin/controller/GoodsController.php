@@ -176,7 +176,7 @@ class GoodsController extends AdminController
             $this->ajaxReturn(ERR_SYSTEM_ERROR, '保存商品失败');
             return ;
         }
-        $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Goods/editPage?goodsId=' . $goodsId);
+        $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Goods/listPage?goodsId=' . $goodsId);
     }
     public function editPage()
     {

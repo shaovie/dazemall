@@ -7,6 +7,7 @@
     <?php src\common\JsCssLoader::outCss('modules/cart/index.less');?>
 </head>
 <body>
+	<input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
 	<!--购物车产品数量更新-->
 	<input id="J-ajaxurl-updateNum" type="hidden" value="/api/Cart/modifyAmount" />
 <?php if (empty($cartList)):?>
@@ -99,7 +100,8 @@
                 <label>大泽商城</label>
             </a>
         </li>
-        <li class="gift active">
+        <li class="gift active cart">
+        <span class="cart-num"></span>
             <a href="">
                 <i class="icon"></i>
                 <label>购物车</label>

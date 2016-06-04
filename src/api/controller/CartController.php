@@ -29,7 +29,7 @@ class CartController extends ApiController
 
         $skuList = GoodsSKUModel::findAllValidSKUInfo($goodsId);
         if (empty($skuList)) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, '');
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
             return ;
         }
         if (count($skuList) > 1) {
@@ -164,8 +164,9 @@ class CartController extends ApiController
             $curNum = $cartGoods['amount'];
         }
         if ($sku['amount'] < $curNum + $amount) {
-            $this->ajaxReturn(ERR_PARAMS_ERROR, '商品库存不足');
-            return ;
+            $optResult['code'] = ERR_OPT_FAIL;
+            $optResult['desc'] = '商品库存不足';
+            return $optResult;
         }
         // for limit buy
         $limitNum = 0;
