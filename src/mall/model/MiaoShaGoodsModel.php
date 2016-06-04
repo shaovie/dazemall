@@ -10,7 +10,6 @@ use \src\common\Cache;
 use \src\common\Util;
 use \src\common\Log;
 use \src\common\DB;
-use \src\mall\model\MiaoShaCfgModel;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsSKUModel;
 
