@@ -8,7 +8,6 @@ namespace src\admin\controller;
 
 use \src\common\Util;
 use \src\common\Check;
-use \src\mall\model\MiaoShaCfgModel;
 use \src\mall\model\MiaoShaGoodsModel;
 use \src\mall\model\GoodsModel;
 
@@ -54,11 +53,9 @@ class MiaoShaGoodsController extends AdminController
 
     public function addPage()
     {
-        $cfgList = MiaoShaCfgModel::findAllValidCfg();
         $data = array(
             'title' => '新增',
             'act' => array(),
-            'cfgList' => $cfgList,
             'action' => '/admin/MiaoShaGoods/add',
         );
         $this->display('miaosha_goods_info', $data);
