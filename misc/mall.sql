@@ -603,6 +603,22 @@ create table m_goods_module_glist (
     index idx_module_id_goods_id(`module_id`, `goods_id`)
 )engine=InnoDB default charset=utf8;
 
+-- 秒杀活动
+drop table if exists m_miao_sha_goods;
+create table m_miao_sha_goods (
+    id                  int unsigned not null auto_increment,
+
+    goods_id            int unsigned not null default 0,            # 商品ID
+    begin_time          int not null default 0,                     # 开始时间
+    end_time            int not null default 0,                     # 结束时间
+    sort                int not null default 0,                     # 顺序
+
+    ctime               int not null default 0,                     # 创建时间
+
+    primary key (`id`),
+    index idx_time_sort(`begin_time`, `end_time`, `sort`)
+)engine=InnoDB default charset=utf8;
+
 -- --------------------------------全局配置表---------------------------------
 drop table if exists s_global_config;
 create table s_global_config (

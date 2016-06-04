@@ -65,5 +65,14 @@ class GoodsController extends ApiController
         $goodsList = GoodsModel::fillShowGoodsListData($res);
         $this->ajaxReturn(0, '', '', array('goodsList' => $goodsList));
     }
+
+    public function getMiaoShaList()
+    {
+        $hour = $this->getParam('hour', '');
+        if (empty($hour)) {
+            return ;
+        }
+        $this->ajaxReturn(0, '', '', array());
+    }
 }
 

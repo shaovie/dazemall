@@ -467,22 +467,34 @@ class PayController extends MallController
         $optResult = array('code' => ERR_OPT_FAIL, 'desc' => '', 'result' => array());
 
         $nonce = Util::getRandomStr(6);
-        $nk = Nosql::NK_PAY_ORDER_COUPON_CODE . $this->userId() . ':' . $nonce;
-        Nosql::setEx($nk, Nosql::NK_PAY_ORDER_COUPON_CODE_EXPIRE, json_encode($goodsList));
+        if (!empty($orderInfo)) {
+            $globalConfig = GlobalConfigModel::getConfig();
+            $toPayAmount = $orderInfo['ol_pay_amount'];
+            $couponPayAmount = $orderInfo['coupon_pay_amount'];
+            $orderAmount = $orderInfo['order_amount'];
+            $postage = $orderInfo['postage'];
+            $freePostage = floatval($globalConfig['free_postage']);
+            $couponList = array();
+            $couponId = $orderInfo['coupon_id'];
+            $coupon = UserCouponModel::getCouponById($this->userId(), $couponId);
+        } else {
+            $nk = Nosql::NK_PAY_ORDER_COUPON_CODE . $this->userId() . ':' . $nonce;
+            Nosql::setEx($nk, Nosql::NK_PAY_ORDER_COUPON_CODE_EXPIRE, json_encode($goodsList));
 
-        $couponList = UserCouponModel::getAvalidCouponListForOrder($this->userId(), $goodsList);
-        $coupon = UserCouponModel::getBestCoupon($couponList);
-        $couponId = 0;
-        if (!empty($coupon))
-            $couponId = $coupon['id'];
-        $ret = OrderModel::calcPrice($this->userId(), $goodsList, $couponId);
-        if ($ret['code'] != 0)
-            return $ret;
-        $toPayAmount = (float)$ret['result']['toPayAmount'];
-        $couponPayAmount = (float)$ret['result']['couponPayAmount'];
-        $orderAmount = (float)$ret['result']['orderAmount'];
-        $postage = (float)$ret['result']['postage'];
-        $freePostage = (float)$ret['result']['freePostage'];
+            $couponList = UserCouponModel::getAvalidCouponListForOrder($this->userId(), $goodsList);
+            $coupon = UserCouponModel::getBestCoupon($couponList);
+            $couponId = 0;
+            if (!empty($coupon))
+                $couponId = $coupon['id'];
+            $ret = OrderModel::calcPrice($this->userId(), $goodsList, $couponId);
+            if ($ret['code'] != 0)
+                return $ret;
+            $toPayAmount = (float)$ret['result']['toPayAmount'];
+            $couponPayAmount = (float)$ret['result']['couponPayAmount'];
+            $orderAmount = (float)$ret['result']['orderAmount'];
+            $postage = (float)$ret['result']['postage'];
+            $freePostage = (float)$ret['result']['freePostage'];
+        }
 
         $cashAmount = 0.00;
         if (!empty($orderInfo)) {

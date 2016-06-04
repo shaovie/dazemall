@@ -13,6 +13,7 @@
 	<input type="hidden" id="J-ajaxurl-initCart" value="/api/Cart/getCartAmount" />
     <!--添加到购物车-->
     <input id="J-ajaxurl-addCart" type="hidden" value="/api/Cart/autoAdd" />
+    <input id="J-ajaxurl-miaoList" type="hidden" value="/api/Goods/getMiaoShaList" />
 	
     <div class="wrap">
     <form class="serch-panel-form" action="/mall/Goods/search">
@@ -91,6 +92,45 @@
     <?php endforeach?>
     </section>
     <?php endif?>
+<?php if(!empty($miaoSha['goodsList'])):?>
+<section class="tj-section">
+    <div class="chr-ms-title">
+        <div class="section-title3 title-ms">
+            <h3><i class="icon-ms"></i>疯狂秒杀</h3>
+        </div>
+        <div id="<?php if (false) {echo 'J-miao-nav';}?>" class="miao-time">
+            <?php foreach ($miaoSha['titleList'] as $t):?>
+            <span <?php if ($t['active'] == 1) { echo 'class="active"';}?> ><?php echo $t['title']?></span>
+            <?php endforeach?>
+        </div>
+    </div>
+	<div id="J-miao-list" class="temai-list dib-wrap">
+        <?php foreach ($miaoSha['goodsList'] as $goods):?>
+        <div class="temai-item dib">
+            <a href="/mall/Goods/detail?goodsId=<?php echo $goods['goods_id']?>">
+                <div class="img-wrap" style="background-image: url(<?php echo $goods['image_url'];?>)">
+                    <?php if ($goods['soldout'] == 1):?>
+                    <div class="empty"></div>
+                    <?php elseif ($goods['leftTime'] > 0):?>
+                    <div class="ready-tip">
+                        <p>距离开抢</p>
+                        <p class="J-miao-timer" timer="<?php echo $goods['leftTime']?>">10:50:10</p>
+                    </div>
+                    <?php endif?>
+                </div>
+                <div class="item-info">
+                    <div class="item-title"><?php echo $goods['name'];?></div>
+                    <div class="item-price">
+                        <span class="price">&yen; <?php echo $goods['sale_price'];?></span>
+                        <a class="btn-sm <?php if ($goods['soldout'] == 0 && $goods['leftTime'] <= 0) {echo 'J-add-cart';}?>" goods-id="<?php echo $goods['goods_id']?>"></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <?php endforeach;?>
+    </div>
+</section>
+<?php endif;?>
     <?php if (!empty($goodsModuleList)):?>
     <?php foreach ($goodsModuleList as $module):?>
     <section class="tj-section">

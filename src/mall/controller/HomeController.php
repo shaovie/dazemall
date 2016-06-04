@@ -12,6 +12,7 @@ use \src\mall\model\GoodsModuleModel;
 use \src\mall\model\ActivityModel;
 use \src\mall\model\GoodsModuleGListModel;
 use \src\mall\model\GlobalConfigModel;
+use \src\mall\model\MiaoShaGoodsModel;
 
 class HomeController extends MallController
 {
@@ -25,6 +26,7 @@ class HomeController extends MallController
         $data = array(
             'searchKey' => $globalConfig['search_key'],
             'bannerList' => $bannerList,
+            'miaoSha' => MiaoShaGoodsModel::getShowInfo(),
             'goodsModuleList' => $moduleGoodsList,
             'actList' => $actList,
         );

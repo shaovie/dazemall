@@ -165,6 +165,11 @@
                         轮播图列表
                         </a>
 						</li>
+						<li> <a onclick="navtoggle(&#39;营销管理- &gt; 秒杀活动&#39;)" href="/admin/MiaoShaGoods/listPage" target="main">
+                            <i class="icon-double-angle-right"></i>
+                            秒杀活动
+                            </a>
+						</li>
 						<li> <a onclick="navtoggle(&#39;营销管理- &gt; 定时上下架&#39;)" href="/admin/TimingUpDown/listPage" target="main">
                             <i class="icon-double-angle-right"></i>
                             定时上下架

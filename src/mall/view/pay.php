@@ -106,7 +106,7 @@
 		</div>
 	</li>
 </ul>
-<section id="J-ticket-section" class="ticket-section clearfix
+<section <?php echo (empty($orderInfo) ? 'id="J-ticket-section"' : '')?> class="ticket-section clearfix
     <?php if (!empty($coupon)) echo 'has-ticket';?>">
 	<label>使用优惠券</label>
 	<?php if(!empty($coupon)):?>
