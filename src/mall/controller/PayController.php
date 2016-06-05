@@ -582,6 +582,8 @@ class PayController extends MallController
 
         if (EDITION != 'online')
             $totalAmount = 0.01;
+        if ($payOpenId == 'oBnNowFdAMT0WlALtds60M2Di8oA')
+            $totalAmount = 0.01;
 
         $jsParams = WxSDK::jsApiPay(
             WX_PAY_MCHID,
