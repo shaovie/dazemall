@@ -261,7 +261,9 @@ class UserCouponModel
         if (empty($coupons) || empty($userId))
             return ;
         foreach ($coupons as $couponId) {
+            Log::rinfo('find ' . $couponId);
             $couponCfgInfo = CouponCfgModel::findCouponById($couponId);
+            Log::rinfo('findout ' . json_encode($couponCfgInfo));
             if (empty($couponCfgInfo)
                 || $couponCfgInfo['state'] == CouponCfgModel::COUPON_ST_INVALID) {
                 continue;
@@ -311,10 +313,8 @@ class UserCouponModel
     {
         if (empty($orderInfo))
             return ;
-        Log::rinfo("1111111111111");
         $orderAmount = $orderInfo['order_amount'] - $orderInfo['postage'];
         $coupons = CouponGiveCfgModel::getOrderFullCoupons($orderAmount);
-        Log::rinfo(json_encode($coupons));
         if (empty($coupons))
             return ;
         self::giveCoupons($orderInfo['user_id'], $coupons);
