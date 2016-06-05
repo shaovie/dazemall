@@ -153,7 +153,7 @@ create table u_coupon (
     ctime               int not null default 0,                     # 创建时间
 
     primary key (`id`),
-    unique key user_id_coupon_id(`user_id`, `coupon_id`)
+    index idx_user_id_coupon_id(`user_id`, `coupon_id`)
 )engine=InnoDB default charset=utf8;
 
 -- 用户账户流水
