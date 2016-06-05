@@ -9,6 +9,7 @@ namespace src\admin\controller;
 use \src\common\Util;
 use \src\common\Check;
 use \src\mall\model\CouponCfgModel;
+use \src\mall\model\CouponGiveCfgModel;
 use \src\mall\model\GoodsModel;
 use \src\mall\model\GoodsCategoryModel;
 
