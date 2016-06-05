@@ -16,9 +16,9 @@ use \src\user\model\UserCouponModel;
 
 class AsyncDBOptController extends JobController
 {
-    const ASYNC_ORDER_QUEUE_SIZE = 3;
+    const ASYNC_ORDER_QUEUE_SIZE = 2;
 
-    public function send()
+    public function doit()
     {
         $this->spawnTask(self::ASYNC_DB_OPT_QUEUE_SIZE);
     }
