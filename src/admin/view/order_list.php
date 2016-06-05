@@ -58,6 +58,7 @@
 				<th style="width:90px;text-align:center;">收货人电话</th>
 				<th style="width:150px;text-align:center;">支付</th>
 				<th style="width:60px;text-align:center;">运费</th>
+				<th style="width:80px;text-align:center;">优惠金额</th>
 				<th style="width:100px;text-align:center;">总价</th>
 				<th style="width:120px;text-align:center;">状态</th>
 				<th style="width:120px;text-align:center;">发货</th>
@@ -77,6 +78,7 @@
                 <div><?php echo '余额支付：' . $order['ac_pay_amount']?></div>
                 </td>
                 <td style="text-align:center;vertical-align:middle;"><?php echo $order['postage']?></td>
+                <td style="text-align:center;vertical-align:middle;"><?php echo $order['coupon_pay_amount']?></td>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $order['order_amount']?></td>
                 <td style="text-align:left;vertical-align:middle;">
                     <div>支付：<span ><?php echo $order['payStateDesc']?></span> </div>
