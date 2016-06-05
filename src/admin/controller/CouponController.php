@@ -149,7 +149,7 @@ class CouponController extends AdminController
         $updateData['order_amount'] = $orderAmount;
         $updateData['order_full_coupon'] = $orderFullCoupons;
         CouponGiveCfgModel::update($updateData);
-        $this->ajaxReturn(0, '', '/admin/Coupon/listPage');
+        $this->ajaxReturn(0, '保存成功，请确认信息无误', '/admin/Coupon/listPage');
     }
 
     private function fetchFormParams(&$couponInfo, &$error)
