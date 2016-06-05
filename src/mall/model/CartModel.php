@@ -31,7 +31,7 @@ class CartModel
 
         $cartResult = array();
         foreach ($cartList as $cartGoods) {
-            $data = self::fillCartGoodsInfo($cartGoods);
+            $data = self::fillCartGoodsInfo($cartGoods, false);
             if (empty($data))
                 continue;
             $allTotalPrice += $data['totalPrice'];
@@ -40,18 +40,23 @@ class CartModel
         return $cartResult;
     }
 
-    public static function fillCartGoodsInfo($cart)
+    public static function fillCartGoodsInfo($cart, $onlyValid)
     {
         $data = array();
         $goodsInfo = GoodsModel::findGoodsById($cart['goods_id']);
-        if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+        if (empty($goodsInfo)) {
             return $data;
         }
 
         $goodsSku = GoodsSKUModel::getSKUInfo($cart['goods_id'], $cart['sku_attr'], $cart['sku_value']);
         if (empty($goodsSku))
             return $data;
-
+        $data['down'] = 0;
+        if ($goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+            $data['down'] = 1;
+            if ($onlyValid)
+                return -1;
+        }
         $data['id'] = $cart['id'];
         $data['goodsId'] = $cart['goods_id'];
         $data['amount']  = $cart['amount'];

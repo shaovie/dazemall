@@ -57,6 +57,8 @@
 							<div class="img-wrap" style="background-image:url(<?php echo $cart['imageUrl']?>)">
                             <?php if (false):?>
 								<div class="no-store">库存紧张</div>
+                            <?php elseif ($cart['down'] == 1):?>
+								<div class="no-store">已下架</div>
                             <?php elseif (false):?>
 								<div class="tm-timer">剩余<span class="J-tm-timer" timer="1000000">21:21:21</span></div>
                             <?php endif?>

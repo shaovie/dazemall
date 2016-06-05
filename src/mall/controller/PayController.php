@@ -55,7 +55,11 @@ class PayController extends MallController
 
         $goodsList = array();
         foreach ($validCart as $cart) {
-            $data = CartModel::fillCartGoodsInfo($cart);
+            $data = CartModel::fillCartGoodsInfo($cart, true);
+            if ($data === -1) {
+                $this->showNotice('购物车内有已下架商品，请清理购物车', '/mall/Cart');
+                return ;
+            }
             if (empty($data))
                 continue;
             $goodsList[] = $data;
