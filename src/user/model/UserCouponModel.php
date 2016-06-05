@@ -290,7 +290,7 @@ class UserCouponModel
                         'keyword1' => array('value' => '发放成功', 'color' => '#173177'),
                         'keyword2' => array('value' => date('Y-m-d H:i:s', CURRENT_TIME), 'color' => '#173177'),
                         'keyword3' => array('value' => '请及时使用，以免过期哦', 'color' => '#173177'),
-                        'remark' => array('value' => '祝您购物愉快 ^_^ ~',
+                        'remark' => array('value' => "\n祝您购物愉快 ^_^ ~",
                             'color' => '#173177')
                     );
                     AsyncModel::asyncSendTplMsg($wxUserInfo['openid'], $tplMsg, 0);
