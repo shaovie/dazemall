@@ -110,7 +110,9 @@
                         echo 'disabled="disabled"';
                     }?>
                     >确认付款</button>
-					<button type="button" class="btn span2" name="close" onclick="" value="close" disabled="disabled">关闭订单</button>
+					<button type="button" class="btn span2" name="cancel" onclick="doCancel()" value="cancel"
+                    <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED) { echo 'disabled="disabled"';} ?>
+                    >取消订单</button>
 					<button type="button" class="btn span2 btn-info" name="sign" onclick="orderSign()" value="sign"
                     <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED
                         || $order['deliveryState'] != \src\user\model\UserOrderModel::ORDER_DELIVERY_ST_ING) {
@@ -187,6 +189,22 @@
         function doConfirmPay() {
             if (confirm('确认付款此订单吗？')) {
                 var url = "/admin/Order/confirmPayOk";
+                var data = {
+                    orderId:"<?php echo $order['orderId']?>"
+                };
+                $.post(url,data,function(data){
+                    if(data.code==0) {
+                        window.location.href= data.url;
+                    } else {
+                        alert(data.msg);
+                        return false;
+                    }
+                },'json');
+            }
+        };
+        function doCancel() {
+            if (confirm('确认取消此订单吗？')) {
+                var url = "/admin/Order/confirmCancel";
                 var data = {
                     orderId:"<?php echo $order['orderId']?>"
                 };

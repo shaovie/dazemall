@@ -232,6 +232,12 @@ class OrderController extends AdminController
         UserOrderModel::manualConfirmPayOk($orderId, $this->account);
         $this->ajaxReturn(0, '', '/admin/Order/info?orderId=' . $orderId);
     }
+    public function confirmCancel()
+    {
+        $orderId = trim($this->postParam('orderId', ''));
+        UserOrderModel::manualConfirmCancel($orderId, $this->account);
+        $this->ajaxReturn(0, '', '/admin/Order/info?orderId=' . $orderId);
+    }
     public function confirmSign()
     {
         $orderId = trim($this->postParam('orderId', ''));

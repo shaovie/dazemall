@@ -277,6 +277,32 @@ class UserOrderModel
         self::payOkNotifyToAdmin($orderInfo);
         return true;
     }
+    public static function manualConfirmCancel($orderId, $mUser)
+    {
+        if (empty($orderId)) {
+            return false;
+        }
+
+        $orderInfo = self::findOrderByOrderId($orderId);
+        if (empty($orderInfo)) 
+            return ;
+        if ($orderInfo['order_state'] == UserOrderModel::ORDER_ST_CANCELED) {
+            return false;
+        }
+        $ret = DB::getDB('w')->update(
+            'o_order',
+            array('order_state' => UserOrderModel::ORDER_ST_CANCELED,
+                'sys_remark' => $mUser . ' manual confirm cancel order',
+            ),
+            array('order_id'), array($orderId)
+        );
+        self::onUpdateData($orderInfo['order_id']);
+
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        return true;
+    }
     public static function manualConfirmSign($orderId, $mUser)
     {
         if (empty($orderId)) {
