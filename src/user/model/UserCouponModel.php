@@ -261,41 +261,39 @@ class UserCouponModel
         if (empty($coupons) || empty($userId))
             return ;
         foreach ($coupons as $couponId) {
-            Log::rinfo('find ' . $couponId);
             $couponCfgInfo = CouponCfgModel::findCouponById($couponId);
-            Log::rinfo('findout ' . json_encode($couponCfgInfo));
             if (empty($couponCfgInfo)
                 || $couponCfgInfo['state'] == CouponCfgModel::COUPON_ST_INVALID) {
                 continue;
-                $ret = self::newOne(
-                    $userId,
-                    $couponCfgInfo['id'],
-                    $couponCfgInfo['begin_time'],
-                    $couponCfgInfo['end_time'],
-                    $couponCfgInfo['name'],
-                    $couponCfgInfo['remark'],
-                    $couponCfgInfo['coupon_amount'],
-                    $couponCfgInfo['order_amount'],
-                    $couponCfgInfo['category_id']
-                );
-                if ($ret !== false) {
-                    $wxUserInfo = WxUserModel::findUserByUserId($userId);
-                    if (!empty($wxUserInfo['openid'])) {
-                        $tplMsg['touser'] = $wxUserInfo['openid'];
-                        $tplMsg['template_id'] = TMP_SERVER_NOTIFY;
-                        $tplMsg['url'] = 'http://' . APP_HOST . '/user/Coupon/myCoupon';
-                        $tplMsg['topcolor'] = '#FF0000';
-                        $tplMsg['data'] = array(
-                            'first'    => array('value' => '恭喜您，系统赠送您一张优惠券"' . $couponCfgInfo['name'] . '"'
-                                . "\n", 'color' => '#173177'),
-                            'keyword1' => array('value' => '发放成功', 'color' => '#173177'),
-                            'keyword2' => array('value' => date('Y-m-d H:i:s', CURRENT_TIME), 'color' => '#173177'),
-                            'keyword3' => array('value' => '请及时使用，以免过期哦', 'color' => '#173177'),
-                            'remark' => array('value' => '祝您购物愉快 ^_^ ~',
-                                    'color' => '#173177')
-                            );
-                        AsyncModel::asyncSendTplMsg($wxUserInfo['openid'], $tplMsg, 0);
-                    }
+            }
+            $ret = self::newOne(
+                $userId,
+                $couponCfgInfo['id'],
+                $couponCfgInfo['begin_time'],
+                $couponCfgInfo['end_time'],
+                $couponCfgInfo['name'],
+                $couponCfgInfo['remark'],
+                $couponCfgInfo['coupon_amount'],
+                $couponCfgInfo['order_amount'],
+                $couponCfgInfo['category_id']
+            );
+            if ($ret !== false) {
+                $wxUserInfo = WxUserModel::findUserByUserId($userId);
+                if (!empty($wxUserInfo['openid'])) {
+                    $tplMsg['touser'] = $wxUserInfo['openid'];
+                    $tplMsg['template_id'] = TMP_SERVER_NOTIFY;
+                    $tplMsg['url'] = 'http://' . APP_HOST . '/user/Coupon/myCoupon';
+                    $tplMsg['topcolor'] = '#FF0000';
+                    $tplMsg['data'] = array(
+                        'first'    => array('value' => '恭喜您，系统赠送您一张优惠券"' . $couponCfgInfo['name'] . '"'
+                            . "\n", 'color' => '#173177'),
+                        'keyword1' => array('value' => '发放成功', 'color' => '#173177'),
+                        'keyword2' => array('value' => date('Y-m-d H:i:s', CURRENT_TIME), 'color' => '#173177'),
+                        'keyword3' => array('value' => '请及时使用，以免过期哦', 'color' => '#173177'),
+                        'remark' => array('value' => '祝您购物愉快 ^_^ ~',
+                            'color' => '#173177')
+                    );
+                    AsyncModel::asyncSendTplMsg($wxUserInfo['openid'], $tplMsg, 0);
                 }
             }
         }
