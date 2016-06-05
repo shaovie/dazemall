@@ -8,3 +8,4 @@ nohup sh ${basepath}/timingmprice.sh $1 >/dev/null 2>&1 &
 nohup sh ${basepath}/timingupdown.sh $1 >/dev/null 2>&1 &
 nohup sh ${basepath}/report.sh $1 >/dev/null 2>&1 &
 nohup sh ${basepath}/wxeventasync.sh $1 >/dev/null 2>&1 &
+nohup sh ${basepath}/asyncdbopt.sh $1 >/dev/null 2>&1 &
