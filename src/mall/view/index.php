@@ -98,7 +98,7 @@
         <div class="section-title3 title-ms">
             <h3><i class="icon-ms"></i>疯狂秒杀</h3>
         </div>
-        <div id="<?php if (false) {echo 'J-miao-nav';}?>" class="miao-time">
+        <div id="<?php if (true) {echo 'J-miao-nav';}?>" class="miao-time">
             <?php foreach ($miaoSha['titleList'] as $t):?>
             <span <?php if ($t['active'] == 1) { echo 'class="active"';}?> ><?php echo $t['title']?></span>
             <?php endforeach?>

@@ -43,6 +43,18 @@ class MiaoShaGoodsModel
         return $ret === false ? array() : $ret;
     }
 
+    public static function findAllValidPrevGoods($btime, $etime)
+    {
+        $ret = DB::getDB('r')->fetchAll(
+            'm_miao_sha_goods',
+            '*',
+            array('begin_time>=', 'end_time<='), array($btime, $etime),
+            array('and'),
+            array('sort'), array('desc')
+        );
+        return $ret === false ? array() : $ret;
+    }
+
     public static function getShowInfo()
     {
         $nowHour = intval(date('G', CURRENT_TIME));
@@ -52,6 +64,15 @@ class MiaoShaGoodsModel
             array('title' => '21:00', 'active' => (($nowHour >= 21 || $nowHour < 10) ? 1 : 0)),
         );
         $goodsList = self::findAllValidGoods(CURRENT_TIME);
+        $goodsList = self::fillShowGoodsList($goodsList, true, 0);
+        $data['goodsList'] = $goodsList;
+        return $data;
+    }
+    public static function fillShowGoodsList($goodsList, $alreadyStart, $leftTime)
+    {
+        if (empty($goodsList))
+            return array();
+
         foreach ($goodsList as &$goods) {
             $goodsInfo = GoodsModel::findGoodsById($goods['goods_id']);
             if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
@@ -74,12 +95,11 @@ class MiaoShaGoodsModel
             $goods['name'] = $goodsInfo['name'];
             $goods['image_url'] = $goodsInfo['image_url'];
             $goods['sale_price'] = $goodsInfo['sale_price'];
-            $goods['leftTime'] = 0;
+            $goods['leftTime'] = $leftTime;
             $goods['soldout'] = $leftAmount > 0 ? 0 : 1;
-            $goods['start'] = 1;
+            $goods['start'] = $alreadyStart ? 1 : 0;
         }
-        $data['goodsList'] = $goodsList;
-        return $data;
+        return $goodsList;
     }
 
     public static function fetchSomeGoods($conds, $vals, $rel, $page, $pageSize)

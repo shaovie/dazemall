@@ -9,7 +9,9 @@ namespace src\api\controller;
 use \src\common\Util;
 use \src\common\BaseController;
 use \src\mall\model\GoodsModel;
+use \src\mall\model\GoodsSKUModel;
 use \src\mall\model\GoodsLikeModel;
+use \src\mall\model\MiaoShaGoodsModel;
 
 class GoodsController extends ApiController
 {
@@ -68,12 +70,54 @@ class GoodsController extends ApiController
 
     public function getMiaoShaList()
     {
-        $hour = $this->getParam('hour', '');
+        $hour = trim($this->getParam('hour', ''));
         if (empty($hour)) {
             return ;
         }
-        $goodsList = array();
-        $alreadyStart = false;
+        $cHour = date('G', CURRENT_TIME); //当前时间
+        $timeStamp = ($hour < $cHour) ? strtotime('+1 day') : CURRENT_TIME;
+        $alreadyStart = false; //活动是否已开始
+        switch ($hour) {
+        case '10':
+            if ($cHour >= 10 && $cHour < 17) {
+                $alreadyStart = true;
+            } else {
+                $prevStart = date('Y-m-d 10:00:00', $timeStamp);
+                $prevOver  = date('Y-m-d 16:59:59', $timeStamp);
+            }
+            break;
+        case '17':
+            if ($cHour >= 17 && $cHour < 21) {
+                $alreadyStart = true;
+            } else {
+                $prevStart = date('Y-m-d 17:00:00', $timeStamp);
+                $prevOver  = date('Y-m-d 20:59:59', $timeStamp);
+            }
+            break;
+        case '21':
+            if ($cHour >= 21 || $cHour < 10) {
+                $alreadyStart = true;
+            } else {
+                $prevStart = date('Y-m-d 21:00:00', $timeStamp);
+                $prevOver  = date('Y-m-d 09:59:59', strtotime('+1 day', $timeStamp));
+            }
+            break;
+        default:
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '秒杀活动不存在');
+            return;
+        }
+        if ($alreadyStart) {
+            $goodsList = MiaoShaGoodsModel::findAllValidGoods(CURRENT_TIME);
+        } else {
+            $prevStart = strtotime($prevStart);
+            $prevOver = strtotime($prevOver);
+            $leftTime = $prevStart - CURRENT_TIME;
+            if ($leftTime < 0)
+                $leftTime = 0;
+            $goodsList = MiaoShaGoodsModel::findAllValidPrevGoods($prevStart, $prevOver);
+        }
+
+        $goodsList = MiaoShaGoodsModel::fillShowGoodsList($goodsList, $alreadyStart, $leftTime);
         $this->ajaxReturn(0, '', '', array('list' => $goodsList, 'activityAlreadyStart' => $alreadyStart));
     }
 }
