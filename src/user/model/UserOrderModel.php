@@ -320,6 +320,7 @@ class UserOrderModel
         }
         $orderInfo = self::findOrderByOrderPayId($orderPayId);
         if (!empty($orderInfo)) {
+            AsyncModel::asyncDBOpt('give_order_full_coupons', array('order' => $orderInfo));
             $ret = UserBillModel::newOne(
                 $orderInfo['user_id'],
                 $orderInfo['order_id'],

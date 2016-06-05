@@ -10,6 +10,7 @@ use \src\common\DB;
 use \src\common\Util;
 use \src\common\Cache;
 use \src\user\model\UserModel;
+use \src\user\model\UserCouponModel;
 use \src\user\model\UserDetailModel;
 
 class WxUserModel
@@ -68,7 +69,7 @@ class WxUserModel
         if ($wdb->commit() === false) {
             return false;
         }
-        UserModel::onNewUser($newUserId);
+        UserCouponModel::onNewUser($newUserId);
         return true;
     }
 

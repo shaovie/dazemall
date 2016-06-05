@@ -166,6 +166,7 @@ class Redis
         }
         $this->redis = new \Redis();
         try {
+            Log::rinfo("connect " . $this->host . $this->port);
             $this->redis->pconnect($this->host, $this->port, 1.0);
             if (!empty($this->prefix)) {
                 $this->redis->setOption(\Redis::OPT_PREFIX, $this->prefix);

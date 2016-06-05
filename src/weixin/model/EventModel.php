@@ -50,7 +50,7 @@ class EventModel
         if (!empty($ret)) {
             return ;
         }
-        Nosql::setex($nk, Nosql::NK_ACTIVATE_FOR_GZH_EXPIRE, 'x');
+        Nosql::setEx($nk, Nosql::NK_ACTIVATE_FOR_GZH_EXPIRE, 'x');
         AsyncModel::asyncDBOpt('activate_for_gzh', array('openid' => $openid));
     }
 

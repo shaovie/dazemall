@@ -255,14 +255,6 @@ class UserModel
     }
 
     //= 业务逻辑
-    public static function onNewUser($userId)
-    {
-        return ; // TODO
-        $coupons = CouponGiveCfgModel::getUserRegCoupons();
-        if (!empty($coupons)) {
-            UserCouponModel::giveCoupons($userId, $coupons);
-        }
-    }
     public static function onLoginOk($userId, $wxOpenId)
     {
         Session::setUserSession($userId, $wxOpenId);

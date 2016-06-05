@@ -12,6 +12,7 @@ use \src\common\Util;
 use \src\common\Cache;
 use \src\mall\model\GoodsCategoryModel;
 use \src\mall\model\CouponCfgModel;
+use \src\mall\model\CouponGiveCfgModel;
 
 class UserCouponModel
 {
@@ -262,7 +263,7 @@ class UserCouponModel
             if (empty($couponCfgInfo)
                 || $couponCfgInfo['state'] == CouponCfgModel::COUPON_ST_INVALID) {
                 continue;
-                self::newOne(
+                $ret = self::newOne(
                     $userId,
                     $couponCfgInfo['id'],
                     $couponCfgInfo['begin_time'],
@@ -273,8 +274,46 @@ class UserCouponModel
                     $couponCfgInfo['order_amount'],
                     $couponCfgInfo['category_id']
                 );
+                if ($ret !== false) {
+                    $wxUserInfo = WxUserModel::findUserByUserId($userId);
+                    if (!empty($wxUserInfo['openid'])) {
+                        $tplMsg['touser'] = $wxUserInfo['openid'];
+                        $tplMsg['template_id'] = TMP_SERVER_NOTIFY;
+                        $tplMsg['url'] = 'http://' . APP_HOST . '/user/Coupon/myCoupon';
+                        $tplMsg['topcolor'] = '#FF0000';
+                        $tplMsg['data'] = array(
+                            'first'    => array('value' => '恭喜您，系统赠送您一张优惠券"' . $couponCfgInfo['name'] . '"'
+                                . "\n", 'color' => '#173177'),
+                            'keyword1' => array('value' => '发放成功', 'color' => '#173177'),
+                            'keyword2' => array('value' => date('Y-m-d H:i:s', CURRENT_TIME), 'color' => '#173177'),
+                            'keyword3' => array('value' => '请及时使用，以免过期哦', 'color' => '#173177'),
+                            'remark' => array('value' => '祝您购物愉快 ^_^ ~',
+                                    'color' => '#173177')
+                            );
+                        AsyncModel::asyncSendTplMsg($wxUserInfo['openid'], $tplMsg, 0);
+                    }
+                }
             }
         }
+    }
+
+    public static function onNewUser($userId)
+    {
+        $coupons = CouponGiveCfgModel::getUserRegCoupons();
+        if (!empty($coupons)) {
+            self::giveCoupons($userId, $coupons);
+        }
+    }
+    // 消费成功送券
+    public static function onConsumeSuccess($orderInfo)
+    {
+        if (empty($orderInfo))
+            return ;
+        $orderAmount = $orderInfo['order_amount'] - $orderInfo['postage'];
+        $coupons = CouponGiveCfgModel::getOrderFullCoupons($orderAmount);
+        if (empty($coupons))
+            return ;
+        self::giveCoupons($orderInfo['user_id'], $coupons);
     }
 
     private static function getSomeCoupon($conds, $vals, $rels, $order, $orderType, $page, $size)

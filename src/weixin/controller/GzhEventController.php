@@ -97,6 +97,7 @@ class GzhEventController extends WeiXinController
         $sceneId = $postData['EventKey'];
         $openid  = $postData['FromUserName'];
 
+        Log::rinfo(json_encode($postData));
         EventModel::onScan($openid, $sceneId);
 
         EventModel::onActivateForGZH($openid);

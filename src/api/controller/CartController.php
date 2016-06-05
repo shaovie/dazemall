@@ -27,18 +27,33 @@ class CartController extends ApiController
 
         $goodsId = (int)$this->postParam('goodsId', 0);
 
+        $goodsInfo = GoodsModel::findGoodsById($goodsId);
+        if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '该商品无效');
+            return ;
+        }
+
         $skuList = GoodsSKUModel::findAllValidSKUInfo($goodsId);
         if (empty($skuList)) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '参数错误');
             return ;
         }
+        $addSku = array();
         if (count($skuList) > 1) {
-            $this->ajaxReturn(0, '', '/mall/Goods/detail?goodsId=' . $goodsId);
-            return ;
+            foreach ($skuList as $sku) {
+                if (abs((float)$goodsInfo['sale_price'] - (float)$sku['sale_price']) < 0.001) {
+                    $addSku = $sku;
+                    break;
+                }
+            }
+            if (empty($addSku)) {
+                $this->ajaxReturn(0, '', '/mall/Goods/detail?goodsId=' . $goodsId);
+                return ;
+            }
         }
-
-        $sku = $skuList[0];
-        $optResult = $this->doAddCart($goodsId, $sku, 1);
+        if (empty($addSku))
+            $addSku = $skuList[0];
+        $optResult = $this->doAddCart($goodsId, $addSku, 1);
         if ($optResult['code'] != 0) {
             $this->ajaxReturn($optResult['code'], $optResult['desc']);
             return ;
@@ -55,6 +70,12 @@ class CartController extends ApiController
         $skuAttr = trim($this->postParam('skuAttr', ''));
         $skuValue = trim($this->postParam('skuValue', ''));
         $amount = (int)$this->postParam('amount', 0);
+
+        $goodsInfo = GoodsModel::findGoodsById($goodsId);
+        if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '该商品无效');
+            return ;
+        }
 
         $sku = GoodsSKUModel::getSKUInfo($goodsId, $skuAttr, $skuValue);
         if (empty($sku)) {
@@ -136,12 +157,6 @@ class CartController extends ApiController
         if ($goodsId <= 0
             || $amount <= 0) {
             $optResult['desc'] = '参数错误';
-            return $optResult;
-        }
-
-        $goodsInfo = GoodsModel::findGoodsById($goodsId);
-        if (empty($goodsInfo) || $goodsInfo['state'] == GoodsModel::GOODS_ST_INVALID) {
-            $optResult['desc'] = '该商品无效';
             return $optResult;
         }
 

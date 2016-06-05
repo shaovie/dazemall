@@ -12,6 +12,7 @@ use \src\common\Log;
 use \src\job\model\AsyncModel;
 use \src\user\model\WxUserModel;
 use \src\user\model\UserOrderModel;
+use \src\user\model\UserCouponModel;
 
 class AsyncDBOptController extends JobController
 {
@@ -50,6 +51,9 @@ class AsyncDBOptController extends JobController
         switch ($data['opt']) {
         case 'activate_for_gzh':
             WxUserModel::onActivateForGZH($data['data']['openid']);
+            break;
+        case 'give_order_full_coupons':
+            UserCouponModel::onConsumeSuccess($data['data']['order']);
             break;
         default:
             Log::error('wx event async job: unknow event');
