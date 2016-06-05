@@ -13,6 +13,8 @@ use \src\common\Cache;
 use \src\mall\model\GoodsCategoryModel;
 use \src\mall\model\CouponCfgModel;
 use \src\mall\model\CouponGiveCfgModel;
+use \src\user\model\WxUserModel;
+use \src\job\model\AsyncModel;
 
 class UserCouponModel
 {
@@ -309,8 +311,10 @@ class UserCouponModel
     {
         if (empty($orderInfo))
             return ;
+        Log::rinfo("1111111111111");
         $orderAmount = $orderInfo['order_amount'] - $orderInfo['postage'];
         $coupons = CouponGiveCfgModel::getOrderFullCoupons($orderAmount);
+        Log::rinfo(json_encode($coupons));
         if (empty($coupons))
             return ;
         self::giveCoupons($orderInfo['user_id'], $coupons);
