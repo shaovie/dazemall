@@ -16,7 +16,7 @@ use \src\user\model\UserCouponModel;
 
 class AsyncDBOptController extends JobController
 {
-    const ASYNC_ORDER_QUEUE_SIZE = 2;
+    const ASYNC_DB_OPT_QUEUE_SIZE = 2;
 
     public function doit()
     {
