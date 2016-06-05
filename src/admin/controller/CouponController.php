@@ -132,9 +132,22 @@ class CouponController extends AdminController
     public function configPage()
     {
         $data = array(
+            'coupon' => CouponGiveCfgModel::getConfig(),
             'action' => '/admin/Coupon/config',
         );
         $this->display('coupon_config', $data);
+    }
+
+    public function config()
+    {
+        $userRegCoupons = trim($this->postParam('userReg', ''));
+        $orderAmount = floatval($this->postParam('orderAmount', 0.0));
+        $orderFullCoupons = trim($this->postParam('orderFullCoupons', ''));
+
+        $updateData['user_reg_coupon'] = $userRegCoupons;
+        $updateData['order_amount'] = $orderAmount;
+        $updateData['order_full_coupon'] = $orderFullCoupons;
+        CouponGiveCfgModel::update($updateData);
     }
 
     private function fetchFormParams(&$couponInfo, &$error)

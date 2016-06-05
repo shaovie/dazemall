@@ -48,7 +48,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left">赠送优惠券：</label>
 			<div class="col-sm-9">
-				<input type="text" name="order" id="order" value="<?php if (isset($coupon['order_full_coupon'])){echo $coupon['order_full_coupon'];}?>">
+				<input type="text" name="orderFullCoupons" id="orderFullCoupons" value="<?php if (isset($coupon['order_full_coupon'])){echo $coupon['order_full_coupon'];}?>">
 				<p class="help-block">输入优惠券编号，填写多个以英文,分隔</p>
 			</div>
 		</div>
@@ -66,7 +66,9 @@
         $('#save-btn').click(function(){
             var url = $("#save-form").attr("action");
             $.post(url,{
-                userReg:$("#userReg").val()
+                userReg:$("#userReg").val(),
+                orderAmount:$("#orderAmount").val(),
+                orderFullCoupons:$("#orderFullCoupons").val()
                 },function(data){
                 if(data.code==0) {
                     alert(data.msg);

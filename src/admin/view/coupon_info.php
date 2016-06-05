@@ -48,12 +48,10 @@
 			<div class="col-sm-9" id="state-radio">
 				<div style="margin-right:20px;display:inline;">
                     <input type="radio" name="state" value="0" id="isshow0" <?php if (isset($coupon['state']) && $coupon['state'] == 0) { echo 'checked="true"';}?>
-                <?php if (isset($coupon['id'])){echo 'disabled="disabled"';}?>
                     >无效</div>
 
 				<div style="margin-right:20px;display:inline;">
                     <input type="radio" name="state" value="1" id="isshow1" <?php if (isset($coupon['state']) && $coupon['state'] == 1) { echo 'checked="true"';}?> 
-                <?php if (isset($coupon['id'])){echo 'disabled="disabled"';}?>
                     >有效</div>
 			</div>
 		</div>
@@ -76,7 +74,7 @@
 			<div class="col-sm-9">
 				<input type="text" name="category_id" id="category_id"
                 onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" 
-                value="<?php if (!empty($coupon['category_id'])){echo $coupon['category_id'];}?>"
+                value="<?php if (isset($coupon['category_id'])){echo $coupon['category_id'];}?>"
                 <?php if (isset($coupon['id'])){echo 'readonly="readonly"';}?>
                 >
 				<p class="help-block">输入品类编号（0 为全品类）(只限一个品类)</p>
