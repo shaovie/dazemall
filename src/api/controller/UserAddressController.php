@@ -188,7 +188,7 @@ class UserAddressController extends ApiController
             if (isset($sysCityCode[$provinceId])) {
                 $distList = $sysCityCode[$provinceId]['city'][$cityId]['district'];
                 foreach ($distList as $key => $val) {
-                    if (in_array($key, array(371701, 371702, 371740)))
+                    if (in_array($key, array(371702)))
                         $data[] = array('region_name' => $val, 'region_id' => $key);
                 }
             }
