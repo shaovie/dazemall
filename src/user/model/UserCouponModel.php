@@ -189,7 +189,7 @@ class UserCouponModel
                         $coupon['category_id'],
                         $goods['categoryId'])
                 ) {
-                    $totalPrice += $goods['salePrice'];
+                    $totalPrice += ((float)$goods['salePrice'] * (int)$goods['amount']);
                 }
             }
             if ($totalPrice > 0.0001) {
@@ -238,7 +238,7 @@ class UserCouponModel
                     $couponInfo['category_id'],
                     $goods['category_id'])
             ) {
-                $totalPrice += $goods['sale_price'];
+                $totalPrice += ((float)$goods['sale_price'] * (int)$goods['amount']);
             }
         }
         if ($totalPrice < 0.0001) {

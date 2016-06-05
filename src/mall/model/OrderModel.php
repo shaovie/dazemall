@@ -358,7 +358,10 @@ class OrderModel
                 return $optResult;
             }
             $func = function ($sku, $goods) {
-                return array('category_id' => $goods['category_id'], 'sale_price' => $sku['sale_price']);
+                return array('category_id' => $goods['category_id'],
+                    'sale_price' => $sku['sale_price'],
+                    'amount' => $goods['amount'],
+                );
             };
             $gl = array_map($func, $goodsListSKUInfo, $goodsList);
             $ret = UserCouponModel::checkCouponForPayment($couponInfo, $gl);
