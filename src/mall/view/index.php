@@ -85,14 +85,11 @@
             </li>
         </ul>
     </section>
-    <?php if (!empty($actList)):?>
     <section class="banner-1212">
-    <a href="/mall/Activity/deliveryRule" class="img-wrap" data-original="http://cdn0.taojinzi.com/images/2016/05/25/dd38c65853cbafbf5e61ab8d2ddd940c.jpg"></a>
     <?php foreach ($actList as $act):?>
     <a href="/mall/Activity/index?actId=<?php echo $act['id']?>" class="img-wrap" data-original="<?php echo $act['image_url']?>"></a>
     <?php endforeach?>
     </section>
-    <?php endif?>
 <?php if(!empty($miaoSha['goodsList'])):?>
 <section class="tj-section">
     <div class="chr-ms-title">
