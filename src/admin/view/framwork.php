@@ -262,6 +262,12 @@
                                  参数配置                                
                             </a>
                         </li>
+					    <li>
+                            <a onclick="navtoggle(&#39;商城配置 - &gt; 文档说明 &#39;)" href="/admin/GlobalConfig/doc" target="main">
+                             <i class="icon-double-angle-right"></i>
+                                 文档说明
+                            </a>
+                        </li>
 					</ul>
 				</li>
             </ul>

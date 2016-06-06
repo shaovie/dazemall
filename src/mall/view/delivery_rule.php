@@ -8,6 +8,6 @@
     <title>配送范围</title>
 </head>
 <body>
-<img src="http://cdn0.taojinzi.com/images/2016/05/25/dd38c65853cbafbf5e61ab8d2ddd940c.jpg">
+<img width="640" src="http://cdn1.dazemall.com/images/160606/51b98fb2c85746d7046d2df29d246372.jpg">
 </body>
 </html>

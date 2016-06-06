@@ -23,6 +23,11 @@ class GlobalConfigController extends AdminController
 
     }
 
+    public function doc()
+    {
+        $this->display('doc');
+    }
+
     public function edit()
     {
         $freePostage = floatval($this->postParam('freePostage', ''));
