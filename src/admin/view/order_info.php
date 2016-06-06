@@ -111,7 +111,9 @@
                     }?>
                     >确认付款</button>
 					<button type="button" class="btn span2" name="cancel" onclick="doCancel()" value="cancel"
-                    <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED) { echo 'disabled="disabled"';} ?>
+                    <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED
+                        || $order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_FINISHED
+                        || $order['payState'] == \src\pay\model\PayModel::PAY_ST_SUCCESS) { echo 'disabled="disabled"';} ?>
                     >取消订单</button>
 					<button type="button" class="btn span2 btn-info" name="sign" onclick="orderSign()" value="sign"
                     <?php if ($order['orderState'] == \src\user\model\UserOrderModel::ORDER_ST_CANCELED

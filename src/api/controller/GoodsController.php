@@ -106,6 +106,7 @@ class GoodsController extends ApiController
             $this->ajaxReturn(ERR_PARAMS_ERROR, '秒杀活动不存在');
             return;
         }
+        $leftTime = 0;
         if ($alreadyStart) {
             $goodsList = MiaoShaGoodsModel::findAllValidGoods(CURRENT_TIME);
         } else {

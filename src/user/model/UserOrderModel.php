@@ -286,22 +286,17 @@ class UserOrderModel
         $orderInfo = self::findOrderByOrderId($orderId);
         if (empty($orderInfo)) 
             return ;
-        if ($orderInfo['order_state'] == UserOrderModel::ORDER_ST_CANCELED) {
+        if ($orderInfo['pay_state'] == PayModel::PAY_ST_SUCCESS)
+            return false;
+        if ($orderInfo['order_state'] == UserOrderModel::ORDER_ST_CANCELED
+            || $orderInfo['order_state'] == UserOrderModel::ORDER_ST_FINISHED) {
             return false;
         }
-        $ret = DB::getDB('w')->update(
-            'o_order',
-            array('order_state' => UserOrderModel::ORDER_ST_CANCELED,
-                'sys_remark' => $mUser . ' manual confirm cancel order',
-            ),
-            array('order_id'), array($orderId)
+        return self::cancelOrder(
+            $orderInfo['user_id'],
+            $orderId,
+            $mUser . ' manual confirm cancel order'
         );
-        self::onUpdateData($orderInfo['order_id']);
-
-        if ($ret === false || (int)$ret <= 0) {
-            return false;
-        }
-        return true;
     }
     public static function manualConfirmSign($orderId, $mUser)
     {
@@ -363,7 +358,7 @@ class UserOrderModel
         return true;
     }
 
-    public static function cancelOrder($userId, $orderId)
+    public static function cancelOrder($userId, $orderId, $sysRemark)
     {
         if (empty($userId) || empty($orderId)) {
             return false;
@@ -371,7 +366,7 @@ class UserOrderModel
 
         $ret = DB::getDB('w')->update(
             'o_order',
-            array('order_state' => self::ORDER_ST_CANCELED),
+            array('order_state' => self::ORDER_ST_CANCELED, 'sys_remark' => $sysRemark),
             array('order_id', 'user_id', 'order_state'),
             array($orderId, $userId, self::ORDER_ST_CREATED),
             array('and', 'and')

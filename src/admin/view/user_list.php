@@ -44,6 +44,7 @@
 			<th class="text-center" style="width:100px;">用户编号</th>
 			<th class="text-center" style="width:250px;">昵称</th>
 			<th class="text-center" style="width:250px;">手机号</th>
+			<th class="text-center" style="width:250px;">openid</th>
 			<th class="text-center" style="width:260px;">账户信息</th>
 			<th class="text-center" style="width:260px;">时间</th>
 			<th class="text-center">操作</th>
@@ -58,6 +59,9 @@
             </td>
 			<td style="text-align:center;vertical-align:middle;">
                 <div><?php echo $user['phone']?></div>
+            </td>
+			<td style="text-align:center;vertical-align:middle;">
+                <div><?php echo $user['openid']?></div>
             </td>
 			<td style="text-align:left;vertical-align:middle;">
                 <div>余额：<?php echo $user['cash_amount']?></div>
@@ -88,6 +92,12 @@
 						<input type="text" name="money" id="money" class="span5">
 					</div>
 				</div>      	
+				<div class="form-group" style="height:25px;">
+					<label class="col-sm-3 control-label no-padding-right"> 备注：</label>
+					<div class="col-sm-9">
+						<input type="text" name="remark" id="remark" class="span5">
+					</div>
+				</div>      	
 			</div>
 			<div class="modal-footer">
                 <input type="hidden" name="uid" value="" id="uid"/>
@@ -105,7 +115,7 @@
         }
         $('#confirmsend-btn').click(function(){
             var url = "/admin/User/recharge";
-            $.post(url,{uid:$('#uid').val(),money:$('#money').val()},function(data){
+            $.post(url,{uid:$('#uid').val(),money:$('#money').val(),remark:$('#remark').val()},function(data){
                 if(data.code==0) {
                     window.location.href= data.url;
                 } else {

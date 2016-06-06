@@ -12,6 +12,10 @@ use \src\mall\model\ActivityGoodsModel;
 
 class ActivityController extends MallController
 {
+    public function deliveryRule()
+    {
+        $this->display('delivery_rule');
+    }
     public function index()
     {
         $actId = $this->getParam('actId', 0);

@@ -47,10 +47,11 @@ class UserBaseController extends BaseController
                 $userAgent = $_SERVER['HTTP_USER_AGENT'];
             }
             $userInfo = json_decode($userInfo, true);
+            /*
             if ($userInfo['userAgent'] != $userAgent) {
                 Nosql::del(Nosql::NK_USER_SESSOIN . $key);
                 return -1;
-            }
+            }*/
             if (!empty($userInfo['userId'])) {
                 $this->userInfo = UserModel::findUserById($userInfo['userId']);
             }

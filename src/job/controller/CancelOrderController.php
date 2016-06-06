@@ -36,7 +36,7 @@ class CancelOrderController extends JobController
             return ;
         }
         foreach ($orderList as $order) {
-            OrderModel::doCancelOrder($order['user_id'], $order['order_id']);
+            OrderModel::doCancelOrder($order['user_id'], $order['order_id'], 'timeout, sys cancel');
         }
 
         sleep(60);
@@ -83,7 +83,7 @@ class CancelOrderController extends JobController
         if (empty($orderInfo)) {
             return ;
         }
-        OrderModel::doCancelOrder($orderInfo['user_id'], $orderId);
+        OrderModel::doCancelOrder($orderInfo['user_id'], $orderId, 'timeout, sys cancel');
     }
 }
 

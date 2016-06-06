@@ -10,6 +10,7 @@ use \src\common\Util;
 use \src\common\Check;
 use \src\common\DB;
 use \src\user\model\UserModel;
+use \src\user\model\WxUserModel;
 use \src\user\model\UserBillModel;
 
 class UserController extends AdminController
@@ -27,6 +28,12 @@ class UserController extends AdminController
 
         $totalNum = UserModel::fetchUserCount([], [], []);
         $userList = UserModel::fetchSomeUser([], [], [], $page, self::ONE_PAGE_SIZE);
+        foreach ($userList as &$user) {
+            $wxUserInfo = WxUserModel::findUserByUserId($user['id']);
+            $user['openid'] = '';
+            if (!empty($wxUserInfo))
+                $user['openid'] = $wxUserInfo['openid'];
+        }
 
         $searchParams = [];
         $error = '';
@@ -105,6 +112,7 @@ class UserController extends AdminController
     {
         $userId = $this->postParam('uid', 0);
         $money = (float)$this->postParam('money', 0.00);
+        $remark = $this->postParam('remark', '');
 
         if ($money <= 0.0001) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '金额无效');
@@ -132,7 +140,7 @@ class UserController extends AdminController
             UserBillModel::BILL_FROM_SYS_RECHARGE,
             $money,
             $userCash + $money,
-            $this->account . ' recharge in houtai'
+            empty($remark) ? $this->account . ' recharge in houtai' : $remark
         );
         if ($ret !== true) {
             DB::getDB('w')->rollBack();

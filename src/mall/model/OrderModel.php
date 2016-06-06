@@ -393,7 +393,7 @@ class OrderModel
         return $optResult;
     }
 
-    public static function doCancelOrder($userId, $orderId)
+    public static function doCancelOrder($userId, $orderId, $remark)
     {
         if (empty($userId) || empty($orderId)) {
             return false;
@@ -413,7 +413,7 @@ class OrderModel
         }
 
         if ($orderInfo['ac_pay_amount'] < 0.0001) {
-            UserOrderModel::cancelOrder($userId, $orderId);
+            UserOrderModel::cancelOrder($userId, $orderId, $remark);
             UserCouponModel::refundCoupon($userId, $orderInfo['coupon_id']);
             return true;
         }
@@ -422,7 +422,7 @@ class OrderModel
         if (DB::getDB('w')->beginTransaction() === false) {
             return false;
         }
-        UserOrderModel::cancelOrder($userId, $orderId);
+        UserOrderModel::cancelOrder($userId, $orderId, $remark);
         $ret = UserModel::addCash($userId, $orderInfo['ac_pay_amount']);
         if ($ret !== true) {
             DB::getDB('w')->rollBack();
