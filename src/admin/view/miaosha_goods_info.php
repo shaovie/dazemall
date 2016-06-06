@@ -64,7 +64,7 @@
 	<script>
         $(document).ready(function(){
            $('#beginTime,#endTime').datetimepicker({
-              format: "yyyy-mm-dd hh:ii:ss",
+              format: "yyyy-mm-dd hh:ii:00",
               minView: "0",
               //pickerPosition: "top-right",
               minuteStep:1,
