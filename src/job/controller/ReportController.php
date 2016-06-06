@@ -18,7 +18,7 @@ class ReportController extends JobController
 {
     protected function run($idx) { }
 
-    public function report()
+    public function create()
     {
         if (date('H:i') != '05:20') {
             return ;
