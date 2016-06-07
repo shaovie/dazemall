@@ -648,7 +648,8 @@ create table r_order_per_day (
 
     ctime               int not null default 0,                     # 创建时间
 
-    primary key (`id`) 
+    primary key (`id`),
+    index idx_ctime(`ctime`)
 )engine=InnoDB default charset=utf8;
 
 drop table if exists r_goods_per_day;
@@ -663,7 +664,8 @@ create table r_goods_per_day (
 
     ctime               int not null default 0,                     # 创建时间
 
-    primary key (`id`) 
+    primary key (`id`),
+    index idx_ctime(`ctime`)
 )engine=InnoDB default charset=utf8;
 
 -- --------------------------------后台相关-----------------------------------
