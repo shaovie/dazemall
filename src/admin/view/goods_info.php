@@ -86,7 +86,8 @@
 			<div class="col-sm-9">
 				<input type="text" name="jifen" id="jifen"  
                 onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" 
-                value="<?php if (!empty($goods['jifen'])){echo $goods['jifen'];}?>">
+                value="<?php if (!empty($goods['jifen'])){echo $goods['jifen'];}?>"
+                readonly="readonly">
 				<p class="help-block">会员购买商品赠送的积分, 如果不填写，则默认为不奖励积分</p>
           	</div>
 		</div>
