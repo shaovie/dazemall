@@ -67,7 +67,7 @@ class ReportController extends JobController
             foreach($data as $val) {
                 array_push($orderId, $val['order_id']);
             }
-            $sql = 'SELECT goods_id,sum(amount) num,sum(price) total_price,sku_attr,sku_value from o_order_goods where'
+            $sql = 'SELECT goods_id,sum(amount) num,sum(price*amount) total_price,sku_attr,sku_value from o_order_goods where'
                 . ' order_id in(' . implode(',' , $orderId) . ')'
                 . ' GROUP BY goods_id,sku_attr,sku_value';
             $data = DB::getDB('r')->rawQuery($sql);

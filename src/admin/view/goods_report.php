@@ -41,7 +41,7 @@
 			<th class="text-center" style="width:200px;vertical-align:middle;">商品名称</th>
 			<th class="text-center" style="width:200px;vertical-align:middle;">SKU名称</th>
 			<th class="text-center" style="vertical-align:middle;">销售数量</th>
-			<th class="text-center" style="vertical-align:middle;">销售金额</th>
+			<th class="text-center" style="vertical-align:middle;">销售金额(不包含邮费)</th>
 		</tr>
         <?php foreach($data as $val):?>
 		<tr>
