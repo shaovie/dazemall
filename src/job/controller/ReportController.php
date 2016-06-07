@@ -65,7 +65,7 @@ class ReportController extends JobController
         if (!empty($data)) {
             $orderId = array();
             foreach($data as $val) {
-                array_push($orderId, $val['order_id']);
+                array_push($orderId, "'" . $val['order_id'] . "'");
             }
             $sql = 'SELECT goods_id,sum(amount) num,sum(price*amount) total_price,sku_attr,sku_value from o_order_goods where'
                 . ' order_id in(' . implode(',' , $orderId) . ')'
