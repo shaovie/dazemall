@@ -18,7 +18,7 @@ class ReportModel
         $ret = DB::getDB('r')->fetchAll(
             'r_order_per_day',
             '*',
-            array('ctime>=', 'ctime<='), array($btime, $etime),
+            array('begin_time>=', 'end_time<='), array($btime, $etime),
             array('and'),
             array('ctime'), array('desc')
         );
@@ -31,7 +31,7 @@ class ReportModel
         $ret = DB::getDB('r')->fetchAll(
             'r_goods_per_day',
             '*',
-            array('ctime >=', 'ctime <'), array($btime, $etime),
+            array('begin_time>=', 'end_time<='), array($btime, $etime),
             array('and'),
             array('seller_amount'), array('desc')
         );

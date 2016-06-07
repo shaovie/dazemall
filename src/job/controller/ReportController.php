@@ -47,6 +47,8 @@ class ReportController extends JobController
         $data = array(
             'order_num' => $orderNum,
             'seller_amount' => $sellerAmount,
+            'begin_time' => $btime,
+            'end_time' => $etime - 1,
             'ctime' => CURRENT_TIME
         );
         $ret = DB::getDB('w')->insertOne('r_order_per_day', $data);
@@ -79,6 +81,8 @@ class ReportController extends JobController
                       'sku_value' => $val['sku_value'],
                       'seller_num' => $val['num'],
                       'seller_amount' => $val['total_price'],
+                      'begin_time' => $btime,
+                      'end_time' => $etime - 1,
                       'ctime' => CURRENT_TIME
                   );
                   $ret = DB::getDB('w')->insertOne('r_goods_per_day', $report);

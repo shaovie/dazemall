@@ -59,7 +59,7 @@ class ReportController extends AdminController
             $btime = CURRENT_TIME;
         if (empty($btime) && empty($etime)) {
             $btime = strtotime('-1 day', strtotime(date('Y-m-d')));
-            $etime = strtotime(date('Y-m-d'));
+            $etime = strtotime(date('Y-m-d')) - 1;
         }
 
         $data = ReportModel::getGoodsReport($btime, $etime);
