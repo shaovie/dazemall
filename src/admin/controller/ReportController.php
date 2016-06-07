@@ -37,7 +37,7 @@ class ReportController extends AdminController
 
         $data = ReportModel::getOrderReport($btime, $etime);
         foreach($data as &$val) {
-            $val['ctime'] = date('m月d日', $val['ctime']);
+            $val['ctime'] = date('m月d日', $val['ctime'] - 86400);
         }
         $this->display('order_report', $data);
     }
@@ -66,7 +66,7 @@ class ReportController extends AdminController
         foreach($data as &$val) {
             $goodsInfo = GoodsModel::findGoodsById($val['goods_id']);
             $val['name'] = $goodsInfo['name'];
-            $val['ctime'] = date('m月d日', $val['ctime']);
+            $val['ctime'] = date('m月d日', $val['ctime'] - 86400);
         }
 
         $this->display('goods_report', $data);
