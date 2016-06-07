@@ -63,7 +63,7 @@
 				<td style="text-align:center;vertical-align:middle;">
 					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 1)" >修改库存</button>
 					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 2)" >修改价格</button>
-					<button type="button" class="btn btn-primary span2" onclick="modifyBarCode(<?php echo $item['id']?>, <?php echo $item['goods_id']?>, <?php echo $item['bar_code']?>, 3)" >修改条码</button>
+					<button type="button" class="btn btn-primary span2" onclick="modifyBarCode(<?php echo $item['id']?>, <?php echo $item['goods_id']?>, <?php echo (empty($item['bar_code']) ? "''" : $item['bar_code'])?>, 3)" >修改条码</button>
 					<button type="button" class="btn btn-danger span2" onclick="timeingModifyPrice(<?php echo $item['id']?>,
                     <?php echo empty($mpList[$idx]['state']) ? 0 :$mpList[$idx]['state']?>,
                     <?php echo empty($mpList[$idx]['synch_sale_price']) ? 0 :$mpList[$idx]['synch_sale_price']?>,
