@@ -109,6 +109,21 @@ class GoodsSKUModel
         return $data[0]['sku_attr'];
     }
 
+    public static function setBarCode($id, $goodsId, $barCode, $user)
+    {
+        if (empty($id) || empty($goodsId)) {
+            return true;
+        }
+        $ret = DB::getDB('w')->update(
+            'g_goods_sku',
+            array('bar_code' => $barCode, 'mtime' => CURRENT_TIME, 'm_user' => $user),
+            array('id', 'goods_id'), array($id, $goodsId),
+            array('and'),
+            1
+        );
+        self::onUpdateData($goodsId);
+        return $ret !== false;
+    }
     public static function setInventory($id, $goodsId, $amount, $user)
     {
         if (empty($id) || empty($goodsId)) {

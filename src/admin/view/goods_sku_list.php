@@ -63,6 +63,7 @@
 				<td style="text-align:center;vertical-align:middle;">
 					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 1)" >修改库存</button>
 					<button type="button" class="btn btn-primary span2" onclick="modifyGoodsInfo(<?php echo $item['id']?>, <?php echo $item['goods_id']?>,this, 2)" >修改价格</button>
+					<button type="button" class="btn btn-primary span2" onclick="modifyBarCode(<?php echo $item['id']?>, <?php echo $item['goods_id']?>, <?php echo $item['bar_code']?>, 3)" >修改条码</button>
 					<button type="button" class="btn btn-danger span2" onclick="timeingModifyPrice(<?php echo $item['id']?>,
                     <?php echo empty($mpList[$idx]['state']) ? 0 :$mpList[$idx]['state']?>,
                     <?php echo empty($mpList[$idx]['synch_sale_price']) ? 0 :$mpList[$idx]['synch_sale_price']?>,
@@ -87,6 +88,12 @@
 				<h4 class="modal-title">修改库存</h4>
 			</div>
 			<div class="modal-body">
+				<div class="form-group" id="barCode">
+					<label class="col-sm-2 control-label no-padding-left"> 条码：</label>
+					<div class="col-sm-9">
+						<input type="text" name="barCode" id="barCodeV" class="span5">
+					</div>
+				</div>
 				<div class="form-group" id="kucunAndPrice">
 					<label class="col-sm-2 control-label no-padding-left"> 库存：</label>
 					<div class="col-sm-9">
@@ -148,7 +155,7 @@
 				<button type="button" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 			</div>
-			</div>
+            </div>
 		</div>
 	</div>
 	<!-- END -->
@@ -162,15 +169,24 @@
               autoclose: true
             });
         });
+        function modifyBarCode(id, goodsId, barCode, type) {
+            $('#type').val(type);
+            $('#sku_id').val(id);
+            $('#goods_id').val(goodsId);
+            $('#barCodeV').val(barCode);
+            $('#barCode').show();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpLimitNum,#mpState,#kucunAndPrice,#isShowPrice').hide();
+            $('#modal-confirmsend').modal('show');
+        };
         function modifyGoodsInfo(id, goodsId, e, type) {
             if (type == 1) {
                 var title = '库存';
                 var oldValue = $(e).closest('tr').find('td.amount').text();
-                $('#setShowPrice').hide();
+                $('#isShowPrice').hide();
             } else if(type == 2) {
                 var title = '价格';
                 var oldValue = $(e).closest('tr').find('td.sale_price').text();
-                $('#setShowPrice').show();
+                $('#isShowPrice').show();
             }
             $('#modal-confirmsend .modal-title').eq(0).text('修改'+title);
             $('#modal-confirmsend .control-label').eq(0).text(title + '：');
@@ -179,9 +195,9 @@
             $('#sku_id').val(id);
             $('#goods_id').val(goodsId);
             $('#kucunAndPrice').show();
-            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpLimitNum,#mpState').hide();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpLimitNum,#mpState,#barCode').hide();
             $('#modal-confirmsend').modal('show');
-        }
+        };
         function timeingModifyPrice(id,
             state,
             synchShowPrice,
@@ -216,8 +232,8 @@
             $('#sku_id').val(id);
             $('#goods_id').val(goodsId);
             $('#mpriceId').val(mpriceId);
-            $('#kucunAndPrice').hide();
-            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpLimitNum,#mpState,#setShowPrice').show();
+            $('#kucunAndPrice,#barCode').hide();
+            $('#mpBeginTime,#mpEndTime,#mpToPrice,#mpLimitNum,#mpState,#isShowPrice').show();
             $('#modal-confirmsend').modal('show')
         }
         $('#confirmsend-btn').click(function(){
@@ -233,6 +249,21 @@
                      setstate:$("#mpState input[name='setstate']:checked").val(),
                      synchShowPrice:($('#synchShowPrice:checked').length == 1 ? 1 : 0),
                      mpToPrice:$("#mpToPriceV").val()
+                };
+                $.post(url,data,function(data){
+                    if(data.code==0) {
+                        window.location.href= data.url;
+                    } else {
+                        alert(data.msg);
+                        return false;
+                    }
+                },'json');
+            } else if ($('#type').val() == 3) {
+                var url = "/admin/Goods/modifyBarCode";
+                var data = {
+                     skuId:$("#sku_id").val(), 
+                     goodsId:$("#goods_id").val(),
+                     barCode:$("#barCodeV").val()
                 };
                 $.post(url,data,function(data){
                     if(data.code==0) {

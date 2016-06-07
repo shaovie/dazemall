@@ -296,6 +296,16 @@ class GoodsController extends AdminController
         $this->ajaxReturn(ERR_PARAMS_ERROR, '价格不正确');
     }
 
+    public function modifyBarCode()
+    {
+        $id = intval($this->postParam('skuId', 0));
+        $goodsId = intval($this->postParam('goodsId', 0));
+        $barCode = trim($this->postParam('barCode', ''));
+        GoodsSKUModel::setBarCode($id, $goodsId, $barCode, $this->account);
+        $this->ajaxReturn(0, '', '/admin/Goods/skuPage?goodsId=' . $goodsId);
+        return ;
+    }
+
     public function modifyTimingMPrice()
     {
         $skuId = intval($this->postParam('skuId', 0));
