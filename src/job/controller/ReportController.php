@@ -68,8 +68,7 @@ class ReportController extends JobController
                 array_push($orderId, $val['order_id']);
             }
             $sql = 'SELECT goods_id,sum(amount) num,sum(price) total_price,sku_attr,sku_value from o_order_goods where'
-                . ' ctime >=' . $btime . ' and ctime < ' . $etime
-                . ' and order_id in(' . implode(',' , $orderId) . ')'
+                . ' order_id in(' . implode(',' , $orderId) . ')'
                 . ' GROUP BY goods_id,sku_attr,sku_value';
             $data = DB::getDB('r')->rawQuery($sql);
             if (!empty($data)) {
