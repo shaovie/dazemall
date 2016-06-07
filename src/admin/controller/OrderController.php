@@ -33,6 +33,7 @@ class OrderController extends AdminController
         $page = $this->getParam('page', 1);
 
         $totalNum = UserOrderModel::fetchOrderCount([], [], []);
+        $totalSoldAmount = UserOrderModel::fetchSoldAmount(['pay_state'], [PayModel::PAY_ST_SUCCESS], []);
         $orderList = UserOrderModel::fetchSomeOrder([], [], [], $page, self::ONE_PAGE_SIZE);
         $orderList = $this->fillOrderListInfo($orderList);
         $error = '';
@@ -47,6 +48,7 @@ class OrderController extends AdminController
         $data = array(
             'orderList' => $orderList,
             'totalOrderNum' => $totalNum,
+            'totalSoldAmount' => $totalSoldAmount,
             'pageHtml' => $pageHtml,
             'search' => $searchParams,
             'error' => $error
@@ -58,6 +60,7 @@ class OrderController extends AdminController
     {
         $orderList = array();
         $totalNum = 0;
+        $totalSoldAmount = -1;
         $error = '';
         $searchParams = array();
         do {
@@ -121,6 +124,16 @@ class OrderController extends AdminController
                     if (count($conds) > 1) {
                         $rel[] = 'and';
                     }
+
+                    $tconds = $conds;
+                    $tvals = $vals;
+                    $trel = $rel;
+                    $tconds[] = 'pay_state';
+                    $tvals[] = PayModel::PAY_ST_SUCCESS;
+                    if (count($tconds) > 1) {
+                        $trel[] = 'and';
+                    }
+                    $totalSoldAmount = UserOrderModel::fetchSoldAmount($tconds, $tvals, $trel);
                 }
                 if (!empty($phone)) {
                     $searchParams['phone'] = $phone;
@@ -189,6 +202,8 @@ class OrderController extends AdminController
             'search' => $searchParams,
             'error' => $error
         );
+        if ($totalSoldAmount >= 0)
+            $data['totalSoldAmount'] = $totalSoldAmount;
         $this->display("order_list", $data);
     }
 

@@ -199,6 +199,17 @@ class UserOrderModel
         return $ret === false ? 0 : $ret;
     }
 
+    public static function fetchSoldAmount($cond, $vals, $rel)
+    {
+        $ret = DB::getDB('r')->fetchOne(
+            'o_order',
+            'sum(order_amount) as c',
+            $cond, $vals,
+            $rel
+        );
+        return $ret === false ? 0 : $ret['c'];
+    }
+
     public static function changePayType($userId, $orderId, $payType)
     {
         if (empty($userId) || empty($orderId)) {

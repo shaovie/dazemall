@@ -23,7 +23,13 @@
 	<script type="text/javascript" src="/asset/js/datetimepicker.js<?php echo '?v=' . ASSETS_VERSION;?>"></script>
 </head>
 <body class="no-skin">
-<h3 class="header smaller lighter blue">订单管理<span style="margin-left:30px;color:#666;font-size:18px;">订单总数：<?php echo $totalOrderNum?></span><span style="margin-left:20px;color:red;font-size:12px;"><?php if (!empty($error)){echo $error;}?></span><span class="refresh">刷新</span></h3>
+<h3 class="header smaller lighter blue">订单管理
+<span style="margin-left:30px;color:#666;font-size:18px;">订单总数：<?php echo $totalOrderNum?></span>
+<?php if (isset($totalSoldAmount)):?>
+<span style="margin-left:30px;color:#666;font-size:18px;">订单总金额(含邮费)：<?php echo $totalSoldAmount?></span>
+<?php endif?>
+<span style="margin-left:20px;color:red;font-size:12px;"><?php if (!empty($error)){echo $error;}?></span>
+<span class="refresh">刷新</span></h3>
 <form action="/admin/Order/search" method="get" >	
 	<table class="table" border="0" style="width:95%;" align="center">
 		<tbody>
