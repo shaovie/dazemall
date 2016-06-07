@@ -8,6 +8,6 @@
     <title>配送范围</title>
 </head>
 <body>
-<img style="width:640px;" src="http://cdn1.dazemall.com/images/160606/51b98fb2c85746d7046d2df29d246372.jpg">
+<img style="width:100%" src="http://cdn1.dazemall.com/images/160606/51b98fb2c85746d7046d2df29d246372.jpg">
 </body>
 </html>
