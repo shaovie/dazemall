@@ -267,7 +267,7 @@
        var skuValue = {}; 
        <?php if (!empty($skuValueList)){?>
             <?php foreach ($skuValueList as $val) {?>
-                skuValue["<?php echo $val['sku_value'];?>"] = "<?php echo $val['sale_price'] . ':'. $val['amount'];?>"; 
+                skuValue["<?php echo $val['sku_value'];?>"] = "<?php echo $val['sale_price'] . ':'. $val['amount'] . ':' . $val['bar_code'];?>"; 
        <?php }
        } ?>
        $(document).ready(function(){
@@ -289,7 +289,8 @@
                  var sku_attr_title = $(v).find('td').eq(0).text();
                  var sku_price = $(v).find('input').eq(0).val();
                  var sku_stock = $(v).find('input').eq(1).val();
-                 sku += sku_attr_title + ':' + sku_price + ':' + sku_stock + '|';
+                 var bar_code = $(v).find('input').eq(2).val();
+                 sku += sku_attr_title + ':' + sku_price + ':' + sku_stock + ':' + bar_code + '|';
             });
             $.post(url,{
                 goodsId:$("#goodsId").val(),

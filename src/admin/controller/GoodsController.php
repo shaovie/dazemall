@@ -392,13 +392,13 @@ class GoodsController extends AdminController
         $skuPrice = array();
         foreach ($skuValueInfo as $skuValue) {
             $p = explode(':', $skuValue);
-            if (empty($p) || empty($p[0]) || empty($p[1]) || intval($p[2]) < 0)
+            if (empty($p) || empty($p[0]) || empty($p[1]) || intval($p[2]) < 0 || empty($p[3]))
                 continue;
-            $skuPrice[] = array('skuValue' => $p[0], 'price' => $p[1], 'amount' => $p[2]);
+            $skuPrice[] = array('skuValue' => $p[0], 'price' => $p[1], 'amount' => $p[2], 'bar_code' => trim($p[3]));
         }
         $goodsInfo['skuPrice'] = $skuPrice;
         if (empty($goodsInfo['skuPrice'])) {
-            $error = 'sku属性值不能为空或价格为0';
+            $error = 'sku属性值不能为空或价格为0或条码为空';
             return false;
         }
 

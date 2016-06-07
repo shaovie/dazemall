@@ -16,7 +16,7 @@ class GoodsSKUModel
     const SKU_ST_INVALID         = 0;  // 无效
     const SKU_ST_VALID           = 1;  // 无效
 
-    public static function newOne($goodsId, $skuAttr, $skuValue, $price, $amount, $user)
+    public static function newOne($goodsId, $skuAttr, $skuValue, $price, $amount, $barCode, $user)
     {
         if (empty($skuAttr) || empty($skuValue)) {
             return false;
@@ -29,6 +29,7 @@ class GoodsSKUModel
             'amount' => $amount,
             'sold_amount' => 0,
             'state' => 1,
+            'bar_code' => $barCode,
             'ctime' => CURRENT_TIME,
             'mtime' => CURRENT_TIME,
             'm_user' => $user,

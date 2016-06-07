@@ -72,6 +72,7 @@ class GoodsModel
                 $sku['skuValue'],
                 $sku['price'],
                 $sku['amount'],
+                $sku['bar_code'],
                 $user
             );
             if ($ret === false) {

@@ -33,7 +33,9 @@
 				<tr>
 					<th class="text-center" style="width:80px;">商品SKU</th>
 					<th class="text-center" style="width:50px;">价格</th>
+					<th class="text-center" style="width:60px;">条码</th>
 					<th class="text-center" style="width:50px;">现有库存</th>
+					<th class="text-center" style="width:50px;">累计销量</th>
 					<th class="text-center" style="width:120px;">定时调价</th>
 					<th class="text-center" style="width:80px;">修改人</th>
 					<th class="text-center" style="width:80px;">修改时间</th>
@@ -45,7 +47,9 @@
 			<tr>
 				<td style="text-align:center;vertical-align:middle;"><?php echo $item['sku']?></td>
 				<td style="text-align:center;vertical-align:middle;" class="sale_price"><?php echo $item['sale_price']?></td>
+				<td style="text-align:center;vertical-align:middle;" class="bar_code"><?php echo $item['bar_code']?></td>
 				<td style="text-align:center;vertical-align:middle;" class="amount"><?php echo $item['amount']?></td>
+				<td style="text-align:center;vertical-align:middle;" class="sold_amount"><?php echo $item['sold_amount']?></td>
 				<td style="text-align:left;vertical-align:middle;" class="modify_price">
                 <div>周期：<?php echo (empty($mpList[$idx]['begin_time']) ? '' : date('Y-m-d H:i:s', $mpList[$idx]['begin_time']))
                 . ' - '
