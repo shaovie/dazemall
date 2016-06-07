@@ -1,0 +1,63 @@
+html {overflow-x:hidden; }
+body {
+      background-color: #FFFFFF;
+}
+ table{border-top: 0px;}
+     .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+     border-top: 0px;
+ }
+ul,ol {
+margin:0;
+}
+.category dl{list-style:none;margin-top:5px;}
+.category dd{float:left;margin-right:6px;}
+.category dd {color:#428bca;font-family:'Microsoft YaHei'}
+ .category dd .show{color:#f18518;}
+ #prev_thumb_img a, #prev_thumb_img2 a{
+    margin-left:40%;
+}
+ #prev_goods_img ul {
+   list-style:none;
+ }
+ #prev_goods_img ul li {
+   float:left;
+  }
+#prev_goods_img ul li a {
+  display:block;
+  margin-left:38%;
+}
+.sku_info {
+    margin-left:20px;
+}
+.sku_attr {
+    margin-top:10px;
+    margin-left:20px;
+    margin-bottom:10px;
+}
+.sku_attr label.title {
+    margin-left:-20px;
+}
+.sku_info label,.sku_attr label{
+    margin-right:3%;
+}
+
+.sku_table {
+    margin-top:10px;
+}
+.refresh {
+   float:right;
+   font-size:14px;      
+   cursor: pointer;
+}
+#pop{background:#fff;width:260px;border:1px solid #e0e0e0;font-size:12px;position: fixed;right:12px;bottom:10px;display:none;z-index:1000}
+#popHead{line-height:32px;background:#f6f0f3;border-bottom:1px solid #e0e0e0;position:relative;font-size:12px;padding:0 0 0 10px;}
+#popHead h2{font-size:14px;color:#666;line-height:32px;height:32px;}
+#popHead #popClose{position:absolute;right:10px;top:1px;}
+#popHead a#popClose:hover{color:#f00;cursor:pointer;}
+#popContent{padding:5px 10px;}
+#popTitle a{line-height:24px;font-size:14px;font-family:'微软雅黑';color:#333;font-weight:bold;text-decoration:none;}
+#popTitle a:hover{color:#f60;}
+#popIntro{text-indent:24px;line-height:160%;margin:5px 0;color:#666;}
+#popMore{text-align:right;border-top:1px dotted #ccc;line-height:24px;margin:8px 0 0 0;}
+#popMore a{color:#f60;}
+#popMore a:hover{color:#f00;}
