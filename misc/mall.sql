@@ -246,6 +246,7 @@ create table o_order_goods (
     sku_value           varchar(600) not null default '',           # sku属性值
     amount              int unsigned not null default 0,            # 商品数量
     price               decimal(10,2) not null default 0.0,         # 商品价格
+    bar_code            varchar(63) not null default '',            # 条形码
 
     state               tinyint not null default 0,                 # 0:待发货   1:已出库   2:已发货 3:已收货
                                                                     # 4:申请退货 5:退货成功 6:退货失败

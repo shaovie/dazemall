@@ -38,7 +38,8 @@
 	</tbody>
 	</table>
 	</form>
-	<table class="table table-striped table-bordered table-hover">
+    <div>
+	<table class="table table-striped table-bordered table-hover" style="width:49%;float:left">
 		<tbody>
 		<tr>
             <th class="text-left" style="width:100px;" width="100">&nbsp;&nbsp;&nbsp;&nbsp;类别<br />日期</th>	
@@ -60,6 +61,29 @@
         <?php endforeach;?>
 		</tbody>
 	</table>
+	<table class="table table-striped table-bordered table-hover" style="width:50%;margin-left:50%">
+		<tbody>
+		<tr>
+            <th class="text-left" style="width:100px;" width="100">&nbsp;&nbsp;&nbsp;&nbsp;类别<br />日期</th>	
+			<th class="text-center" style="width:200px;vertical-align:middle;">销售额1</th>
+			<th class="text-center" style="vertical-align:middle;">订单数1</th>
+		</tr>
+        <?php foreach($data as $val):?>
+		<tr>
+             <td style="text-align:center;vertical-align:middle;">
+                <?php echo $val['ctime'];?>
+             </td>
+             <td style="text-align:left;vertical-align:middle;">
+                 <?php echo $val['seller_amount'];?>
+             </td>
+             <td style="text-align:left;vertical-align:middle;">
+               <?php echo $val['order_num'];?>
+             </td>
+		</tr>
+        <?php endforeach;?>
+		</tbody>
+	</table>
+    </div>
 	<script>
         $(document).ready(function(){
            $('#beginTime,#endTime').datetimepicker({

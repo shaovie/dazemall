@@ -298,6 +298,7 @@ class OrderModel
                 $goodsSKU['sku_value'],
                 $goodsList[$idx]['amount'],
                 $goodsSKU['sale_price'],
+                $goodsSKU['bar_code'],
                 $goodsList[$idx]['attach']
             );
             if ($ret !== true) {

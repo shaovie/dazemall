@@ -27,6 +27,7 @@ class OrderGoodsModel
         $skuValue,
         $amount,
         $price,
+        $barCode,
         $attach
     ) {
         if (empty($orderId)
@@ -42,6 +43,7 @@ class OrderGoodsModel
             'sku_value' => $skuValue,
             'amount' => $amount,
             'price' => $price,
+            'bar_code' => $barCode,
             'state' => self::ST_UN_DELIVER,
             'commented' => 0,
             'attach' => $attach,

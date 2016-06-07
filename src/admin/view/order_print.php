@@ -22,13 +22,15 @@
 <td bgcolor="#ccc">商品名称</td>
 <td bgcolor="#ccc">价格</td>
 <td bgcolor="#ccc">数量</td>
+<td bgcolor="#ccc">条码</td>
 <td bgcolor="#ccc">小计</td>
 </tr>
 <?php foreach ($order['goodsList'] as $goods):?>
 <tr>
 <td align="left" ><?php echo $goods['name']?></td>
-<td align="center" width="35">￥<?php echo $goods['price']?></td>
+<td align="center" width="35"><?php echo $goods['price']?></td>
 <td align="center" width="30"><?php echo $goods['amount']?></td>
+<td align="center" width="30"><?php echo $goods['bar_code']?></td>
 <td align="center">￥<?php echo ($goods['price'] * $goods['amount'])?></td>
 </tr>
 <?php endforeach?>
