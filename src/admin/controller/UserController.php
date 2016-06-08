@@ -12,6 +12,7 @@ use \src\common\DB;
 use \src\user\model\UserModel;
 use \src\user\model\WxUserModel;
 use \src\user\model\UserBillModel;
+use \src\user\model\UserCouponModel;
 
 class UserController extends AdminController
 {
@@ -154,6 +155,13 @@ class UserController extends AdminController
             return false;
         }
         UserModel::onCommit($userId);
+        $this->ajaxReturn(0, '');
+    }
+    public function giveCoupon()
+    {
+        $userId = $this->postParam('uid', 0);
+        $couponId = (int)$this->postParam('couponId', 0);
+        UserCouponModel::giveCoupons($userId, array($couponId));
         $this->ajaxReturn(0, '');
     }
 }

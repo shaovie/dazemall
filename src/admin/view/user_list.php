@@ -71,15 +71,16 @@
             </td>
 			<td style="text-align:center;vertical-align:middle;">
                  <a class="btn btn-xs btn-info" onclick="recharge(<?php echo $user['id']?>)" >充值</a>
+                 <a class="btn btn-xs btn-info" onclick="giveCoupon(<?php echo $user['id']?>)" >发放优惠券</a>
 			</td>
 		</tr>
         <?php endforeach?>
 		</tbody>
 	</table>
     <?php echo $pageHtml;?>
-		<!--弹窗-->
-		<div id="modal-confirmsend" class="modal fade">
-			<div class="modal-dialog">
+	<!--弹窗-->
+	<div id="modal-confirmsend" class="modal fade">
+		<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -108,14 +109,54 @@
 		</div>
 	</div>
 	<!-- END -->
+	<!--弹窗-->
+	<div id="modal-confirmsend2" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">发优惠券</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group" style="height:25px;">
+					<label class="col-sm-3 control-label no-padding-right"> 优惠券编号：</label>
+					<div class="col-sm-9">
+						<input type="text" name="coupon" id="couponId" class="span5">
+					</div>
+				</div>      	
+			</div>
+			<div class="modal-footer">
+                <input type="hidden" name="uid2" value="" id="uid2"/>
+				<button type="button" class="btn btn-primary" id="confirmsend-btn2" name="confirmsend" value="yes">提交</button>      	
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- END -->
     <script>
         function recharge(id){
           $('#uid').val(id);
           $('#modal-confirmsend').modal('show');
         }
+        function giveCoupon(id){
+          $('#uid2').val(id);
+          $('#modal-confirmsend2').modal('show');
+        }
         $('#confirmsend-btn').click(function(){
             var url = "/admin/User/recharge";
             $.post(url,{uid:$('#uid').val(),money:$('#money').val(),remark:$('#remark').val()},function(data){
+                if(data.code==0) {
+                    window.location.href= data.url;
+                } else {
+                    alert(data.msg);
+                    return false;
+                }
+            },'json');
+        });
+        $('#confirmsend-btn2').click(function(){
+            var url = "/admin/User/giveCoupon";
+            $.post(url,{uid:$('#uid2').val(),couponId:$('#couponId').val()},function(data){
                 if(data.code==0) {
                     window.location.href= data.url;
                 } else {

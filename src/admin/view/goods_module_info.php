@@ -63,6 +63,7 @@
                   <a href='javascript:void(0)' onclick='delThumbImg(this);return false;'>删除</a>
                <?php }?>
               </div>
+				<p class="help-block">目前图片未展示，可以不用上传</p>
               <!-- SWFUpload控件 -->
               <div id="divSWFUploadUI">
                  <p>

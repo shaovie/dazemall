@@ -37,5 +37,21 @@
 <p style="margin-left:30px">2. 在首页显示时，可以预览当前时间段后边的场次，当查看当前时间段之前的场次时其实是预览明天的场次</p>
 <p style="margin-left:30px">3. 配置时间格式必须按照 step.1来</p>
 <p style="margin-left:30px">4. 这里只是配置哪些商品参加秒杀活动，至于秒杀的价格和限购个数要去[商品列表]-[商品SKU]-[定时调价]配置，注：<b>商品调价的时间要和秒杀活动的时间保持一致</b></p>
+<h4>定时上下架:</h4>
+<p style="margin-left:30px;font-size:14px">地址：[营销管理]-[定时上下架] </p>
+<p style="margin-left:30px">1. 如果商品需要提前编辑好然后在某一时间段一起上架，那么可以选择定时上架功能</p>
+<p style="margin-left:30px">2. 该功能可选择一次性上下架和每天重复上下架</p>
+<p style="margin-left:30px">&nbsp;&nbsp;比如：元旦卖元宵，持续一周，那么就可以定时将元宵在01-01 00:00:00 ~ 01-06 23:59:59这个时间段定时上架并自动下架</p>
+<p style="margin-left:30px">&nbsp;&nbsp;比如：某些商品分早晚场，只允许早市或晚市上架销售，那么可以使用‘每天上下架’功能</p>
+<h4>首页商品专题区块:</h4>
+<p style="margin-left:30px;font-size:14px">地址：[营销管理]-[页商品模块列表] </p>
+<p style="margin-left:30px">1. 该功能是动态创建专题区域，将产品以专题分类表现在首页。</p>
+<p style="margin-left:30px">2. 可以定时展示</p>
+<p style="margin-left:30px">3. 运营人员完全可以根据运营活动需求创建不同的专题，以给用户最合适的购物引导</p>
+<h4>主题活动创建:</h4>
+<p style="margin-left:30px;font-size:14px">地址：[营销管理]-[活动页列表] </p>
+<p style="margin-left:30px">1. 当我们想为某一个主题（比如清明节）单独做一场专场活动时，可以使用此功能</p>
+<p style="margin-left:30px">2. 创建一个活动（可显示在首页（品类下方位置）也可以隐藏起来通过轮播图进入</p>
+<p style="margin-left:30px">3. 然后将精选的商品添加到活动的商品列表中</p>
 </body>
 </html>
