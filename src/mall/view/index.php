@@ -120,7 +120,7 @@
                 <div class="item-info">
                     <div class="item-title"><?php echo $goods['name'];?></div>
                     <div class="item-price">
-                        <span class="price">&yen; <?php echo $goods['sale_price'];?></span>
+                        <span class="price">&yen;<?php echo $goods['price'];?></span>
                         <a class="btn-sm <?php if ($goods['soldout'] == 0 && $goods['start'] == 1) {echo 'J-add-cart';}?>" goods-id="<?php echo $goods['goods_id']?>"></a>
                     </div>
                 </div>

@@ -15,13 +15,14 @@ use \src\mall\model\GoodsSKUModel;
 
 class MiaoShaGoodsModel
 {
-    public static function newOne($goodsId, $beginTime, $endTime, $sort)
+    public static function newOne($goodsId, $beginTime, $endTime, $price, $sort)
     {
         $data = array(
             'goods_id' => $goodsId,
             'begin_time' => $beginTime,
             'end_time' => $endTime,
             'sort' => $sort,
+            'price' => $price,
             'ctime' => CURRENT_TIME,
         );
         $ret = DB::getDB('w')->insertOne('m_miao_sha_goods', $data);

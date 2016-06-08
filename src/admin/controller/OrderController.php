@@ -296,6 +296,7 @@ class OrderController extends AdminController
         $orderInfo['rePhone'] = $order['re_phone'];
         $orderInfo['orderAmount'] = $order['order_amount'];
         $orderInfo['sysRemark'] = $order['sys_remark'];
+        $orderInfo['remark'] = $order['remark'];
         $orderInfo['postage'] = $order['postage'];
         $orderInfo['couponPayAmount'] = $order['coupon_pay_amount'];
 

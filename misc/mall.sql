@@ -612,6 +612,7 @@ create table m_miao_sha_goods (
     goods_id            int unsigned not null default 0,            # 商品ID
     begin_time          int not null default 0,                     # 开始时间
     end_time            int not null default 0,                     # 结束时间
+    price               decimal(10,2) not null default 0.0,         # 秒杀价格
     sort                int not null default 0,                     # 顺序
 
     ctime               int not null default 0,                     # 创建时间

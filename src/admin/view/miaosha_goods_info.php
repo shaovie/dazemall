@@ -44,6 +44,14 @@
 		</div>
 
 		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-left">展示价格：</label>
+			<div class="col-sm-9">
+				<input type="number" name="price" id="price" 
+                value="<?php if (!empty($act['price'])){echo $act['price'];}?>">
+				<p class="help-block">一定要与定时调价保持一致</p>
+          	</div>
+		</div>
+		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-left">排序：</label>
 			<div class="col-sm-9">
 				<input type="text" name="sort" id="sort"
@@ -79,7 +87,8 @@
                 sort:$("#sort").val(),
                 goods_id:$("#goods_id").val(),
                 beginTime:$("#beginTime").val(),
-                endTime:$("#endTime").val()
+                endTime:$("#endTime").val(),
+                price:$("#price").val()
                 },function(data){
                 if(data.code==0) {
                     alert(data.msg);

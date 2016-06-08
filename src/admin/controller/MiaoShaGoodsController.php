@@ -74,6 +74,7 @@ class MiaoShaGoodsController extends AdminController
             $actInfo['goods_id'],
             $actInfo['begin_time'],
             $actInfo['end_time'],
+            $actInfo['price'],
             $actInfo['sort']
         );
         if ($actId === false || (int)$actId <= 0) {
@@ -99,10 +100,15 @@ class MiaoShaGoodsController extends AdminController
         $actInfo['sort'] = intval($this->postParam('sort', 0));
         $actInfo['begin_time'] = trim($this->postParam('beginTime', ''));
         $actInfo['end_time'] = trim($this->postParam('endTime', ''));
+        $actInfo['price'] = floatval($this->postParam('price', 0.0));
 
         $ret = GoodsModel::findGoodsById($actInfo['goods_id']);
         if (empty($ret)) {
             $error = '商品ID错误';
+            return false;
+        }
+        if ($actInfo['price'] < 0.001) {
+            $error = '价格有误';
             return false;
         }
         if (empty($actInfo['begin_time']) || strtotime($actInfo['begin_time']) === false) {
