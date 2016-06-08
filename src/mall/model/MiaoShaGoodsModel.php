@@ -95,7 +95,8 @@ class MiaoShaGoodsModel
             $goods['goods_id'] = $goodsInfo['id'];
             $goods['name'] = $goodsInfo['name'];
             $goods['image_url'] = $goodsInfo['image_url'];
-            $goods['sale_price'] = $goodsInfo['sale_price'];
+            //$goods['sale_price'] = $goodsInfo['sale_price'];
+            $goods['sale_price'] = $goods['price'];
             $goods['leftTime'] = $leftTime;
             $goods['soldout'] = $leftAmount > 0 ? 0 : 1;
             $goods['start'] = $alreadyStart ? 1 : 0;
