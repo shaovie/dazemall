@@ -74,7 +74,7 @@ class UserCouponModel
     public static function getUnusedCouponCount($userId)
     {
         if (empty($userId))
-            return array();
+            return 0;
         $ret = DB::getDB()->fetchCount(
             'u_coupon',
             array('user_id', 'state', 'end_time>'), array($userId, self::COUPON_ST_UNUSED, CURRENT_TIME),
