@@ -86,7 +86,6 @@
         </ul>
     </section>
     <section class="banner-1212">
-    <a href="/mall/Activity/deliveryRule" class="img-wrap" data-original=""></a>
     <?php foreach ($actList as $act):?>
     <a href="/mall/Activity/index?actId=<?php echo $act['id']?>" class="img-wrap" data-original="<?php echo $act['image_url']?>"></a>
     <?php endforeach?>
