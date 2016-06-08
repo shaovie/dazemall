@@ -63,6 +63,7 @@
 	</form>
 	<script>
         $(document).ready(function(){
+            return ;
            $('#beginTime,#endTime').datetimepicker({
               format: "yyyy-mm-dd hh:ii:00",
               minView: "0",
