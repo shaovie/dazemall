@@ -142,7 +142,7 @@
     <b id="J-last-pay"><?php echo $toPayAmount;?></b></span>
     </div>
 </section>
-<?php if (false):?>
+<?php if (true):?>
 <div class="error-tip">为避免订单失效，建议您在<b><?php echo $payLastTime;?>分钟</b>内完成支付</div>
 <?php endif?>
 <div class="error-tip" style="color:red">请确定您在我们的配送范围中(规则参见首页)然后下单</div>
