@@ -144,8 +144,9 @@
 </section>
 <?php if (true):?>
 <div class="error-tip">为避免订单失效，建议您在<b><?php echo $payLastTime;?>分钟</b>内完成支付</div>
-<?php endif?>
+<?php else:?>
 <div class="error-tip" style="color:red">请确定您在我们的配送范围中(规则参见首页)然后下单</div>
+<?php endif?>
 <footer>
     <a class="J-pay-btn btnl btnl-yue" type="0">余额安全支付</a>
     <a class="J-pay-btn btnl btnl-wx" type="2">微信安全支付</a>
