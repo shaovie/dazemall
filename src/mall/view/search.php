@@ -33,6 +33,9 @@
         <?php foreach ($goodsList as $goods):?>
 		<div class="goods">
             <a href="/mall/Goods/detail?goodsId=<?php echo $goods['goodsId']?>">
+            <?php if (!empty($goods['tagName'])):?>
+            <div class="tag-<?php echo $goods['tagColor']?>"><?php echo $goods['tagName']?></div>
+            <?php endif?>
 			<div class="img-wrap" style="background-image: url(<?php echo $goods['imageUrl']?>)"></div>
 			<div class="goods-title"><?php echo $goods['name']?></div>
 			<div class="clearfix">
