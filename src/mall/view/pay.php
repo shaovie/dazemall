@@ -119,6 +119,12 @@
 	<div class="no-ticket right">暂无优惠券可用</div>
     <?php endif?>
 </section>
+<section class="note-section clearfix">
+    <label>备注：</label>
+    <div class="input-wrap">
+        <input placeholder="请输入备注" />
+    </div>
+</section>
 <section class="money-calculate">
 	<div class="calculate">
 		<span class="price"><i>&yen;</i><b><?php echo number_format($orderAmount-$postage, 2, '.', ''); ?></b></span>
