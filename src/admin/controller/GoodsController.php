@@ -32,7 +32,7 @@ class GoodsController extends AdminController
             $cateName = GoodsCategoryModel::getCateName($goods['category_id']);
             $goods['category_name'] = GoodsCategoryModel::fullCateName($goods['category_id'], $cateName);
             $tag = explode('|', $goods['tag']);
-            if (empty($tag))
+            if (count($tag) < 2)
                 $goods['tag'] = array();
             else
                 $goods['tag'] = array('name' => $tag[0], 'color' => $tag[1]);
@@ -113,7 +113,7 @@ class GoodsController extends AdminController
                 $cateName = GoodsCategoryModel::getCateName($goods['category_id']);
                 $goods['category_name'] = GoodsCategoryModel::fullCateName($goods['category_id'], $cateName);
                 $tag = explode('|', $goods['tag']);
-                if (empty($tag))
+                if (count($tag) < 2)
                     $goods['tag'] = array();
                 else
                     $goods['tag'] = array('name' => $tag[0], 'color' => $tag[1]);
