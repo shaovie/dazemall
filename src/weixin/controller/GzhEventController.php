@@ -28,6 +28,31 @@ class GzhEventController extends WeiXinController
         var_dump(WxSDK::getUserInfo($openInfo['openid'], 'snsapi_userinfo', $openInfo['access_token']));
     }
 
+    public function createMenu()
+    {
+        $urlBase = APP_URL_BASE;
+        $fromMenu = '?srcfrom=wxmenu';
+        $menu = <<<EOT
+{
+    "button":[{
+        "name":"大泽商城",
+            "type":"view",
+            "url":"$urlBase$fromMenu"
+    },{
+        "name":"我的",
+            "sub_button":[{
+                "name":"个人中心",
+                "type":"view",
+                "url":"$urlBase/user/Home/index$fromMenu"
+            }]
+    }]
+}
+EOT;
+        $ret = WxSDK::createMenu($menu);
+        var_dump($ret);
+    }
+
+
     public function callback()
     {
         if (!$this->checkSignature()) {

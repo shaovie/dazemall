@@ -63,6 +63,14 @@ class ActivityGoodsModel
                 $v['imageUrl'] = $ginfo['image_url'];
                 $v['marketPrice'] = number_format($ginfo['market_price'], 2, '.', '');
                 $v['salePrice'] = number_format($ginfo['sale_price'], 2, '.', '');
+                $tag = explode('|', $ginfo['tag']);
+                if (count($tag) < 2) {
+                    $v['tagName'] = '';
+                    $v['tagColor'] = 0;
+                } else {
+                    $v['tagName'] = $tag[0];
+                    $v['tagColor'] = $tag[1];
+                }
                 $glist[] = $v;
             }
         }

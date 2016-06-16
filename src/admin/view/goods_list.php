@@ -99,13 +99,70 @@
 				<a class="btn btn-xs btn-info" href="/admin/Goods/editPage?goodsId=<?php echo $goods['id']?>">编辑</a>
 				<a class="btn btn-xs btn-info" href="/admin/Goods/skuPage?goodsId=<?php echo $goods['id']?>">商品SKU</a>
 				<a class="btn btn-xs btn-info" href="/admin/TimingUpDown/editPage?id=<?php echo $goods['id']?>">定时上架</a>
+                <a class="btn btn-xs btn-info" onclick="goodsTag(<?php echo $goods['id']?>, <?php echo !empty($goods['tag']['name']) ? ("'" . $goods['tag']['name'] . "'"): "''" ?>, <?php echo isset($goods['tag']['color']) ? (int)$goods['tag']['color'] : 0 ?>)" >标签</a>
 			</td>
 		</tr>
         <?php endforeach?>
 		</tbody>
 	</table>
     <?php echo $pageHtml;?>
+	<!--弹窗-->
+	<div id="modal-confirmsend" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">充值</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group" style="height:25px;">
+					<label class="col-sm-3 control-label no-padding-right"> 标签名：</label>
+					<div class="col-sm-9">
+						<input type="text" name="tag-name" id="tag-name" class="span5" value="">
+					</div>
+                </div>
+				<div class="form-group" style="height:25px;">
+					<label class="col-sm-3 control-label no-padding-right"> 标签颜色：</label>
+					<div class="col-sm-9" id="tag-color">
+                        <div style="margin-right:20px;display:inline;">
+                            <input type="radio" name="tagColor" value="1" id="isshow0" ><p class="label label-danger" style="margin-left:10px;">&nbsp;&nbsp;&nbsp;&nbsp;</p></div>
+                        <div style="margin-right:20px;display:inline;">
+                            <input type="radio" name="tagColor" value="2" id="isshow1" ><p class="label label-warning" style="margin-left:10px;">&nbsp;&nbsp;&nbsp;&nbsp;</p></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="modal-footer">
+                <input type="hidden" name="goodsId" value="" id="goodsId"/>
+				<button type="button" class="btn btn-primary" id="confirmsend-btn" name="confirmsend" value="yes">提交</button>      	
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- END -->
     <script>
+    function goodsTag(id, name, color){
+      $('#goodsId').val(id);
+      $('#tag-name').val(name);
+      if (color == 1)
+          $('#isshow0').attr("checked","checked");
+      else if (color = 2)
+          $('#isshow1').attr("checked","checked");
+      $('#modal-confirmsend').modal('show');
+    }
+    $('#confirmsend-btn').click(function(){
+        var url = "/admin/Goods/setTag";
+        var color = $("#tag-color input[name='tagColor']:checked").val();
+        $.post(url,{goodsId:$('#goodsId').val(),name:$('#tag-name').val(),color:color},function(data){
+            if(data.code==0) {
+                window.location.href= data.url;
+            } else {
+                alert(data.msg);
+                return false;
+            }
+        },'json');
+    });
     function categorySearch() {
         catId = $("#category option:selected").val();
         if (catId <= 0)

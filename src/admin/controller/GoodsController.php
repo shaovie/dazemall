@@ -31,6 +31,11 @@ class GoodsController extends AdminController
             $goods['state'] =  GoodsModel::getStateDesc($goods['state']);
             $cateName = GoodsCategoryModel::getCateName($goods['category_id']);
             $goods['category_name'] = GoodsCategoryModel::fullCateName($goods['category_id'], $cateName);
+            $tag = explode('|', $goods['tag']);
+            if (empty($tag))
+                $goods['tag'] = array();
+            else
+                $goods['tag'] = array('name' => $tag[0], 'color' => $tag[1]);
         }
 
         $categoryList = GoodsCategoryModel::getAllCategory();
@@ -107,6 +112,11 @@ class GoodsController extends AdminController
                 $goods['state'] =  GoodsModel::getStateDesc($goods['state']);
                 $cateName = GoodsCategoryModel::getCateName($goods['category_id']);
                 $goods['category_name'] = GoodsCategoryModel::fullCateName($goods['category_id'], $cateName);
+                $tag = explode('|', $goods['tag']);
+                if (empty($tag))
+                    $goods['tag'] = array();
+                else
+                    $goods['tag'] = array('name' => $tag[0], 'color' => $tag[1]);
             }
         }
 
@@ -362,6 +372,15 @@ class GoodsController extends AdminController
         $this->ajaxReturn(0, '操作成功', '/admin/Goods/skuPage?goodsId=' . $goodsId);
     }
 
+    public function setTag()
+    {
+        $goodsId = intval($this->postParam('goodsId', 0));
+        $name = trim($this->postParam('name', ''));
+        $color = intval($this->postParam('color', 0));
+        GoodsModel::setTag($goodsId, $name, $color);
+        $this->ajaxReturn(0, '');
+        return ;
+    }
     private function fetchFormParams(&$goodsInfo, &$error)
     {
         $goodsInfo['id'] = intval($this->postParam('goodsId', 0));
@@ -402,7 +421,7 @@ class GoodsController extends AdminController
         $skuPrice = array();
         foreach ($skuValueInfo as $skuValue) {
             $p = explode(':', $skuValue);
-            if (empty($p) || empty($p[0]) || empty($p[1]) || intval($p[2]) < 0 || empty($p[3]))
+            if (empty($p) || empty($p[0]) || empty($p[1]) || intval($p[2]) < 0)
                 continue;
             $skuPrice[] = array('skuValue' => $p[0], 'price' => $p[1], 'amount' => $p[2], 'bar_code' => trim($p[3]));
         }

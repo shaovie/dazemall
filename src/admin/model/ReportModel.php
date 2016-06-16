@@ -33,7 +33,7 @@ class ReportModel
             '*',
             array('begin_time>=', 'end_time<='), array($btime, $etime),
             array('and'),
-            array('seller_amount'), array('desc')
+            array('seller_num'), array('desc')
         );
 
         return $ret === false ? array() : $ret;

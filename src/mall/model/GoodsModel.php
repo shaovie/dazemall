@@ -263,10 +263,19 @@ class GoodsModel
             $g['name'] = $goods['name'];
             $g['imageUrl'] = $goods['image_url'];
             $g['salePrice'] = number_format($goods['sale_price'], 2, '.', '');
+            $g['marketPrice'] = number_format($goods['market_price'], 2, '.', '');
             $g['discount'] = ($goods['sale_price'] / $goods['market_price']) * 10.0;
             if ($g['discount'] >= 10.0)
                 $g['discount'] = 0.0;
             $g['discount'] = number_format($g['discount'], 1, '.', '');
+            $tag = explode('|', $goods['tag']);
+            if (count($tag) < 2) {
+                $g['tagName'] = '';
+                $g['tagColor'] = 0;
+            } else {
+                $g['tagName'] = $tag[0];
+                $g['tagColor'] = $tag[1];
+            }
             $data[] = $g;
         }
         return $data;
@@ -311,6 +320,17 @@ class GoodsModel
         }
         self::onUpdateData($goodsId);
         return $ret > 0 ? true : false;
+    }
+
+    public static function setTag($goodsId, $name, $color)
+    {
+        if (empty($goodsId)) {
+            return false;
+        }
+
+        if (empty($name))
+            return self::updateGoodsInfo($goodsId, array('tag' => ''));
+        return self::updateGoodsInfo($goodsId, array('tag' => $name . '|' . (int)$color));
     }
 
     private static function onUpdateData($goodsId)

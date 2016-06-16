@@ -275,6 +275,7 @@ create table g_goods (
     sale_price          decimal(10,2) not null default 0.0,         # 商品销售价        
     jifen               int unsigned not null default 0,            # 商品购买赠送积分
     sort                int not null default 0,                     # 排序
+    tag                 varchar(255) not null default '',           # 右上角标签
     state               tinyint not null default 0,                 # 商品状态
                                                                     # 0:无效 1:有效
                                                                     # 2:上架-展示在商城中

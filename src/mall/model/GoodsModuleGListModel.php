@@ -112,6 +112,14 @@ class GoodsModuleGListModel
                     if ($v['discount'] >= 10.0)
                         $v['discount'] = 0.0;
                     $v['discount'] = number_format($v['discount'], 1, '.', '');
+                    $tag = explode('|', $ginfo['tag']);
+                    if (count($tag) < 2) {
+                        $v['tagName'] = '';
+                        $v['tagColor'] = 0;
+                    } else {
+                        $v['tagName'] = $tag[0];
+                        $v['tagColor'] = $tag[1];
+                    }
                     $glist[] = $v;
                 }
             }

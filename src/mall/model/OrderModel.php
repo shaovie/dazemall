@@ -87,6 +87,7 @@ class OrderModel
         $useAccountPay, // 0/1 是否使用账户余额支付
         $olPayType, // 第三方支付方式
         $couponId,  // 优惠券ID
+        $remark,
         $attach
     ) {
         $optResult = array('code' => ERR_OPT_FAIL, 'desc' => '', 'result' => array());
@@ -280,6 +281,7 @@ class OrderModel
             $couponPayAmount,
             $couponId,
             $postage,
+            $remark,
             $attach
         );
         if ($ret !== true) {

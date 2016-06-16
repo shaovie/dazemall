@@ -17,21 +17,17 @@
 <tr><td align="left">手 机 号：</td><td><?php echo $order['rePhone']?>&nbsp;</td></tr>
 </table>
 <br/>
-<table width="227px" border="1" style="border-collapse:collapse;border-color:#ccc">
+<table width="227px" border="1" style="border-collapse:collapse;border-color:#ccc;table-layout:fixed">
 <tr align="center">
-<td bgcolor="#ccc">商品名称</td>
-<td bgcolor="#ccc">价格</td>
-<td bgcolor="#ccc">数量</td>
-<td bgcolor="#ccc">条码</td>
-<td bgcolor="#ccc">小计</td>
+<td bgcolor="#ccc" width="70" >商品名称</td>
+<td bgcolor="#ccc" width="115" >价格</td>
+<td bgcolor="#ccc" width="42" >小计</td>
 </tr>
 <?php foreach ($order['goodsList'] as $goods):?>
 <tr>
-<td align="left" ><?php echo $goods['name']?></td>
-<td align="center" width="35"><?php echo $goods['price']?></td>
-<td align="center" width="30"><?php echo $goods['amount']?></td>
-<td align="center" width="30"><?php echo $goods['bar_code']?></td>
-<td align="center">￥<?php echo ($goods['price'] * $goods['amount'])?></td>
+<td align="left" style="word-wrap:break-word"><?php echo $goods['name']?></td>
+<td align="left" style="word-wrap:break-word"><div>价格：<?php echo $goods['price']?></div><div>数量：<?php echo $goods['amount']?></div><div>条码：<?php echo $goods['bar_code']?></div></td>
+<td align="center" ><?php echo ($goods['price'] * $goods['amount'])?></td>
 </tr>
 <?php endforeach?>
 <tr>

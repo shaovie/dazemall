@@ -69,49 +69,50 @@ class UserOrderModel
         $couponPayAmount,
         $couponId,
         $postage,
+        $remark,
         $attach
-            ) {
-                if (empty($orderId)
-                    || empty($orderPayId)
-                    || empty($orderEnv)
-                    || empty($userId)) {
-                    return false;
-                }
+    ) {
+        if (empty($orderId)
+            || empty($orderPayId)
+            || empty($orderEnv)
+            || empty($userId)) {
+            return false;
+        }
 
-                $data = array(
-                    'order_id' => $orderId,
-                    'order_pay_id' => $orderPayId,
-                    'user_id' => $userId,
-                    're_name' => Util::emojiEncode($reName),
-                    're_phone' => $rePhone,
-                    'addr_type' => $addrType,
-                    'province_id' => $provinceId,
-                    'city_id' => $cityId,
-                    'district_id' => $districtId,
-                    'detail_addr' => $detailAddr,
-                    're_id_card' => $reIdCard,
-                    'pay_state' => $payState,
-                    'order_state' => self::ORDER_ST_CREATED,
-                    'order_amount' => $orderAmount,
-                    'ol_pay_amount' => $olPayAmount,
-                    'ac_pay_amount' => $acPayAmount,
-                    'ol_pay_type' => $olPayType,
-                    'coupon_pay_amount' => $couponPayAmount,
-                    'coupon_id' => $couponId,
-                    'postage' => $postage,
-                    'order_env' => $orderEnv,
-                    'remark' => '',
-                    'attach' => $attach,
-                    'ctime' => CURRENT_TIME,
-                    'mtime' => CURRENT_TIME,
-                    'm_user' => 'sys'
-                        );
-                $ret = DB::getDB('w')->insertOne('o_order', $data);
-                if ($ret === false || (int)$ret <= 0) {
-                    return false;
-                }
-                return true;
-            }
+        $data = array(
+            'order_id' => $orderId,
+            'order_pay_id' => $orderPayId,
+            'user_id' => $userId,
+            're_name' => Util::emojiEncode($reName),
+            're_phone' => $rePhone,
+            'addr_type' => $addrType,
+            'province_id' => $provinceId,
+            'city_id' => $cityId,
+            'district_id' => $districtId,
+            'detail_addr' => $detailAddr,
+            're_id_card' => $reIdCard,
+            'pay_state' => $payState,
+            'order_state' => self::ORDER_ST_CREATED,
+            'order_amount' => $orderAmount,
+            'ol_pay_amount' => $olPayAmount,
+            'ac_pay_amount' => $acPayAmount,
+            'ol_pay_type' => $olPayType,
+            'coupon_pay_amount' => $couponPayAmount,
+            'coupon_id' => $couponId,
+            'postage' => $postage,
+            'order_env' => $orderEnv,
+            'remark' => $remark,
+            'attach' => $attach,
+            'ctime' => CURRENT_TIME,
+            'mtime' => CURRENT_TIME,
+            'm_user' => 'sys'
+        );
+        $ret = DB::getDB('w')->insertOne('o_order', $data);
+        if ($ret === false || (int)$ret <= 0) {
+            return false;
+        }
+        return true;
+    }
 
     public static function findOrderByOrderPayId($orderPayId, $fromDb = 'w')
     {

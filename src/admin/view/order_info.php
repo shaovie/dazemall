@@ -58,7 +58,7 @@
 				<th style="width:150px"><label for="">收货人联系地址:</label></th>
 				<td><?php echo $order['fullAddr']?></td>
 				<th><label for="">订单备注:</label></th>
-				<td><textarea readonly="readonly" style="width:30px;border: none;" type="text"><?php echo $order['remark']?></textarea>
+				<td><textarea readonly="readonly" style="width:200px;border: none;" type="text"><?php echo $order['remark']?></textarea>
 				</td>
 			</tr>
 		</tbody>

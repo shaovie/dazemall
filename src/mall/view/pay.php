@@ -122,7 +122,11 @@
 <section class="note-section clearfix">
     <label>备注：</label>
     <div class="input-wrap">
-        <input placeholder="请输入备注" />
+    <?php if (empty($orderInfo)):?>
+        <input name="remark" placeholder="请输入备注" />
+    <?php else:?>
+        <input name="remark" placeholder="<?php echo $orderInfo['remark']?>" readonly="readonly"/>
+    <?php endif?>
     </div>
 </section>
 <section class="money-calculate">

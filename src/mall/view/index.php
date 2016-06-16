@@ -42,40 +42,40 @@
         <!-- <div class="festival-line"></div> -->
         <ul class="tj-types">
             <li>
-                <a href="/mall/Category/index?catId=100000000">
+                <a href="/mall/Category/index?catId=112000000">
                     <i class="icon"></i><label>生鲜到家</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=101000000">
-                    <i class="icon"></i><label>鲜果到家</label>
+                <a href="/mall/Category/index?catId=113000000">
+                    <i class="icon"></i><label>粮油速食</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=102000000">
-                    <i class="icon"></i><label>零食百货</label>
+                <a href="/mall/Category/index?catId=114000000">
+                    <i class="icon"></i><label>冷冻冷藏</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=103000000">
-                    <i class="icon"></i><label>海鲜肉类</label>
+                <a href="/mall/Category/index?catId=115000000">
+                    <i class="icon"></i><label>零食饮品</label>
                 </a>
             </li>
         </ul>
         <ul class="tj-types2">
             <li>
-                <a href="/mall/Category/index?catId=104000000">
-                    <i class="icon"></i><label>牛奶饮品</label>
+                <a href="/mall/Category/index?catId=116000000">
+                    <i class="icon"></i><label>美容洗护</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=105000000">
-                    <i class="icon"></i><label>粮油副食</label>
+                <a href="/mall/Category/index?catId=117000000">
+                    <i class="icon"></i><label>家庭清洁</label>
                 </a>
             </li>
             <li>
-                <a href="/mall/Category/index?catId=106000000">
-                    <i class="icon"></i><label>清洁护理</label>
+                <a href="/mall/Category/index?catId=118000000">
+                    <i class="icon"></i><label>日用百货</label>
                 </a>
             </li>
             <li>
@@ -141,16 +141,19 @@
         <?php foreach ($module['goodsList'] as $goods):?>
             <div class="temai-item dib">
                 <a href="/mall/Goods/detail?goodsId=<?php echo $goods['goodsId']?>">
+                    <?php if (!empty($goods['tagName'])):?>
+                    <div class="tag-<?php echo $goods['tagColor']?>"><?php echo $goods['tagName']?></div>
+                    <?php endif?>
                     <div class="img-wrap" data-original="<?php echo $goods['imageUrl']?>">
                     </div>
                     <div class="item-info">
                         <div class="item-title"><?php echo $goods['name'] ?></div>
                         <div class="item-price">
-                            <span class="price">&yen; <?php echo $goods['salePrice'] ?></span>
+                            <div class="price-wrap">
+                                <label class="price"><i>&yen;</i><b><?php echo $goods['salePrice']?></b></label>
+                                <del class="price price-market"><i>&yen;</i><b><?php echo $goods['marketPrice']?></b></del>
+                            </div>
                             <label class="btn-sm J-add-cart" goods-id="<?php echo $goods['goodsId']?>"></label>
-                            <?php if (false && (float)$goods['discount'] > 0.00):?>
-                            <label class="btn btn-sm"><?php echo $goods['discount']?>折</label>
-                            <?php endif?>
                         </div>
                     </div>
                 </a>

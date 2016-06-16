@@ -36,11 +36,11 @@
 			<div class="img-wrap" style="background-image: url(<?php echo $goods['imageUrl']?>)"></div>
 			<div class="goods-title"><?php echo $goods['name']?></div>
 			<div class="clearfix">
-				<label class="price"><i>&yen;</i><b><?php echo $goods['salePrice']?></b></label>
+                <div class="price-wrap">
+				    <label class="price"><i>&yen;</i><b><?php echo $goods['salePrice']?></b></label>
+                    <del class="price price-market"><i>&yen;</i><b><?php echo $goods['marketPrice']?></b></del>
+                </div>
                 <label class="btn-sm J-add-cart" goods-id="<?php echo $goods['goodsId']?>"></label>
-                <?php if (false && (float)$goods['discount'] > 0.00):?>
-				<label class="btn btn-sm right"><?php echo $goods['discount']?>折</label>
-                <?php endif?>
 			</div>
 		</div>
         <?php endforeach?>

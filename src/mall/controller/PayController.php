@@ -188,12 +188,17 @@ class PayController extends MallController
         $payType = intval($this->postParam('pay_type', 0));
         $isCash  = intval($this->postParam('is_cash', 0));
         $couponId  = intval($this->postParam('coupon_id', 0));
+        $remark = trim($this->postParam('remark', ''));
 
         $orderId = trim($this->postParam('orderId', ''));
         if (!empty($orderId)) {
             $url = '/mall/Pay/payAgain?showwxpaytitle=1&orderId=' . $orderId;
             $this->ajaxReturn(0, '', $url, ['orderId' => '']); // 跳转到待支付
             exit();
+        }
+        if (mb_strlen($remark) > 60) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '备注内容不能超过60个汉字');
+            return ;
         }
 
         if (OrderModel::checkRepeatOrder($this->userId())) {
@@ -216,6 +221,7 @@ class PayController extends MallController
             $isCash,
             $payType,
             $couponId,
+            $remark,
             ''
         );
         if ($ret['code'] != 0) {
@@ -258,6 +264,7 @@ class PayController extends MallController
         $skuAttr  = trim($this->postParam('skuAttr', ''));
         $skuValue = trim($this->postParam('skuValue', ''));
         $amount = intval($this->postParam('amount', 0));
+        $remark = trim($this->postParam('remark', ''));
         $goodsId = $goodsId[0];
 
         if ($goodsId <= 0
@@ -265,6 +272,10 @@ class PayController extends MallController
             || !Check::isSkuAttr($skuAttr)
             || !Check::isSkuValue($skuValue)) {
             $this->ajaxReturn(ERR_PARAMS_ERROR, '请求参数错误');
+            return ;
+        }
+        if (mb_strlen($remark) > 60) {
+            $this->ajaxReturn(ERR_PARAMS_ERROR, '备注内容不能超过60个汉字');
             return ;
         }
 
@@ -305,6 +316,7 @@ class PayController extends MallController
             $isCash,
             $payType,
             $couponId,
+            $remark,
             ''
         );
         if ($ret['code'] != 0) {
