@@ -4,7 +4,7 @@ if [ `whoami` != 'root' ]; then
 fi
 
 APPUSER=daze
-yum -y install pcre-devel openssl-devel zlib-devel
+yum -y install gcc pcre-devel openssl-devel zlib-devel
 yum -y install libxml2-devel curl-devel  mysql-devel libmcrypt-devel libpng-devel libjpeg-devel freetype-devel
 
 ##For redis
