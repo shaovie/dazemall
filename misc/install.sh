@@ -55,7 +55,6 @@ cd php-${php_version}
     --with-gd \
     --with-jpeg-dir \
     --with-png-dir \
-    --with-webp-dir
     --with-xmlrpc
 
 make && make install
