@@ -92,7 +92,6 @@ cp src/redis-server ${ROOT_PATH}/redis/bin
 cp src/redis-sentinel ${ROOT_PATH}/redis/bin
 cp src/redis-cli ${ROOT_PATH}/redis/bin
 cp src/redis-check-aof ${ROOT_PATH}/redis/bin
-cp src/redis-check-dump ${ROOT_PATH}/redis/bin
 
 cd ../
 
